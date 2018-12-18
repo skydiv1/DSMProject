@@ -266,6 +266,8 @@
 			</div>
 		</div>
 	</div>
+	<br><br><br><br>
+	<button onclick="location.href='productEdit.jsp'" class="btn btn-warning" style="width:7%; height:40px; margin-left: 80%">수정하기</button>
 </section>
 
 	<script>
