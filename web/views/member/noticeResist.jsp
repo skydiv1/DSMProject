@@ -110,6 +110,7 @@ input::placeholder {
 		<div class="intro-text" style="padding-top: 35px;">
 			<div>&nbsp;</div>
 			<div>&nbsp;</div>
+			
 			<div>&nbsp;</div>
 			<table style="width: 600px;" align = "center">
                <tr>
