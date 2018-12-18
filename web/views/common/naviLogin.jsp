@@ -68,10 +68,10 @@
 		<div>&nbsp;</div>
 		<div>&nbsp;</div>
 		<div>&nbsp;</div>
-		<table style="margin-left:25%; width:500px; ">
+		<table style="margin-left:25%; width:600px;">
          	<tr>
          		<td rowspan="2">
-         			<img class="mx-auto rounded-circle" src="/dsm/img/team/1.jpg" alt="" style=" width:120px; height:120px;" >
+         			<img class="mx-auto rounded-circle" src="/dsm/img/team/2.jpg" alt="" style=" width:120px; height:120px;">
          		</td>
          		<td style="padding-left:2%;">
               		<h6><b>DSMembers</b>님 반갑습니다.</h6>
@@ -83,6 +83,7 @@
         			<a href="#"><button type="button" class="btn btn-warning">캐시충전</button></a>
         			<a href="#"><button type="button" class="btn btn-light">내 정보 보기</button></a>
         			<a href="#"><button type="button" class="btn btn-light">로그아웃</button></a>
+        			<a href="#"><button type="button" class="btn btn-light">관리자페이지</button></a>
         		</td>
         	</tr>
           </table>

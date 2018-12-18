@@ -68,8 +68,8 @@
 		<div style="margin-bottom: 20px">
 			<input type="text" id="" placeholder="비밀번호를 입력하세요" style="width:250px; height:40px; font-size: 12px; box-shadow:0px 0px 20px #000; border-radius:6px;">
 		</div>
-		<a id="login" class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#" style="padding: 7px 60px; box-shadow:0px 0px 10px #000; "><label style="width:100px; height:12px; ">로그인</label></a>
-		<div style="margin-top:10px;"><a href="#">아이디 찾기</a> / <a href="#">비밀번호 찾기</a> / <a href="#">회원가입</a></div>
+		<a id="login" class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#" style="padding: 7px 60px; box-shadow:0px 0px 10px #000; background-color:#fed136;"><label style="width:100px; height:12px; ">로그인</label></a>
+		<div style="margin-top:10px;"><a href="#" style="color:#fed136">아이디 찾기</a> / <a href="#" style="color:#fed136">비밀번호 찾기</a> / <a href="#" style="color:#fed136">회원가입</a></div>
 	</div>
 </div>
 </header>
