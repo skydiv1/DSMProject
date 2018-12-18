@@ -80,7 +80,7 @@
         	</tr>
         	<tr>
         		<td>
-        			<a href="#"><button type="button" class="btn btn-warning">캐시충전</button></a>
+        			<a href="#"><button type="button" class="btn btn-warning" onclick = "location.href = '/dsm/views/common/impordPayment.jsp'">캐시충전</button></a>
         			<a href="#"><button type="button" class="btn btn-light">내 정보 보기</button></a>
         			<a href="#"><button type="button" class="btn btn-light">로그아웃</button></a>
         		</td>

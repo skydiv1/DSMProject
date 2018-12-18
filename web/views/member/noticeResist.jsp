@@ -104,6 +104,7 @@ input::placeholder {
 
 	<!--/////////////////////////////////////////////헤더끝//////////////////////////////////////////////////////////////////////////////////////////  -->
 
+
 <div 
 		style="background : #2E2E2E; background-size: 100% 500px; margin-top: 0px; background-position:center;">
 	<div class="container">
