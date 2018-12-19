@@ -43,13 +43,13 @@
 			<a class="nav-link js-scroll-trigger" href="/dsm/views/product/productEnrollment.jsp"><b>상품 등록</b></a>
 			</li>
 			<li class="nav-item">
-			<a class="nav-link js-scroll-trigger" href="#"><b>게시판</b></a>
+			<a class="nav-link js-scroll-trigger" href="views/board/board.jsp"><b>게시판</b></a>
 			</li>
 			<li class="nav-item">
 			<a class="nav-link js-scroll-trigger" href="#"><b>마이페이지</b></a>
 			</li>
 			<li class="nav-item">
-			<a class="nav-link js-scroll-trigger" href="#"><b>고객센터</b></a>
+			<a class="nav-link js-scroll-trigger" href="views/faq/FAQ.jsp"><b>고객센터</b></a>
 			</li>
 		</ul>
 	</div>
