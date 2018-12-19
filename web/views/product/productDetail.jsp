@@ -91,7 +91,7 @@
 	<h2 style="margin-top: -80px; padding-left: 17%;">상품 상세</h2>
 	<br>
 
-	<table width="70%" style="margin-left: 17%;" border="0">
+	<table width="70%" style="margin-left: 17%;" border="1">
 		<tr>
 			<td rowspan="4"><img class="img-fluid"
 				src="/dsm/img/portfolio/01-thumbnail.jpg" alt=""
@@ -144,7 +144,9 @@
 					</span> (<span><span>30</span>개의 평가</span>)
 				</div>
 			</td>
-			<td>&nbsp;</td>
+			<td align="center">
+				<button type="button" class="btn btn-outline-secondary" style="width:90%; height:50px;" onclick="location.href=''">판매자 프로필 보러가기</button>
+			</td>
 		</tr>
 	</table>
 	<br>
