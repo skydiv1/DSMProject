@@ -103,16 +103,13 @@ input::placeholder {
 	<!--/////////////////////////////////////////네비끝, 헤더시작//////////////////////////////////////////////////////////////////////////////////////////////  -->
 
 	<!--/////////////////////////////////////////////헤더끝//////////////////////////////////////////////////////////////////////////////////////////  -->
+<section class="bg-light" id="portfolio" style = "padding: 50px">
 
 
-<div 
-		style="background : #2E2E2E; background-size: 100% 500px; margin-top: 0px; background-position:center;">
+<div style="background : #2E2E2E; width:58%; height:250px; margin-top: 0px; margin-left:21%; background-position:center;">
 	<div class="container">
 		<div class="intro-text" style="padding-top: 35px;">
-			<div>&nbsp;</div>
-			<div>&nbsp;</div>
 			
-			<div>&nbsp;</div>
 			<table style="width: 600px;" align = "center">
                <tr>
                   <td rowspan="3"><img class="mx-auto rounded-circle"
@@ -141,15 +138,14 @@ input::placeholder {
                   </td>
                </tr>
             </table>
-            
             <div>&nbsp;</div>
 			<div>&nbsp;</div>
 			<div>&nbsp;</div>
 		</div>
 	</div>
 	</div>
+    <br><br>
 	<!--///////////////////////////////////판매자 프로필 끝///////////////////////////////////////////////////////////////////  -->
-	<section class="bg-light" id="portfolio" style = "padding: 50px">
 	<div class="container" align="center" style="width: 60%">
 		<div style="font-size: 1.3em; font-weight: bold; text-align: left">Jamsil123님의
 			소개와 경력</div>
@@ -183,7 +179,7 @@ input::placeholder {
 		<div style="font-size: 1.3em; font-weight: bold; text-align: left">Jamsil123님의
 			서비스</div>
 		<div class="col-md-4 col-sm-6 portfolio-item"
-			style="display: inline-block; width: 30%">
+			style="display: inline-block; width: 33%">
 			<a class="portfolio-link" data-toggle="modal" href="#">
 				<div class="portfolio-hover">
 					<div class="portfolio-hover-content">
@@ -197,7 +193,7 @@ input::placeholder {
 			</div>
 		</div>
 		<div class="col-md-4 col-sm-6 portfolio-item"
-			style="display: inline-block; width: 30%">
+			style="display: inline-block; width: 33%">
 			<a class="portfolio-link" data-toggle="modal" href="#">
 				<div class="portfolio-hover">
 					<div class="portfolio-hover-content">
@@ -211,7 +207,7 @@ input::placeholder {
 			</div>
 		</div>
 		<div class="col-md-4 col-sm-6 portfolio-item"
-			style="display: inline-block; width: 30%">
+			style="display: inline-block; width: 33%">
 			<a class="portfolio-link" data-toggle="modal" href="#">
 				<div class="portfolio-hover">
 					<div class="portfolio-hover-content">
