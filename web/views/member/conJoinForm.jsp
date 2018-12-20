@@ -57,99 +57,100 @@ form {
 	margin-right: 15%
 }
 </style>
-<script type="text/javascript">
-	function validate() {
+<script>
+    	function check() {			
+		  	//이메일 검사(adfg@dfds.dsf)
+			//4글자 이상이 나오고 
+			//@가 나오고 1글자 이상 주소 . 글자 1~3
+			var email = document.getElementById("inputEmail").value;
 
-		// 이메일검사
-
-		// 4글자이상(\w=[a-zA-Z0-9_],[\w-]:'-'까지는 허용) @가 나오고
-
-		// hanmail.net, naver.com, lycos.co.kr, iei.or.kr
-
-		// 1글자 이상(주소).글자 가 1~3번 반복
-
-		var userid = document.getElementById("userid");
-
-		// 첫글자는 반드시 영문소문자, 4~12자로 이루어지고, 숫자가  하나 이상 포함되어야한다.
-
-		// 영문소문자와 숫자로만 이루어져야 한다.
-
-		// \d : [0-9]와 같다. {n,m} : n에서 m사이
-
-		if (!chk(/^[a-z][a-z\d]{3,11}$/, userid, "잘못된 형식의 ID입니다."))
-			return false;
-
-		if (!chk(/[\d]/, userid, "잘못된 형식의 ID입니다."))
-			return false;
-
-		//alert(re.test(userid.value));
-
-		var pass = document.getElementById("pass");
-
-		var pass1 = document.getElementById("pass1");
-
-		if (!pwchk(pass, pass1, "비밀번호가 다릅니다."))
-
-			//if(!pwchk(pass.value, pass2.value)) return false;
-
-			// 이름 검사 : 2글자 이상,한글로만 입력
-
-			// 통과하지 못하면 한글로 2글자 이상을 넣으세요 메세지 출력
-
-			var name = document.getElementById("name");
-
-		if (!chk(/^[가-힝]{2,}$/, name, "한글만 입력하세요!!!(2글자 이상)"))
-			return false;
-
-		var email = document.getElementById("email");
-
-		if (!chk(/^[\w-]{4,}@[\w-]+(\.\w+){1,3}$/, email, "이메일 형식이 잘못되었습니다."))
-			;
-
-		var tel1 = document.getElementById("tel1");
-
-		if (tel1.value != '') {
-
-			if (!chk(/^0(11|1[016789])$/, tel1, "앞자리는 2~3자리 숫자"))
+		  	var regExp1 = /\w{4,}@\w+.\w{1,3}/;
+		  	//var regExp1 = /\w\w\w\w@\w\w\w\w.\w\w\w/;
+		  
+ 		  	if(regExp1.test(email)){
+				alert("이메일 정상입력");				
+			  	//return true;
+			}else{
+				alert("이메일 잘못입력");
+				document.getElementById("inputEmail").select();
 				return false;
+			} 
+		  	
+		  	//fgfgf
+	    	//아이디 검사
+			//첫글자는 반드시 영문 소문자, 총 4~12자로 이루어지고
+			//숫자가 반드시 하나 이상 포함되어야 함
+			//영문 소문자와 숫자로 이루어져야 한다.
+			var userid = document.getElementById("inputId").value;
+			
 
-		}
+			
+		  	var regExp2 = /^[a-z]+[a-z0-9]{4,12}$/;
+		  
+		   	if(regExp2.test(userid)){
+				alert("아이디 정상입력");			
+				//return true;					
+			}else{
+				alert("아이디 잘못입력");	
+				document.getElementById("inputId").select();
+				return false;
+			} 	
+			
+			
+			//비밀번호 확인 검사
+			//비밀번호와 비밀번호 확인 값이 일치
+			var pass = document.getElementById("inputPassword").value;
+			var pass1 = document.getElementById("inputPassword1").value;
+			if(pass == pass1 && pass !=""){
+				alert("비밀번호 일치");				
+				//return true;		
+			}else{
+				alert("비밀번호 불일치");
+				document.getElementById("inputPassword").select();
+				return false;
+			}
+			
+			
+			//이름 검사
+			//2글자 이상, 한글만
+			var name = document.getElementById("inputName").value;
 
-		var email = document.getElementById("email");
+		  	var regExp4 = /^[가-힣]{2,}$/;
+		  
+		  	if(regExp4.test(name)){
+				alert("이름 정상입력");			
+				//return true;					
+			}else{
+				alert("이름 잘못입력");	
+				document.getElementById("inputName").select();
+				return false;
+			}
+		  	//return true;
+		  	
+			
+			//전화번호 검사
+			//전화번호 앞자리는 2~3자리 숫자
+			//두번째자리는 3~4자리 숫자
+			//세번째 자리는 4자리 숫자
+			var tel1 = document.getElementById("inputTel1").value;
+			
 
-		//return false;
+		  	var regExp5 = /^\d{11}$/;
+		  	
+		  
+		  	if(regExp5.test(tel1)){
+				alert("전화번호 정상입력");				
+			}else{
+				alert("전화번호 잘못입력");	
+				document.getElementById("inputTel").select();
+				return false;
+			}
+		  	return true;		  	
+		}		
+    </script>	
+</body>
+</html>
 
-	}
-	function chk(re, e, msg) {
-
-		if (re.test(e.value))
-			return true;
-
-		alert(msg);
-
-		e.value = "";
-
-		e.focus();
-
-		return false;
-
-	}
-
-	function pwchk(e1, e2, msg) {
-
-		if (e1 == e2)
-			return true;
-
-		alert(msg);
-
-		e.value = "";
-
-		e.focus();
-
-		return false;
-
-	}
-</script>
 </head>
 <body>
 	<a href="/web/index.jsp" id="link">DSM</a>
@@ -178,7 +179,7 @@ form {
 					<div class="form-group">
 						<label for="inputPassword3" class="col-sm-2 control-label">Password</label>
 						<div class="col-sm-10">
-							<input type="password" class="form-control" id="inputPassword3"
+							<input type="password" class="form-control" id="inputPassword"
 								style="width: 550px" placeholder="Password">
 						</div>
 					</div>
@@ -190,7 +191,7 @@ form {
 						<label for="inputPassword3" class="col-sm-4 control-label">Confirm
 							Password</label>
 						<div class="col-sm-10">
-							<input type="password" class="form-control" id="inputPassword3"
+							<input type="password" class="form-control" id="inputPassword1"
 								style="width: 550px" placeholder="Password">
 						</div>
 					</div>
