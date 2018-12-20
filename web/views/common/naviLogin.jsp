@@ -75,7 +75,7 @@
          		</td>
          		<td style="padding-left:2%;">
               		<h6><b>DSMembers</b>님 반갑습니다.</h6>
-              		<div>잔여 캐시: <b>100000</b>원</div>
+              		<div>잔여 캐시: <b>100000</b>원 </div>
          		</td>
         	</tr>
         	<tr>
