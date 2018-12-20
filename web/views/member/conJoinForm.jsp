@@ -57,6 +57,99 @@ form {
 	margin-right: 15%
 }
 </style>
+<script type="text/javascript">
+	function validate() {
+
+		// 이메일검사
+
+		// 4글자이상(\w=[a-zA-Z0-9_],[\w-]:'-'까지는 허용) @가 나오고
+
+		// hanmail.net, naver.com, lycos.co.kr, iei.or.kr
+
+		// 1글자 이상(주소).글자 가 1~3번 반복
+
+		var userid = document.getElementById("userid");
+
+		// 첫글자는 반드시 영문소문자, 4~12자로 이루어지고, 숫자가  하나 이상 포함되어야한다.
+
+		// 영문소문자와 숫자로만 이루어져야 한다.
+
+		// \d : [0-9]와 같다. {n,m} : n에서 m사이
+
+		if (!chk(/^[a-z][a-z\d]{3,11}$/, userid, "잘못된 형식의 ID입니다."))
+			return false;
+
+		if (!chk(/[\d]/, userid, "잘못된 형식의 ID입니다."))
+			return false;
+
+		//alert(re.test(userid.value));
+
+		var pass = document.getElementById("pass");
+
+		var pass1 = document.getElementById("pass1");
+
+		if (!pwchk(pass, pass1, "비밀번호가 다릅니다."))
+
+			//if(!pwchk(pass.value, pass2.value)) return false;
+
+			// 이름 검사 : 2글자 이상,한글로만 입력
+
+			// 통과하지 못하면 한글로 2글자 이상을 넣으세요 메세지 출력
+
+			var name = document.getElementById("name");
+
+		if (!chk(/^[가-힝]{2,}$/, name, "한글만 입력하세요!!!(2글자 이상)"))
+			return false;
+
+		var email = document.getElementById("email");
+
+		if (!chk(/^[\w-]{4,}@[\w-]+(\.\w+){1,3}$/, email, "이메일 형식이 잘못되었습니다."))
+			;
+
+		var tel1 = document.getElementById("tel1");
+
+		if (tel1.value != '') {
+
+			if (!chk(/^0(11|1[016789])$/, tel1, "앞자리는 2~3자리 숫자"))
+				return false;
+
+		}
+
+		var email = document.getElementById("email");
+
+		//return false;
+
+	}
+	function chk(re, e, msg) {
+
+		if (re.test(e.value))
+			return true;
+
+		alert(msg);
+
+		e.value = "";
+
+		e.focus();
+
+		return false;
+
+	}
+
+	function pwchk(e1, e2, msg) {
+
+		if (e1 == e2)
+			return true;
+
+		alert(msg);
+
+		e.value = "";
+
+		e.focus();
+
+		return false;
+
+	}
+</script>
 </head>
 <body>
 	<a href="/web/index.jsp" id="link">DSM</a>
