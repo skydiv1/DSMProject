@@ -83,7 +83,8 @@
         			<a href="#"><button type="button" class="btn btn-warning" onclick = "location.href = '/dsm/views/cash/cacheCharge.jsp'">캐시충전</button></a>
         			<a href="#"><button type="button" class="btn btn-light">내 정보 보기</button></a>
         			<a href="#"><button type="button" class="btn btn-light">로그아웃</button></a>
-        			<a href="#"><button type="button" class="btn btn-light">관리자페이지</button></a>
+<!--         			<a href="#"><button type="button" class="btn btn-light">관리자페이지</button></a> -->
+        			<div class="btn btn-light">신고횟수: <span>0</span>회</div>
         		</td>
         	</tr>
           </table>
