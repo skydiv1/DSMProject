@@ -52,7 +52,8 @@
 			<a class="nav-link js-scroll-trigger" href="/dsm/views/board/board.jsp"><b>게시판</b></a>
 			</li>
 			<li class="nav-item">
-			<a class="nav-link js-scroll-trigger" href="#"><b>마이페이지</b></a>
+			<a class="nav-link js-scroll-trigger" href="/dsm/views/member/ConsumerMyPage.jsp"><b>마이페이지</b></a><!-- 소비자 마이페이지 -->
+		<!-- 	<a class="nav-link js-scroll-trigger" href="/dsm/view/member/SellerMyPage.jsp"><b>마이페이지</b></a>  판매자 마이페이지-->
 			</li>
 			<li class="nav-item">
 			<a class="nav-link js-scroll-trigger" href="/dsm/views/faq/FAQ.jsp"><b>고객센터</b></a>
