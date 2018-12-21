@@ -29,6 +29,15 @@ public class MemberService {
 		
 		return result;
 	}
+	//아이디 중복검사
+	public int idCheck(String inputId) {
+		Connection con= getConnection();
+		int result = new MemberDao().idCheck(con,inputId);
+		close(con);
+		return result;
+		
+		
+	}
 
 	
 

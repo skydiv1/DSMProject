@@ -57,99 +57,6 @@ form {
 	margin-right: 15%
 }
 </style>
-<script>
-    	function check() {			
-		  	//이메일 검사(adfg@dfds.dsf)
-			//4글자 이상이 나오고 
-			//@가 나오고 1글자 이상 주소 . 글자 1~3
-			var email = document.getElementById("inputEmail").value;
-
-		  	var regExp1 = /\w{4,}@\w+.\w{1,3}/;
-		  	//var regExp1 = /\w\w\w\w@\w\w\w\w.\w\w\w/;
-		  
- 		  	if(regExp1.test(email)){
-				alert("이메일 정상입력");				
-			  	//return true;
-			}else{
-				alert("이메일 잘못입력");
-				document.getElementById("inputEmail").select();
-				return false;
-			} 
-		  	
-		  	//fgfgf
-	    	//아이디 검사
-			//첫글자는 반드시 영문 소문자, 총 4~12자로 이루어지고
-			//숫자가 반드시 하나 이상 포함되어야 함
-			//영문 소문자와 숫자로 이루어져야 한다.
-			var userid = document.getElementById("inputId").value;
-			
-
-			
-		  	var regExp2 = /^[a-z]+[a-z0-9]{4,12}$/;
-		  
-		   	if(regExp2.test(userid)){
-				alert("아이디 정상입력");			
-				//return true;					
-			}else{
-				alert("아이디 잘못입력");	
-				document.getElementById("inputId").select();
-				return false;
-			} 	
-			
-			
-			//비밀번호 확인 검사
-			//비밀번호와 비밀번호 확인 값이 일치
-			var pass = document.getElementById("inputPassword").value;
-			var pass1 = document.getElementById("inputPassword1").value;
-			if(pass == pass1 && pass !=""){
-				alert("비밀번호 일치");				
-				//return true;		
-			}else{
-				alert("비밀번호 불일치");
-				document.getElementById("inputPassword").select();
-				return false;
-			}
-			
-			
-			//이름 검사
-			//2글자 이상, 한글만
-			var name = document.getElementById("inputName").value;
-
-		  	var regExp4 = /^[가-힣]{2,}$/;
-		  
-		  	if(regExp4.test(name)){
-				alert("이름 정상입력");			
-				//return true;					
-			}else{
-				alert("이름 잘못입력");	
-				document.getElementById("inputName").select();
-				return false;
-			}
-		  	//return true;
-		  	
-			
-			//전화번호 검사
-			//전화번호 앞자리는 2~3자리 숫자
-			//두번째자리는 3~4자리 숫자
-			//세번째 자리는 4자리 숫자
-			var tel1 = document.getElementById("inputTel1").value;
-			
-
-		  	var regExp5 = /^\d{11}$/;
-		  	
-		  
-		  	if(regExp5.test(tel1)){
-				alert("전화번호 정상입력");				
-			}else{
-				alert("전화번호 잘못입력");	
-				document.getElementById("inputTel").select();
-				return false;
-			}
-		  	return true;		  	
-		}		
-    </script>	
-</body>
-</html>
 
 </head>
 <body>
@@ -158,7 +65,7 @@ form {
 	<h3 align="center">소비자 가입 정보 입력</h3>
 	<br>
 	<hr>
-	<form action="<%=request.getContextPath()%>/insertMember" method="post">
+	<form action="<%=request.getContextPath()%>/insertMember.me" method="post">
 
 
 		<table align="center">
@@ -253,6 +160,8 @@ form {
 					style="width: 470px; height: 50px; font-size: 20px; border-radius: 6px;">취소하기</button>
 			</a>
 		</div>
+		</form>
+		
 		<br>
 		<%@ include file="/views/common/footer.jsp"%>
 </body>
