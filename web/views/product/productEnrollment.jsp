@@ -42,149 +42,202 @@
 </head>
 <body>
 	<!-- 네비게이션 바 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-	<%-- <%@ include file="/views/common/navi.jsp" %> --%> <!-- 로그인 전 -->
-	<%@ include file="/views/common/naviLogin.jsp"%> <!-- 로그인 후 -->
+	<%-- <%@ include file="/views/common/navi.jsp" %> --%>
+	<!-- 로그인 전 -->
+	<%@ include file="/views/common/naviLogin.jsp"%>
+	<!-- 로그인 후 -->
 	<!-- 네비게이션 바 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	<section class="bg-light" id="portfolio" style="">
 	<h2 style="margin-top: -80px; padding-left: 10%;">상품 등록</h2>
 	<br>
-	<div class="input-group input-group-lg"
-		style="width: 70%; padding-left: 10%;">
-		<div class="input-group-prepend">
-			<span class="input-group-text" id="inputGroup-sizing-lg"
-				style="color: black;"><b>제목</b></span>
+	<form action="" method="post" enctype="multipart/form-data">
+		<!-- enctype="multipart/form-data":파일을 넘길때 -->
+
+		<div class="input-group input-group-lg"
+			style="width: 70%; padding-left: 10%;">
+			<div class="input-group-prepend">
+				<span class="input-group-text" id="inputGroup-sizing-lg"
+					style="color: black;"><b>제목</b></span>
+			</div>
+			<input type="text" class="form-control"
+				aria-label="Sizing example input"
+				aria-describedby="inputGroup-sizing-lg"
+				style="width: 30%; font-size: 20px">
 		</div>
-		<input type="text" class="form-control"
-			aria-label="Sizing example input"
-			aria-describedby="inputGroup-sizing-lg"
-			style="width: 30%; font-size: 20px">
-	</div>
-	<div align="right" class="dropdown" style="padding-right: 10%;">
-		<select class="btn btn-secondary">
-			<option value="category" selected>카테고리</option>
-			<option value="shooting">촬영</option>
-			<option value="education">교육</option>
-			<option value="edit">편집</option>
-		</select>
-	</div>
-	<br>
-	</div>
-	<div style="padding-left: 10%; padding-right: 10%;">
-		<table class="table">
-			<thead class="thead-light">
-				<tr>
-					<th scope="col">#</th>
-					<th scope="col">
-						<div style="margin-left: 38%;">기본항목</div>
-					</th>
-					<th scope="col">
-						<div style="margin-left: 38%;">가격</div>
-					</th>
-					<th scope="col"></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<th scope="row">1</th>
-					<td width="50%">
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<div class="input-group-text">
-									<input type="radio"
-										aria-label="Radio button for following text input">
+		<div align="right" class="dropdown" style="padding-right: 10%;">
+			<select class="btn btn-secondary">
+				<option value="category" selected>카테고리</option>
+				<option value="shooting">촬영</option>
+				<option value="education">교육</option>
+				<option value="edit">편집</option>
+			</select>
+		</div>
+		<br>
+		</div>
+		<div style="padding-left: 10%; padding-right: 10%;">
+			<table class="table">
+				<thead class="thead-light">
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">
+							<div style="margin-left: 38%;">기본항목</div>
+						</th>
+						<th scope="col">
+							<div style="margin-left: 38%;">가격</div>
+						</th>
+						<th scope="col"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row">1</th>
+						<td width="50%">
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<div class="input-group-text">
+										<input type="radio"
+											aria-label="Radio button for following text input">
+									</div>
+								</div>
+								<input type="text" class="form-control"
+									aria-label="Text input with radio button">
+							</div>
+						</td>
+						<td width="50%">
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text">￦</span>
+								</div>
+								<input type="text" class="form-control"
+									aria-label="Amount (to the nearest dollar)">
+								<div class="input-group-append">
+									<span class="input-group-text">.00</span>
 								</div>
 							</div>
-							<input type="text" class="form-control"
-								aria-label="Text input with radio button">
-						</div>
-					</td>
-					<td width="50%">
-						<div class="input-group mb-3">
-							<div class="input-group-prepend">
-								<span class="input-group-text">￦</span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<br>
+		<div style="padding-left: 10%; padding-right: 10%;">
+			<table class="table">
+				<thead class="thead-light">
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">
+							<div style="margin-left: 38%;">추가항목</div>
+						</th>
+						<th scope="col">
+							<div style="margin-left: 38%;">가격</div>
+						</th>
+						<th scope="col"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row">1</th>
+						<td width="50%">
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<div class="input-group-text">
+										<input type="radio"
+											aria-label="Radio button for following text input">
+									</div>
+								</div>
+								<input type="text" class="form-control"
+									aria-label="Text input with radio button">
 							</div>
-							<input type="text" class="form-control"
-								aria-label="Amount (to the nearest dollar)">
-							<div class="input-group-append">
-								<span class="input-group-text">.00</span>
-							</div>
-						</div>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-	<br>
-	<div style="padding-left: 10%; padding-right: 10%;">
-		<table class="table">
-			<thead class="thead-light">
-				<tr>
-					<th scope="col">#</th>
-					<th scope="col">
-						<div style="margin-left: 38%;">추가항목</div>
-					</th>
-					<th scope="col">
-						<div style="margin-left: 38%;">가격</div>
-					</th>
-					<th scope="col"></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<th scope="row">1</th>
-					<td width="50%">
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<div class="input-group-text">
-									<input type="radio"
-										aria-label="Radio button for following text input">
+						</td>
+						<td width="50%">
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text">￦</span>
+								</div>
+								<input type="text" class="form-control"
+									aria-label="Amount (to the nearest dollar)">
+								<div class="input-group-append">
+									<span class="input-group-text">.00</span>
 								</div>
 							</div>
-							<input type="text" class="form-control"
-								aria-label="Text input with radio button">
-						</div>
-					</td>
-					<td width="50%">
-						<div class="input-group mb-3">
-							<div class="input-group-prepend">
-								<span class="input-group-text">￦</span>
-							</div>
-							<input type="text" class="form-control"
-								aria-label="Amount (to the nearest dollar)">
-							<div class="input-group-append">
-								<span class="input-group-text">.00</span>
-							</div>
-						</div>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-		<div style="margin-left: 89%;">
-			<button type="button" class="btn btn-warning">추가</button>
-			<button type="button" class="btn btn-danger">삭제</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div style="margin-left: 89%;">
+				<button type="button" class="btn btn-warning">추가</button>
+				<button type="button" class="btn btn-danger">삭제</button>
+			</div>
 		</div>
-	</div>
-	<br>
+		<br>
 
-	<div class="form-group shadow-textarea"
-		style="padding-left: 10%; padding-right: 10%;">
-		<label for="exampleFormControlTextarea6"
-			style="font-size: 20px; font: bold;">서비스 설명</label>
-		<textarea class="form-control z-depth-1"
-			id="exampleFormControlTextarea6" rows="20"
-			placeholder="서비스 설명을 적어주세요"></textarea>
-	</div>
+		<div class="form-group shadow-textarea"
+			style="padding-left: 10%; padding-right: 10%;">
+			<label for="exampleFormControlTextarea6"
+				style="font-size: 20px; font: bold;">서비스 설명</label>
+			<textarea class="form-control z-depth-1" style="resize: none;"
+				id="exampleFormControlTextarea6" rows="20"
+				placeholder="서비스 설명을 적어주세요"></textarea>
+		</div>
+		<br><br>
+		
+		<!-- 이미지 미리보기 -->
+		<div style="padding-left: 10%; padding-right: 10%;">
+			<label for="exampleFormControlTextarea6"
+				style="font-size: 20px; font: bold;">이미지 첨부</label>
+		</div>
 
+		<table align="center" border="1">
+			<tr>
+				<td>
+					<div id="contentImgArea1">
+						<img id="contentImg1" width="470" height="470">
+					</div>
+				</td>
+				<td>
+					<div id="contentImgArea2">
+						<img id="contentImg2" width="470" height="470">
+					</div>
+				</td>
+				<td>
+					<div id="contentImgArea3">
+						<img id="contentImg3" width="470" height="470">
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div id="contentImgArea4">
+						<img id="contentImg4" width="470" height="470">
+					</div>
+				</td>
+				<td>
+					<div id="contentImgArea5">
+						<img id="contentImg5" width="470" height="470">
+					</div>
+				</td>
+				<td>
+					<div id="contentImgArea6">
+						<img id="contentImg6" width="470" height="470">
+					</div>
+				</td>
+			</tr>
+		</table>
 
-	<input type="file" value="이미지 첨부"
-		style="padding-left: 10%; padding-right: 10%;">
-	<button type="button" class="btn btn-warning">추가</button>
+		<input type="file" value="이미지 첨부" style="padding-left: 10%; padding-right: 10%;"> 
+		<input type="file" value="이미지 첨부" style="padding-left: 10%; padding-right: 10%;"> 
+		<input type="file" value="이미지 첨부" style="padding-left: 10%; padding-right: 10%;"> 
+		<input type="file" value="이미지 첨부" style="padding-left: 10%; padding-right: 10%;"> 
+		<input type="file" value="이미지 첨부" style="padding-left: 10%; padding-right: 10%;"> 
+		<input type="file" value="이미지 첨부" style="padding-left: 10%; padding-right: 10%;">
+		<!-- 이미지 미리보기  끝-->
 
-	<div style="margin-left: 78%;">
-		<button type="button" class="btn btn-warning">서비스 등록</button>
-		<button type="button" class="btn btn-danger">취소</button>
-	</div>
-
+		<br><br><br><br><br>
+		<div style="margin-left: 78%;">
+			<button type="submit" class="btn btn-warning">서비스 등록</button>
+			<button type="reset" class="btn btn-danger">취소</button><!-- 이전페이지로 이동 -->
+		</div>
+	</form>
 	</section>
 
 	<!-- Footer ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
