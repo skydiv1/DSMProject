@@ -169,7 +169,7 @@
 				<h2 align="center">한줄 평을 남겨주세요</h2>
 				<br>
 				<div align="center">
-				<textarea rows="15" cols="120" name="cancel" >내용을 입력해주세요.</textarea>
+				<textarea rows="20%" cols="80%" name="review" style="resize: none;" >내용을 입력해주세요.</textarea>
 				</div>
 				<br>
 			
