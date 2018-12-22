@@ -23,6 +23,8 @@
 <body>
 <!-- 네비게이션 바 -->
 		<%@ include file = "../common/naviLogin.jsp" %>
+		<%@ include file = "../common/CancelPopUp.jsp" %>
+		<%@ include file = "../common/AgreePopUp.jsp" %>
 
 <!-- 나의 판매글 -->
    <section class="bg-light" id="portfolio">
@@ -93,7 +95,6 @@
 			      <th scope="col" class="td1">소비자ID</th>
 			      <th scope="col" class="td1">판매 상품명</th>
 			      <th scope="col" class="td1">추가신청 내용</th>
-			      <th scope="col">진행상황</th>
 			      <th scope="col"></th>
 			      <th scope="col"></th>
 			    </tr>
@@ -104,27 +105,24 @@
 			      <td class="td1">Mark</td>
 			      <td class="td1">Otto</td>
 			      <td class="td1">@mdo</td>
-			      <td class="td1">@mdo</td>
-			      <td style="width: 10px; padding-right: 0px"><button type="button" class="btn btn-warning">수락하기</button></td>
-			      <td style="width: 5px"><button type="button" class="btn btn-secondary">거절</button></td>
+			      <td style="width: 10px; padding-right: 0px"><button type="button" class="btn btn-warning"data-toggle="modal" data-target="#agreeModal">수락하기</button></td>
+			      <td style="width: 5px"><button type="button" class="btn btn-secondary"data-toggle="modal" data-target="#cencelModal">거절</button></td>
 			    </tr>
 			    <tr>
 			      <th scope="row">2</th>
 			      <td class="td1">Mark</td>
 			      <td class="td1">Otto</td>
 			      <td class="td1">@mdo</td>
-			      <td class="td1">@mdo</td>
-			      <td style="width: 10px; padding-right: 0px"><button type="button" class="btn btn-warning">수락하기</button></td>
-			      <td style="width: 5px"><button type="button" class="btn btn-secondary">거절</button></td>
+			      <td style="width: 10px; padding-right: 0px"><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#agreeModal">수락하기</button></td>
+			      <td style="width: 5px"><button type="button" class="btn btn-secondary"data-toggle="modal" data-target="#cencelModal">거절</button></td>
 			    </tr>
 			    <tr>
 			      <th scope="row">3</th>
 			      <td class="td1">Mark</td>
 			      <td class="td1">Otto</td>
 			      <td class="td1">@mdo</td>
-			      <td class="td1">@mdo</td>
-			      <td style="width: 10px; padding-right: 0px"><button type="button" class="btn btn-warning">수락하기</button></td>
-			      <td style="width: 5px"><button type="button" class="btn btn-secondary">거절</button></td>
+			      <td style="width: 10px; padding-right: 0px"><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#agreeModal">수락하기</button></td>
+			      <td style="width: 5px"><button type="button" class="btn btn-secondary"data-toggle="modal" data-target="#cencelModal">거절</button></td>
 			    </tr>
 			  </tbody>
 			</table>
@@ -235,12 +233,12 @@
 
       </div>
    </section>
-   <!-- 구매진행 목록 -->
+   <!-- 판매완료 목록 -->
    <section class="bg-light" id="portfolio">
       <div class="container">
          <div class="row">
             <div class="col-lg-12 text-left">
-               <h2 class="section-heading text-uppercase">구매진행 목록 </h2>
+               <h2 class="section-heading text-uppercase">판매완료 목록 </h2>
                <h3 class="section-subheading text-muted">
                   <hr style="border: solid 1px darkgray">
                </h3>

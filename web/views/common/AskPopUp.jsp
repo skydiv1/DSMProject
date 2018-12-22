@@ -16,16 +16,16 @@
 
  
   <!-- Modal -->
-  <div class="modal fade" id="cencelModal" role="dialog">
+  <div class="modal fade" id="askModal" role="dialog">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-header">
          
-          <h1 class="modal-title" style="font-weight:bold ">신청 취소 사유</h1>
+          <h1 class="modal-title" style="font-weight:bold ">신청 메세지</h1>
         </div>
         <div class="modal-body">
          <div align="center">
-			<textarea rows="10%" cols="30%" name="cancel" style="resize: none;" >내용을 입력해주세요.</textarea>
+			<textarea rows="10%" cols="30%" name="ask" style="resize: none;" >날짜와 시간을 포함하여 신청메세지를 입력하세요.</textarea>
 		</div>
         </div>
         <div class="modal-footer" style="align: center">

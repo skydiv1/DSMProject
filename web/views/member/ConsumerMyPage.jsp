@@ -26,6 +26,7 @@
 		<%@ include file = "../common/naviLogin.jsp" %>
 		<%@ include file = "../common/CancelPopUp.jsp" %>
 		<%@ include file = "../common/ReviewPopUp.jsp" %>
+		<%@ include file = "../common/AskPopUp.jsp" %>
 <!-- 신청목록 -->
     <section class="bg-light" id="portfolio">
       <div class="container">
@@ -45,7 +46,6 @@
 			      <th scope="col" class="td1">판매자ID</th>
 			      <th scope="col" class="td1">구매상품명</th>
 			      <th scope="col" class="td1">신청 내용</th>
-			      <th scope="col" >진행 상황</th>
 			      <th scope="col"></th>
 			    </tr>
 			  </thead>
@@ -55,7 +55,6 @@
 			      <td class="td1">Mark</td>
 			      <td class="td1">Mark</td>
 			      <td class="td1">Mark</td>
-			      <td>@mdo</td>
 			      <td style="width: 30px"><button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#cencelModal">취소</button></td>
 			    </tr>
 			    
@@ -64,16 +63,14 @@
 			      <td class="td1">Mark</td>
 			      <td class="td1">Mark</td>
 			      <td class="td1">Mark</td>
-			      <td>@mdo</td>
-			      <td style="width: 30px"><button type="button" class="btn btn-secondary">취소</button></td>
+			      <td style="width: 30px"><button type="button" class="btn btn-secondary"data-toggle="modal" data-target="#cencelModal">취소</button></td>
 			    </tr>
 			    <tr>
 			      <th scope="row">3</th>
 			      <td class="td1">Mark</td>
 			      <td class="td1">Mark</td>
 			      <td class="td1">Mark</td>
-			      <td>@mdo</td>
-			      <td style="width: 30px"><button type="button" class="btn btn-secondary">취소</button></td>
+			      <td style="width: 30px"><button type="button" class="btn btn-secondary"data-toggle="modal" data-target="#cencelModal">취소</button></td>
 			    </tr>
 			  </tbody>
 			</table>
@@ -99,7 +96,6 @@
 			      <th scope="col" class="td1">판매자ID</th>
 			      <th scope="col" class="td1">구매 상품명</th>
 			      <th scope="col" class="td1">신청 내용</th>
-			      <th scope="col">진행상황</th>
 			      <th scope="col"></th>
 			      <th scope="col"></th>
 			    </tr>
@@ -110,27 +106,24 @@
 			      <td class="td1">Mark</td>
 			      <td class="td1">Otto</td>
 			      <td class="td1">@mdo</td>
-			      <td class="td1">@mdo</td>
 			      <td style="width: 10px; padding-right: 0px"><button type="button" class="btn btn-warning">결제하기</button></td>
-			      <td style="width: 5px"><button type="button" class="btn btn-secondary">취소</button></td>
+			      <td style="width: 5px"><button type="button" class="btn btn-secondary"data-toggle="modal" data-target="#cencelModal">취소</button></td>
 			    </tr>
 			    <tr>
 			      <th scope="row">2</th>
 			      <td class="td1">Mark</td>
 			      <td class="td1">Otto</td>
 			      <td class="td1">@mdo</td>
-			      <td class="td1">@mdo</td>
 			      <td style="width: 10px; padding-right: 0px"><button type="button" class="btn btn-warning">결제하기</button></td>
-			      <td style="width: 5px"><button type="button" class="btn btn-secondary">취소</button></td>
+			      <td style="width: 5px"><button type="button" class="btn btn-secondary"data-toggle="modal" data-target="#cencelModal">취소</button></td>
 			    </tr>
 			    <tr>
 			      <th scope="row">3</th>
 			      <td class="td1">Mark</td>
 			      <td class="td1">Otto</td>
 			      <td class="td1">@mdo</td>
-			      <td class="td1">@mdo</td>
 			      <td style="width: 10px; padding-right: 0px"><button type="button" class="btn btn-warning">결제하기</button></td>
-			      <td style="width: 5px"><button type="button" class="btn btn-secondary">취소</button></td>
+			      <td style="width: 5px"><button type="button" class="btn btn-secondary"data-toggle="modal" data-target="#cencelModal">취소</button></td>
 			    </tr>
 			  </tbody>
 			</table>
@@ -226,7 +219,7 @@
 			      <td class="td1">Otto</td>
 			      <td class="td1">@mdo</td>
 			      <td style="width: 40px"><button type="button" class="btn btn-secondary">구매확정</button></td>
-			      <td style="width: 40px"><button type="button" class="btn btn-secondary">구매평 작성</button></td>
+			      <td style="width: 40px"><button type="button" class="btn btn-secondary"data-toggle="modal" data-target="#reviewModal">구매평 작성</button></td>
 			    </tr>
 			    <tr>
 			      <th scope="row">3</th>
@@ -234,7 +227,7 @@
 			      <td class="td1">Otto</td>
 			      <td class="td1">@mdo</td>
 			      <td style="width: 40px"><button type="button" class="btn btn-secondary">구매확정</button></td>
-			      <td style="width: 40px"><button type="button" class="btn btn-secondary">구매평 작성</button></td>
+			      <td style="width: 40px"><button type="button" class="btn btn-secondary"data-toggle="modal" data-target="#reviewModal">구매평 작성</button></td>
 			    </tr>
 			  </tbody>
 			</table>
