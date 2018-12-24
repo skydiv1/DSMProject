@@ -1,48 +1,40 @@
 package com.kh.w7.common;
 
-import java.sql.Date;
-
 public class Attachment implements java.io.Serializable{
-	private int fid;
-	private int bid;
-	private String originName;
-	private String changeName;
-	private String filePath;
-	private Date uploadDate;
-	private int fileLevel;
-	private int downloadCount;
-	private String status;
+	private int imgNo;					// 이미지 번호
+	private String originName;		// 기존이름
+	private String changeName;		// 바뀐이름
+	private int imgCategory;			// 사진분류
+	private String sellerCertName;	// 판매자 자격증 이름
+	private int memberCode;			// 회원코드
+	private int boardNo;				// 글번호
+	private int productNo;				// 상품번호
+	private String imgFile;				// 이미지 경로
+	private int imgDelete;				// 삭제여부
 	
 	public Attachment() {}
 
-	public Attachment(int fid, int bid, String originName, String changeName, String filePath, Date uploadDate,
-			int fileLevel, int downloadCount, String status) {
+	public Attachment(int imgNo, String originName, String changeName, int imgCategory, String sellerCertName,
+			int memberCode, int boardNo, int productNo, String imgFile, int imgDelete) {
 		super();
-		this.fid = fid;
-		this.bid = bid;
+		this.imgNo = imgNo;
 		this.originName = originName;
 		this.changeName = changeName;
-		this.filePath = filePath;
-		this.uploadDate = uploadDate;
-		this.fileLevel = fileLevel;
-		this.downloadCount = downloadCount;
-		this.status = status;
+		this.imgCategory = imgCategory;
+		this.sellerCertName = sellerCertName;
+		this.memberCode = memberCode;
+		this.boardNo = boardNo;
+		this.productNo = productNo;
+		this.imgFile = imgFile;
+		this.imgDelete = imgDelete;
 	}
 
-	public int getFid() {
-		return fid;
+	public int getImgNo() {
+		return imgNo;
 	}
 
-	public void setFid(int fid) {
-		this.fid = fid;
-	}
-
-	public int getBid() {
-		return bid;
-	}
-
-	public void setBid(int bid) {
-		this.bid = bid;
+	public void setImgNo(int imgNo) {
+		this.imgNo = imgNo;
 	}
 
 	public String getOriginName() {
@@ -61,50 +53,67 @@ public class Attachment implements java.io.Serializable{
 		this.changeName = changeName;
 	}
 
-	public String getFilePath() {
-		return filePath;
+	public int getImgCategory() {
+		return imgCategory;
 	}
 
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
+	public void setImgCategory(int imgCategory) {
+		this.imgCategory = imgCategory;
 	}
 
-	public Date getUploadDate() {
-		return uploadDate;
+	public String getSellerCertName() {
+		return sellerCertName;
 	}
 
-	public void setUploadDate(Date uploadDate) {
-		this.uploadDate = uploadDate;
+	public void setSellerCertName(String sellerCertName) {
+		this.sellerCertName = sellerCertName;
 	}
 
-	public int getFileLevel() {
-		return fileLevel;
+	public int getMemberCode() {
+		return memberCode;
 	}
 
-	public void setFileLevel(int fileLevel) {
-		this.fileLevel = fileLevel;
+	public void setMemberCode(int memberCode) {
+		this.memberCode = memberCode;
 	}
 
-	public int getDownloadCount() {
-		return downloadCount;
+	public int getBoardNo() {
+		return boardNo;
 	}
 
-	public void setDownloadCount(int downloadCount) {
-		this.downloadCount = downloadCount;
+	public void setBoardNo(int boardNo) {
+		this.boardNo = boardNo;
 	}
 
-	public String getStatus() {
-		return status;
+	public int getProductNo() {
+		return productNo;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setProductNo(int productNo) {
+		this.productNo = productNo;
+	}
+
+	public String getImgFile() {
+		return imgFile;
+	}
+
+	public void setImgFile(String imgFile) {
+		this.imgFile = imgFile;
+	}
+
+	public int getImgDelete() {
+		return imgDelete;
+	}
+
+	public void setImgDelete(int imgDelete) {
+		this.imgDelete = imgDelete;
 	}
 
 	@Override
 	public String toString() {
-		return "Attachment [fid=" + fid + ", bid=" + bid + ", originName=" + originName + ", changeName=" + changeName
-				+ ", filePath=" + filePath + ", uploadDate=" + uploadDate + ", fileLevel=" + fileLevel
-				+ ", downloadCount=" + downloadCount + ", status=" + status + "]";
+		return "Attachment [imgNo=" + imgNo + ", originName=" + originName + ", changeName=" + changeName
+				+ ", imgCategory=" + imgCategory + ", sellerCertName=" + sellerCertName + ", memberCode=" + memberCode
+				+ ", boardNo=" + boardNo + ", productNo=" + productNo + ", imgFile=" + imgFile + ", imgDelete="
+				+ imgDelete + "]";
 	}
 }
