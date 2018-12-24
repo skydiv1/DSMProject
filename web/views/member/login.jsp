@@ -68,7 +68,7 @@ section {
 							style="width: 500px; height: 50px; margin: 0 auto; font-size: 20px; border-radius: 6px;">
 					</div>
 					<div style="margin-bottom: 15px; margin-left:5%;";>
-						<input type="text" id="" placeholder="비밀번호를 입력하세요"
+						<input type="password" id="" placeholder="비밀번호를 입력하세요"
 							style="width: 500px; height: 50px; font-size: 20px; border-radius: 6px;">
 					</div>
 				</td>
@@ -76,12 +76,12 @@ section {
 			<tr>
 				<td>
 					<button type="button" class="btn btn-warning"
-						style="width: 500px; height: 50px; font-size: 20px; border-radius: 6px; margin-left:5%; margin-left:5%;">로그인</button>
+						style="width: 500px; height: 50px; font-size: 20px; border-radius: 6px; margin-left:5%; margin-left:5%;"><a href="/dsm/login.me"><div style="color:white">로그인</div></a></button>
 				</td>
 			</tr>
 			<tr>
 				<td id="ta">
-					<div style="margin-left:15%;" ><a href="#">아이디 찾기</a> | <a href="#">비밀번호 찾기</a> | <a href="account.html">회원가입</a></div>
+					<div style="margin-left:15%;" ><a href="/dsm/views/member/find_Id.jsp">아이디 찾기</a> | <a href="/dsm/views/member/find_pw.jsp">비밀번호 찾기</a> | <a href="/dsm/views/member/user_terms2.html">회원가입</a></div>
 				</td>
 			</tr>
 		</table>

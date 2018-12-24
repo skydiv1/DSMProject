@@ -1,3 +1,4 @@
+
 package com.kh.w7.member.model.dao;
 
 import java.io.FileNotFoundException;
@@ -53,7 +54,7 @@ public class MemberDao {
 				loginUser.setSeller_grade(rset.getInt("SELLER_GRADE"));
 				loginUser.setSeller_career(rset.getString("SELLER_CAREER"));
 				loginUser.setMember_admin(rset.getInt("MEMBER_ADMIN"));
-				loginUser.setPrivatemember_status(rset.getInt("PRIVATEMEMBER_STATUS"));
+				loginUser.setPrivatemember_status(rset.getInt("MEMBER_STATUS"));
 				loginUser.setSeller_accountName(rset.getString("SELLER_ACCOUNTNAME"));
 				loginUser.setSeller_bank(rset.getString("SELLER_BANK"));
 				loginUser.setSeller_account(rset.getString("SELLER_ACCOUNT"));
@@ -124,7 +125,7 @@ public class MemberDao {
 			close(rset);
 		}
 		
-		return 0;
+		return result;
 	}
 
 }
