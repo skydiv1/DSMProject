@@ -39,6 +39,7 @@ table {
 </style>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 </head>
 <body>
 	<%@ include file="../common/navi.jsp"%>
@@ -84,15 +85,23 @@ table {
 							<td style="text-align: right;"><button onclick="minusBtn4()">-</button>
 								<label>&nbsp;&nbsp;</label><label id="la4">0</label><label>&nbsp;&nbsp;</label>
 							<button onclick="plusBtn4()">+</button></td>
+							
+						</tr>
+						<tr>
+							<td colspan = "2" align = "right"><button type="button" class="btn btn-secondary" id = "calcBtn">계산하기</button></td>
 						</tr>
 					</tbody>
 				</table>
+				
 
 				<script>
+					/* ajax를 사용해서 버튼 누를때마다 결제 값이 바뀌도록 하기  */
+				
 					function minusBtn1() {
 						var num = Number($("#la1").text());
 						if (num > 0)
 							$("#la1").text(num - 1);
+						
 					}
 					function plusBtn1() {
 						var num = Number($("#la1").text());
@@ -128,6 +137,8 @@ table {
 						var num = Number($("#la4").text());
 						$("#la4").text(num + 1);
 					}
+					
+					
 				</script>
 				<br> <br> <br>
 
@@ -182,11 +193,12 @@ table {
 				<tr>
 					<td colspan="2"
 						style="text-align: right; font-size: 1.3em; font-weight: bold;">보유캐시</td>
+						<!--DB에서 보유캐시 가져오기  -->
 					<td></td>
 				</tr>
 				<tr>
 					<td colspan="2"
-						style="text-align: right; font-size: 1.3em; font-weight: bold; color: red;">50,000</td>
+						style="text-align: right; font-size: 1.3em; font-weight: bold; color: red;" id = "tdHaveMoney">50000</td>
 					<td></td>
 				</tr>
 				<tr>
@@ -197,24 +209,27 @@ table {
 				</tr>
 				<tr>
 					<td style="text-align: left; font-size: 1.3em; font-weight: bold;">충전캐시</td>
+					<!-- (+,-)누른걸로 충전 캐시 판단  -->
 					<td
-						style="text-align: right; font-size: 1.3em; font-weight: bold; color: red;">65,000</td>
+						style="text-align: right; font-size: 1.3em; font-weight: bold; color: red;" id = "tdChargeCashMoney">0</td>
 				</tr>
 				<tr>
 					<td style="text-align: left; font-size: 1.3em; font-weight: bold;">충전
 						후 캐시</td>
+						<!-- 1, 2번자리 숫자 덧샘 계산  -->
 					<td
-						style="text-align: right; font-size: 1.3em; font-weight: bold; color: red;">565,000</td>
+						style="text-align: right; font-size: 1.3em; font-weight: bold; color: red;">50000</td>
 				</tr>
 				<tr>
 					<td colspan="2"
 						style="text-align: left; font-size: 1.3em; font-weight: bold;">총
 						결제 캐시</td>
+						<!-- (+,-)누른걸로 충전 캐시 판단  -->
 					<td></td>
 				</tr>
 				<tr>
 					<td colspan="2"
-						style="text-align: right; font-size: 1.7em; font-weight: bold; color: red;">65,000</td>
+						style="text-align: right; font-size: 1.7em; font-weight: bold; color: red;" id = "tdResultMoney">0</td>
 					<td></td>
 				</tr>
 				<tr>
@@ -230,8 +245,10 @@ table {
 				</tr>
 				<tr>
 					<td colspan="2"><button type="button" class="btn btn-danger"
-							style="width: 108%; height: 100px" onclick = "location.href = '/dsm/views/common/impordPayment.jsp'">충전하기</button></td>
+							style="width: 108%; height: 100px " onclick = "chargeAPI()">충전하기</button></td>
+							
 					<td></td>
+					<!-- 버튼 클릭시 '결제 가격', '결제 품목(캐시충전)' 값이 넘어가게 하기  -->
 				</tr>
 			</table>
 
@@ -241,7 +258,42 @@ table {
 	</section>
 
 
+	<script>
 
+	$(function(){
+		$("#calcBtn").click(function(){
+			var num1 = Number($("#la1").text());
+			var num2 = Number($("#la2").text());
+			var num3 = Number($("#la3").text());
+			var num4 = Number($("#la4").text());
+			chargeMoney = (num1*5000) + (num2*10000) + (num3*30000) + (num4*50000);
+			console.log(chargeMoney); //합 결과 출력
+			/* 숫자 받고 ajax하기  */
+			
+			var haveMoney = Number($("#tdHaveMoney").text());
+			
+			
+			 $.ajax({
+				url : "/dsm/charge.pa",
+				data : {chargeMoney : chargeMoney},
+				type : "post",
+				success : function(data){
+					$("#tdChargeCashMoney").text(data);
+					$("#tdResultMoney").text(data+haveMoney);
+				},
+				error : function(){
+					console.log("실패!");
+				}
+			}); 
+		});
+	});
+	
+	function chargeAPI(){
+		/* 결제 서블릿에서 index로 안넘어가서 새창열어서  결제, 기존창을 index로 변경 */
+		location.href = window.open('/dsm/views/common/impordPayment.jsp?chargeMoney='+ chargeMoney);
+		location.href = "/dsm/index.jsp";
+	}
+	</script>
 
 
 
