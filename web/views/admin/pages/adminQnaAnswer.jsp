@@ -1,10 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <style>
 body {
 	background: #fafafa;
@@ -88,41 +87,41 @@ body .no-padding {
 	margin-right: 7px;
 }
 </style>
-
 </head>
 <body>
-	<!-- ë„¤ë¹„ê²Œì´ì…˜ ë°” -->
+
+	<!-- ³×ºñ°ÔÀÌ¼Ç ¹Ù -->
 	<%--       <%@ include file = "../common/navi.jsp" %> --%>
 	<%@ include file="../../common/naviLogin.jsp"%>
-	<!-- ë„¤ë¹„ê²Œì´ì…˜ ë°” ë /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+	<!-- ³×ºñ°ÔÀÌ¼Ç ¹Ù ³¡ /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	<br>
 	<br>
 	<div class="container">
-		<h2>ì–¼ë§ˆì „ì— ì‹ ì²­í–ˆëŠ”ë°ìš”</h2>
+		<h2>¾ó¸¶Àü¿¡ ½ÅÃ»Çß´Âµ¥¿ä</h2>
 		<hr>
 		<table>
 			<tr>
-				<td align="center" width="76">ìž‘ì„±ìž :</td>
-				<td width="0">ì˜†ì§‘ë“œë¡ </td>
+				<td align="center" width="76">ÀÛ¼ºÀÚ :</td>
+				<td width="0">¿·Áýµå·Ð</td>
 
-				<td align="center" width="76">ì¡°íšŒìˆ˜ :</td>
+				<td align="center" width="76">Á¶È¸¼ö :</td>
 				<td width="0">231</td>
 
-				<td align="center" width="76">ìž‘ì„±ì¼ :</td>
+				<td align="center" width="76">ÀÛ¼ºÀÏ :</td>
 				<td width="0">18.11.30 10:35</td>
 			</tr>
 		</table>
 		<div class="form-group">
 			<hr>
 			<div class="form-group">
-				<label><h6>ë¬¸ì˜ë¶„ë¥˜ :</h6></label> <input type="radio" name="ë¬¸ì˜"
-					value="ë¬¸ì˜" checked="checked" disabled>ë¬¸ì˜ <input
-					type="radio" name="ì‹ ê³ " value="ì‹ ê³ " disabled>ì‹ ê³ 
+				<label><h6>¹®ÀÇºÐ·ù :</h6></label> <input type="radio" name="¹®ÀÇ"
+					value="¹®ÀÇ" checked="checked" disabled>¹®ÀÇ <input
+					type="radio" name="½Å°í" value="½Å°í" disabled>½Å°í
 			</div>
-			<label><h6>ë¬¸ì˜ ë‚´ìš©</h6></label>
+			<label><h6>¹®ÀÇ ³»¿ë</h6></label>
 			<textarea class="form-control" readonly rows="10" id="comment"
-				placeholder="ë‚´ìš©ì„ ìž…ë ¥í•´ ì£¼ì„¸ìš”" readonly>
-ë¬¸ì˜í–ˆì—ˆëŠ”ë°ìš” ì§€ê¸ˆ ê°™ì€ ìƒí™©ì—ëŠ” ì–´ë–»ê²Œ í•´ì•¼ë˜ëŠ”ì œ ì•Œë ¤ì£¼ì„¸ìš”</textarea>
+				placeholder="³»¿ëÀ» ÀÔ·ÂÇØ ÁÖ¼¼¿ä" readonly>
+¹®ÀÇÇß¾ú´Âµ¥¿ä Áö±Ý °°Àº »óÈ²¿¡´Â ¾î¶»°Ô ÇØ¾ßµÇ´ÂÁ¦ ¾Ë·ÁÁÖ¼¼¿ä</textarea>
 		</div>
 		<hr>
 		<table style="width: 100%;">
@@ -136,12 +135,12 @@ body .no-padding {
 					<div class="widget-area no-padding blank">
 						<div class="status-upload">
 							<form>
-								<textarea placeholder="ê´€ë¦¬ìžë‹˜! ë‹µë³€í•  ë‚´ìš©ì„ ìž‘ì„±í•´ì£¼ì„¸ìš”"></textarea>
+								<textarea placeholder="°ü¸®ÀÚ´Ô! ´äº¯ÇÒ ³»¿ëÀ» ÀÛ¼ºÇØÁÖ¼¼¿ä"></textarea>
 								<button type="submit" class="btn btn-success green">
-									<i class="fa fa-share"> ë“±ë¡</i>
+									<i class="fa fa-share"> µî·Ï</i>
 								</button>
 								<button type="submit" class="btn btn-success green">
-									<i class="fa fa-share"> ì·¨ì†Œ</i>
+									<i class="fa fa-share"> Ãë¼Ò</i>
 								</button>
 							</form>
 						</div>
@@ -155,6 +154,6 @@ body .no-padding {
 	</div>
 	<!-- Footer -->
 	<%@ include file="../../common/footer.jsp"%>
-	<!-- footer ë /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+	<!-- footer ³¡ /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 </body>
 </html>
