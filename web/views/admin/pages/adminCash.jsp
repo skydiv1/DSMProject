@@ -75,15 +75,15 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href="tables1.html"><i class="fa fa-table fa-fw"></i> 회원관리</a>
+                            <a href="adminMember.jsp"><i class="fa fa-table fa-fw"></i> 회원관리</a>
                         </li>
 						
 						<li>
-                            <a href="tables2.html"><i class="fa fa-table fa-fw"></i> 환불관리</a>
+                            <a href="adminCash.jsp"><i class="fa fa-table fa-fw"></i> 환불관리</a>
                         </li>
 						
 						<li>
-                            <a href="tables3.html"><i class="fa fa-table fa-fw"></i> 고객센터</a>
+                            <a href="adminQnaAnswer.jsp"><i class="fa fa-table fa-fw"></i> 고객센터</a>
                         </li>
                         
                     </ul>
@@ -96,7 +96,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">고객센터</h1>
+                    <h1 class="page-header">환불관리</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
