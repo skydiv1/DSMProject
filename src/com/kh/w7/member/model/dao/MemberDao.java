@@ -1,3 +1,4 @@
+
 package com.kh.w7.member.model.dao;
 
 import static com.kh.w7.common.JDBCTemplate.close;
@@ -124,7 +125,7 @@ public class MemberDao {
 			close(rset);
 		}
 		
-		return 0;
+		return result;
 	}
 
 }

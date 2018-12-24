@@ -40,10 +40,9 @@
 	<div class="collapse navbar-collapse" id="navbarResponsive">
 		<ul class="navbar-nav text-uppercase ml-auto">
 			<li class="nav-item">
-			<a class="nav-link js-scroll-trigger" href="/dsm/selectList.pr"><b>상품 목록</b></a>
+			<a class="nav-link js-scroll-trigger" href="/dsm/views/product/productList.jsp"><b>상품 목록</b></a>
 			</li>
-			<li class="nav-item" id="productEnrollment">
-			<a class="nav-link js-scroll-trigger"><b>상품 등록</b></a>
+
 			</li>
 			<li class="nav-item">
 			<a class="nav-link js-scroll-trigger" href="views/board/board.jsp"><b>게시판</b></a>
@@ -69,9 +68,9 @@
 			<input type="text" id="" placeholder="아이디를 입력하세요" style="width:250px; height:40px; font-size: 12px; box-shadow:0px 0px 20px #000; border-radius:6px;">
 		</div>
 		<div style="margin-bottom: 20px">
-			<input type="text" id="" placeholder="비밀번호를 입력하세요" style="width:250px; height:40px; font-size: 12px; box-shadow:0px 0px 20px #000; border-radius:6px;">
+			<input type="password" id="" placeholder="비밀번호를 입력하세요" style="width:250px; height:40px; font-size: 12px; box-shadow:0px 0px 20px #000; border-radius:6px;">
 		</div>
-		<a id="login" class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="/dsm/login.me" style="padding: 7px 60px; box-shadow:0px 0px 10px #000; background-color:#fed136;"><label style="width:100px; height:12px; ">로그인</label></a>
+
 		<div style="margin-top:10px;"><a href="/dsm/views/member/find_Id.jsp">아이디 찾기</a> / <a href="/dsm/views/member/find_pw.jsp">비밀번호 찾기</a> / <a href="/dsm/views/member/user_terms2.jsp">회원가입</a></div>
 	</div>
 </div>
