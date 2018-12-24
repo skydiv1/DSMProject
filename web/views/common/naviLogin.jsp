@@ -43,7 +43,7 @@
 	<div class="collapse navbar-collapse" id="navbarResponsive">
 		<ul class="navbar-nav text-uppercase ml-auto">
 			<li class="nav-item">
-			<a class="nav-link js-scroll-trigger" href="/dsm/views/product/productList.jsp"><b>상품 목록</b></a>
+			<a class="nav-link js-scroll-trigger" href="/dsm/selectList.pr"><b>상품 목록</b></a>
 			</li>
 			<li class="nav-item">
 			<a class="nav-link js-scroll-trigger" href="/dsm/views/product/productEnrollment.jsp"><b>상품 등록</b></a>

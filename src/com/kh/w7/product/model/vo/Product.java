@@ -3,20 +3,24 @@ package com.kh.w7.product.model.vo;
 import java.sql.Date;
 
 public class Product implements java.io.Serializable{
-	private int productNo;			//상품번호
-	private int memberCode;			//판매자코드
-	private String productName;		//상품제목
-	private String productCategory;	//상품카테고리
-	private String productItem;		//상품기본항목
-	private int productItemPrice;	//상품기본항목가격
-	private String productContext;	//상품설명
-	private Date registerDate;		//상품 등록일자
-	private int deleteYN;			//삭제여부
+	private int productNo;				// 상품번호
+	private int memberCode;			// 판매자코드
+	private String productName;		// 상품제목
+	private String productCategory;	// 상품카테고리
+	private String productItem;		// 상품기본항목
+	private int productItemPrice;	// 상품기본항목가격
+	private String productContext;	// 상품설명
+	private Date registerDate;		// 상품 등록일자
+	private int deleteYN;				// 삭제여부
+	
+	private String plusProductItem;	// 상품 추가 항목
+	private int plusProductPrice;		// 추가 항목 가격
 	
 	public Product() {}
-
+	
 	public Product(int productNo, int memberCode, String productName, String productCategory, String productItem,
-			int productItemPrice, String productContext, Date registerDate, int deleteYN) {
+			int productItemPrice, String productContext, Date registerDate, int deleteYN, String plusProductItem,
+			int plusProductPrice) {
 		super();
 		this.productNo = productNo;
 		this.memberCode = memberCode;
@@ -27,6 +31,8 @@ public class Product implements java.io.Serializable{
 		this.productContext = productContext;
 		this.registerDate = registerDate;
 		this.deleteYN = deleteYN;
+		this.plusProductItem = plusProductItem;
+		this.plusProductPrice = plusProductPrice;
 	}
 
 	public int getProductNo() {
@@ -101,11 +107,28 @@ public class Product implements java.io.Serializable{
 		this.deleteYN = deleteYN;
 	}
 
+	public String getPlusProductItem() {
+		return plusProductItem;
+	}
+
+	public void setPlusProductItem(String plusProductItem) {
+		this.plusProductItem = plusProductItem;
+	}
+
+	public int getPlusProductPrice() {
+		return plusProductPrice;
+	}
+
+	public void setPlusProductPrice(int plusProductPrice) {
+		this.plusProductPrice = plusProductPrice;
+	}
+
 	@Override
 	public String toString() {
 		return "Product [productNo=" + productNo + ", memberCode=" + memberCode + ", productName=" + productName
 				+ ", productCategory=" + productCategory + ", productItem=" + productItem + ", productItemPrice="
 				+ productItemPrice + ", productContext=" + productContext + ", registerDate=" + registerDate
-				+ ", deleteYN=" + deleteYN + "]";
+				+ ", deleteYN=" + deleteYN + ", plusProductItem=" + plusProductItem + ", plusProductPrice="
+				+ plusProductPrice + "]";
 	}
 }

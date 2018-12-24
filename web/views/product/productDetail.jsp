@@ -27,7 +27,6 @@
 <style>	
 	<meta name="format-detection" content="telephone=no" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-	<style>
 	    .wrapper {
 	        padding: 20px;
 	        margin: 100px auto;
@@ -85,6 +84,7 @@
 <!-- 네비게이션 바 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 <%-- <%@ include file="/views/common/navi.jsp" %> --%> <!-- 로그인 전 -->
 <%@ include file="/views/common/naviLogin.jsp" %> <!-- 로그인 후 -->
+<%@ include file = "/views/common/AskPopUp.jsp" %> <!-- 팝업 띄우기 --> <!-- 팝업을 include하면 서비스 설명이 안뜨는 오류발생!!! -->
 <!-- 네비게이션 바 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	<section class="bg-light" id="portfolio">
 
@@ -128,7 +128,7 @@
 		</tr>
 		<tr>
 			<td align="center">
-				<button type="button" class="btn btn-warning" onmouseup="bookPop()"
+				<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#askModal"
 					style="width: 90%; height: 50px;">신청하기</button>
 			</td>
 		</tr>
@@ -273,13 +273,7 @@
 </section>
 
 	<script>
-		 function bookPop() { // 팝업창 띄우기
-			test=window.open("../common/bookPop.jsp", "신청하기",'width=500, height=400 ,location=no, resizable=no, menubar=no, status=no, toolbar=no,left=470,top=130');
-			//test.resizeTo(500,400);
-			//test.resizeBy(0,50);
-		}	 
-		
-
+	
 	</script>
 
 	<!-- Footer ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->

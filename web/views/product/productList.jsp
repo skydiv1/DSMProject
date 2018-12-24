@@ -1,5 +1,16 @@
+<%@page import="com.kh.w7.common.*"%><%@page import="com.kh.w7.product.model.vo.*"%><%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	ArrayList<Product> list = (ArrayList<Product>)request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	// 미리 값을 꺼내서 저장해서 사용 (매번 꺼내서 사용하는 불편함을 줄이기 위함)
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -46,7 +57,7 @@
 	<section class="bg-light" id="portfolio" style="">
 
 	<div class="input-group input-group-lg"
-		style="width: 70%; padding-left: 13%;">
+		style="width: 70%; padding-left: 19%;">
 		<input type="text" class="form-control"
 			aria-label="Sizing example input"
 			aria-describedby="inputGroup-sizing-lg"
@@ -56,10 +67,10 @@
 				style="color: black;"><b>검색</b></button>
 		</div>
 	</div>
-	<div style="padding-left: 13%;">
+	<div style="padding-left: 19%;">
 		'<span>웨딩</span>'으로 검색된 결과는 <span>15</span>건 입니다.
 	</div>
-	<div align="right" class="dropdown" style="padding-right: 13%;">
+	<div align="right" class="dropdown" style="padding-right: 19%;">
 		<select class="btn btn-secondary">
 			<option value="category" selected>카테고리</option>
 			<option value="shooting">촬영</option>
@@ -71,9 +82,10 @@
 
 	<div class="container">
 		<div class="row">
+		<% for(Product product : list){ %>
+			<input type="hidden" value="<%=product.getProductNo()%>">
 			<div class="col-md-4 col-sm-6 portfolio-item">
-				<a class="portfolio-link" data-toggle="modal"
-					href="#">
+				<a class="portfolio-link" data-toggle="modal" href="#">
 					<div class="portfolio-hover">
 						<div class="portfolio-hover-content">
 							<i class="fas fa-plus fa-3x"></i>
@@ -81,98 +93,45 @@
 					</div> <img class="img-fluid" src="/dsm/img/portfolio/01-thumbnail.jpg" alt="">
 				</a>
 				<div class="portfolio-caption">
-					<h4>상품 1의 제목</h4>
-					<p class="text-muted"><spna>150000</spna>원</p>
+					<h4><%=product.getProductName() %></h4>
+					<p class="text-muted"><spna><%=product.getProductItemPrice() %></spna>원</p>
 				</div>
 			</div>
-			<div class="col-md-4 col-sm-6 portfolio-item">
-				<a class="portfolio-link" data-toggle="modal"
-					href="#">
-					<div class="portfolio-hover">
-						<div class="portfolio-hover-content">
-							<i class="fas fa-plus fa-3x"></i>
-						</div>
-					</div> <img class="img-fluid" src="/dsm/img/portfolio/02-thumbnail.jpg" alt="">
-				</a>
-				<div class="portfolio-caption">
-					<h4>상품 2의 제목</h4>
-					<p class="text-muted"><span>130000</span>원</p>
-				</div>
-			</div>
-			<div class="col-md-4 col-sm-6 portfolio-item">
-				<a class="portfolio-link" data-toggle="modal"
-					href="#">
-					<div class="portfolio-hover">
-						<div class="portfolio-hover-content">
-							<i class="fas fa-plus fa-3x"></i>
-						</div>
-					</div> <img class="img-fluid" src="/dsm/img/portfolio/03-thumbnail.jpg" alt="">
-				</a>
-				<div class="portfolio-caption">
-					<h4>상품 3의 제목</h4>
-					<p class="text-muted"><span>170000</span>원</p>
-				</div>
-			</div>
-			<div class="col-md-4 col-sm-6 portfolio-item">
-				<a class="portfolio-link" data-toggle="modal"
-					href="#">
-					<div class="portfolio-hover">
-						<div class="portfolio-hover-content">
-							<i class="fas fa-plus fa-3x"></i>
-						</div>
-					</div> <img class="img-fluid" src="/dsm/img/portfolio/04-thumbnail.jpg" alt="">
-				</a>
-				<div class="portfolio-caption">
-					<h4>상품 4의 제목</h4>
-					<p class="text-muted"><span>200000</span>원</p>
-				</div>
-			</div>
-			<div class="col-md-4 col-sm-6 portfolio-item">
-				<a class="portfolio-link" data-toggle="modal"
-					href="#">
-					<div class="portfolio-hover">
-						<div class="portfolio-hover-content">
-							<i class="fas fa-plus fa-3x"></i>
-						</div>
-					</div> <img class="img-fluid" src="/dsm/img/portfolio/05-thumbnail.jpg" alt="">
-				</a>
-				<div class="portfolio-caption">
-					<h4>상품 5의 제목</h4>
-					<p class="text-muted"><span>220000</span>원</p>
-				</div>
-			</div>
-			<div class="col-md-4 col-sm-6 portfolio-item">
-				<a class="portfolio-link" data-toggle="modal"
-					href="#">
-					<div class="portfolio-hover">
-						<div class="portfolio-hover-content">
-							<i class="fas fa-plus fa-3x"></i>
-						</div>
-					</div> <img class="img-fluid" src="/dsm/img/portfolio/06-thumbnail.jpg" alt="">
-				</a>
-				<div class="portfolio-caption">
-					<h4>상품 6의 제목</h4>
-					<p class="text-muted"><span>140000</span>원</p>
-				</div>
-			</div>
+			<%} %>
 		</div>
 	</div>
 	<br><br>
-
-	<div style="margin-left:41%">
-		<nav aria-label="...">
-		<ul class="pagination">
-			<li class="page-item disabled"><a class="page-link" href="#"
-				tabindex="-1">Previous</a></li>
-			<li class="page-item"><a class="page-link" href="#">1</a></li>
-			<li class="page-item active"><a class="page-link" href="#">2
-					<span class="sr-only">(current)</span>
-			</a></li>
-			<li class="page-item"><a class="page-link" href="#">3</a></li>
-			<li class="page-item"><a class="page-link" href="#">Next</a></li>
-		</ul>
-		</nav>
-	</div>
+	
+	<!-- 페이징 처리 시작 ////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+		
+		<div class="pagingArea" align="center">
+			<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/selectList.pr?currentPage=1'"><<</button>
+			
+			<% if(currentPage <= 1){ %>
+			<button class="btn btn-warning" disabled><</button>
+			<% }else{ %>
+			<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/selectList.pr?currentPage=<%=currentPage - 1%>'"><</button>
+			<% } %>
+			
+			<% for(int p = startPage; p <= endPage; p++){ 
+					if(p == currentPage){
+			%>
+					<button class="btn btn-warning" disabled><%= p %></button>
+			<%      }else{ %>
+					<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/selectList.pr?currentPage=<%= p %>'"><%= p %></button>
+			<%      } %>
+	
+			<% } %>
+						
+			<% if(currentPage >= maxPage){ %>
+			<button class="btn btn-warning" disable>></button>
+			<% }else{ %>
+			<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/selectList.pr?currentPage=<%=currentPage + 1%>'">></button>
+			<% } %>
+			
+			<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/selectList.pr?currentPage=<%=maxPage%>'">>></button>
+		</div>
+	<!-- 페이징 처리 끝 //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	</section>
 
 	<!-- Footer ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
