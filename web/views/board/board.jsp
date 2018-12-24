@@ -1,5 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*, com.kh.w7.board.model.vo.*"%>
+<%
+	ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -26,10 +36,18 @@
 	<h2 style="margin:-10px -20px -10px 70px; padding-left:5%">게시판</h2>	
 		
 		<div class="container">
-		 		<div style="margin:10px 10px 10px 1050px"><a class="btn btn-primary pull-right " href="boardWrite.jsp">글쓰기</a></div>
+			<!-- 로그인한 사용자만 게시글 작성할 수 있게 만드는거 2018-12-24 오후 3:05분 -->
+		 		<div style="margin:10px 10px 10px 1050px">
+		 			<a class="btn btn-primary pull-right " href="boardWrite.jsp">
+		 			<% if(loginUser != null){ %>
+		 				<button>글쓰기</button>
+		 			<% } %>	
+		 			</a>
+		 		</div>
 		 <div class="row" style="postion:static;">
 		 	<table class="table table-striped"  border:1px; solid #dddddd">
 		 		<thead>
+		 			<tr>
 						<th style="width: 3% background-color:#eeeeee; text-align: center;">번호</th>
 						<th style="width: 20% background-color:#eeeeee; text-align: center;">제목</th>
 						<th style="width: 5% background-color:#eeeeee; text-align: center;">작성자</th>
@@ -38,97 +56,16 @@
 					</tr>		 		
 		 		</thead>
 		 		<tbody>
-		 				<tr>
-                            <td>13</td>
-                            <td onclick="location.href='boardPosts.jsp'">바람서리 불변함은 우리 기상일세</td>
-                            <td>아무말대잔치</td>
-                            <td>18.11.29</td>
-                            <td>8</td>
+		 		<% for(Board b : list){ %>
+		 				<tr>		 				                      
+                            <td><%= b.getBoardNo() %></td>
+                            <td><%= b.getBoardTitle() %></td>
+                            <td><%= b.getMemberCode() %></td>
+                            <td><%= b.getBoardDate() %></td>
+                            <td><%= b.getBoardCount() %></td>
+                            
                         </tr>
-                        <tr>
-                            <td>12</td>
-                            <td>남산위에 저 소나무 철갑을 두른듯</td>
-                            <td>아무말대잔치</td>
-                            <td>18.11.29</td>
-                            <td>10</td>
-                        </tr>
-                        <tr>
-                            <td>11</td>
-                            <td>대한으로 길이 보전하세</td>
-                            <td>아무말대잔치</td>
-                            <td>18.11.28</td>
-                            <td>11</td>
-                        </tr>
-                        <tr>
-                            <td>10</td>
-                            <td>무궁화 삼천리 화려강산 대한사람</td>
-                            <td>아무말대잔치</td>
-                            <td>18.11.26</td>
-                            <td>12</td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td>하느님이 보우하사 우리 나라 만세</td>
-                            <td>아무말대잔치</td>
-                            <td>18.11.25</td>
-                            <td>13</td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td>동해물과 백두산이 마르고 닳도록</td>
-                            <td>아무말대잔치</td>
-                            <td>18.11.25</td>
-                            <td>11</td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>이제 부터 애국가 부를거임</td>
-                            <td>아무말대잔치</td>
-                            <td>18.11.24</td>
-                            <td>12</td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>너무했다 그 요일을 언급해선 안돼;;</td>
-                            <td>너뒤에</td>
-                            <td>18.11.19</td>
-                            <td>34</td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>밑에 나쁜쉐키</td>
-                            <td>금요일밤</td>
-                            <td>18.11.18</td>
-                            <td>54</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>그다음에 월요일</td>
-                            <td>으아아</td>
-                            <td>18.11.16</td>
-                            <td>45</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>와 금요일이다! 주말이다!</td>
-                            <td>나에게맡겨요</td>
-                            <td>18.11.14</td>
-                            <td>34</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>야식으론 치킨이 더맛있음<br></td>
-                            <td>yes1231</td>
-                            <td>18.11.13</td>
-                            <td>45</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>떡볶이,튀김,순대 맛있음</td>
-                            <td>옆집드론</td>
-                            <td>18.11.11</td>
-                            <td>32</td>
-                        </tr>
+                <% } %>
 		 		</tbody>		 	
 		 	</table>		 	
 		 	<nav aria-label="page" style="margin:0px 0px 0px 400px">
@@ -148,9 +85,9 @@
 	        <span class="sr-only">Next</span>
 	      </a>
 	    </li>
-	        	    	
- <div class="input-group-prepend" id="searchText" style="margin:0px 0px 0px 240px">
-    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">제목</button>
+	        	 <!-- 검색 드롭박스 부분 보류 -->
+ <div class="searchArea" id="searchText" style="margin:0px 0px 0px 240px">
+    <button class="dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">제목</button>
     <input type ="text"  placeholder="검색어 입력">
     <button>검색</button>
     <div class="dropdown-menu">

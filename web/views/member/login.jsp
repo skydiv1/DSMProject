@@ -58,7 +58,7 @@ section {
 
 		<table width="60%" height="500px" style="padding-left: 230px;">
 			<tr>
-				<td><div style="margin-left:25%; font-size: 25px;"><a href="/dsm/index.jsp" id="link">DSM</a></div></td>
+				<td><div style="margin-left:25%; font-size: 25px;"><a href="/dsm/views/menubar.jsp" id="link">DSM</a></div></td>
 			</tr>
 			
 			<tr>

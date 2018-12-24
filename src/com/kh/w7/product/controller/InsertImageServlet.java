@@ -16,6 +16,7 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import com.kh.w7.common.Attachment;
 import com.kh.w7.common.MyFileRenamePolicy;
 import com.kh.w7.product.model.service.ProductService;
+import com.kh.w7.product.model.vo.PlusProduct;
 import com.kh.w7.product.model.vo.Product;
 import com.oreilly.servlet.MultipartRequest;
 
@@ -78,18 +79,39 @@ public class InsertImageServlet extends HttpServlet {
 				System.out.println("fileSystem name: "+multiRequest.getFilesystemName(name)); // 2018121912231355085.jpg
 				System.out.println("originalFileName name: "+multiRequest.getOriginalFileName(name)); // 다운로드.jpg
 			}
+
+			String multiAdditionalItem1 = "";
+			String multiAdditionalItem2 = "";
+			String multiAdditionalItem3 = "";
+			int multiAdditionalPrice1 = 0;
+			int multiAdditionalPrice2 = 0;
+			int multiAdditionalPrice3 = 0;	
 			
 			/* name으로 준 값들을 java에서 servlet으로 가져온다. */
 			String multiTile = multiRequest.getParameter("title"); // title: 키값
 			String multiCateList = multiRequest.getParameter("cateList");
 			String multiBasicItem = multiRequest.getParameter("basicItem");
-			int multiBasicPrice = Integer.parseInt(multiRequest.getParameter("basicPrice"));			
-			String multiAdditionalItem1 = multiRequest.getParameter("additionalItem1");
-			String multiAdditionalItem2 = multiRequest.getParameter("additionalItem2");
-			String multiAdditionalItem3 = multiRequest.getParameter("additionalItem3");
-			int multiAdditionalPrice1 = Integer.parseInt(multiRequest.getParameter("additionalPrice1"));
-			int multiAdditionalPrice2 = Integer.parseInt(multiRequest.getParameter("additionalPrice2"));
-			int multiAdditionalPrice3 = Integer.parseInt(multiRequest.getParameter("additionalPrice3"));			
+			int multiBasicPrice = Integer.parseInt(multiRequest.getParameter("basicPrice"));		
+			
+			if(multiRequest.getParameter("additionalItem1") != null ) {
+				multiAdditionalItem1 = multiRequest.getParameter("additionalItem1");
+			}
+			if(multiRequest.getParameter("additionalItem2") != null ) {
+				multiAdditionalItem2 = multiRequest.getParameter("additionalItem2");
+			}
+			if(multiRequest.getParameter("additionalItem3") != null ) {
+				multiAdditionalItem3 = multiRequest.getParameter("additionalItem3");
+			}
+			if(multiRequest.getParameter("additionalPrice1") != null ) {
+				multiAdditionalPrice1 = Integer.parseInt(multiRequest.getParameter("additionalPrice1"));
+			}
+			if(multiRequest.getParameter("additionalPrice2") != null ) {
+				multiAdditionalPrice2 = Integer.parseInt(multiRequest.getParameter("additionalPrice2"));
+			}
+			if(multiRequest.getParameter("additionalPrice3") != null ) {
+				multiAdditionalPrice3 = Integer.parseInt(multiRequest.getParameter("additionalPrice3"));
+			}
+			
 			String multiContent = multiRequest.getParameter("content");
 			
 			/* 데이터 제대로 넘어가는지 확인 */
@@ -105,23 +127,39 @@ public class InsertImageServlet extends HttpServlet {
 			System.out.println("■ additionalPrice3: "+multiAdditionalPrice3);				
 			System.out.println("■ content: "+multiContent);
 			
-			// Product객체 생성
+			/* Product객체 생성 */
 			Product product = new Product();
-			//product.setMemberCode(로그인되면 맴버코드);
-			
-			//★ 여기서 널값이 들어온다면(입력한 값이 없다면) 500번 오류 발생(NullPointException)
-			// 널 값을 잡으려면 if else문으로 널 값일때 들어갈 수 없게 잡아줘야 한다.
+			//product.setMemberCode(로그인되면 맴버코드);			
 			product.setProductName(multiTile);
 			product.setProductCategory(multiCateList);
 			product.setProductItem(multiBasicItem);
 			product.setProductItemPrice(multiBasicPrice);
-			product.setPlusProductItem(multiAdditionalItem1);
-			product.setPlusProductItem(multiAdditionalItem2);
-			product.setPlusProductItem(multiAdditionalItem3);
-			product.setPlusProductPrice(multiAdditionalPrice1);
-			product.setPlusProductPrice(multiAdditionalPrice2);
-			product.setPlusProductPrice(multiAdditionalPrice3);
 			product.setProductContext(multiContent);
+			
+			// 배열에 담아서 가져와야 한다.
+			ArrayList<PlusProduct> plusProduct = new ArrayList<PlusProduct>();
+			PlusProduct pp = null;			
+
+			if(multiAdditionalItem1 != "") {
+				pp = new PlusProduct();
+				pp.setPlusProductItem(multiAdditionalItem1);
+				pp.setPlusProductPrice(multiAdditionalPrice1);		
+				plusProduct.add(pp);		
+			}	
+			if(multiAdditionalItem2 != "") {
+				pp = new PlusProduct();
+				pp.setPlusProductItem(multiAdditionalItem2);
+				pp.setPlusProductPrice(multiAdditionalPrice2);		
+				plusProduct.add(pp);		
+			}	
+			if(multiAdditionalItem3 != "") {
+				pp = new PlusProduct();
+				pp.setPlusProductItem(multiAdditionalItem3);
+				pp.setPlusProductPrice(multiAdditionalPrice3);		
+				plusProduct.add(pp);		
+			}
+						
+			int result2 = new ProductService().insertPlusProduct(product, plusProduct);
 						
 			// 세션으로 작성자를 가져온다.
 			//product.setbWriter(String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getUno()));
@@ -132,15 +170,15 @@ public class InsertImageServlet extends HttpServlet {
 			// 반복문을 통해 거꾸로 넘어온 파일들을 다시 역순으로 바꿔준다.
 			for(int i=originFiles.size()-1; i>=0; i--) {
 				Attachment at = new Attachment();
-				at.setFilePath(filePath);
+				at.setImgFile(filePath);
 				at.setOriginName(originFiles.get(i));
 				at.setChangeName(saveFiles.get(i));
 				
 				fileList.add(at);
 			}			
-			int result = new ProductService().insertThumbnail(product, fileList);
+			int result1 = new ProductService().insertThumbnail(product, fileList);
 		
-			if(result>0) {
+			if(result1>0 && result2>0) {
 				response.sendRedirect(request.getContextPath()+"/selectList.pr");
 			}else {
 				// 실패했을 때 저장된 사진 삭제

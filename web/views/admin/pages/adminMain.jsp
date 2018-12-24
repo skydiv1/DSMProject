@@ -71,15 +71,14 @@
 		<div class="navbar-default sidebar" role="navigation">
 			<div class="sidebar-nav navbar-collapse">
 				<ul class="nav" id="side-menu">
-					<li><a href="tables1.html"><i class="fa fa-table fa-fw"></i>회원관리</a>
+					<li><a href="adminMember.jsp"><i class="fa fa-table fa-fw"></i>회원관리</a>
 					</li>
 
-					<li><a href="tables2.html"><i class="fa fa-table fa-fw"></i>환불관리</a>
+					<li><a href="adminCash.jsp"><i class="fa fa-table fa-fw"></i>환불관리</a>
 					</li>
 
-					<li><a href="tables3.html"><i class="fa fa-table fa-fw"></i>고객센터</a>
+					<li><a href="adminQnaAnswer.jsp"><i class="fa fa-table fa-fw"></i>고객센터</a>
 					</li>
-
 				</ul>
 			</div>
 			<!-- /.sidebar-collapse -->

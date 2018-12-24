@@ -11,7 +11,10 @@
     <meta name="author" content="">
 
     <title>DSM(Drone Service Market)</title>
-
+    
+    <!-- JQuery CDN -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	
     <!-- Bootstrap core CSS -->
     <link href="/dsm/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -39,8 +42,7 @@
 			<li class="nav-item">
 			<a class="nav-link js-scroll-trigger" href="/dsm/views/product/productList.jsp"><b>상품 목록</b></a>
 			</li>
-			<li class="nav-item">
-			<a class="nav-link js-scroll-trigger" href="/dsm/views/product/productEnrollment.jsp"><b>상품 등록</b></a>
+
 			</li>
 			<li class="nav-item">
 			<a class="nav-link js-scroll-trigger" href="views/board/board.jsp"><b>게시판</b></a>
@@ -68,12 +70,20 @@
 		<div style="margin-bottom: 20px">
 			<input type="password" id="" placeholder="비밀번호를 입력하세요" style="width:250px; height:40px; font-size: 12px; box-shadow:0px 0px 20px #000; border-radius:6px;">
 		</div>
-		<a id="login" class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="/dsm/login.me" style="padding: 7px 60px
-		; box-shadow:0px 0px 10px #000; background-color:#fed136;"><label style="width:100px; height:12px; ">로그인</label></a>
+
 		<div style="margin-top:10px;"><a href="/dsm/views/member/find_Id.jsp">아이디 찾기</a> / <a href="/dsm/views/member/find_pw.jsp">비밀번호 찾기</a> / <a href="/dsm/views/member/user_terms2.jsp">회원가입</a></div>
 	</div>
 </div>
 </header>
+
+<script>
+	$(function () {
+		$("#productEnrollment").click(function () {
+			$("#productEnrollment").css("cursor","pointer");
+			alert("로그인이 필요한 서비스 입니다.");
+		})
+	})
+</script>
 
     <!-- Bootstrap core JavaScript -->
     <script src="/dsm/vendor/jquery/jquery.min.js"></script>
