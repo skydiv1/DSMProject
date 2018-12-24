@@ -20,7 +20,7 @@ public class MyPage {
 	
 	
 	public MyPage() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 
