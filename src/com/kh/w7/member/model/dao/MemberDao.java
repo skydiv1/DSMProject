@@ -1,6 +1,7 @@
 package com.kh.w7.member.model.dao;
 
-import java.io.FileNotFoundException;
+import static com.kh.w7.common.JDBCTemplate.close;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -10,7 +11,6 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import com.kh.w7.member.model.vo.Member;
-import static com.kh.w7.common.JDBCTemplate.*;
 
 public class MemberDao {
 	private Properties prop = new Properties();
@@ -38,7 +38,7 @@ public class MemberDao {
 			pstmt.setString(2, reqMember.getMember_pwd());
 			
 			rset=pstmt.executeQuery();
-			
+			System.out.println("rset(확인):"+rset);
 			if(rset.next()) {
 				loginUser=new Member();
 				
@@ -53,14 +53,14 @@ public class MemberDao {
 				loginUser.setSeller_grade(rset.getInt("SELLER_GRADE"));
 				loginUser.setSeller_career(rset.getString("SELLER_CAREER"));
 				loginUser.setMember_admin(rset.getInt("MEMBER_ADMIN"));
-				loginUser.setPrivatemember_status(rset.getInt("PRIVATEMEMBER_STATUS"));
+				loginUser.setPrivatemember_status(rset.getInt("MEMBER_STATUS"));
 				loginUser.setSeller_accountName(rset.getString("SELLER_ACCOUNTNAME"));
 				loginUser.setSeller_bank(rset.getString("SELLER_BANK"));
 				loginUser.setSeller_account(rset.getString("SELLER_ACCOUNT"));
 			
 			
 			}
-			
+			System.out.println("loginUser(확인): "+loginUser);
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
