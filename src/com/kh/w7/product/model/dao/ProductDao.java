@@ -12,6 +12,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.w7.common.Attachment;
+import com.kh.w7.product.model.vo.PlusProduct;
 import com.kh.w7.product.model.vo.Product;
 
 public class ProductDao {
@@ -159,10 +161,7 @@ public class ProductDao {
 			pstmt.setString(3, product.getProductItem());
 			pstmt.setInt(4, product.getProductItemPrice());
 			pstmt.setString(5, product.getProductContext());
-			
-			// ★ insert를 조인해서 사용?.. plusProduct 테이블에서 가져다 써야되는데...
-			// 조인해서는 사용불가능 - 따라서 해시맵이나 ArrayList를 이용해서 이미지를 여러 개 담는 것처럼 사용해야 한다.
-			
+						
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -173,5 +172,93 @@ public class ProductDao {
 		
 		return result;
 	}
+
+	
+	/* 현재 시퀀스 값 조회 */
+	public int selectCurrval(Connection con) {
+		Statement stmt = null;
+		ResultSet rset =null;
+		
+		int currNum=0;
+		
+		String query = prop.getProperty("selectCurrval"); // 현재 동작한 시퀀스 번호를 알 수 있다.
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				currNum = rset.getInt("CURRVAL");
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt); // Connection을 닫으면 안된다. service에서 트랜젝션 처리를 해 줄 수 없다
+		}
+		
+		return currNum;
+	}
+
+	
+	/* 상품 추가 목록에 데이터 삽입 */
+	public int insertPlusProduct(Connection con, ArrayList<PlusProduct> plusProduct) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertPlusProduct");
+				
+		try {
+			for(int i=0; i<plusProduct.size(); i++) {
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, plusProduct.get(i).getProductNo());
+				pstmt.setString(2, plusProduct.get(i).getPlusProductItem());
+				pstmt.setInt(3, plusProduct.get(i).getPlusProductPrice());
+				
+				result += pstmt.executeUpdate(); // 누적 연산으로 합쳐준다
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println("plusProduct.size(크기확인..): "+plusProduct.size()); // 3
+		System.out.println("plusProduct에 값이 들어오는지.. : "+plusProduct);
+		System.out.println("insertPlusProduct(result값): "+result);
+		return result;
+	}
+
+
+	/* 상품 등록 페이지(이미지 첨부 포함) */
+	public int insertAttachment(Connection con, ArrayList<Attachment> fileList) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertAttachment");
+		
+		
+		try {
+			for(int i=0; i<fileList.size(); i++) {
+				pstmt = con.prepareStatement(query);
+				pstmt.setString(1, fileList.get(i).getOriginName());
+				pstmt.setString(2, fileList.get(i).getChangeName());
+				pstmt.setInt(3, fileList.get(i).getProductNo());
+				pstmt.setString(4, fileList.get(i).getImgFile());
+				
+				result += pstmt.executeUpdate(); // 누적 연산으로 합쳐준다
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 
 }

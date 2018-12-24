@@ -61,7 +61,7 @@
 	<section class="bg-light" id="portfolio" style="">
 	<h2 style="margin-top: -80px; padding-left: 10%;">상품 등록</h2>
 	<br>
-	<form action="<%=request.getContextPath() %>/insert.pr" method="post" enctype="multipart/form-data"> <!-- enctype="multipart/form-data":파일을 넘길때 -->
+	<form action="<%=request.getContextPath() %>/insert.pr" onsubmit="return check()" method="post" enctype="multipart/form-data"> <!-- enctype="multipart/form-data":파일을 넘길때 -->
 
 		<div class="input-group input-group-lg"
 			style="width: 70%; padding-left: 10%;">
@@ -299,13 +299,9 @@
 		  		}
 		  		if(cnt==3){
 				    $('#addtionalTable > tbody:last > tr:last').remove();	
-				    //$("input[name=additionalItem3]").val(" "); // 서블릿에서 500번 오류를 막기 위해(null을 넘겨주지 않기 위해) 
-				    //$("input[name=additionalPrice3]").val(" "); // 해당 칸에 공백을 넣어서 넘긴다. (오류 날지 안날지 아직 모름..시도 전)
-		  		}else if(cnt==2){
+				}else if(cnt==2){
 		  		    $('#addtionalTable > tbody:last > tr:last').remove();	
-				    //$("input[name=additionalItem2]").val(" ");
-				    //$("input[name=additionalPrice2]").val(" ");	
-			  	}else{  	
+				  }else{  	
 		  			console.log("삭제 불가능");
 		  			cnt=2; name=2; // 초기화 (아래에서 한 번 더 빼주기 때문에 1 많은수로)
 		  		}
@@ -314,7 +310,7 @@
 		  		console.log("cnt: "+cnt);
 	    		console.log("name: "+name);
 			});
-			
+		      
 			/* 첨부파일 숨기기 */
 	        $("#fileArea").hide();   
 			
@@ -366,7 +362,41 @@
             }
             reader.readAsDataURL(value.files[0]); // 파일에 대한 것을 URL을 읽는 것            
          }         
-      }
+      }      
+	</script>
+	<script>
+		/* 필수적으로 입력해야 하는 값, 입력하지 않았을 때 값 넘기지 않음 */
+	    function check() {
+	 		 if($("input[name=title]").val() == "") {
+	 		    	alert("제목을 입력해주세요.");
+	 		 		$("input[name=title]").focus();
+	 		    	return false;
+	 		 }else if($("input[name=basicItem]").val() == ""){
+	   		    	alert("기본항목을 입력해주세요.");
+	     		 	$("input[name=basicItem]").focus();
+	     		    return false;
+	 		 }else if($("input[name=basicPrice]").val() == ""){ 
+	   		    	alert("기본항목의 가격을 입력해주세요.");
+	     		 	$("input[name=basicPrice]").focus();
+	     		    return false;
+	 		 }else if($("input[name=content]").val() == ""){
+	   		    	alert("서비스 설명을 입력해주세요.");
+	     		 	$("input[name=content]").focus();
+	     		    return false;
+		  	 }else if($("input[name=additionalItem1]").val() == ""){ 
+	     		 	$("input[name=additionalItem1]").val("추가항목 없음");
+	     		 	$("input[name=additionalPrice1]").val("0");
+	     		    return false;
+	 		 }else if($("input[name=additionalItem2]").val() == ""){ 
+	     		 	$("input[name=additionalItem2]").val("추가항목 없음");
+	     		 	$("input[name=additionalPrice2]").val("0");
+	     		    return false;
+	 		 }else if($("input[name=additionalItem3]").val() == ""){ 
+	     		 	$("input[name=additionalItem3]").val("추가항목 없음");
+	     		 	$("input[name=additionalPrice3]").val("0");
+	     		    return false;
+	 		 }else return true;	
+		}
 	</script>
 	
 	<!-- Footer ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
