@@ -2,7 +2,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-	ArrayList<Product> list = (ArrayList<Product>)request.getAttribute("list");
+	//ArrayList<Product> list = (ArrayList<Product>)request.getAttribute("list");
+	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>)request.getAttribute("list");
+
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	// 미리 값을 꺼내서 저장해서 사용 (매번 꺼내서 사용하는 불편함을 줄이기 위함)
 	int listCount = pi.getListCount();
@@ -82,19 +84,22 @@
 
 	<div class="container">
 		<div class="row">
-		<% for(Product product : list){ %>
-			<input type="hidden" value="<%=product.getProductNo()%>">
-			<div class="col-md-4 col-sm-6 portfolio-item">
+		<% for(int i=0; i<list.size(); i++){ 
+			HashMap<String, Object> hmap = list.get(i);	
+		%>
+			<input type="hidden" value="<%=hmap.get("productNo")%>"> 
+			<div id="imageList" class="col-md-4 col-sm-6 portfolio-item">
 				<a class="portfolio-link" data-toggle="modal" href="#">
 					<div class="portfolio-hover">
 						<div class="portfolio-hover-content">
+							<input type="hidden" value="<%=hmap.get("productNo")%>">
 							<i class="fas fa-plus fa-3x"></i>
 						</div>
-					</div> <img class="img-fluid" src="/dsm/img/portfolio/01-thumbnail.jpg" alt="">
+					</div> <img style="width:400px; height:300px" class="img-fluid" src="/dsm/image_uploadFiles/<%=hmap.get("changeName")%>" alt="">
 				</a>
 				<div class="portfolio-caption">
-					<h4><%=product.getProductName() %></h4>
-					<p class="text-muted"><spna><%=product.getProductItemPrice() %></spna>원</p>
+					<h4><%=hmap.get("productName") %></h4>
+					<p class="text-muted"><spna><%=hmap.get("productItemPrice") %></spna>원</p>
 				</div>
 			</div>
 			<%} %>
@@ -133,6 +138,18 @@
 		</div>
 	<!-- 페이징 처리 끝 //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	</section>
+	
+	<script>
+		$(function () {
+			$("#imageList").click(function () {
+				var num = $(this).children().children().children().children().eq(0).val(); // eq(0).val(); //eq 0번째의 value값
+				console.log(num); // bid 값 확인
+				
+				// bid의 값이 num에 담겨 넘겨준다.
+				location.href = "<%=request.getContextPath()%>/selectOne.pr?num=" + num; 
+			});
+		});
+	</script>
 
 	<!-- Footer ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	<%@ include file="/views/common/footer.jsp"%>

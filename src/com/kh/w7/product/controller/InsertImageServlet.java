@@ -137,29 +137,29 @@ public class InsertImageServlet extends HttpServlet {
 			product.setProductContext(multiContent);
 			
 			// 배열에 담아서 가져와야 한다.
-			ArrayList<PlusProduct> plusProduct = new ArrayList<PlusProduct>();
+			ArrayList<PlusProduct> pList = new ArrayList<PlusProduct>();
 			PlusProduct pp = null;			
 
 			if(multiAdditionalItem1 != "") {
 				pp = new PlusProduct();
 				pp.setPlusProductItem(multiAdditionalItem1);
 				pp.setPlusProductPrice(multiAdditionalPrice1);		
-				plusProduct.add(pp);		
+				pList.add(pp);		
 			}	
 			if(multiAdditionalItem2 != "") {
 				pp = new PlusProduct();
 				pp.setPlusProductItem(multiAdditionalItem2);
 				pp.setPlusProductPrice(multiAdditionalPrice2);		
-				plusProduct.add(pp);		
+				pList.add(pp);		
 			}	
 			if(multiAdditionalItem3 != "") {
 				pp = new PlusProduct();
 				pp.setPlusProductItem(multiAdditionalItem3);
 				pp.setPlusProductPrice(multiAdditionalPrice3);		
-				plusProduct.add(pp);		
+				pList.add(pp);		
 			}
 						
-			int result2 = new ProductService().insertPlusProduct(product, plusProduct);
+			int result2 = new ProductService().insertPlusProduct(product, pList);
 						
 			// 세션으로 작성자를 가져온다.
 			//product.setbWriter(String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getUno()));
@@ -170,7 +170,7 @@ public class InsertImageServlet extends HttpServlet {
 			// 반복문을 통해 거꾸로 넘어온 파일들을 다시 역순으로 바꿔준다.
 			for(int i=originFiles.size()-1; i>=0; i--) {
 				Attachment at = new Attachment();
-				at.setImgFile(filePath);
+				at.setImgFilePath(filePath);
 				at.setOriginName(originFiles.get(i));
 				at.setChangeName(saveFiles.get(i));
 				

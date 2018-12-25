@@ -1,5 +1,26 @@
+<%@page import="com.kh.w7.product.model.vo.PlusProduct"%>
+<%@page import="com.kh.w7.member.model.vo.Member"%>
+<%@page import="com.kh.w7.common.Attachment"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.kh.w7.product.model.vo.Product"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	Product product = (Product)request.getAttribute("product");
+	Member member = (Member)request.getAttribute("member");
+	ArrayList<Attachment> fileList = (ArrayList<Attachment>)request.getAttribute("fileList");
+	Attachment detailImg1 = fileList.get(0);
+	Attachment detailImg2 = fileList.get(1);
+	Attachment detailImg3 = fileList.get(2);	
+	Attachment detailImg4 = fileList.get(3);	
+	Attachment detailImg5 = fileList.get(4);	
+	Attachment detailImg6 = fileList.get(5);	 
+	
+	ArrayList<PlusProduct> pList = (ArrayList<PlusProduct>)request.getAttribute("pList");
+	PlusProduct detail1 = pList.get(0);
+	PlusProduct detail2 = pList.get(1);
+	PlusProduct detail3 = pList.get(2);
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -88,25 +109,26 @@
 <!-- 네비게이션 바 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	<section class="bg-light" id="portfolio">
 
-	<h2 style="margin-top: -80px; padding-left: 17%;">상품 상세</h2>
-	<br>
-
 	<table width="70%" style="margin-left: 17%;" border="0">
 		<tr>
-			<td rowspan="4"><img class="img-fluid"
-				src="/dsm/img/portfolio/01-thumbnail.jpg" alt=""
-				style="box-shadow: 0px 0px 10px #000;"></td>
+			<td>			
+				<h2>상품 상세</h2>
+				<br>
+			</td>	
 			<td>
-				<div
-					style="font-size: 20px; font: bold; margin-left: 5%; margin-bottom: 5%;">상품
-					1 제목이 들어갑니다.</div>
+				<div style="font-size: 20px; margin-left: 5%; ">작성자 : <span><%=member.getMember_id() %></span></div>
+			</td>	
+		</tr>
+		<tr>
+			<td rowspan="4"><img class="img-fluid" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg1.getChangeName()%>" alt="" style="box-shadow: 0px 0px 10px #000; width:530px; height:420px;"></td>
+			<td>
+				<div style="font-size: 20px; font: bold; margin-left: 5%; margin-bottom: 5%;"><%=product.getProductName() %></div> <!-- 상품 제목 -->
 			</td>
 		</tr>
 		<tr>
 			<td width="50%">
-				<div
-					style="font-size: 15px; font: bold; margin-left: 5%; margin-top: 15%;">
-					기본 금액: <span style="font-size: 20px; margin-left: 60%;">350000</span>원
+				<div style="font-size: 15px; font: bold; margin-left: 5%; margin-top: 15%;">
+					기본 금액: <span style="font-size: 20px; margin-left: 60%;"><%= product.getProductItemPrice() %></span>원
 				</div>
 			</td>
 		</tr>
@@ -116,11 +138,11 @@
 					style="padding-right: 10%; margin-left: 5%;">
 					<select class="btn btn-outline-secondary">
 						<option value="category" selected>추가옵션(선택)</option>
-						<option value="education"><span>추가 강습(시간당)</span> : <span>20000</span>원
+						<option value="education"><span><%=detail1.getPlusProductItem()%></span> : <span><%=detail1.getPlusProductPrice()%></span>원
 						</option>
-						<option value="shooting"><span>추가 촬영(시간당)</span> : <span>35000</span>원
+						<option value="shooting"><span><%=detail2.getPlusProductItem()%></span> : <span><%=detail2.getPlusProductPrice()%></span>원
 						</option>
-						<option value="edit"><span>편집</span> : <span>50000</span>원
+						<option value="edit"><span><%=detail3.getPlusProductItem()%></span> : <span><%=detail3.getPlusProductPrice()%></span>원
 						</option>
 					</select>
 				</div>
@@ -168,40 +190,38 @@
 		<div class="tab-content" id="myTabContent">
 			<div class="tab-pane fade show active" id="a" role="tabpanel"
 				aria-labelledby="a-tab" style="margin-left: 3%; margin-top: 3%;">
-				<h5>서비스 설명</h5>
-				<br>
-				<br>
+				<h5>상품 설명</h5>
+				<br><br>
+				
 				<div>
-					드론의 기초, 항공안전법, 항공촬영법 등 강의를 진행되며, <br> 드론 국가 자격증 취득을 원하시는 분은
-					자격취득까지 교육을 진행 합니다.<br> <br> 보다 효과적인 교육 진행을 위해 <br>
-					현직 촬영감독 및 비행교관 까지 여러분을 기다리고 있습니다.<br>
-					<br>
-					<br>
+					<%= product.getProductContext() %> <!-- 상품 설명 -->
 				</div>
+				<br><br>
+				
 				<table>
 					<tr>
-						<td><img class="img-fluid"
-							src="/dsm/img/portfolio/01-thumbnail.jpg" alt=""
-							style="width: 350px; height: 350px;"></td>
-						<td><img class="img-fluid"
-							src="/dsm/img/portfolio/02-thumbnail.jpg" alt=""
-							style="width: 350px; height: 350px;"></td>
+						<td style="padding: 2% 2% 2% 0%;"><img class="img-fluid"
+							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg1.getChangeName()%>"
+							style="width: 420px; height: 300px;"></td>
+						<td style="padding: 2% 2% 2% 2%;"><img class="img-fluid"
+							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg2.getChangeName()%>"
+							style="width: 420px; height: 300px;"></td>
 					</tr>
 					<tr>
-						<td><img class="img-fluid"
-							src="/dsm/img/portfolio/03-thumbnail.jpg" alt=""
-							style="width: 350px; height: 350px;"></td>
-						<td><img class="img-fluid"
-							src="/dsm/img/portfolio/04-thumbnail.jpg" alt=""
-							style="width: 350px; height: 350px;"></td>
+						<td style="padding: 2% 2% 2% 0%;"><img class="img-fluid"
+							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg3.getChangeName()%>"
+							style="width: 420px; height: 300px;"></td>
+						<td style="padding: 2% 2% 2% 2%;"><img class="img-fluid"
+							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg4.getChangeName()%>"
+							style="width: 420px; height: 300px;"></td>
 					</tr>
 					<tr>
-						<td><img class="img-fluid"
-							src="/dsm/img/portfolio/05-thumbnail.jpg" alt=""
-							style="width: 350px; height: 350px;"></td>
-						<td><img class="img-fluid"
-							src="/dsm/img/portfolio/06-thumbnail.jpg" alt=""
-							style="width: 350px; height: 350px;"></td>
+						<td style="padding: 2% 2% 2% 0%;"><img class="img-fluid"
+							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg5.getChangeName()%>"
+							style="width: 420px; height: 300px;"></td>
+						<td style="padding: 2% 2% 2% 2%;"><img class="img-fluid"
+							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg6.getChangeName()%>"
+							style="width: 420px; height: 300px;"></td>
 					</tr>
 				</table>
 			</div>
@@ -209,17 +229,19 @@
 				aria-labelledby="b-tab" style="margin-left: 3%; margin-top: 3%;">
 				<div>
 					<h5>취소 및 환불 규정</h5>
-					<br> <br> 가. 기본 환불 규정 <br> 1. 전문가와 의뢰인의 상호 협의하에 청약
-					철회 및 환불이 가능합니다. <br> 2. 섭외, 대여 등 사전 준비 도중 청약 철회 시, 해당 비용을 공제한
-					금액을 환불 가능합니다. <br> 3. 촬영 또는 편집 작업 착수 이후 청약 철회 시, 진행된 작업량 또는 작업
-					일수를 산정한 금액을 공제한 부분 환불이 가능합니다.<br> <br> [환불 가이드라인] <br>
-					(1) 기획 단계에서 청약 철회: 총 결제 금액의 최대 80%까지 환불 가능 <br> (2) 촬영 완료 후 청약
-					철회: 총 결제 금액의 최대 20%까지 환불 가능 <br> (3) 편집 작업 50% 완료 후 청약 철회: 총
-					결제 금액의 최대 10%까지 환불 가능<br> <br> 나. 전문가 책임 사유 <br> 1.
-					소비자 피해 보상 규정에 의거하여 촬영 원본의 멸실 및 재해로 인한 피해 발생 시, 전액 환불합니다. <br>
-					2. 작업 기간 미준수, 작업 태만 및 이에 상응하는 전문가 책임으로 인한 청약 철회 시, 환불 및 촬영 원본 제공이
-					가능합니다. <br> <br> 다. 의뢰인 책임 사유 <br> 작업이 시작되면 단순 변심 또는
-					의뢰인 책임 사유로 인한 전액 환불이 불가능합니다.<br>
+					<br><br> 가. 기본 환불 규정 
+					<br>1. 전문가와 의뢰인의 상호 협의하에 청약 철회 및 환불이 가능합니다. 
+					<br>2. 섭외, 대여 등 사전 준비 도중 청약 철회 시, 해당 비용을 공제한 금액을 환불 가능합니다. 
+					<br>3. 촬영 또는 편집 작업 착수 이후 청약 철회 시, 진행된 작업량 또는 작업 일수를 산정한 금액을 공제한 부분 환불이 가능합니다.
+					<br><br> [환불 가이드라인] 
+					<br>(1) 기획 단계에서 청약 철회: 총 결제 금액의 최대 80%까지 환불 가능 
+					<br>(2) 촬영 완료 후 청약 철회: 총 결제 금액의 최대 20%까지 환불 가능 
+					<br>(3) 편집 작업 50% 완료 후 청약 철회: 총 결제 금액의 최대 10%까지 환불 가능
+					<br><br> 나. 전문가 책임 사유 
+					<br>1. 소비자 피해 보상 규정에 의거하여 촬영 원본의 멸실 및 재해로 인한 피해 발생 시, 전액 환불합니다. 
+					<br>2. 작업 기간 미준수, 작업 태만 및 이에 상응하는 전문가 책임으로 인한 청약 철회 시, 환불 및 촬영 원본 제공이 가능합니다. 
+					<br><br> 다. 의뢰인 책임 사유 
+					<br>작업이 시작되면 단순 변심 또는 의뢰인 책임 사유로 인한 전액 환불이 불가능합니다.<br>
 				</div>
 			</div>
 			<div class="tab-pane fade" id="c" role="tabpanel"
@@ -271,9 +293,9 @@
 	<br><br><br><br>
 	<button onclick="location.href='productEdit.jsp'" class="btn btn-warning" style="width:7%; height:40px; margin-left: 80%">수정하기</button>
 </section>
+		console.log();
 
 	<script>
-	
 	</script>
 
 	<!-- Footer ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->

@@ -2,6 +2,7 @@ package com.kh.w7.product.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -77,7 +78,8 @@ public class SelectListServlet extends HttpServlet {
 		PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 
 		// 조회
-		ArrayList<Product> list = new ProductService().selectList(currentPage, limit);
+		//ArrayList<Product> list = new ProductService().selectList(currentPage, limit);
+		ArrayList<HashMap<String, Object>> list = new ProductService().selecImagetList(currentPage, limit); 
 		
 		// 성공 여부에 따라 처리
 		String page = "";
@@ -86,9 +88,8 @@ public class SelectListServlet extends HttpServlet {
 			request.setAttribute("pi", pi);			
 			page="views/product/productList.jsp";
 		}else {
-			request.setAttribute("msg", "상품 목록 조회 실패!");
-			
 			page="views/common/errorPage.jsp";
+			request.setAttribute("msg", "상품 목록 조회 실패!");			
 		}
 		RequestDispatcher view = request.getRequestDispatcher(page);
 		view.forward(request, response);
