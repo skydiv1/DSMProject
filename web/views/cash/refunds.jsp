@@ -70,7 +70,7 @@
 <div class="container" align = "center">
 	<div align = "center">
 		<div  style = "font-size : 1.3em; font-weight : bold;">user1님의 환급 신청 가능한 금액은</div>
-		<div  style = "font-size : 1.7em; font-weight : bold; color : red;">580,000원 <div style = "display : inline; color : black; font-size : 0.8em; font-weight : bold;">입니다</div></div>
+		<div id = "refundMoney"  style = "font-size : 1.7em; font-weight : bold; color : red;">580000<div style = "display : inline; color : black; font-size : 0.8em; font-weight : bold;">원 입니다</div></div>
      	<div  style = "font-size : 1.3em; font-weight : bold;">아래 환급계좌 정보를 입력해 주세요.</div>
       	<div  style = "font-size : 1.0em; font-weight : bold; color : gray;">환급처리는 일반적으로 신청일로부터 2일 후(토,일, 공휴일제외)에 일괄 처리됩니다.</div>
 	</div>
@@ -101,20 +101,21 @@
 	       	<option value = "국민은행">국민은행</option>
 	        <option value = "신한은행">신한은행</option>
 	        <option value = "기업은행">기업은행</option>
+	        <option value = "우리은행">우리은행</option>
+	        <option value = "하나은행">하나은행</option>
 	        <option value = "농협">농협</option>
-	        <option value = "우체국">우체국</option>
+	        <option value = "지역농협">지역농협</option>
 	      </select></td>
 	
 	    </tr>
 	    <tr>
 	      <th class="tRow">계좌번호</th>
-	      <td><input type = "text" name = "refundsAccount" placeholder = "-없이 숫자만 입력하세요" style = "width : 300px"></td>
+	      <td><input type = "text" name = "refundsAccount" placeholder = "-를 포함하여 숫자를 입력해주세요" style = "width : 300px"></td>
 	
 	    </tr>
 	    <tr>
 	      <th style = "vertical-align: middle;" class="tRow">계좌인증</th>
-	      <td><button type="button" class="btn btn-danger" name = "refundsCertification">계좌 인증하기</button></td>
-	
+	      <td id = "printEffectiveness"><button type="button" class="btn btn-danger" name = "refundsCertification" id = "accountCertBtn">계좌 인증하기</button></td>
 	    </tr>
 	    <tr>
 	      <th style = "vertical-align: middle;" class="tRow">환급동의</th>
@@ -127,10 +128,68 @@
 	
 	<br>
 	
-	<button type="button" class="btn btn-warning" style = "width : 200px;">신청하기</button>
+	<button type="button" class="btn btn-warning" style = "width : 200px;" id = "applyRefundBtn">신청하기</button>
 </div>
 </section>
 
+
+<script>
+	$(function(){
+		$("#accountCertBtn").click(function(){
+			var name = $("input[name = refundsName]").val();
+			var birth = $("input[name = refundsBirth]").val();
+			var bank = $("select[name = refundsBank]").val();
+			var account = $("input[name = refundsAccount]").val();
+			
+			$.ajax({
+				url : "/dsm/accountCert.re",
+				data : {name : name,
+						birth : birth,
+						bank : bank,
+						account : account},
+				type : "post",
+				success : function(data){
+					//console.log(data);
+					$("#printEffectiveness").append("&nbsp;&nbsp;&nbsp;"+data).css({"color" : "red"});
+				},
+				error : function(){
+					console.log("실패!");
+				}
+			});
+		});
+	});
+	
+	$(function(){
+		$("#applyRefundBtn").click(function(){
+			var name = $("input[name = refundsName]").val();
+			var birth = $("input[name = refundsBirth]").val();
+			var bank = $("select[name = refundsBank]").val();
+			var account = $("input[name = refundsAccount]").val();
+			var refundMoney = $("#refundMoney").text();
+			
+			location.href = "/dsm/index.jsp"; //페이지 이동 후 값 삽입
+			
+			$.ajax({
+				url : "/dsm/applyRefund.re",
+				data : {name : name,
+						birth : birth,
+						bank : bank,
+						account : account,
+						refundMoney : refundMoney},
+				type : "post",
+				success : function(data){
+					console.log(data);
+
+				},
+				error : function(){
+					console.log("실패!");
+					
+				}
+			});
+		});
+	});
+
+</script>
 
 
 

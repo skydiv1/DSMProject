@@ -1,4 +1,4 @@
-package com.kh.w7.pay.model.dao;
+package com.kh.w7.refund.model.dao;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -8,13 +8,14 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import static com.kh.w7.common.JDBCTemplate.*;
-import com.kh.w7.pay.model.vo.Pay;
+import com.kh.w7.pay.model.dao.PayDao;
+import com.kh.w7.refund.model.vo.Refund;
 
-public class PayDao {
+public class RefundDao {
 
 	private Properties prop = new Properties();
 	
-	public PayDao() {
+	public RefundDao() {
 		
 		String fileName= PayDao.class.getResource("/sql/cash/cash-query.properties").getPath();
 		
@@ -24,28 +25,36 @@ public class PayDao {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 	}
 	
-	public int insertPay(Connection con, Pay p) {
+	public int insertRefundData(Connection con, Refund r) {
 		// TODO Auto-generated method stub
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
-		String query = prop.getProperty("insertPay");
+		String query = prop.getProperty("insertRefundData");
+		
+		System.out.println(r);
+		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, p.getMember_code());
-			pstmt.setInt(2, p.getPay_price());
+			pstmt.setInt(1, r.getMember_code());
+			pstmt.setInt(2, r.getRefund_money());
+			pstmt.setString(3, r.getMember_name());
+			pstmt.setString(4, r.getMember_birth());
+			pstmt.setString(5, r.getRefund_bank());
+			pstmt.setString(6, r.getRefund_account());	
+			result = pstmt.executeUpdate(); //여기서 안내려감
 			
-			result = pstmt.executeUpdate();
 			
+			System.out.println("dao result : " + result);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
 		}
-		
 		
 		return result;
 	}
