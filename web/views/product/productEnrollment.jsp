@@ -43,7 +43,7 @@
 	#contentImgArea1,#contentImgArea2,#contentImgArea3
 	,#contentImgArea4,#contentImgArea5,#contentImgArea6{
 		width: 450px;
-		height: 450px;
+		height: 300px;
 		border: 2px dashed darkgray;
 		text-align: center;
 		display: table-cell;
@@ -197,38 +197,38 @@
 				style="font-size: 20px; font: bold;">이미지 첨부 (이미지는 최대 6장 까지 등록이 가능합니다.)</label>
 		</div>
 
-		<table align="center" border="0" width="80%" height="80%" align="center">
+		<table align="center" border="0" width="80%" align="center">
 			<tr>
 				<td style="padding: 2% 2% 2% 2%;" width="470px">
 					<div id="contentImgArea1">
-						<img id="contentImg1"><div id="text1" style="font-size: 30px;">대표 이미지를 넣어주세요</div>
+						<img id="contentImg1" style="box-shadow: 0px 0px 10px #000;"><div id="text1" style="font-size: 30px;">대표 이미지를 넣어주세요</div>
 					</div>
 				</td>
 				<td  style="padding: 2% 2% 2% 2%;" width="470px">
 					<div id="contentImgArea2">
-						<img id="contentImg2"><div id="text2" style="font-size: 30px; color: darkgray;">추가 이미지를 넣어주세요</div>
+						<img id="contentImg2" style="box-shadow: 0px 0px 10px #000;"><div id="text2" style="font-size: 30px; color: darkgray;">추가 이미지를 넣어주세요</div>
 					</div>
 				</td>
 				<td  style="padding: 2% 2% 2% 2%;" width="470px">
 					<div id="contentImgArea3">
-						<img id="contentImg3"><div id="text3" style="font-size: 30px; color: darkgray;">추가 이미지를 넣어주세요</div>
+						<img id="contentImg3" style="box-shadow: 0px 0px 10px #000;"><div id="text3" style="font-size: 30px; color: darkgray;">추가 이미지를 넣어주세요</div>
 					</div>
 				</td>
 			</tr>
 			<tr>
 				<td style="padding: 2% 2% 2% 2%;">
 					<div id="contentImgArea4">
-						<img id="contentImg4"><div id="text4" style="font-size: 30px; color: darkgray;">추가 이미지를 넣어주세요</div>
+						<img id="contentImg4" style="box-shadow: 0px 0px 10px #000;"><div id="text4" style="font-size: 30px; color: darkgray;">추가 이미지를 넣어주세요</div>
 					</div>
 				</td>
 				<td style="padding: 2% 2% 2% 2%;">
 					<div id="contentImgArea5">
-						<img id="contentImg5"><div id="text5" style="font-size: 30px; color: darkgray;">추가 이미지를 넣어주세요</div>
+						<img id="contentImg5" style="box-shadow: 0px 0px 10px #000;"><div id="text5" style="font-size: 30px; color: darkgray;">추가 이미지를 넣어주세요</div>
 					</div>
 				</td>
 				<td style="padding: 2% 2% 2% 2%;">
 					<div id="contentImgArea6">
-						<img id="contentImg6"><div id="text6" style="font-size: 30px; color: darkgray;">추가 이미지를 넣어주세요</div>
+						<img id="contentImg6" style="box-shadow: 0px 0px 10px #000;"><div id="text6" style="font-size: 30px; color: darkgray;">추가 이미지를 넣어주세요</div>
 					</div>
 				</td>
 			</tr>

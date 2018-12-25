@@ -9,13 +9,14 @@ public class Attachment implements java.io.Serializable{
 	private int memberCode;			// 회원코드
 	private int boardNo;				// 글번호
 	private int productNo;				// 상품번호
-	private String imgFile;				// 이미지 경로
+	private int imgLevel;				// 이미지 레벨
+	private String imgFilePath;		// 이미지 경로
 	private int imgDelete;				// 삭제여부
-	
+
 	public Attachment() {}
 
 	public Attachment(int imgNo, String originName, String changeName, int imgCategory, String sellerCertName,
-			int memberCode, int boardNo, int productNo, String imgFile, int imgDelete) {
+			int memberCode, int boardNo, int productNo, int imgLevel, String imgFilePath, int imgDelete) {
 		super();
 		this.imgNo = imgNo;
 		this.originName = originName;
@@ -25,7 +26,8 @@ public class Attachment implements java.io.Serializable{
 		this.memberCode = memberCode;
 		this.boardNo = boardNo;
 		this.productNo = productNo;
-		this.imgFile = imgFile;
+		this.imgLevel = imgLevel;
+		this.imgFilePath = imgFilePath;
 		this.imgDelete = imgDelete;
 	}
 
@@ -93,12 +95,20 @@ public class Attachment implements java.io.Serializable{
 		this.productNo = productNo;
 	}
 
-	public String getImgFile() {
-		return imgFile;
+	public int getImgLevel() {
+		return imgLevel;
 	}
 
-	public void setImgFile(String imgFile) {
-		this.imgFile = imgFile;
+	public void setImgLevel(int imgLevel) {
+		this.imgLevel = imgLevel;
+	}
+
+	public String getImgFilePath() {
+		return imgFilePath;
+	}
+
+	public void setImgFilePath(String imgFilePath) {
+		this.imgFilePath = imgFilePath;
 	}
 
 	public int getImgDelete() {
@@ -113,7 +123,7 @@ public class Attachment implements java.io.Serializable{
 	public String toString() {
 		return "Attachment [imgNo=" + imgNo + ", originName=" + originName + ", changeName=" + changeName
 				+ ", imgCategory=" + imgCategory + ", sellerCertName=" + sellerCertName + ", memberCode=" + memberCode
-				+ ", boardNo=" + boardNo + ", productNo=" + productNo + ", imgFile=" + imgFile + ", imgDelete="
-				+ imgDelete + "]";
+				+ ", boardNo=" + boardNo + ", productNo=" + productNo + ", imgLevel=" + imgLevel + ", imgFilePath="
+				+ imgFilePath + ", imgDelete=" + imgDelete + "]";
 	}
 }

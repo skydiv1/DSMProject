@@ -2,6 +2,7 @@ package com.kh.w7.product.model.service;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.w7.common.Attachment;
 import com.kh.w7.product.model.dao.ProductDao;
@@ -35,17 +36,26 @@ public class ProductService {
 
 
 	/* 상품 목록 페이지 조회(페이징처리) */
-	public ArrayList<Product> selectList(int currentPage, int limit) {
+/*	public ArrayList<Product> selectList(int currentPage, int limit) {
 		Connection con = getConnection();
 		
 		ArrayList<Product> list = new ProductDao().selectList(con, currentPage, limit);
+		
+		return list;
+	}*/
+	public ArrayList<HashMap<String, Object>> selecImagetList(int currentPage, int limit) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = new ProductDao().selecImagetList(con,currentPage, limit);
+		
+		close(con);
 		
 		return list;
 	}
 
 
 	/* 추가 항목 (최대 3개) 입력 */
-	public int insertPlusProduct(Product product, ArrayList<PlusProduct> plusProduct) {
+	public int insertPlusProduct(Product product, ArrayList<PlusProduct> pList) {
 		Connection con = getConnection();
 		int result = 0;
 		
@@ -53,14 +63,14 @@ public class ProductService {
 		
 		if(result1>0) {
 			int currNum = new ProductDao().selectCurrval(con); // 현재시퀀스 값 조회
-			System.out.println("현재시퀀시 값 조회: " + currNum);
+			System.out.println("(insertPlusProduct)현재시퀀시 값 조회: " + currNum);
 			
-			for(int i=0; i<plusProduct.size(); i++) { // 게시물 하나에 값 최대 3개가 존재
-				plusProduct.get(i).setProductNo(currNum); // product에서 시퀀스 값을 가져와서 1,2,3번에 해당 시퀀스 값을 넣어준다. / CURRVAL로 가져온 값
+			for(int i=0; i<pList.size(); i++) { // 게시물 하나에 값 최대 3개가 존재
+				pList.get(i).setProductNo(currNum); // product에서 시퀀스 값을 가져와서 1,2,3번에 해당 시퀀스 값을 넣어준다. / CURRVAL로 가져온 값
 			}
 		}
 
-		int result2 = new ProductDao().insertPlusProduct(con, plusProduct);
+		int result2 = new ProductDao().insertPlusProduct(con, pList);
 		
 		// 트랜젝션 처리
 		if(result1>0 && result2>0) { // 둘 다 양수여야 리턴할 수 있음
@@ -85,6 +95,7 @@ public class ProductService {
 		
 		if(result1>0) {
 			int productNo = new ProductDao().selectCurrval(con); // 현재시퀀스 값 조회
+			System.out.println("(insertThumbnail)현재시퀀시 값 조회: " + productNo);
 			
 			for(int i=0; i<fileList.size(); i++) { // 게시물 하나에 파일이 최대 6개가 존재
 				fileList.get(i).setProductNo(productNo); // Product에서 시퀀스 값을 가져와서 1,2,3,4번 사진에 해당 시퀀스 값을 넣어준다. / CURRVAL로 가져온 값
@@ -105,5 +116,24 @@ public class ProductService {
 		
 		return result;
 	}
+
+
+	/* 상품 목록에서 상품 상세보기 페이지로 이동 */
+	public HashMap<String, Object> selectThumbnailMap(int num) {
+		Connection con = getConnection();
+		
+		HashMap<String, Object> hmap = null;
+		
+		hmap = new ProductDao().selectThumbnailMap(con, num);
+		
+		close(con);
+		
+		System.out.println("hmap(service)확인: "+hmap);
+		
+		return hmap;
+	}
+
+
+
 
 }
