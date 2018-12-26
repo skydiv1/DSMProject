@@ -61,9 +61,10 @@
 		 		<% for(Board b : list){ %>
 		 				<tr>		 				                      
                             <td><%= b.getBoardNo() %></td>
-                            <td><%= b.getBoardTitle() %></td>
-                            <td><%= b.getBoardDate() %></td>
                             <td><%= b.getMemberCode() %></td>
+                            <td><%= b.getBoardTitle() %></td>
+                            <td><%= b.getBoardContext() %></td>
+                            <td><%= b.getBoardDate() %></td>
                             <td><%= b.getBoardCount() %></td>
                             
                         </tr>

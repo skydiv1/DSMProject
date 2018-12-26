@@ -37,7 +37,7 @@ public class BoardDao {
 		ResultSet rset = null;
 		ArrayList<Board> list = null;
 		String query = prop.getProperty("selectList");
-		
+
 		try {
 			stmt = con.createStatement();
 			rset = stmt.executeQuery(query);
@@ -45,7 +45,7 @@ public class BoardDao {
 			
 			while(rset.next()) {
 				Board b = new Board();
-				
+				if(b.getBoardCategory() == 0) {
 				b.setBoardNo(rset.getInt("BOARD_NO"));
 				b.setMemberCode(rset.getInt("MEMBER_CODE"));
 				b.setBoardTitle(rset.getString("BOARD_TITLE"));
@@ -56,7 +56,7 @@ public class BoardDao {
 				b.setBoardDelete(rset.getInt("BOARD_DELETE"));
 				
 				list.add(b);
-				
+				}
 			}
 			
 			
@@ -129,6 +129,7 @@ public class BoardDao {
 				b.setBoardContext(rset.getString("BOARD_CONTEXT"));
 				b.setBoardDate(rset.getDate("BOADR_DATE"));
 				b.setBoardCategory(rset.getInt("BOARD_CATEGORY"));
+				b.setBoardCount(rset.getInt("BOARD_COUNT"));
 				b.setBoardDelete(rset.getInt("BOARD_DELETE"));
 				
 				list.add(b);
