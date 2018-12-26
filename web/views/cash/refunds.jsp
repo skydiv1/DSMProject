@@ -56,15 +56,15 @@
 		}
 	</style>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+		accountCheck = 0;  //계좌 번호 정상입력 확인용 토글변수
+	</script>
   </head>
 <body>
 <%@ include file = "../common/navi.jsp" %>
 <!--/////////////////////////////////////////네비끝, 헤더시작//////////////////////////////////////////////////////////////////////////////////////////////  -->
 
 <!--/////////////////////////////////////////////헤더끝//////////////////////////////////////////////////////////////////////////////////////////  -->
-
-
-
 
 <section class="bg-light" id="portfolio">
 <div class="container" align = "center">
@@ -86,17 +86,17 @@
 	  <tbody>
 	    <tr>
 	      <th class="tRow" >예금주</th>
-	      <td ><input type = "text" name = "refundsName" placeholder = "성함을 입력하세요"></td>
+	      <td id = "tdRefundsName"><input type = "text" name = "refundsName" placeholder = "성함을 입력하세요"></td>
 	
 	    </tr>
 	    <tr>
 	      <th class="tRow">생년월일</th>
-	      <td><input type = "text" name = "refundsBirth" placeholder = "생년월일 6자리를 입력하세요">&nbsp;&nbsp;<div style = "color : gray;  display : inline; font-size : 0.8em;">예)831027</div></td>
+	      <td id = "tdRefundsBirth"><input type = "text" name = "refundsBirth" placeholder = "생년월일 6자리를 입력하세요">&nbsp;&nbsp;<div style = "color : gray;  display : inline; font-size : 0.8em;">예)831027</div></td>
 	
 	    </tr>
 	    <tr>
 	      <th class="tRow">은행선택</th>
-	      <td><select name = "refundsBank">
+	      <td id = "tdRefundsBank"><select name = "refundsBank">
 	      	<option value = "">은행 선택</option>
 	       	<option value = "국민은행">국민은행</option>
 	        <option value = "신한은행">신한은행</option>
@@ -110,7 +110,7 @@
 	    </tr>
 	    <tr>
 	      <th class="tRow">계좌번호</th>
-	      <td><input type = "text" name = "refundsAccount" placeholder = "-를 포함하여 숫자를 입력해주세요" style = "width : 300px"></td>
+	      <td id = "tdRefundsAccount"><input type = "text" name = "refundsAccount" placeholder = "-를 포함하여 숫자를 입력해주세요" style = "width : 300px"></td>
 	
 	    </tr>
 	    <tr>
@@ -119,7 +119,7 @@
 	    </tr>
 	    <tr>
 	      <th style = "vertical-align: middle;" class="tRow">환급동의</th>
-	      <td class="p-2 text-dark">본인은  환급급액에 대해 위 계좌를 환급되는 것에 동의합니다.  타인계좌로 환급 요청시, 이에 대한 모든 법적인 책임은 본인에게 있습니다.<br>
+	      <td id = "tdRefundsLaw" class="p-2 text-dark">본인은  환급급액에 대해 위 계좌를 환급되는 것에 동의합니다.  타인계좌로 환급 요청시, 이에 대한 모든 법적인 책임은 본인에게 있습니다.<br>
 	      	<div style = "color : red;  display : inline">위 내용에 확인하였으며, 이에 동의합니다.</div><input type = "checkbox" name = "refundsAgree"></td>
 	
 	    </tr>
@@ -129,12 +129,15 @@
 	<br>
 	
 	<button type="button" class="btn btn-warning" style = "width : 200px;" id = "applyRefundBtn">신청하기</button>
+	
 </div>
 </section>
 
 
 <script>
 	$(function(){
+		
+		
 		$("#accountCertBtn").click(function(){
 			var name = $("input[name = refundsName]").val();
 			var birth = $("input[name = refundsBirth]").val();
@@ -150,7 +153,19 @@
 				type : "post",
 				success : function(data){
 					//console.log(data);
-					$("#printEffectiveness").append("&nbsp;&nbsp;&nbsp;"+data).css({"color" : "red"});
+					
+					
+					if($.trim(data).substring(0,3) == "정상적"){
+						accountCheck = 1;
+						console.log("accountCheck = 1");
+					}else{
+						accountCheck = 0;
+						console.log("accountCheck = 0");
+					}
+					data ="<label>" + data + "</label>";
+					$("#printEffectiveness *").remove("label");
+					$("#printEffectiveness").append(data).css({"color" : "red"});
+					
 				},
 				error : function(){
 					console.log("실패!");
@@ -159,42 +174,86 @@
 		});
 	});
 	
+	
 	$(function(){
 		$("#applyRefundBtn").click(function(){
-			var name = $("input[name = refundsName]").val();
-			var birth = $("input[name = refundsBirth]").val();
-			var bank = $("select[name = refundsBank]").val();
-			var account = $("input[name = refundsAccount]").val();
-			var refundMoney = $("#refundMoney").text();
-			
-			location.href = "/dsm/index.jsp"; //페이지 이동 후 값 삽입
-			
-			$.ajax({
-				url : "/dsm/applyRefund.re",
-				data : {name : name,
-						birth : birth,
-						bank : bank,
-						account : account,
-						refundMoney : refundMoney},
-				type : "post",
-				success : function(data){
-					console.log(data);
+			var message = "";
+			$("#tdRefundsName *").remove("label");
+			$("#tdRefundsBirth *").remove("label");
+			$("#tdRefundsBank *").remove("label");
+			$("#tdRefundsAccount *").remove("label");
+			$("#tdRefundsLaw *").remove("label");
 
-				},
-				error : function(){
-					console.log("실패!");
-					
-				}
-			});
+			
+			if($("input[name = refundsName]").val() == ""){
+				message = "<label>정상적인 이름을 입력해주세요</label>";
+				$("#tdRefundsName").append(message).css({"color" : "red"});
+			}
+			else if ($("input[name = refundsBirth]").val() == ""){
+				message = "<label>정상적인 생년월일을 입력해주세요</label>";
+				$("#tdRefundsBirth").append(message).css({"color" : "red"});
+				
+			}else if ($("select[name = refundsBank]").val()==""){
+				message = "<label>정상적인 은행을 입력해주세요</label>";
+				$("#tdRefundsBank").append(message).css({"color" : "red"});
+				
+			}else if (accountCheck == 0){
+				message = "<label>정상적인 계좌를 입력해주세요</label>";
+				$("#tdRefundsAccount").append(message).css({"color" : "red"});
+				
+			}else if (refundMoney < 10000){
+				message = "<label>10,000원 이상의 금액만 환급이 가능합니다</label>";
+				$("#tdRefundsLaw").append(message).css({"color" : "red"});
+				
+			}else if (!$("input[name = refundsAgree]").is(":checked")){
+				message = "<label>환급 동의를 읽은 후 동의버튼을 눌러주세요</label>";
+				$("#tdRefundsLaw").append(message).css({"color" : "red"});
+				console.log("환급동의 실행");
+				
+			}else{
+				console.log("else부분 실행됨");
+				var name = $("input[name = refundsName]").val();
+				var birth = $("input[name = refundsBirth]").val();
+				var bank = $("select[name = refundsBank]").val();
+				var account = $("input[name = refundsAccount]").val();
+				var refundMoney = $("#refundMoney").text();
+				
+				
+				//location.href = window.open("/dsm/views/common/RefundPopUp.jsp");
+				
+				$.ajax({
+					url : "/dsm/applyRefund.re",
+					data : {name : name,
+							birth : birth,
+							bank : bank,
+							account : account,
+							refundMoney : refundMoney},
+					type : "post",
+					success : function(data){
+						//console.log(data);
+						//팝업창이 뜨고 확인을 누르면 index로 이동이 되게 하기
+						//location.href = "/dsm/index.jsp"; //페이지 이동 후 값 삽입
+						if(data > 0) {
+							page = "/dsm/index.jsp";
+							//response.sendRedirect(page);
+							location.href = page;
+							//location.href = window.open('/dsm/views/common/navi.jsp');
+						}else {
+							page = "/dsm/views/common/errorPage.jsp";
+							location.href = page;
+							//request.getRequestDispatcher(page).forward(request, response);
+						}
+					},
+					error : function(){
+						console.log("실패!");
+						
+					}
+				});
+			}
 		});
 	});
-
+	
 </script>
-
-
-
-
-
 
 <%@ include file = "../common/footer.jsp" %>
 

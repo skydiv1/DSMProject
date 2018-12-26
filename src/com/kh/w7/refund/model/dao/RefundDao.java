@@ -48,7 +48,7 @@ public class RefundDao {
 			result = pstmt.executeUpdate(); //여기서 안내려감
 			
 			
-			System.out.println("dao result : " + result);
+			//System.out.println("dao result : " + result);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

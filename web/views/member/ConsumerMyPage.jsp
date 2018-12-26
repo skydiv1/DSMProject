@@ -67,7 +67,7 @@
 			    </tr>
 			    <tr>
 			      <th scope="row">3</th>
-			      <td class="td1">Markㅇㄶㅇㄹㄴ</td>
+			      <td class="td1">Mark</td>
 			      <td class="td1">Mark</td>
 			      <td class="td1">Mark</td>
 			      <td style="width: 30px"><button type="button" class="btn btn-secondary"data-toggle="modal" data-target="#cencelModal">취소</button></td>
