@@ -54,15 +54,21 @@ include summernote-ko-KR
 <script src="lang/summernote-ko-KR.js"></script> -->
 
 <style>
-	#contentImgArea1,#contentImgArea2,#contentImgArea3
-	,#contentImgArea4,#contentImgArea5,#contentImgArea6{
-		width: 450px;
-		height: 300px;
-		border: 2px dashed darkgray;
-		text-align: center;
-		display: table-cell;
-		vertical-align: middle;				
-	}
+#contentImgArea1, #contentImgArea2, #contentImgArea3, #contentImgArea4,
+	#contentImgArea5, #contentImgArea6 {
+	width: 450px;
+	height: 300px;
+	border: 2px dashed darkgray;
+	text-align: center;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+input[type="number"]::-webkit-outer-spin-button, 
+input[type="number"]::-webkit-inner-spin-button{
+	-webkit-appearance: none;
+	margin: 0;
+}
 </style>
 </head>
 <body>
@@ -132,7 +138,7 @@ include summernote-ko-KR
 								<div class="input-group-prepend">
 									<span class="input-group-text">￦</span>
 								</div>
-								<input name="basicPrice"  type="text" class="form-control"
+								<input name="basicPrice"  type="number" class="form-control" onkeydown="javascript: return event.keyCode == 69 ? false : true"
 									aria-label="Amount (to the nearest dollar)">
 								<div class="input-group-append">
 									<span class="input-group-text">.00</span>
@@ -178,7 +184,7 @@ include summernote-ko-KR
 								<div class="input-group-prepend">
 									<span class="input-group-text">￦</span>
 								</div>
-								<input name="additionalPrice1"  type="text" class="form-control"
+								<input name="additionalPrice1"  type="number" class="form-control" onkeydown="javascript: return event.keyCode == 69 ? false : true"
 									aria-label="Amount (to the nearest dollar)">
 								<div class="input-group-append">
 									<span class="input-group-text">.00</span>
@@ -215,34 +221,34 @@ include summernote-ko-KR
 		<table align="center" border="0" width="80%" align="center">
 			<tr>
 				<td style="padding: 2% 2% 2% 2%;" width="470px">
-					<div id="contentImgArea1">
+					<div id="contentImgArea1" style="cursor:pointer;">
 						<img id="contentImg1" style="box-shadow: 0px 0px 10px #000;"><div id="text1" style="font-size: 20px;">대표 이미지를 넣어주세요</div>
 					</div>
 				</td>
 				<td  style="padding: 2% 2% 2% 2%;" width="470px">
-					<div id="contentImgArea2">
+					<div id="contentImgArea2" style="cursor:pointer;">
 						<img id="contentImg2" style="box-shadow: 0px 0px 10px #000;"><div id="text2" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
 					</div>
 				</td>
 				<td  style="padding: 2% 2% 2% 2%;" width="470px">
-					<div id="contentImgArea3">
+					<div id="contentImgArea3" style="cursor:pointer;">
 						<img id="contentImg3" style="box-shadow: 0px 0px 10px #000;"><div id="text3" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
 					</div>
 				</td>
 			</tr>
 			<tr>
 				<td style="padding: 2% 2% 2% 2%;">
-					<div id="contentImgArea4">
+					<div id="contentImgArea4" style="cursor:pointer;">
 						<img id="contentImg4" style="box-shadow: 0px 0px 10px #000;"><div id="text4" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
 					</div>
 				</td>
 				<td style="padding: 2% 2% 2% 2%;">
-					<div id="contentImgArea5">
+					<div id="contentImgArea5" style="cursor:pointer;">
 						<img id="contentImg5" style="box-shadow: 0px 0px 10px #000;"><div id="text5" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
 					</div>
 				</td>
 				<td style="padding: 2% 2% 2% 2%;">
-					<div id="contentImgArea6">
+					<div id="contentImgArea6" style="cursor:pointer;">
 						<img id="contentImg6" style="box-shadow: 0px 0px 10px #000;"><div id="text6" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
 					</div>
 				</td>
@@ -261,8 +267,8 @@ include summernote-ko-KR
 
 		<br><br><br><br><br>
 		<div style="margin-left: 78%;">
-			<button type="submit" class="btn btn-warning">상품 등록</button>
-			<button type="reset" class="btn btn-danger">취소</button><!-- 이전페이지로 이동 -->
+			<button type="submit" class="btn btn-warning" onclick="alertEvent();">상품 등록</button>
+			<button type="button" class="btn btn-danger" onclick="location.href='<%=request.getContextPath()%>/selectList.pr'">취소</button><!-- 이전페이지로 이동 -->
 		</div>
 	</form>
 	</section>
@@ -272,8 +278,7 @@ include summernote-ko-KR
 			var cnt = 1;
 			var name = 1;
 			/* 추가 버튼을 눌렀을 때 동작하는 함수 */
-			$("#additionalItem").click(function () {
-				
+			$("#additionalItem").click(function () {				
 				if(cnt<3){
 		    		cnt++;
 					name++;
@@ -295,7 +300,7 @@ include summernote-ko-KR
 						+'<div class="input-group-prepend">'
 						+'<span class="input-group-text">￦</span>'
 						+'</div>'
-						+'<input name="additionalPrice'+name+'" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">'
+						+'<input name="additionalPrice'+name+'" type="number" class="form-control" aria-label="Amount (to the nearest dollar)" onkeydown="javascript: return event.keyCode == 69 ? false : true">'
 						+'<div class="input-group-append">'
 						+'<span class="input-group-text">.00</span>'
 						+'</div>'
@@ -427,6 +432,12 @@ include summernote-ko-KR
 	          lang: 'ko-KR'         // 한국어 지정(기본값은 en-US)
 	        });
 	      }); */
+	</script>
+	<script>
+		function alertEvent() {
+			alert("정상적으로 등록되었습니다.");
+		}
+	
 	</script>
 	
 	<!-- Footer ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->

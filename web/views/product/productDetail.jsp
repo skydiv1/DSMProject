@@ -17,9 +17,9 @@
 	Attachment detailImg6 = fileList.get(5);	 
 	
 	ArrayList<PlusProduct> pList = (ArrayList<PlusProduct>)request.getAttribute("pList");
-	PlusProduct detail1 = pList.get(0);
-	PlusProduct detail2 = pList.get(1);
-	PlusProduct detail3 = pList.get(2);
+	/* PlusProduct detail1 = pList.get(0);
+	PlusProduct detail2 = pList.get(1);		
+	PlusProduct detail3 = pList.get(2);	 */ 
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -138,12 +138,16 @@
 					style="padding-right: 10%; margin-left: 5%;">
 					<select class="btn btn-outline-secondary">
 						<option value="category" selected>추가옵션(선택)</option>
-						<option value="education"><span><%=detail1.getPlusProductItem()%></span> : <span><%=detail1.getPlusProductPrice()%></span>원
+						<% for(int i=0; i<pList.size(); i++){ %>
+							<option value=""><span><%=pList.get(i).getPlusProductItem()%></span> : <span><%=pList.get(i).getPlusProductPrice()%></span>원
+							</option>						
+						<% } %>
+						<%-- <option value=""><span><%=detail1.getPlusProductItem()%></span> : <span><%=detail1.getPlusProductPrice()%></span>원
 						</option>
-						<option value="shooting"><span><%=detail2.getPlusProductItem()%></span> : <span><%=detail2.getPlusProductPrice()%></span>원
+						<option value=""><span><%=detail2.getPlusProductItem()%></span> : <span><%=detail2.getPlusProductPrice()%></span>원
 						</option>
-						<option value="edit"><span><%=detail3.getPlusProductItem()%></span> : <span><%=detail3.getPlusProductPrice()%></span>원
-						</option>
+						<option value=""><span><%=detail3.getPlusProductItem()%></span> : <span><%=detail3.getPlusProductPrice()%></span>원
+						</option> --%>
 					</select>
 				</div>
 			</td>
