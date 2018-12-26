@@ -39,6 +39,20 @@
 <!-- 시멘틱 -->
 <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"> -->
 <!-- <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script> -->
+
+<!-- SummerNote -->
+<!-- include libraries(jQuery, bootstrap) -->
+<!-- <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script> 
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+
+include summernote css/js
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.js"></script>
+
+include summernote-ko-KR
+<script src="lang/summernote-ko-KR.js"></script> -->
+
 <style>
 	#contentImgArea1,#contentImgArea2,#contentImgArea3
 	,#contentImgArea4,#contentImgArea5,#contentImgArea6{
@@ -188,6 +202,7 @@
 			<textarea name="content" class="form-control z-depth-1" style="resize: none;"
 				id="exampleFormControlTextarea6" rows="20"
 				placeholder="서비스 설명을 적어주세요"></textarea>
+<!-- 			<textarea name="content" id="content" class="summernote" rows="20" cols="" style="resize:none;"></textarea> -->
 		</div>
 		<br><br><br>
 		
@@ -201,34 +216,34 @@
 			<tr>
 				<td style="padding: 2% 2% 2% 2%;" width="470px">
 					<div id="contentImgArea1">
-						<img id="contentImg1" style="box-shadow: 0px 0px 10px #000;"><div id="text1" style="font-size: 30px;">대표 이미지를 넣어주세요</div>
+						<img id="contentImg1" style="box-shadow: 0px 0px 10px #000;"><div id="text1" style="font-size: 20px;">대표 이미지를 넣어주세요</div>
 					</div>
 				</td>
 				<td  style="padding: 2% 2% 2% 2%;" width="470px">
 					<div id="contentImgArea2">
-						<img id="contentImg2" style="box-shadow: 0px 0px 10px #000;"><div id="text2" style="font-size: 30px; color: darkgray;">추가 이미지를 넣어주세요</div>
+						<img id="contentImg2" style="box-shadow: 0px 0px 10px #000;"><div id="text2" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
 					</div>
 				</td>
 				<td  style="padding: 2% 2% 2% 2%;" width="470px">
 					<div id="contentImgArea3">
-						<img id="contentImg3" style="box-shadow: 0px 0px 10px #000;"><div id="text3" style="font-size: 30px; color: darkgray;">추가 이미지를 넣어주세요</div>
+						<img id="contentImg3" style="box-shadow: 0px 0px 10px #000;"><div id="text3" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
 					</div>
 				</td>
 			</tr>
 			<tr>
 				<td style="padding: 2% 2% 2% 2%;">
 					<div id="contentImgArea4">
-						<img id="contentImg4" style="box-shadow: 0px 0px 10px #000;"><div id="text4" style="font-size: 30px; color: darkgray;">추가 이미지를 넣어주세요</div>
+						<img id="contentImg4" style="box-shadow: 0px 0px 10px #000;"><div id="text4" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
 					</div>
 				</td>
 				<td style="padding: 2% 2% 2% 2%;">
 					<div id="contentImgArea5">
-						<img id="contentImg5" style="box-shadow: 0px 0px 10px #000;"><div id="text5" style="font-size: 30px; color: darkgray;">추가 이미지를 넣어주세요</div>
+						<img id="contentImg5" style="box-shadow: 0px 0px 10px #000;"><div id="text5" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
 					</div>
 				</td>
 				<td style="padding: 2% 2% 2% 2%;">
 					<div id="contentImgArea6">
-						<img id="contentImg6" style="box-shadow: 0px 0px 10px #000;"><div id="text6" style="font-size: 30px; color: darkgray;">추가 이미지를 넣어주세요</div>
+						<img id="contentImg6" style="box-shadow: 0px 0px 10px #000;"><div id="text6" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
 					</div>
 				</td>
 			</tr>
@@ -383,7 +398,11 @@
 	   		    	alert("서비스 설명을 입력해주세요.");
 	     		 	$("input[name=content]").focus();
 	     		    return false;
-		  	 }else if($("input[name=additionalItem1]").val() == ""){ 
+		  	 }else if($("input[name=thumbnailImg1]").val() == ""){ 
+	   		    	alert("대표 이미지를 등록해주세요.");
+	     		 	$("input[name=thumbnailImg1]").focus();
+	     		    return false;
+	 		 }else if($("input[name=additionalItem1]").val() == ""){ 
 	     		 	$("input[name=additionalItem1]").val("추가항목 없음");
 	     		 	$("input[name=additionalPrice1]").val("0");
 	     		    return false;
@@ -397,6 +416,17 @@
 	     		    return false;
 	 		 }else return true;	
 		}
+		
+		/* summerNote */
+	    /* $(function() {
+	        $('.summernote').summernote({
+	          height: 300,          // 기본 높이값
+	          minHeight: null,      // 최소 높이값(null은 제한 없음)
+	          maxHeight: null,      // 최대 높이값(null은 제한 없음)
+	          focus: true,          // 페이지가 열릴때 포커스를 지정함
+	          lang: 'ko-KR'         // 한국어 지정(기본값은 en-US)
+	        });
+	      }); */
 	</script>
 	
 	<!-- Footer ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
