@@ -261,35 +261,6 @@ public class ProductDao {
 	}	
 
 	
-	/* 현재 시퀀스-1 값 조회 */
-	public int selectCurrvalMinus(Connection con) {
-		Statement stmt = null;
-		ResultSet rset =null;
-		
-		int currNum=0;
-		
-		String query = prop.getProperty("selectCurrvalMinus"); // 현재 동작한 시퀀스 번호를 알 수 있다.
-		
-		try {
-			stmt = con.createStatement();
-			
-			rset = stmt.executeQuery(query);
-			
-			if(rset.next()) {
-				currNum = rset.getInt("CURRVAL");
-			}
-			
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(stmt); // Connection을 닫으면 안된다. service에서 트랜젝션 처리를 해 줄 수 없다
-		}
-		
-		return currNum;
-	}
-
-	
 	/* 상품 추가 목록에 데이터 삽입 */
 	public int insertPlusProduct(Connection con, ArrayList<PlusProduct> pList) {
 		PreparedStatement pstmt = null;
@@ -332,13 +303,13 @@ public class ProductDao {
 				pstmt = con.prepareStatement(query);
 				pstmt.setString(1, fileList.get(i).getOriginName());
 				pstmt.setString(2, fileList.get(i).getChangeName());
-				pstmt.setInt(3, fileList.get(i).getProductNo());
+				//pstmt.setInt(3, fileList.get(i).getProductNo());
 
 				int level = 0;
 				if(i==0) level=0;
 				else level=1;
-				pstmt.setInt(4, level);
-				pstmt.setString(5, fileList.get(i).getImgFilePath());
+				pstmt.setInt(3, level);
+				pstmt.setString(4, fileList.get(i).getImgFilePath());
 				
 				result += pstmt.executeUpdate(); // 누적 연산으로 합쳐준다
 				
@@ -392,14 +363,23 @@ public class ProductDao {
 				
 				member = new Member();
 				member.setMember_id(rset.getString("MEMBER_ID"));
-				
-				if(count<3) {
-					plusProduct = new PlusProduct();
+
+				plusProduct = new PlusProduct();
+				if(count==0) {
 					plusProduct.setProductNo(rset.getInt("PRODUCT_NO"));
 					plusProduct.setPlusProductItem(rset.getString("PLUSPRODUCT_ITEM"));
 					plusProduct.setPlusProductPrice(rset.getInt("PLUSPRODUCT_PRICE"));
-					plist.add(plusProduct);		
-					System.out.println("여기 몇 번 돌아가는지 if 문");
+					plist.add(plusProduct);	
+				} if(count==6) {
+					plusProduct.setProductNo(rset.getInt("PRODUCT_NO"));
+					plusProduct.setPlusProductItem(rset.getString("PLUSPRODUCT_ITEM"));
+					plusProduct.setPlusProductPrice(rset.getInt("PLUSPRODUCT_PRICE"));
+					plist.add(plusProduct);					
+				} if(count==13) {
+					plusProduct.setProductNo(rset.getInt("PRODUCT_NO"));
+					plusProduct.setPlusProductItem(rset.getString("PLUSPRODUCT_ITEM"));
+					plusProduct.setPlusProductPrice(rset.getInt("PLUSPRODUCT_PRICE"));
+					plist.add(plusProduct);					
 				}
 				
 				at = new Attachment();
@@ -417,6 +397,7 @@ public class ProductDao {
 				
 				count++;
 			}
+			System.out.println("몇 번 카운트 됐는지 확인: "+count);			
 			
 			hmap = new HashMap<String, Object>();
 			

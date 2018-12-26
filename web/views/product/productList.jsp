@@ -70,7 +70,7 @@
 		</div>
 	</div>
 	<div style="padding-left: 19%;">
-		'<span>웨딩</span>'으로 검색된 결과는 <span>15</span>건 입니다.
+		'<span>웨딩</span>' 으로 검색된 결과는 <span>15</span>건 입니다.
 	</div>
 	<div align="right" class="dropdown" style="padding-right: 19%;">
 		<select class="btn btn-secondary">
@@ -88,8 +88,8 @@
 			HashMap<String, Object> hmap = list.get(i);	
 		%>
 			<input type="hidden" value="<%=hmap.get("productNo")%>"> 
-			<div id="imageList" class="col-md-4 col-sm-6 portfolio-item">
-				<a class="portfolio-link" data-toggle="modal" href="#">
+			<div name="imageList" class="col-md-4 col-sm-6 portfolio-item">
+				<a class="portfolio-link" data-toggle="modal" >
 					<div class="portfolio-hover">
 						<div class="portfolio-hover-content">
 							<input type="hidden" value="<%=hmap.get("productNo")%>">
@@ -141,7 +141,7 @@
 	
 	<script>
 		$(function () {
-			$("#imageList").click(function () {
+			$("[name=imageList]").click(function () {
 				var num = $(this).children().children().children().children().eq(0).val(); // eq(0).val(); //eq 0번째의 value값
 				console.log(num); // bid 값 확인
 				

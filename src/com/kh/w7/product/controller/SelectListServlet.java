@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.w7.common.PageInfo;
 import com.kh.w7.product.model.service.ProductService;
-import com.kh.w7.product.model.vo.Product;
 
 /**
  * Servlet implementation class SelectListServlet
@@ -34,7 +33,7 @@ public class SelectListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		// =============== 페이징 처리 추가 ==============
 		int currentPage;	// 현재 페이지를 표시할 변수 (ex. 내가 1페이지를 보고 있는지 2페이지를 보고 있는지)
 		int limit;			// 한 페이지에 게시글이 몇 개가 보여질 것인지 표시
@@ -85,7 +84,8 @@ public class SelectListServlet extends HttpServlet {
 		String page = "";
 		if(list != null) { // 사용자에게 리스트를 넘겨줘야 함 request로 forward 해야한다.
 			request.setAttribute("list", list);
-			request.setAttribute("pi", pi);			
+			request.setAttribute("pi", pi);		
+			
 			page="views/product/productList.jsp";
 		}else {
 			page="views/common/errorPage.jsp";
