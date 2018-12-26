@@ -115,7 +115,7 @@ p {
 			</tr>
 			<tr>
 				<td>
-					<button type="button" class="btn btn-warning"
+					<button type="submit" class="btn btn-warning"
 						style="width: 500px; height: 50px; font-size: 20px; border-radius: 6px; margin-left: 5%; color:gray;; ">이메일로
 						아이디 전송</button>
 				</td>
