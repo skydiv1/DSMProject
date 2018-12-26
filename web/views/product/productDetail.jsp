@@ -200,26 +200,26 @@
 				
 				<table>
 					<tr>
-						<td style="padding: 2% 2% 2% 0%;"><img class="img-fluid"
+						<td style="padding: 2% 2% 2% 0%;"><img class="img-fluid" id="detailImg1"
 							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg1.getChangeName()%>"
 							style="width: 420px; height: 300px;"></td>
-						<td style="padding: 2% 2% 2% 2%;"><img class="img-fluid"
+						<td style="padding: 2% 2% 2% 2%;"><img class="img-fluid" id="detailImg2"
 							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg2.getChangeName()%>"
 							style="width: 420px; height: 300px;"></td>
 					</tr>
 					<tr>
-						<td style="padding: 2% 2% 2% 0%;"><img class="img-fluid"
+						<td style="padding: 2% 2% 2% 0%;"><img class="img-fluid" id="detailImg3"
 							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg3.getChangeName()%>"
 							style="width: 420px; height: 300px;"></td>
-						<td style="padding: 2% 2% 2% 2%;"><img class="img-fluid"
+						<td style="padding: 2% 2% 2% 2%;"><img class="img-fluid" id="detailImg4"
 							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg4.getChangeName()%>"
 							style="width: 420px; height: 300px;"></td>
 					</tr>
 					<tr>
-						<td style="padding: 2% 2% 2% 0%;"><img class="img-fluid"
+						<td style="padding: 2% 2% 2% 0%;"><img class="img-fluid" id="detailImg5"
 							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg5.getChangeName()%>"
 							style="width: 420px; height: 300px;"></td>
-						<td style="padding: 2% 2% 2% 2%;"><img class="img-fluid"
+						<td style="padding: 2% 2% 2% 2%;"><img class="img-fluid" id="detailImg6"
 							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg6.getChangeName()%>"
 							style="width: 420px; height: 300px;"></td>
 					</tr>
@@ -293,9 +293,26 @@
 	<br><br><br><br>
 	<button onclick="location.href='productEdit.jsp'" class="btn btn-warning" style="width:7%; height:40px; margin-left: 80%">수정하기</button>
 </section>
-		console.log();
 
 	<script>
+		$(function () {
+			/* 이미지가 없을 경우에는 공간을 숨긴다. */
+			if($("#detailImg2").attr("src") == "/dsm/image_uploadFiles/null"){
+				$("#detailImg2").hide();
+			}
+			if($("#detailImg3").attr("src") == "/dsm/image_uploadFiles/null"){
+				$("#detailImg3").hide();
+			}
+			if($("#detailImg4").attr("src") == "/dsm/image_uploadFiles/null"){
+				$("#detailImg4").hide();
+			}
+			if($("#detailImg5").attr("src") == "/dsm/image_uploadFiles/null"){
+				$("#detailImg5").hide();
+			}
+			if($("#detailImg6").attr("src") == "/dsm/image_uploadFiles/null"){
+				$("#detailImg6").hide();
+			}
+		})
 	</script>
 
 	<!-- Footer ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
