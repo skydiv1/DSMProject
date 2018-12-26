@@ -27,6 +27,7 @@
     <link href="../../css/agency.min.css" rel="stylesheet"> -->
  	
 
+     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
      
 	<style>
  		.ft01{
@@ -175,7 +176,7 @@
 	});
 	
 	
-	$(function(){
+	$(function(){	
 		$("#applyRefundBtn").click(function(){
 			var message = "";
 			$("#tdRefundsName *").remove("label");
@@ -218,7 +219,7 @@
 				var account = $("input[name = refundsAccount]").val();
 				var refundMoney = $("#refundMoney").text();
 				
-				
+				//var w = window.open("about:blank","_blank",'width=550 height=500');
 				//location.href = window.open("/dsm/views/common/RefundPopUp.jsp");
 				
 				$.ajax({
@@ -236,8 +237,14 @@
 						if(data > 0) {
 							page = "/dsm/index.jsp";
 							//response.sendRedirect(page);
-							location.href = page;
-							//location.href = window.open('/dsm/views/common/navi.jsp');
+							//w.location.href = "/dsm/views/common/RefundPopUp.jsp"; //팝업창 띄우기
+							swal("환급이 성공적으로 완료되었습니다!", "OK버튼을 눌러 메인페이지로 돌아가세요", "success").then((value) =>{
+								if(value = "ok"){
+									location.href = page;
+								}
+							});
+							
+							
 						}else {
 							page = "/dsm/views/common/errorPage.jsp";
 							location.href = page;

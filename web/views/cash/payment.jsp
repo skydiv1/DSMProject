@@ -89,19 +89,21 @@ table {
 				</tr>
 				<tr style="background: lightgray;">
 					<td style="font-weight: bold;">추가항목</td>
-					<td>소요시간</td>
+					<td></td>
 					<td>가격</td>
 				</tr>
 				<tr>
 					<td>영상편집<!-- 추가항목 이름 --></td>
-					<td>+3일<!-- 예상소요일 --></td>
+					<td>
+						<!-- 예상소요일 -->
+					</td>
 					<td>10000<!-- 추가금액 --></td>
 				</tr>
 
 			</table>
 
 		</div>
-		6
+
 		<div style="background: lightyellow; width: 100%;">
 			<table style="margin: 30px 0 0 0; width: 104.7%;">
 				<tr
