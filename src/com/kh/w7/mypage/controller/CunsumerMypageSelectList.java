@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
 import com.kh.w7.member.model.vo.Member;
 import com.kh.w7.mypage.model.service.MypageService;
 import com.kh.w7.mypage.model.vo.MyPage;
@@ -29,25 +30,24 @@ public class CunsumerMypageSelectList extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 
-		//로그인유저의 Member테이블의 member_code와 (소비자일때)Deal테이블의 customer_code를 비교해서 같으면 Deal테이블의 정보를 불러오자
-		Member loginUser = (Member)session.getAttribute("loginUser");
-		MyPage cCode = new MyPage();
-		int clogin =cCode.getCustomerCode();
+		/*Member loginUser = (Member)session.getAttribute("loginUser");
+		int loginCode = loginUser.getMember_code();*/
+		
+		int loginCode = 2;
+		
+			ArrayList<MyPage>list = new MypageService().selectList(loginCode); 
 	
-		
-		if(loginUser.getMember_code() == clogin) {
-			ArrayList<MyPage>list = new MypageService().selectList(clogin); 
-		
-			String page = "";
-			if(list != null) {
+			System.out.println("list값controller:"+list);
+			/*String page = "";
+			
 				page = "views/member/ConsumerMyPage.jsp";
 				request.setAttribute("list", list);
-			}else {
-				page = "views/common/errorPage.jsp";
-				request.setAttribute("msg", "마이페이지 조회 실패!");
-			}
+			
 			RequestDispatcher view = request.getRequestDispatcher(page);
-			view.forward(request, response);
+			view.forward(request, response);*/
+			
+			response.setContentType("application/json");
+			new Gson().toJson(list, response.getWriter());
 		
 		}
 			
@@ -69,7 +69,7 @@ public class CunsumerMypageSelectList extends HttpServlet {
 	
 	
 	
-	}
+	
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);

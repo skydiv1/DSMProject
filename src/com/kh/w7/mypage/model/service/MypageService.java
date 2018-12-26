@@ -9,11 +9,11 @@ import static com.kh.w7.common.JDBCTemplate.*;
 
 public class MypageService {
 
-	public ArrayList<MyPage> selectList(int clogin) {
+	public ArrayList<MyPage> selectList(int loginCode) {
 		Connection con = getConnection();
 		
-		ArrayList<MyPage> list = new MypageDao().selectList(con, clogin);
-		
+		ArrayList<MyPage> list = new MypageDao().selectList(con, loginCode);
+		System.out.println("list값service:"+list);
 		if(list != null) {
 			commit(con);
 		}else {
@@ -25,5 +25,6 @@ public class MypageService {
 		return list;
 	}
 
+	
 	
 }
