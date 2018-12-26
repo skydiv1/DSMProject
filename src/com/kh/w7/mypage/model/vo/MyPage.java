@@ -10,6 +10,7 @@ public class MyPage {
 	private String productContext;//삼품내용
 	private int customerCode;//소비자 코드
 	private int sellerCode;//판매자코드
+	private String member_id;//회원아이디
 	private String dealListaddMsg;//추가메세지
 	private int dealListCategory;//진행 상태분류
 	private int dealPrice;//거래금액
@@ -20,12 +21,22 @@ public class MyPage {
 	
 	
 	public MyPage() {
-		
+		// TODO Auto-generated constructor stub
+	}
+
+
+	@Override
+	public String toString() {
+		return "MyPage [dealNo=" + dealNo + ", productNo=" + productNo + ", productName=" + productName
+				+ ", productContext=" + productContext + ", customerCode=" + customerCode + ", sellerCode=" + sellerCode
+				+ ", member_id=" + member_id + ", dealListaddMsg=" + dealListaddMsg + ", dealListCategory="
+				+ dealListCategory + ", dealPrice=" + dealPrice + ", reviewNo=" + reviewNo + ", reviewContxt="
+				+ reviewContxt + ", reviewDate=" + reviewDate + ", reviewGrade=" + reviewGrade + "]";
 	}
 
 
 	public MyPage(int dealNo, int productNo, String productName, String productContext, int customerCode,
-			int sellerCode, String dealListaddMsg, int dealListCategory, int dealPrice, int reviewNo,
+			int sellerCode, String member_id, String dealListaddMsg, int dealListCategory, int dealPrice, int reviewNo,
 			String reviewContxt, Date reviewDate, int reviewGrade) {
 		super();
 		this.dealNo = dealNo;
@@ -34,6 +45,7 @@ public class MyPage {
 		this.productContext = productContext;
 		this.customerCode = customerCode;
 		this.sellerCode = sellerCode;
+		this.member_id = member_id;
 		this.dealListaddMsg = dealListaddMsg;
 		this.dealListCategory = dealListCategory;
 		this.dealPrice = dealPrice;
@@ -41,16 +53,6 @@ public class MyPage {
 		this.reviewContxt = reviewContxt;
 		this.reviewDate = reviewDate;
 		this.reviewGrade = reviewGrade;
-	}
-
-
-	@Override
-	public String toString() {
-		return "MyPage [dealNo=" + dealNo + ", productNo=" + productNo + ", productName=" + productName
-				+ ", productContext=" + productContext + ", customerCode=" + customerCode + ", sellerCode=" + sellerCode
-				+ ", dealListaddMsg=" + dealListaddMsg + ", dealListCategory=" + dealListCategory + ", dealPrice="
-				+ dealPrice + ", reviewNo=" + reviewNo + ", reviewContxt=" + reviewContxt + ", reviewDate=" + reviewDate
-				+ ", reviewGrade=" + reviewGrade + "]";
 	}
 
 
@@ -111,6 +113,16 @@ public class MyPage {
 
 	public void setSellerCode(int sellerCode) {
 		this.sellerCode = sellerCode;
+	}
+
+
+	public String getMember_id() {
+		return member_id;
+	}
+
+
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
 	}
 
 
