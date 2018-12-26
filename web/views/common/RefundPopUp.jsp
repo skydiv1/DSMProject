@@ -15,32 +15,7 @@
 </head>
 <body>
 
-	<div class="container">
-
-
-		<!-- Modal -->
-		<div class="modal fade" id="refundModal" role="dialog">
-			<div class="modal-dialog modal-sm">
-				<div class="modal-content">
-					<div class="modal-header">
-
-						<h1 class="modal-title" style="font-weight: bold">알림</h1>
-					</div>
-					<div class="modal-body">
-						<div align="center">
-							<textarea rows="10%" cols="30%" name="refund"
-								style="resize: none;">환급이 완료되었습니다.</textarea>
-						</div>
-					</div>
-					<div class="modal-footer" style="align: center">
-
-						<button type="button" class="btn btn-secondary"
-							style="width: 200px" data-dismiss="modal">확인</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+	<h1>환급이 완료되었습니다.</h1>
 
 </body>
 </html>
