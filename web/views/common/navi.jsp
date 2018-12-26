@@ -46,7 +46,7 @@
          	<a class="nav-link js-scroll-trigger"><b>상품 등록</b></a>
 			</li>
 			<li class="nav-item">
-			<a class="nav-link js-scroll-trigger" href="/dsm/views/board/board.jsp"><b>게시판</b></a>
+			<a class="nav-link js-scroll-trigger" href="/dsm/selectList.bo"><b>게시판</b></a>
 			</li>
 			<li class="nav-item">
 			<a class="nav-link js-scroll-trigger" href="/dsm/views/member/login.jsp"><b>마이페이지</b></a>
