@@ -117,7 +117,7 @@ form {
 			<tr>
 				<td><div class="form-group">
 						<label for="inputTel" class="col-sm-2 control-label">Phone</label>
-						<td><div class="col-sm-5">
+						<td><div class="col-sm-4">
 							<input type="text" class="form-control" id="memberPhone1" name="memberPhone1" maxlength="3">-
 							<input type="text" class="form-control" id="memberPhone2" name="memberPhone2" maxlength="4">-
 							<input type="text" class="form-control" id="memberPhone3" name="memberPhone3" maxlength="4">					
