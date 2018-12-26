@@ -75,7 +75,7 @@ public class SelectBoardListServlet extends HttpServlet {
 		if(list != null) {
 			page = "views/board/board.jsp";
 			request.setAttribute("list", list);
-			/*request.setAttribute("pi", pi);*/
+			request.setAttribute("pi", pi);
 		}else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "실패!");

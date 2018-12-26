@@ -32,7 +32,7 @@ public class BoardService {
 		
 		return result;
 	}
-	//페이징처리 적용한 게시물 조회용 메소드
+	
 		public ArrayList<Board> selectList(int currentPage, int limit) {
 			Connection con = getConnection();
 			
