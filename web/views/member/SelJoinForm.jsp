@@ -71,7 +71,7 @@ form {
 				<td><div class="form-group">
 						<label for="inputId" class="col-sm-2 control-label">Id</label>
 						<div class="col-sm-10">
-							<input type="Id" class="form-control" id="inputId"
+							<input type="Id" class="form-control" id="memberId" name="memberId"
 								style="width: 550px" placeholder="Id">
 						</div>
 						<td style="padding-top: 14px;"><button type="submit"
@@ -84,7 +84,7 @@ form {
 					<div class="form-group">
 						<label for="inputPassword3" class="col-sm-2 control-label">Password</label>
 						<div class="col-sm-10">
-							<input type="password" class="form-control" id="inputPassword3"
+							<input type="password" class="form-control" id="memberPwd" name="memberPwd"
 								style="width: 550px" placeholder="Password">
 						</div>
 					</div>
@@ -96,7 +96,7 @@ form {
 						<label for="inputPassword3" class="col-sm-4 control-label">Confirm
 							Password</label>
 						<div class="col-sm-10">
-							<input type="password" class="form-control" id="inputPassword3"
+							<input type="password" class="form-control" id="memberpwd2" name="memberPwd2"
 								style="width: 550px" placeholder="Password">
 						</div>
 					</div>
@@ -106,7 +106,7 @@ form {
 				<td><div class="form-group">
 						<label for="inputName" class="col-sm-2 control-label">Name</label>
 						<div class="col-sm-10">
-							<input type="Name" class="form-control" id="inputName"
+							<input type="Name" class="form-control" id="memberName" name="memberName"
 								style="width: 550px" placeholder="Name">
 						</div>
 					</div></td>
@@ -115,9 +115,12 @@ form {
 			<tr>
 				<td><div class="form-group">
 						<label for="inputTel" class="col-sm-2 control-label">Phone</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" id="inputTel"
-								style="width: 550px" placeholder="Phone">
+						<div class="col-sm-3">
+							<input type="text" class="form-control" id="memberPhone1" name="memberPhone1" maxlength="3">-
+							<input type="text" class="form-control" id="memberPhone2" name="memberPhone2" maxlength="4">-
+							<input type="text" class="form-control" id="memberPhone3" name="memberPhone3" maxlength="4">
+							
+								
 						</div>
 					</div></td>
 			</tr>
@@ -125,7 +128,7 @@ form {
 				<td><div class="form-group">
 						<label for="inputEmail" class="col-sm-2 control-label">Email</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="inputEmail"
+							<input type="email" class="form-control" id="memberEmail" name="memberEmail"
 								style="width: 550px" placeholder="Email">
 						</div>
 					</div></td>
@@ -142,8 +145,9 @@ form {
 						</div>
 					</div></td>
 				<td style="padding-top: 14px;"><button type="submit"
-						class="btn btn-danger">인증번호 확인</button>
+						class="btn btn-danger">인증번호 확인</button></td>
 			</tr>
+
 			<tr>
 				<td>
 					<div class="form-group">
@@ -156,7 +160,7 @@ form {
 			<tr>
 				<td><div class="form-group">
 						<label for="exampleInputTel">Intro</label>
-						<textarea class="form-control" rows="3" placeholder="자기소개를 입력하세요"></textarea>
+						<textarea class="form-control" rows="3" placeholder="자기소개를 입력하세요" id="sellerIntroduction" name="sellerIntroduction"></textarea>
 
 					</div></td>
 			</tr>
@@ -182,7 +186,7 @@ form {
 			<tr>
 				<td><div class="form-group">
 						<label for="exampleInputcareea">Careea</label>
-						<textarea class="form-control" rows="3" placeholder="경력사항을 입력하세요"></textarea>
+						<textarea class="form-control" rows="3" placeholder="경력사항을 입력하세요" id="sellerCareer" name="sellerCareer"></textarea>
 					</div></td>
 			</tr>
 		</table>

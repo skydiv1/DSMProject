@@ -73,7 +73,7 @@ form {
 				<td><div class="form-group">
 						<label for="inputId" class="col-sm-2 control-label">Id</label>
 						<div class="col-sm-10">
-							<input type="Id" class="form-control" id="inputId"
+							<input type="Id" class="form-control" id="memberId" name="memberId"
 								style="width: 550px" placeholder="Id">
 						</div>
 						<td style="padding-top: 14px;"><button type="submit"
@@ -86,7 +86,7 @@ form {
 					<div class="form-group">
 						<label for="inputPassword3" class="col-sm-2 control-label">Password</label>
 						<div class="col-sm-10">
-							<input type="password" class="form-control" id="inputPassword"
+							<input type="password" class="form-control" id="memberPwd" name="memberPwd"
 								style="width: 550px" placeholder="Password">
 						</div>
 					</div>
@@ -98,7 +98,7 @@ form {
 						<label for="inputPassword3" class="col-sm-4 control-label">Confirm
 							Password</label>
 						<div class="col-sm-10">
-							<input type="password" class="form-control" id="inputPassword1"
+							<input type="password" class="form-control" id="memberpwd2" name="memberPwd2"
 								style="width: 550px" placeholder="Password">
 						</div>
 					</div>
@@ -108,7 +108,7 @@ form {
 				<td><div class="form-group">
 						<label for="inputName" class="col-sm-2 control-label">Name</label>
 						<div class="col-sm-10">
-							<input type="Name" class="form-control" id="inputName"
+							<input type="Name" class="form-control" id="memberName" name="memberName"
 								style="width: 550px" placeholder="Name">
 						</div>
 					</div></td>
@@ -117,17 +117,19 @@ form {
 			<tr>
 				<td><div class="form-group">
 						<label for="inputTel" class="col-sm-2 control-label">Phone</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" id="inputTel"
-								style="width: 550px" placeholder="Phone">
-						</div>
+						<td><div class="col-sm-4">
+							<input type="text" class="form-control" id="memberPhone1" name="memberPhone1" maxlength="3">-
+							<input type="text" class="form-control" id="memberPhone2" name="memberPhone2" maxlength="4">-
+							<input type="text" class="form-control" id="memberPhone3" name="memberPhone3" maxlength="4">					
+						</div></td>
 					</div></td>
 			</tr>
+			
 			<tr>
 				<td><div class="form-group">
 						<label for="inputEmail" class="col-sm-2 control-label">Email</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="inputEmail"
+							<input type="email" class="form-control" id="memberEmail" name="memberEmail"
 								style="width: 550px" placeholder="Email">
 						</div>
 					</div></td>
@@ -147,7 +149,8 @@ form {
 						class="btn btn-danger">인증번호 확인</button></td>
 			</tr>
 
-		</table>
+
+	
 
 		</table>
 

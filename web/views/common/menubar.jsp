@@ -1,6 +1,10 @@
+<%@page import="com.kh.w7.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	Member loginUser = (Member)session.getAttribute("loginUser");
 
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,8 +35,11 @@
 
 <body id="page-top">
  <!-- 네비게이션 바 -->
+ <% if(loginUser == null){ %>
 		<%@ include file = "navi.jsp" %> <!-- 로그인 전 -->
-<%-- 		<%@ include file = "naviLogin.jsp" %> <!-- 로그인 후 --> --%>
+		<% }else{%>
+ 		<%@ include file = "naviLogin.jsp" %> <!-- 로그인 후 -->
+<%} %>
 <!-- 네비게이션 바 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 <!-- Header -->
 <!-- header 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->

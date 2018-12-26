@@ -26,26 +26,32 @@ public class LoginServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String member_id = request.getParameter("member_id");
-		String member_pwd = request.getParameter("member_pwd");
+		String memberId = request.getParameter("memberId");
+		String memberPwd = request.getParameter("memberPwd");
 
-		System.out.println("member_id: " +member_id);
-		System.out.println("member_pwd: " +member_pwd);
+		System.out.println("memberId: " +memberId);
+		System.out.println("memberPwd: " +memberPwd);
 		
 		Member reqMember = new Member();
-		reqMember.setMember_id(member_id);
-		reqMember.setMember_pwd(member_pwd);
+		reqMember.setMemberId(memberId);
+		reqMember.setMemberPwd(memberPwd);
+		
 		
 		Member loginUser = new MemberService().loginCheck(reqMember);
 		
+		
+		
 		if(loginUser != null) { // 로그인 성공 시
 			request.getSession().setAttribute("loginUser", loginUser);
-			
-			response.sendRedirect("naviLogin.jsp"); // index.jsp로 재요청
+			System.out.println("11111");
+			response.sendRedirect("index.jsp"); // index.jsp로 재요청
+			System.out.println("2");
 			
 		}else {
 			request.setAttribute("msg", "로그인 실패");
+			
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			
 		}
 	}
 

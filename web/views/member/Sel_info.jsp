@@ -68,19 +68,17 @@ form {
 				<td><div class="form-group">
 						<label for="inputId" class="col-sm-2 control-label">Id</label>
 						<div class="col-sm-10">
-							<input type="Id" class="form-control" id="inputId"
+							<input type="Id" class="form-control" id="memberId"
 								style="width: 550px" placeholder="Id" readonly>
 						</div>
-						
-
 			</tr>
 			<tr>
 				<td>
 					<div class="form-group">
 						<label for="inputPassword3" class="col-sm-2 control-label">Password</label>
 						<div class="col-sm-10">
-							<input type="password" class="form-control" id="inputPassword3"
-								style="width: 550px" placeholder="Password">
+							<input type="password" class="form-control" id="memberPwd"
+								name="memberPwd" style="width: 550px" placeholder="Password">
 						</div>
 					</div>
 				</td>
@@ -91,8 +89,8 @@ form {
 						<label for="inputPassword3" class="col-sm-4 control-label">Confirm
 							Password</label>
 						<div class="col-sm-10">
-							<input type="password" class="form-control" id="inputPassword3"
-								style="width: 550px" placeholder="Password">
+							<input type="password" class="form-control" id="memberpwd2"
+								name="memberPwd2" style="width: 550px" placeholder="Password">
 						</div>
 					</div>
 				</td>
@@ -101,8 +99,8 @@ form {
 				<td><div class="form-group">
 						<label for="inputName" class="col-sm-2 control-label">Name</label>
 						<div class="col-sm-10">
-							<input type="Name" class="form-control" id="inputName"
-								style="width: 550px" placeholder="Name">
+							<input type="Name" class="form-control" id="memberName"
+								name="memberName" style="width: 550px" placeholder="Name">
 						</div>
 					</div></td>
 			</tr>
@@ -110,9 +108,14 @@ form {
 			<tr>
 				<td><div class="form-group">
 						<label for="inputTel" class="col-sm-2 control-label">Phone</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" id="inputTel"
-								style="width: 550px" placeholder="Phone">
+						<div class="col-sm-3">
+							<input type="text" class="form-control" id="memberPhone1"
+								name="memberPhone1" maxlength="3">- <input type="text"
+								class="form-control" id="memberPhone2" name="memberPhone2"
+								maxlength="4">- <input type="text" class="form-control"
+								id="memberPhone3" name="memberPhone3" maxlength="4">
+
+
 						</div>
 					</div></td>
 			</tr>
@@ -120,14 +123,13 @@ form {
 				<td><div class="form-group">
 						<label for="inputEmail" class="col-sm-2 control-label">Email</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="inputEmail"
-								style="width: 550px" placeholder="Email">
+							<input type="email" class="form-control" id="memberEmail"
+								name="memberEmail" style="width: 550px" placeholder="Email">
 						</div>
-						<td style="padding-top: 14px;">
+					</div></td>
+				<td style="padding-top: 14px;">
 					<button type="submit" class="btn btn-warning">이메일 인증</button>
 				</td>
-					</div>
-					</div></td>
 			</tr>
 			<tr>
 				<td><div class="form-group">
@@ -136,16 +138,16 @@ form {
 							<input type="text" class="form-control" id="inputEconfirm"
 								style="width: 250px" placeholder="인증번호 입력">
 						</div>
-						<td style="padding-top: 14px;"><button type="submit"
-						class="btn btn-danger">인증번호 확인</button></td>
-					</div>
 					</div></td>
+				<td style="padding-top: 14px;"><button type="submit"
+						class="btn btn-danger">인증번호 확인</button></td>
 			</tr>
+
 			<tr>
 				<td>
 					<div class="form-group">
-						<label for="exampleInputFile">프로필 사진</label> <input type="file"
-							id="exampleInputFile">
+						<label for="exampleInputFile">Profile photo</label> <input
+							type="file" id="exampleInputFile">
 
 					</div>
 				</td>
@@ -153,7 +155,8 @@ form {
 			<tr>
 				<td><div class="form-group">
 						<label for="exampleInputTel">Intro</label>
-						<textarea class="form-control" rows="3" placeholder="자기소개를 입력하세요"></textarea>
+						<textarea class="form-control" rows="3" placeholder="자기소개를 입력하세요"
+							id="sellerIntroduction" name="sellerIntroduction"></textarea>
 
 					</div></td>
 			</tr>
@@ -161,7 +164,7 @@ form {
 				<td>
 					<div class="form-group">
 						<label for="exampleInputLicence">Licence1</label> <input
-							type="file" id="exampleInputLicence">
+							type="file" id="exampleInputLicence" readonly="readonly">
 
 					</div>
 				</td>
@@ -170,7 +173,7 @@ form {
 				<td>
 					<div class="form-group">
 						<label for="exampleInputLicence2">Licence2</label> <input
-							type="file" id="exampleInputLicence2">
+							type="file" id="exampleInputLicence2" readonly="readonly">
 
 					</div>
 				</td>
@@ -179,8 +182,8 @@ form {
 			<tr>
 				<td><div class="form-group">
 						<label for="exampleInputcareea">Careea</label>
-						<textarea class="form-control" rows="3" placeholder="경력사항을 입력하세요"></textarea>
-
+						<textarea class="form-control" rows="3" placeholder="경력사항을 입력하세요"
+							id="sellerCareer" name="sellerCareer"></textarea>
 					</div></td>
 			</tr>
 
@@ -195,9 +198,8 @@ form {
 			</a> <a href="#">
 				<button type="button" class="btn btn-cancle"
 					style="width: 400px; height: 50px; font-size: 20px; border-radius: 6px;">취소하기</button>
-			</a>
-			<a href="#">
-				<button type="submit" class="btn btn-defualt" 
+			</a> <a href="#">
+				<button type="submit" class="btn btn-defualt"
 					style="width: 150px; height: 50px; font-size: 15px; border-radius: 6px;">탈퇴하기</button>
 			</a>
 		</div>

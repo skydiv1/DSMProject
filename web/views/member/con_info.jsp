@@ -64,82 +64,85 @@ form {
 			
 			<table align="center">
 				<tr>
-					<td><div class="form-group">
-							<label for="inputId" class="col-sm-2 control-label">Id</label>
-							<div class="col-sm-10">
-								<input type="Id" class="form-control" id="inputId"
-									style="width: 550px" placeholder="Id" readonly>
-							</div>
-							   
+				<td><div class="form-group">
+						<label for="inputId" class="col-sm-2 control-label">Id</label>
+						<div class="col-sm-10">
+							<input type="Id" class="form-control" id="memberId" name="memberId"
+								style="width: 550px" placeholder="Id">
 						</div>
-						</td>  
-						
-				</tr>
-				<tr>
-					<td>
-						<div class="form-group">
-							<label for="inputPassword3" class="col-sm-2 control-label">Password</label>
-							<div class="col-sm-10">
-								<input type="password" class="form-control" id="inputPassword3"
-									style="width: 550px" placeholder="Password">
-							</div>
+						<td style="padding-top: 14px;"><button type="submit"
+								class="btn btn-danger">중복확인</button></td>
+					</div></td>
+
+			</tr>
+			<tr>
+				<td>
+					<div class="form-group">
+						<label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+						<div class="col-sm-10">
+							<input type="password" class="form-control" id="memberPwd" name="membePwd"
+								style="width: 550px" placeholder="Password">
 						</div>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<div class="form-group">
-							<label for="inputPassword3" class="col-sm-4 control-label">Confirm Password</label>
-							<div class="col-sm-10">
-								<input type="password" class="form-control" id="inputPassword3"
-									style="width: 550px" placeholder="Password">
-							</div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div class="form-group">
+						<label for="inputPassword3" class="col-sm-4 control-label">Confirm
+							Password</label>
+						<div class="col-sm-10">
+							<input type="password" class="form-control" id="memberpwd2" name="memberPwd2"
+								style="width: 550px" placeholder="Password">
 						</div>
-					</td>
-				</tr>
-				<tr>
-					<td><div class="form-group">
-							<label for="inputName" class="col-sm-2 control-label">Name</label>
-							<div class="col-sm-10">
-								<input type="Name" class="form-control" id="inputName"
-									style="width: 550px" placeholder="Name">
-							</div>
-						</div></td>
-				</tr>
-				
-				<tr>
-					<td><div class="form-group">
-							<label for="inputTel" class="col-sm-2 control-label">Phone</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="inputTel"
-									style="width: 550px" placeholder="Phone">
-							</div>
-						</div></td>
-				</tr>
-				<tr>
-					<td><div class="form-group">
-							<label for="inputEmail" class="col-sm-2 control-label">Email</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="inputEmail"
-									style="width: 550px" placeholder="Email">
-							</div>
-							   <td style="padding-top: 14px;">
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td><div class="form-group">
+						<label for="inputName" class="col-sm-2 control-label">Name</label>
+						<div class="col-sm-10">
+							<input type="Name" class="form-control" id="memberName" name="memberName"
+								style="width: 550px" placeholder="Name">
+						</div>
+					</div></td>
+			</tr>
+
+			<tr>
+				<td><div class="form-group">
+						<label for="inputTel" class="col-sm-2 control-label">Phone</label>
+						<div class="col-sm-3">
+							<input type="text" class="form-control" id="memberPhone1" name="memberPhone1" maxlength="3">-
+							<input type="text" class="form-control" id="memberPhone2" name="memberPhone2" maxlength="4">-
+							<input type="text" class="form-control" id="memberPhone3" name="memberPhone3" maxlength="4">
+							
+								
+						</div>
+					</div></td>
+			</tr>
+			<tr>
+				<td><div class="form-group">
+						<label for="inputEmail" class="col-sm-2 control-label">Email</label>
+						<div class="col-sm-10">
+							<input type="email" class="form-control" id="memberEmail" name="memberEmail"
+								style="width: 550px" placeholder="Email">
+						</div>
+					</div></td>
+				<td style="padding-top: 14px;">
 					<button type="submit" class="btn btn-warning">이메일 인증</button>
 				</td>
+			</tr>
+			<tr>
+				<td><div class="form-group">
+						<label for="inputEConfirm" class="col-sm-2 control-label">인증번호</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="inputEconfirm"
+								style="width: 250px" placeholder="인증번호 입력">
 						</div>
-						</div></td>
-				</tr>
-				<tr>
-					<td><div class="form-group">
-							<label for="inputEConfirm" class="col-sm-2 control-label">인증번호</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="inputEconfirm"
-									style="width: 250px" placeholder="인증번호 입력">
-							</div>
-							    <td style="padding-top: 14px;"><button type="submit" class="btn btn-danger">인증번호 확인</button>
-						</div>
-						</div></td>
-				</tr>
+					</div></td>
+				<td style="padding-top: 14px;"><button type="submit"
+						class="btn btn-danger">인증번호 확인</button></td>
+			</tr>
 				
 			</table>
 
