@@ -56,6 +56,66 @@ form {
 	margin-right: 15%
 }
 </style>
+<script language="javascript">
+   function validate() {
+       var re = /^[a-zA-Z0-9]{4,12}$/ // 아이디와 패스워드가 적합한지 검사할 정규식
+       var re2 = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+       // 이메일이 적합한지 검사할 정규식
+
+       var memberId = document.getElementById("memberId");
+       var memberPwd = document.getElementById("memberPwd");
+       var memberEmail = document.getElementById("memberEmail");
+       var num1 = document.getElementById("num1");
+       var num2 = document.getElementById("num2");
+
+       
+       // ------------ 이메일 까지 -----------
+
+       if(!check(re,memberId)) {
+           return false;
+       }
+
+       if(!check(re,memberPwd)) {
+           return false;
+       }
+
+       if(join.memberPwd.value != join.memberPwd2.value) {
+           alert("비밀번호가 다릅니다. 다시 확인해 주세요.");
+           join.memberPwd.value = "";
+           join.memberPwd.focus();
+           return false;
+       }
+
+       if(memberEmail.value=="") {
+           alert("이메일을 입력해 주세요");
+           memberEmail.focus();
+           return false;
+       }
+
+       if(!check(re2, memberEmail, "적합하지 않은 이메일 형식입니다.")) {
+           return false;
+       }
+
+       if(join.memberName.value=="") {
+           alert("이름을 입력해 주세요");
+           join.memberName.focus();
+           return false;
+       }
+
+       
+       alert("회원가입이 완료되었습니다.");
+   }
+
+   function check(re, what, message) {
+       if(re.test(what.value)) {
+           return true;
+       }
+       alert(message);
+       what.value = "";
+       what.focus();
+       //return false;
+   }
+</script>
 </head>
 <body>
 	<a href="/web/index.jsp" id="link">DSM</a>

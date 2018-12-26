@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import javax.activation.DataSource;
+
 import com.kh.w7.member.model.vo.Member;
 import static com.kh.w7.common.JDBCTemplate.*;
 
@@ -103,14 +105,15 @@ public class MemberDao {
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, reqMember.getMemberId());
-			pstmt.setString(1, reqMember.getMemberPwd());
-			pstmt.setString(1, reqMember.getMemberName());
-			pstmt.setString(1, reqMember.getMemberPhone());
-			pstmt.setString(1, reqMember.getMemberEmail());
-			pstmt.setString(1, reqMember.getSellerIntroduction());
-			pstmt.setString(1, reqMember.getSellerCareer());
-
+			pstmt.setString(2, reqMember.getMemberName());
+			pstmt.setString(3, reqMember.getMemberEmail());
+			pstmt.setString(4, reqMember.getMemberPwd());
+			pstmt.setString(5, reqMember.getMemberPhone());
+			pstmt.setString(6, reqMember.getSellerIntroduction());
+			pstmt.setString(7, reqMember.getSellerCareer());
+			
 			result = pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -122,21 +125,27 @@ public class MemberDao {
 	}
 
 	// 아이디 중복 검사
-	public int idCheck(Connection con, String inputId) {
-		int result = 0;
-
+	public int idCheck(Connection con, String memberId) {
+		
+		Connection con =null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-
+		
 		String query = prop.getProperty("idCheck");
 
 		try {
+			
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, inputId);
+			pstmt.setString(1, memberId);
+			
 			rset = pstmt.executeQuery();
+			
 
-			if (rset.next()) {
-				result = rset.getInt(1);
+			if (rset.next()|| memberId.equals("")) {
+				return 0;//이미가입
+				
+			}else {
+				return 1;//가입가능
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -144,14 +153,65 @@ public class MemberDao {
 		} finally {
 			close(pstmt);
 			close(rset);
+			close(con);
 		}
 
-		return result;
+		return -1;//오류
+		
 	}
 
 	public int changeMember(Connection con, Member reqMember) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	public String findId (String name, String email){
+		  String memberId = null;
+		  Connection conn = null;
+		  PreparedStatement pstmt = null;
+		  ResultSet rset = null;
+		  String query = prop.getProperty("findID");
+		  try{
+		   
+		   pstmt = conn.prepareStatement(query);
+		   pstmt.setString(1,name);
+		   pstmt.setString(2, email);
+		   
+		   rset = pstmt.executeQuery();
+		   while(rset.next()){
+		    memberId = rset.getString("memberId");
+		   }
+		  }catch(Exception e){
+		   e.printStackTrace();
+		  }finally{
+			  close(pstmt);
+				close(rset);
+		  }
+		  return memberId;
+		 }
+	public  String findPwd (String id, String name, String email){
+		  String memberPwd = null;
+		  Connection conn = null;
+		  PreparedStatement pstmt = null;
+		  ResultSet rset = null;
+		  String query = prop.getProperty("findPWD");
+		  try{
+		   
+		   pstmt = conn.prepareStatement(query);
+		   pstmt.setString(1,id);
+		   pstmt.setString(2,name);
+		   pstmt.setString(3, email);
+		   
+		   rset = pstmt.executeQuery();
+		   while(rset.next()){
+		    memberPwd = rset.getString("memberPwd");
+		   }
+		  }catch(Exception e){
+		   e.printStackTrace();
+		  }finally{
+			  close(pstmt);
+				close(rset);
+		  }
+		  return memberPwd;
+		 }
 
 }
