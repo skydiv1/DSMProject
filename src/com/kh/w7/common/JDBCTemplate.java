@@ -16,9 +16,9 @@ public class JDBCTemplate {
 		Properties prop = new Properties();
 		
 		// JDBCTemplate.class.getResource : src
-		// getPath() : 실제 경로를 문자열로 리턴
+		// getPath() : �떎�젣 寃쎈줈瑜� 臾몄옄�뿴濡� 由ы꽩
 		String fileName = JDBCTemplate.class.getResource("/sql/driver.properties").getPath();
-		System.out.println(fileName); // 실제 파일 위치 출력: /D:/Servlet/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/web-06/WEB-INF/classes/sql/driver.properties
+		System.out.println(fileName); // �떎�젣 �뙆�씪 �쐞移� 異쒕젰: /D:/Servlet/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/web-06/WEB-INF/classes/sql/driver.properties
 		
 		try {
 			prop.load(new FileReader(fileName));
@@ -27,12 +27,12 @@ public class JDBCTemplate {
 			String user = prop.getProperty("user");
 			String password = prop.getProperty("password");
 			
-			Class.forName(driver); // 없어도 동작된다. (하위버전은 제공하지 않음)
+			Class.forName(driver); // �뾾�뼱�룄 �룞�옉�맂�떎. (�븯�쐞踰꾩쟾�� �젣怨듯븯吏� �븡�쓬)
 			con = DriverManager.getConnection(url, user, password);
 			
-			con.setAutoCommit(false); // 자동 커밋 방지
+			con.setAutoCommit(false); // �옄�룞 而ㅻ컠 諛⑹�
 			
-			System.out.println("connection 객체 성성 확인: "+con);
+			System.out.println("connection 媛앹껜 �꽦�꽦 �솗�씤: "+con);
 			
 			
 		} catch (IOException e) {
@@ -41,7 +41,7 @@ public class JDBCTemplate {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		} 
 		
 		return con;
 	}
