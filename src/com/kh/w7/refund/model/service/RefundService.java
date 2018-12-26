@@ -20,7 +20,7 @@ public class RefundService {
 			rollback(con);
 		}
 		close(con);
-		System.out.println("service result : " + result);
+		//System.out.println("service result : " + result);
 		return result;
 	}
 

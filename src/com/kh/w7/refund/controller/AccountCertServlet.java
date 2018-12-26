@@ -44,6 +44,9 @@ public class AccountCertServlet extends HttpServlet {
 		String result= "";
 		
 		switch(bank) {
+		case "":
+				result = "은행을 선택해주세요";
+			break;
 		case "국민은행":
 			if(account.length() == 16 && account.indexOf("-") == 6 && account.lastIndexOf("-") == 9)
 				result = "정상적인 국민은행 계좌입니다";
