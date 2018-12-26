@@ -54,7 +54,7 @@ section {
 <body>
 <body>
 <!-- 	<section class="bg-light" id="portfolio"> -->
-	<form action="" method="GET">
+	<form action="<%= request.getContextPath()%>/login.me" method="POST">
 
 		<table width="60%" height="500px" style="padding-left: 230px;">
 			<tr>
@@ -64,19 +64,19 @@ section {
 			<tr>
 				<td>
 					<div style="margin-bottom: 15px; margin-left:5%;" >
-						<input type="text" id="" placeholder="아이디를 입력하세요"
+						<input type="text" id="" placeholder="아이디를 입력하세요" name="memberId" id="memberId"
 							style="width: 500px; height: 50px; margin: 0 auto; font-size: 20px; border-radius: 6px;">
 					</div>
 					<div style="margin-bottom: 15px; margin-left:5%;";>
-						<input type="password" id="" placeholder="비밀번호를 입력하세요"
+						<input type="password" id="" placeholder="비밀번호를 입력하세요" name="memberPwd" id="memberPwd"
 							style="width: 500px; height: 50px; font-size: 20px; border-radius: 6px;">
 					</div>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<button type="button" class="btn btn-warning"
-						style="width: 500px; height: 50px; font-size: 20px; border-radius: 6px; margin-left:5%; margin-left:5%;"><a href="/dsm/login.me"><div style="color:white">로그인</div></a></button>
+					<button type="submit" class="btn btn-warning"
+						style="width: 500px; height: 50px; font-size: 20px; border-radius: 6px; margin-left:5%; margin-left:5%;"><a href=""><div style="color:white">로그인</div></a></button>
 				</td>
 			</tr>
 			<tr>

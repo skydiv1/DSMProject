@@ -1,179 +1,291 @@
 package com.kh.w7.member.model.vo;
 
 public class Member implements java.io.Serializable {
-	private int member_code;
-	private String member_id;
-	private String member_pwd;
-	private String member_name;
-	private String member_phone;
-	private String member_email;
-	private int member_category;
-	private String seller_introduction;
-	private int seller_grade;
-	private String seller_career;
-	private int member_admin;
-	private int privatemember_status;
-	private String seller_accountName;
-	private String seller_bank;
-	private String seller_account;
+	private int memberCode;
+	private String memberId;
+	private String memberPwd;
+	private String memberName;
+	private String memberPhone;
+	private String memberEmail;
+	private int memberCategory;
+	private String sellerIntroduction;
+	private int sellerGrade;
+	private String sellerCareer;
+	private int memberAdmin;
+	private int privatememberStatus;
+	private String sellerAccountName;
+	private String sellerBank;
+	private String sellerAccount;
+	private int sellerCertcheck;
 	
 	public Member() {}
 
-	public Member(int member_code, String member_id, String member_pwd, String member_name, String member_phone,
-			String member_email, int member_category, String seller_introduction, int seller_grade,
-			String seller_career, int member_admin, int privatemember_status, String seller_accountNane,
-			String seller_bank, String seller_account) {
+
+	
+
+	public Member(int memberCode, String memberId, String memberPwd, String memberName, String memberPhone,
+			String memberEmail, int memberCategory, String sellerIntroduction, int sellerGrade, String sellerCareer,
+			int memberAdmin, int privatememberStatus, String sellerAccountName, String sellerBank, String sellerAccount,
+			int sellerCertcheck) {
 		super();
-		this.member_code = member_code;
-		this.member_id = member_id;
-		this.member_pwd = member_pwd;
-		this.member_name = member_name;
-		this.member_phone = member_phone;
-		this.member_email = member_email;
-		this.member_category = member_category;
-		this.seller_introduction = seller_introduction;
-		this.seller_grade = seller_grade;
-		this.seller_career = seller_career;
-		this.member_admin = member_admin;
-		this.privatemember_status = privatemember_status;
-		this.seller_accountName = seller_accountName;
-		this.seller_bank = seller_bank;
-		this.seller_account = seller_account;
+		this.memberCode = memberCode;
+		this.memberId = memberId;
+		this.memberPwd = memberPwd;
+		this.memberName = memberName;
+		this.memberPhone = memberPhone;
+		this.memberEmail = memberEmail;
+		this.memberCategory = memberCategory;
+		this.sellerIntroduction = sellerIntroduction;
+		this.sellerGrade = sellerGrade;
+		this.sellerCareer = sellerCareer;
+		this.memberAdmin = memberAdmin;
+		this.privatememberStatus = privatememberStatus;
+		this.sellerAccountName = sellerAccountName;
+		this.sellerBank = sellerBank;
+		this.sellerAccount = sellerAccount;
+		this.sellerCertcheck = sellerCertcheck;
 	}
 
-	public int getMember_code() {
-		return member_code;
+
+
+
+	public int getMemberCode() {
+		return memberCode;
 	}
 
-	public void setMember_code(int member_code) {
-		this.member_code = member_code;
+
+
+
+	public void setMemberCode(int memberCode) {
+		this.memberCode = memberCode;
 	}
 
-	public String getMember_id() {
-		return member_id;
+
+
+
+	public String getMemberId() {
+		return memberId;
 	}
 
-	public void setMember_id(String member_id) {
-		this.member_id = member_id;
+
+
+
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
 
-	public String getMember_pwd() {
-		return member_pwd;
+
+
+
+	public String getMemberPwd() {
+		return memberPwd;
 	}
 
-	public void setMember_pwd(String member_pwd) {
-		this.member_pwd = member_pwd;
+
+
+
+	public void setMemberPwd(String memberPwd) {
+		this.memberPwd = memberPwd;
 	}
 
-	public String getMember_name() {
-		return member_name;
+
+
+
+	public String getMemberName() {
+		return memberName;
 	}
 
-	public void setMember_name(String member_name) {
-		this.member_name = member_name;
+
+
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
 	}
 
-	public String getMember_phone() {
-		return member_phone;
+
+
+
+	public String getMemberPhone() {
+		return memberPhone;
 	}
 
-	public void setMember_phone(String member_phone) {
-		this.member_phone = member_phone;
+
+
+
+	public void setMemberPhone(String memberPhone) {
+		this.memberPhone = memberPhone;
 	}
 
-	public String getMember_email() {
-		return member_email;
+
+
+
+	public String getMemberEmail() {
+		return memberEmail;
 	}
 
-	public void setMember_email(String member_email) {
-		this.member_email = member_email;
+
+
+
+	public void setMemberEmail(String memberEmail) {
+		this.memberEmail = memberEmail;
 	}
 
-	public int getMember_category() {
-		return member_category;
+
+
+
+	public int getMemberCategory() {
+		return memberCategory;
 	}
 
-	public void setMember_category(int member_category) {
-		this.member_category = member_category;
+
+
+
+	public void setMemberCategory(int memberCategory) {
+		this.memberCategory = memberCategory;
 	}
 
-	public String getSeller_introduction() {
-		return seller_introduction;
+
+
+
+	public String getSellerIntroduction() {
+		return sellerIntroduction;
 	}
 
-	public void setSeller_introduction(String seller_introduction) {
-		this.seller_introduction = seller_introduction;
+
+
+
+	public void setSellerIntroduction(String sellerIntroduction) {
+		this.sellerIntroduction = sellerIntroduction;
 	}
 
-	public int getSeller_grade() {
-		return seller_grade;
+
+
+
+	public int getSellerGrade() {
+		return sellerGrade;
 	}
 
-	public void setSeller_grade(int seller_grade) {
-		this.seller_grade = seller_grade;
+
+
+
+	public void setSellerGrade(int sellerGrade) {
+		this.sellerGrade = sellerGrade;
 	}
 
-	public String getSeller_career() {
-		return seller_career;
+
+
+
+	public String getSellerCareer() {
+		return sellerCareer;
 	}
 
-	public void setSeller_career(String seller_career) {
-		this.seller_career = seller_career;
+
+
+
+	public void setSellerCareer(String sellerCareer) {
+		this.sellerCareer = sellerCareer;
 	}
 
-	public int getMember_admin() {
-		return member_admin;
+
+
+
+	public int getMemberAdmin() {
+		return memberAdmin;
 	}
 
-	public void setMember_admin(int member_admin) {
-		this.member_admin = member_admin;
+
+
+
+	public void setMemberAdmin(int memberAdmin) {
+		this.memberAdmin = memberAdmin;
 	}
 
-	public int getPrivatemember_status() {
-		return privatemember_status;
+
+
+
+	public int getPrivatememberStatus() {
+		return privatememberStatus;
 	}
 
-	public void setPrivatemember_status(int privatemember_status) {
-		this.privatemember_status = privatemember_status;
+
+
+
+	public void setPrivatememberStatus(int privatememberStatus) {
+		this.privatememberStatus = privatememberStatus;
 	}
 
-	public String getSeller_accountName() {
-		return seller_accountName;
+
+
+
+	public String getSellerAccountName() {
+		return sellerAccountName;
 	}
 
-	public void setSeller_accountName(String seller_accountName) {
-		this.seller_accountName = seller_accountName;
+
+
+
+	public void setSellerAccountName(String sellerAccountName) {
+		this.sellerAccountName = sellerAccountName;
 	}
 
-	public String getSeller_bank() {
-		return seller_bank;
+
+
+
+	public String getSellerBank() {
+		return sellerBank;
 	}
 
-	public void setSeller_bank(String seller_bank) {
-		this.seller_bank = seller_bank;
+
+
+
+	public void setSellerBank(String sellerBank) {
+		this.sellerBank = sellerBank;
 	}
 
-	public String getSeller_account() {
-		return seller_account;
+
+
+
+	public String getSellerAccount() {
+		return sellerAccount;
 	}
 
-	public void setSeller_account(String seller_account) {
-		this.seller_account = seller_account;
+
+
+
+	public void setSellerAccount(String sellerAccount) {
+		this.sellerAccount = sellerAccount;
 	}
+
+
+
+
+	public int getSellerCertcheck() {
+		return sellerCertcheck;
+	}
+
+
+
+
+	public void setSellerCertcheck(int sellerCertcheck) {
+		this.sellerCertcheck = sellerCertcheck;
+	}
+
+
+
 
 	@Override
 	public String toString() {
-		return "Member [member_code=" + member_code + ", member_id=" + member_id + ", member_pwd=" + member_pwd
-				+ ", member_name=" + member_name + ", member_phone=" + member_phone + ", member_email=" + member_email
-				+ ", member_category=" + member_category + ", seller_introduction=" + seller_introduction
-				+ ", seller_grade=" + seller_grade + ", seller_career=" + seller_career + ", member_admin="
-				+ member_admin + ", privatemember_status=" + privatemember_status + ", seller_accountName="
-				+ seller_accountName + ", seller_bank=" + seller_bank + ", seller_account=" + seller_account + "]";
+		return "Member [memberCode=" + memberCode + ", memberId=" + memberId + ", memberPwd=" + memberPwd
+				+ ", memberName=" + memberName + ", memberPhone=" + memberPhone + ", memberEmail=" + memberEmail
+				+ ", memberCategory=" + memberCategory + ", sellerIntroduction=" + sellerIntroduction + ", sellerGrade="
+				+ sellerGrade + ", sellerCareer=" + sellerCareer + ", memberAdmin=" + memberAdmin
+				+ ", privatememberStatus=" + privatememberStatus + ", sellerAccountName=" + sellerAccountName
+				+ ", sellerBank=" + sellerBank + ", sellerAccount=" + sellerAccount + ", sellerCertcheck="
+				+ sellerCertcheck + "]";
 	}
-	
-	
 
 
 
-	
+
+
 }

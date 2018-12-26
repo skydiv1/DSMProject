@@ -1,6 +1,10 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    pageEncoding="UTF-8" import="com.kh.w7.member.model.vo.Member"%>
+<% String memberName = ((Member)(session.getAttribute("loginUser"))).getMemberName();
+	System.out.println("memberName : " + memberName);
+%>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -75,7 +79,7 @@
          			<img class="mx-auto rounded-circle" src="/dsm/img/team/2.jpg" alt="" style=" width:120px; height:120px;">
          		</td>
          		<td style="padding-left:2%;">
-              		<h6><b>DSMembers</b>님 반갑습니다.</h6>
+              		<h6><label><%= memberName%>님 환영합니다.</label></h6>
               		<div>잔여 캐시: <b>100000</b>원</div>
          		</td>
         	</tr>
@@ -83,7 +87,7 @@
         		<td>
         			<a href="#"><button type="button" class="btn btn-warning" onclick = "location.href = '/dsm/views/cash/cacheCharge.jsp'">캐시충전</button></a>
         			<a href="#"><button type="button" class="btn btn-light">내 정보 보기</button></a>
-        			<a href="#"><button type="button" class="btn btn-light">로그아웃</button></a>
+        			<a href="/dsm/logout.me"><button type="button" class="btn btn-light">로그아웃</button></a>
 <!--         			<a href="#"><button type="button" class="btn btn-light">관리자페이지</button></a> -->
         			<button class="btn btn-light" style="cursor: default;">신고횟수: <span>0</span>회</button>
         		</td>
