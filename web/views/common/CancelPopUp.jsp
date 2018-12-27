@@ -31,7 +31,7 @@
         <div class="modal-footer" style="align: center">
           
 				<button type="button" class="btn btn-secondary" style="width:200px" data-dismiss="modal">취소</button>
-				<button type="button" class="btn btn-warning" style="width: 200px">보내기</button>
+				<button type="submit" class="btn btn-warning" style="width: 200px" data-dismiss="modal" id="cancelBtn">보내기</button>
 		
         </div>
       </div>
