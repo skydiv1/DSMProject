@@ -32,17 +32,17 @@ public class BoardService {
 		
 		return result;
 	}
-	//페이징처리 적용한 게시물 조회용 메소드
-	public ArrayList<Board> selectList(int currentPage, int limit) {
-		Connection con = getConnection();
-		
-		ArrayList<Board> list 
-			= new BoardDao().selectList(con, currentPage, limit);
-		
-		close(con);
-		
-		return list;
-	}
+	
+		public ArrayList<Board> selectList(int currentPage, int limit) {
+			Connection con = getConnection();
+			
+			ArrayList<Board> list 
+				= new BoardDao().selectList(con, currentPage, limit);
+			
+			close(con);
+			
+			return list;
+		}
 
 	public int getListCount() {
 		Connection con = getConnection();
@@ -73,24 +73,5 @@ public class BoardService {
 		return b;
 	}
 
-	/*public ArrayList<Board> insertReply(Board b) {
-		Connection con = getConnection();
-		ArrayList<Board> replyList = null;
-		
-		int result = new BoardDao().insertReply(con, b);		
-		
-		if(result > 0) {
-			commit(con);
-			replyList = new BoardDao().selectReplyList(con, b.());
-			
-			
-		}else {
-			rollback(con);
-		}
-		close(con);
-		
-		return replyList;
-	}
-*/
 	
 }

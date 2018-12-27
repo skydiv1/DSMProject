@@ -112,7 +112,9 @@ function selectListAp(pg) {
 			      <td class="td1"></td>
 			      <td style="width: 30px"><button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#cencelModal">취소</button></td>
 			    </tr>
-			     
+
+		
+
 			  </tbody>
 			
 			</table>
@@ -148,8 +150,8 @@ function selectListAp(pg) {
 			      <td class="td1">Mark</td>
 			      <td class="td1">Otto</td>
 			      <td class="td1">@mdo</td>
-			      <td style="width: 10px; padding-right: 0px"><button type="button" class="btn btn-warning">결제하기</button></td>
-			      <td style="width: 5px"><button type="button" class="btn btn-secondary"data-toggle="modal" data-target="#cencelModal">취소</button></td>
+			      <td style="width: 10px; padding-right: 0px"><button type="button" class="btn btn-warning" onclick = "location.href = '<%= request.getContextPath()%>/selectOneProduct.de?memberCode=<%= 3%>&productNo=<%= 1%>'">결제하기</button></td>
+			      <td style="width: 5px"><button type="button" class="btn btn-secondary"data-toggle="modal" data-target="#cencelModal">취소</button></td>							<!-- 결제 페이지 전송용 샘플 데이터 -->
 			    </tr>
 			    <tr>
 			      <th scope="row">2</th>

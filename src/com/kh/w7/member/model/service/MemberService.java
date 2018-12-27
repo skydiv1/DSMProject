@@ -7,6 +7,7 @@ import com.kh.w7.member.model.vo.Member;
 import static com.kh.w7.common.JDBCTemplate.*;
 
 public class MemberService {
+	
 	public Member loginCheck(Member reqMember) {
 		Connection con = getConnection();
 		Member loginUser = new MemberDao().logincheck(con,reqMember);
@@ -30,13 +31,33 @@ public class MemberService {
 		return result;
 	}
 	//아이디 중복검사
-	public int idCheck(String inputId) {
+	public int idCheck(String memberId) {
 		Connection con= getConnection();
-		int result = new MemberDao().idCheck(con,inputId);
+		int result = new MemberDao().idCheck(con,memberId);
 		close(con);
 		return result;
 		
 		
+	}
+	public int changeMember(Member reqMember) {
+		Connection con = getConnection();
+		
+		int result= new MemberDao().changeMember(con, reqMember);
+			
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);	
+			
+		
+		return result;
+	}
+
+	public int findId(Member reqMember) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	

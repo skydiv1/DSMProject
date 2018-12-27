@@ -1,2 +1,6 @@
 eclipse.preferences.version=1
+encoding//src/com/kh/w7/board/controller/InsertBoardServlet.java=UTF-8
+encoding//src/com/kh/w7/board/controller/SelectBoardListServlet.java=UTF-8
+encoding//src/com/kh/w7/board/controller/SelectOneBoardServlet.java=UTF-8
+encoding//src/com/kh/w7/common/JDBCTemplate.java=UTF-8
 encoding//web/views/common/impordPayment.jsp=UTF-8

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.w7.member.model.dao.MemberDao;
 import com.kh.w7.member.model.service.MemberService;
 
 /**
@@ -30,27 +31,28 @@ public class IdcheckServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String inputId = request.getParameter("inputId");
-		
-		int result= new MemberService().idCheck(inputId);
-		
+		String memberId = request.getParameter("memberId");	
+		int result= new MemberService().idCheck(memberId);
+	
 		PrintWriter out = response.getWriter();
 		
 		if(result>0) {
 			out.append("fail");
-		}else {
+	}else {
 			out.append("success");
 		}
-		out.flush();
+	out.flush();
 		out.close();
-				}
+			}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+//		request.setCharacterEncoding("UTF-8");
+//		response.setContentType("text/html;charset=UTF-8");
+//		String memberId= request.getParameter("memberId");
+//		response.getWriter().write(new MemberDao().idCheck(memberId)+"");
 	}
 
 }

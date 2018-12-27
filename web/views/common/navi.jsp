@@ -46,7 +46,7 @@
          	<a class="nav-link js-scroll-trigger"><b>상품 등록</b></a>
 			</li>
 			<li class="nav-item">
-			<a class="nav-link js-scroll-trigger" href="/dsm/views/board/board.jsp"><b>게시판</b></a>
+			<a class="nav-link js-scroll-trigger" href="/dsm/selectList.bo"><b>게시판</b></a>
 			</li>
 			<li class="nav-item">
 			<a class="nav-link js-scroll-trigger" href="/dsm/views/member/login.jsp"><b>마이페이지</b></a>
@@ -60,21 +60,26 @@
 </nav>
 
 <header class="masthead" style="background-image: url('/dsm/img/drone_background.jpg'); background-size: 100% 500px; margin-top: 0px; background-position:center;">
+<form action="<%= request.getContextPath()%>/login.me" method="POST">
 <div class="container">
 	<div class="intro-text" style="padding-top:35px;">
 		<div>&nbsp;</div>
 		<div>&nbsp;</div>
 		<div>&nbsp;</div>
 		<div style="margin-bottom: 20px;">
-			<input type="text" id="" placeholder="아이디를 입력하세요" style="width:250px; height:40px; font-size: 12px; box-shadow:0px 0px 20px #000; border-radius:6px;">
+			<input type="text" id="memberId" name="memberId" placeholder="아이디를 입력하세요" style="width:250px; height:40px; font-size: 12px; box-shadow:0px 0px 20px #000; border-radius:6px;">
+		
 		</div>
 		<div style="margin-bottom: 20px">
-			<input type="password" id="" placeholder="비밀번호를 입력하세요" style="width:250px; height:40px; font-size: 12px; box-shadow:0px 0px 20px #000; border-radius:6px;">
+			<input type="password" id="memberPwd" name="memberPwd" placeholder="비밀번호를 입력하세요" style="width:250px; height:40px; font-size: 12px; box-shadow:0px 0px 20px #000; border-radius:6px;">
 		</div>
-		<a id="login" class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="/dsm/login.me" style="padding: 7px 60px; box-shadow:0px 0px 10px #000; background-color:#fed136;"><label style="width:100px; height:12px; ">로그인</label></a>
+		<div>
+		<input type="submit" id="login" value="로그인" class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" style="padding: 7px 100px; box-shadow:0px 0px 10px #000; background-color:#fed136;">
+		</div>
 		<div style="margin-top:10px;"><a href="/dsm/views/member/find_Id.jsp">아이디 찾기</a> / <a href="/dsm/views/member/find_pw.jsp">비밀번호 찾기</a> / <a href="/dsm/views/member/user_terms2.jsp">회원가입</a></div>
 	</div>
 </div>
+</form>
 </header>
 
 <script>

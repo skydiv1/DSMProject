@@ -17,9 +17,9 @@
 	Attachment detailImg6 = fileList.get(5);	 
 	
 	ArrayList<PlusProduct> pList = (ArrayList<PlusProduct>)request.getAttribute("pList");
-	PlusProduct detail1 = pList.get(0);
-	PlusProduct detail2 = pList.get(1);
-	PlusProduct detail3 = pList.get(2);
+	/* PlusProduct detail1 = pList.get(0);
+	PlusProduct detail2 = pList.get(1);		
+	PlusProduct detail3 = pList.get(2);	 */ 
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -138,12 +138,16 @@
 					style="padding-right: 10%; margin-left: 5%;">
 					<select class="btn btn-outline-secondary">
 						<option value="category" selected>추가옵션(선택)</option>
-						<option value="education"><span><%=detail1.getPlusProductItem()%></span> : <span><%=detail1.getPlusProductPrice()%></span>원
+						<% for(int i=0; i<pList.size(); i++){ %>
+							<option value=""><span><%=pList.get(i).getPlusProductItem()%></span> : <span><%=pList.get(i).getPlusProductPrice()%></span>원
+							</option>						
+						<% } %>
+						<%-- <option value=""><span><%=detail1.getPlusProductItem()%></span> : <span><%=detail1.getPlusProductPrice()%></span>원
 						</option>
-						<option value="shooting"><span><%=detail2.getPlusProductItem()%></span> : <span><%=detail2.getPlusProductPrice()%></span>원
+						<option value=""><span><%=detail2.getPlusProductItem()%></span> : <span><%=detail2.getPlusProductPrice()%></span>원
 						</option>
-						<option value="edit"><span><%=detail3.getPlusProductItem()%></span> : <span><%=detail3.getPlusProductPrice()%></span>원
-						</option>
+						<option value=""><span><%=detail3.getPlusProductItem()%></span> : <span><%=detail3.getPlusProductPrice()%></span>원
+						</option> --%>
 					</select>
 				</div>
 			</td>
@@ -200,26 +204,26 @@
 				
 				<table>
 					<tr>
-						<td style="padding: 2% 2% 2% 0%;"><img class="img-fluid"
+						<td style="padding: 2% 2% 2% 0%;"><img class="img-fluid" id="detailImg1"
 							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg1.getChangeName()%>"
 							style="width: 420px; height: 300px;"></td>
-						<td style="padding: 2% 2% 2% 2%;"><img class="img-fluid"
+						<td style="padding: 2% 2% 2% 2%;"><img class="img-fluid" id="detailImg2"
 							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg2.getChangeName()%>"
 							style="width: 420px; height: 300px;"></td>
 					</tr>
 					<tr>
-						<td style="padding: 2% 2% 2% 0%;"><img class="img-fluid"
+						<td style="padding: 2% 2% 2% 0%;"><img class="img-fluid" id="detailImg3"
 							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg3.getChangeName()%>"
 							style="width: 420px; height: 300px;"></td>
-						<td style="padding: 2% 2% 2% 2%;"><img class="img-fluid"
+						<td style="padding: 2% 2% 2% 2%;"><img class="img-fluid" id="detailImg4"
 							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg4.getChangeName()%>"
 							style="width: 420px; height: 300px;"></td>
 					</tr>
 					<tr>
-						<td style="padding: 2% 2% 2% 0%;"><img class="img-fluid"
+						<td style="padding: 2% 2% 2% 0%;"><img class="img-fluid" id="detailImg5"
 							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg5.getChangeName()%>"
 							style="width: 420px; height: 300px;"></td>
-						<td style="padding: 2% 2% 2% 2%;"><img class="img-fluid"
+						<td style="padding: 2% 2% 2% 2%;"><img class="img-fluid" id="detailImg6"
 							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg6.getChangeName()%>"
 							style="width: 420px; height: 300px;"></td>
 					</tr>
@@ -293,9 +297,26 @@
 	<br><br><br><br>
 	<button onclick="location.href='productEdit.jsp'" class="btn btn-warning" style="width:7%; height:40px; margin-left: 80%">수정하기</button>
 </section>
-		console.log();
 
 	<script>
+		$(function () {
+			/* 이미지가 없을 경우에는 공간을 숨긴다. */
+			if($("#detailImg2").attr("src") == "/dsm/image_uploadFiles/null"){
+				$("#detailImg2").hide();
+			}
+			if($("#detailImg3").attr("src") == "/dsm/image_uploadFiles/null"){
+				$("#detailImg3").hide();
+			}
+			if($("#detailImg4").attr("src") == "/dsm/image_uploadFiles/null"){
+				$("#detailImg4").hide();
+			}
+			if($("#detailImg5").attr("src") == "/dsm/image_uploadFiles/null"){
+				$("#detailImg5").hide();
+			}
+			if($("#detailImg6").attr("src") == "/dsm/image_uploadFiles/null"){
+				$("#detailImg6").hide();
+			}
+		})
 	</script>
 
 	<!-- Footer ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->

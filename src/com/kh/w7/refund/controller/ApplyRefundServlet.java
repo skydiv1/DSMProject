@@ -58,20 +58,12 @@ public class ApplyRefundServlet extends HttpServlet {
 		
 		int result = new RefundService().insertRefundData(r);
 		
-		System.out.println("servlet result : " + result);
-		String page = "";
 		
-		if(result > 0) {
-			page = "/dsm/index.jsp";
-			response.sendRedirect(page);
-		}else {
-			page = "/dsm/views/common/errorPage.jsp";
-			request.getRequestDispatcher(page).forward(request, response);
-		}
+		//System.out.println("servlet result : " + result);
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
-		new Gson().toJson(page, response.getWriter());
+		new Gson().toJson(result, response.getWriter());
 		
 	}
 

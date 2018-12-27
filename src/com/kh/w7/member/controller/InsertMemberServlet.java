@@ -30,22 +30,22 @@ public class InsertMemberServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String member_id = request.getParameter("member_id");
-		String member_pwd = request.getParameter("member_pwd");
-		String member_name = request.getParameter("member_name");
-		String member_phone = request.getParameter("member_phone");
-		String member_email = request.getParameter("member_email");
-		String seller_introduction = request.getParameter("seller_introduction");
-		String seller_career = request.getParameter("seller_career");
+		String memberId = request.getParameter("memberId");
+		String memberPwd = request.getParameter("memberPwd");
+		String memberName = request.getParameter("memberName");
+		String memberPhone = request.getParameter("memberPhone");
+		String memberEmail = request.getParameter("memberEmail");
+		String sellerIntroduction = request.getParameter("selleIntroduction");
+		String sellerCareer = request.getParameter("sellerCareer");
 	
 		Member reqMember = new Member();
-		reqMember.setMember_id(member_id);
-		reqMember.setMember_pwd(member_pwd);
-		reqMember.setMember_name(member_name);
-		reqMember.setMember_phone(member_phone);
-		reqMember.setMember_email(member_email);
-		reqMember.setSeller_introduction(seller_introduction);
-		reqMember.setSeller_career(seller_career);
+		reqMember.setMemberId(memberId);
+		reqMember.setMemberPwd(memberPwd);
+		reqMember.setMemberName(memberName);
+		reqMember.setMemberPhone(memberPhone);
+		reqMember.setMemberEmail(memberEmail);
+		reqMember.setSellerIntroduction(sellerIntroduction);
+		reqMember.setSellerCareer(sellerCareer);
 		
 		int result = new MemberService().insertMember(reqMember);
 		

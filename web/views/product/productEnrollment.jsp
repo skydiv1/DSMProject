@@ -39,16 +39,36 @@
 <!-- 시멘틱 -->
 <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"> -->
 <!-- <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script> -->
+
+<!-- SummerNote -->
+<!-- include libraries(jQuery, bootstrap) -->
+<!-- <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script> 
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+
+include summernote css/js
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.js"></script>
+
+include summernote-ko-KR
+<script src="lang/summernote-ko-KR.js"></script> -->
+
 <style>
-	#contentImgArea1,#contentImgArea2,#contentImgArea3
-	,#contentImgArea4,#contentImgArea5,#contentImgArea6{
-		width: 450px;
-		height: 300px;
-		border: 2px dashed darkgray;
-		text-align: center;
-		display: table-cell;
-		vertical-align: middle;				
-	}
+#contentImgArea1, #contentImgArea2, #contentImgArea3, #contentImgArea4,
+	#contentImgArea5, #contentImgArea6 {
+	width: 450px;
+	height: 300px;
+	border: 2px dashed darkgray;
+	text-align: center;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+input[type="number"]::-webkit-outer-spin-button, 
+input[type="number"]::-webkit-inner-spin-button{
+	-webkit-appearance: none;
+	margin: 0;
+}
 </style>
 </head>
 <body>
@@ -118,7 +138,7 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text">￦</span>
 								</div>
-								<input name="basicPrice"  type="text" class="form-control"
+								<input name="basicPrice"  type="number" class="form-control" onkeydown="javascript: return event.keyCode == 69 ? false : true"
 									aria-label="Amount (to the nearest dollar)">
 								<div class="input-group-append">
 									<span class="input-group-text">.00</span>
@@ -164,7 +184,7 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text">￦</span>
 								</div>
-								<input name="additionalPrice1"  type="text" class="form-control"
+								<input name="additionalPrice1"  type="number" class="form-control" onkeydown="javascript: return event.keyCode == 69 ? false : true"
 									aria-label="Amount (to the nearest dollar)">
 								<div class="input-group-append">
 									<span class="input-group-text">.00</span>
@@ -188,6 +208,7 @@
 			<textarea name="content" class="form-control z-depth-1" style="resize: none;"
 				id="exampleFormControlTextarea6" rows="20"
 				placeholder="서비스 설명을 적어주세요"></textarea>
+<!-- 			<textarea name="content" id="content" class="summernote" rows="20" cols="" style="resize:none;"></textarea> -->
 		</div>
 		<br><br><br>
 		
@@ -200,35 +221,35 @@
 		<table align="center" border="0" width="80%" align="center">
 			<tr>
 				<td style="padding: 2% 2% 2% 2%;" width="470px">
-					<div id="contentImgArea1">
-						<img id="contentImg1" style="box-shadow: 0px 0px 10px #000;"><div id="text1" style="font-size: 30px;">대표 이미지를 넣어주세요</div>
+					<div id="contentImgArea1" style="cursor:pointer;">
+						<img id="contentImg1" style="box-shadow: 0px 0px 10px #000;"><div id="text1" style="font-size: 20px;">대표 이미지를 넣어주세요</div>
 					</div>
 				</td>
 				<td  style="padding: 2% 2% 2% 2%;" width="470px">
-					<div id="contentImgArea2">
-						<img id="contentImg2" style="box-shadow: 0px 0px 10px #000;"><div id="text2" style="font-size: 30px; color: darkgray;">추가 이미지를 넣어주세요</div>
+					<div id="contentImgArea2" style="cursor:pointer;">
+						<img id="contentImg2" style="box-shadow: 0px 0px 10px #000;"><div id="text2" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
 					</div>
 				</td>
 				<td  style="padding: 2% 2% 2% 2%;" width="470px">
-					<div id="contentImgArea3">
-						<img id="contentImg3" style="box-shadow: 0px 0px 10px #000;"><div id="text3" style="font-size: 30px; color: darkgray;">추가 이미지를 넣어주세요</div>
+					<div id="contentImgArea3" style="cursor:pointer;">
+						<img id="contentImg3" style="box-shadow: 0px 0px 10px #000;"><div id="text3" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
 					</div>
 				</td>
 			</tr>
 			<tr>
 				<td style="padding: 2% 2% 2% 2%;">
-					<div id="contentImgArea4">
-						<img id="contentImg4" style="box-shadow: 0px 0px 10px #000;"><div id="text4" style="font-size: 30px; color: darkgray;">추가 이미지를 넣어주세요</div>
+					<div id="contentImgArea4" style="cursor:pointer;">
+						<img id="contentImg4" style="box-shadow: 0px 0px 10px #000;"><div id="text4" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
 					</div>
 				</td>
 				<td style="padding: 2% 2% 2% 2%;">
-					<div id="contentImgArea5">
-						<img id="contentImg5" style="box-shadow: 0px 0px 10px #000;"><div id="text5" style="font-size: 30px; color: darkgray;">추가 이미지를 넣어주세요</div>
+					<div id="contentImgArea5" style="cursor:pointer;">
+						<img id="contentImg5" style="box-shadow: 0px 0px 10px #000;"><div id="text5" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
 					</div>
 				</td>
 				<td style="padding: 2% 2% 2% 2%;">
-					<div id="contentImgArea6">
-						<img id="contentImg6" style="box-shadow: 0px 0px 10px #000;"><div id="text6" style="font-size: 30px; color: darkgray;">추가 이미지를 넣어주세요</div>
+					<div id="contentImgArea6" style="cursor:pointer;">
+						<img id="contentImg6" style="box-shadow: 0px 0px 10px #000;"><div id="text6" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
 					</div>
 				</td>
 			</tr>
@@ -246,8 +267,8 @@
 
 		<br><br><br><br><br>
 		<div style="margin-left: 78%;">
-			<button type="submit" class="btn btn-warning">상품 등록</button>
-			<button type="reset" class="btn btn-danger">취소</button><!-- 이전페이지로 이동 -->
+			<button type="submit" class="btn btn-warning" onclick="alertEvent();">상품 등록</button>
+			<button type="button" class="btn btn-danger" onclick="location.href='<%=request.getContextPath()%>/selectList.pr'">취소</button><!-- 이전페이지로 이동 -->
 		</div>
 	</form>
 	</section>
@@ -257,8 +278,7 @@
 			var cnt = 1;
 			var name = 1;
 			/* 추가 버튼을 눌렀을 때 동작하는 함수 */
-			$("#additionalItem").click(function () {
-				
+			$("#additionalItem").click(function () {				
 				if(cnt<3){
 		    		cnt++;
 					name++;
@@ -280,7 +300,7 @@
 						+'<div class="input-group-prepend">'
 						+'<span class="input-group-text">￦</span>'
 						+'</div>'
-						+'<input name="additionalPrice'+name+'" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">'
+						+'<input name="additionalPrice'+name+'" type="number" class="form-control" aria-label="Amount (to the nearest dollar)" onkeydown="javascript: return event.keyCode == 69 ? false : true">'
 						+'<div class="input-group-append">'
 						+'<span class="input-group-text">.00</span>'
 						+'</div>'
@@ -383,7 +403,11 @@
 	   		    	alert("서비스 설명을 입력해주세요.");
 	     		 	$("input[name=content]").focus();
 	     		    return false;
-		  	 }else if($("input[name=additionalItem1]").val() == ""){ 
+		  	 }else if($("input[name=thumbnailImg1]").val() == ""){ 
+	   		    	alert("대표 이미지를 등록해주세요.");
+	     		 	$("input[name=thumbnailImg1]").focus();
+	     		    return false;
+	 		 }else if($("input[name=additionalItem1]").val() == ""){ 
 	     		 	$("input[name=additionalItem1]").val("추가항목 없음");
 	     		 	$("input[name=additionalPrice1]").val("0");
 	     		    return false;
@@ -397,6 +421,23 @@
 	     		    return false;
 	 		 }else return true;	
 		}
+		
+		/* summerNote */
+	    /* $(function() {
+	        $('.summernote').summernote({
+	          height: 300,          // 기본 높이값
+	          minHeight: null,      // 최소 높이값(null은 제한 없음)
+	          maxHeight: null,      // 최대 높이값(null은 제한 없음)
+	          focus: true,          // 페이지가 열릴때 포커스를 지정함
+	          lang: 'ko-KR'         // 한국어 지정(기본값은 en-US)
+	        });
+	      }); */
+	</script>
+	<script>
+		function alertEvent() {
+			alert("정상적으로 등록되었습니다.");
+		}
+	
 	</script>
 	
 	<!-- Footer ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->

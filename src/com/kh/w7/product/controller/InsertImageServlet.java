@@ -2,6 +2,7 @@ package com.kh.w7.product.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
@@ -190,7 +191,7 @@ public class InsertImageServlet extends HttpServlet {
 					failedFile.delete(); // 이용할 일이 없어서 호출만으로 끝낸다.
 				}	
 								
-				request.setAttribute("msg", "사진 게시판 등록 실패!");
+				request.setAttribute("msg", "상품 등록 실패!");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			}			
 		}

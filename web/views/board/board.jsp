@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*, com.kh.w7.board.model.vo.*"%>
-<%
+ <%
 	ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	int listCount = pi.getListCount();
@@ -15,6 +15,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -28,8 +30,8 @@
 <body>
 
 <!-- 네비게이션 바 -->
-<%-- 		<%@ include file = "../common/navi.jsp" %> --%>
-		<%@ include file = "../common/naviLogin.jsp" %>
+< 		<%@ include file = "../common/navi.jsp" %> 
+		<%-- <%@ include file = "../common/naviLogin.jsp" %> --%>
 <!-- 네비게이션 바 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 <section class="bg-light" id="portfolio">
 
@@ -39,9 +41,9 @@
 			<!-- 로그인한 사용자만 게시글 작성할 수 있게 만드는거 2018-12-24 오후 3:05분 -->
 		 		<div style="margin:10px 10px 10px 1050px">
 		 			<a class="btn btn-primary pull-right " href="boardWrite.jsp">
-		 			<% if(loginUser != null){ %>
+		 			<%-- <% if(loginUser != null){ %> --%>
 		 				<button>글쓰기</button>
-		 			<% } %>	
+		 			<%-- <% } %> --%>	
 		 			</a>
 		 		</div>
 		 <div class="row" style="postion:static;">
@@ -59,32 +61,46 @@
 		 		<% for(Board b : list){ %>
 		 				<tr>		 				                      
                             <td><%= b.getBoardNo() %></td>
-                            <td><%= b.getBoardTitle() %></td>
                             <td><%= b.getMemberCode() %></td>
+                            <td><%= b.getBoardTitle() %></td>
+                            <td><%= b.getBoardContext() %></td>
                             <td><%= b.getBoardDate() %></td>
                             <td><%= b.getBoardCount() %></td>
                             
                         </tr>
                 <% } %>
 		 		</tbody>		 	
-		 	</table>		 	
-		 	<nav aria-label="page" style="margin:0px 0px 0px 400px">
- 			 <ul class="pagination">
-    			<li class="page-item">
-    			  <a class="page-link" href="#" aria-label="Previous">
-        			<span aria-hidden="true">&laquo;</span>
-        			<span class="sr-only">Previous</span>
-      	</a>
-				    </li>
-				    <li class="page-item"><a class="page-link" href="#">1</a></li>
-				    <li class="page-item"><a class="page-link" href="#">2</a></li>
-				    <li class="page-item"><a class="page-link" href="#">3</a></li>
-				    <li class="page-item">
-				      <a class="page-link" href="#" aria-label="Next">
-	      	  <span aria-hidden="true">&raquo;</span>
-	        <span class="sr-only">Next</span>
-	      </a>
-	    </li>
+		 	</table>
+		 			 	
+		 	<div class="pagingArea" align="center">
+			<button onclick="location.href='<%=request.getContextPath()%>/selectList.bo?currentPage=1'"><<</button>
+			
+			<% if(currentPage <= 1){ %>
+			<button disabled><</button>
+			<% }else{ %>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectList.bo?currentPage=<%=currentPage - 1%>'"><</button>
+			<% } %>
+			
+			<% for(int p = startPage; p <= endPage; p++){ 
+					if(p == currentPage){
+			%>
+					<button disabled><%= p %></button>
+			<%      }else{ %>
+					<button onclick="location.href='<%=request.getContextPath()%>/selectList.bo?currentPage=<%= p %>'"><%= p %></button>
+			<%      } %>
+	
+			<% } %>
+			
+			
+			<% if(currentPage >= maxPage){ %>
+			<button disabled>></button>
+			<% }else{ %>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectList.bo?currentPage=<%=currentPage + 1%>'">></button>
+			<% } %>
+			
+			<button onclick="location.href='<%=request.getContextPath()%>/selectList.bo?currentPage=<%=maxPage%>'">>></button>
+			
+		</div>
 	        	 <!-- 검색 드롭박스 부분 보류 -->
  <div class="searchArea" id="searchText" style="margin:0px 0px 0px 240px">
     <button class="dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">제목</button>
