@@ -56,8 +56,13 @@
 				<ul class="navbar-nav text-uppercase ml-auto">
 					<li class="nav-item"><a class="nav-link js-scroll-trigger"
 						href="/dsm/selectList.pr"><b>상품 목록</b></a></li>
-					<li class="nav-item" id="productEnrollment"><a
-						class="nav-link js-scroll-trigger"><b>상품 등록</b></a></li>
+					<%-- <% if(loginUser == null){ %>
+					<li class="nav-item" id="productEnrollment"><a class="nav-link js-scroll-trigger"
+						id="productEnrollment"><b>상품 등록</b></a></li>
+					<% } else{ %>
+					<li class="nav-item" id="productEnrollment"><a class="nav-link js-scroll-trigger"
+						href="/dsm/selectList.pr"><b>상품 등록</b></a></li>
+					<% { %> --%>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger"
 						href="/dsm/selectList.bo"><b>게시판</b></a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger"
