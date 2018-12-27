@@ -37,14 +37,14 @@ public class BoardDao {
 		ResultSet rset = null;
 		ArrayList<Board> list = null;
 		String query = prop.getProperty("selectList");
-
+		Board b = null;
 		try {
 			stmt = con.createStatement();
 			rset = stmt.executeQuery(query);
 			list = new ArrayList<Board>();
 			
 			while(rset.next()) {
-				Board b = new Board();
+				b = new Board();
 				if(b.getBoardCategory() == 0) {
 				b.setBoardNo(rset.getInt("BOARD_NO"));
 				b.setMemberCode(rset.getInt("MEMBER_CODE"));

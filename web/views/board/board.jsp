@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*, com.kh.w7.board.model.vo.*"%>
  <%
+
 	ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	int listCount = pi.getListCount();
@@ -64,6 +65,7 @@
                             <td><%= b.getBoardTitle() %></td>
                             <td><%= b.getBoardContext() %></td>
                             <td><%= b.getBoardDate() %></td>
+                            <td><%= b.getBoardCategory() %></td>
                             <td><%= b.getBoardCount() %></td>
                             
                         </tr>
