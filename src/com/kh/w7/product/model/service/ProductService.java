@@ -58,9 +58,12 @@ public class ProductService {
 	public int insertPlusProduct(Product product, ArrayList<PlusProduct> pList) {
 		Connection con = getConnection();
 		int result = 0;
+
+		int nextNum = new ProductDao().selectNextval(con); // 다음시퀀스 값 조회
+		System.out.println("nextNum(다음시퀀스 조회) : "+nextNum);
 		
 		int result1= new ProductDao().insertThumbnailContent(con, product); // product 내용만 insert / 부모 테이블 먼저 insert 해야 한다.
-		
+		System.out.println("result1  :  "+result1);
 		if(result1>0) {
 			int currNum = new ProductDao().selectCurrval(con); // 현재시퀀스 값 조회
 			System.out.println("(insertPlusProduct)현재시퀀시 값 조회: " + currNum);
@@ -91,8 +94,11 @@ public class ProductService {
 		Connection con = getConnection();
 		int result = 0;
 		
-		int result1= new ProductDao().insertThumbnailContent(con, product); // product 내용만 insert / 부모 테이블 먼저 insert 해야 한다.
+		int imgNo = new ProductDao().selectImgNextval(con); // 다음시퀀스 값 조회
+		System.out.println("nextNum(이미지테이블 다음시퀀스 조회) : "+imgNo);
 		
+		int result1= new ProductDao().insertThumbnailContent(con, product); // product 내용만 insert / 부모 테이블 먼저 insert 해야 한다.
+
 		if(result1>0) {
 			int productNo = new ProductDao().selectCurrval(con); // 현재시퀀스 값 조회
 			System.out.println("(insertThumbnail)현재시퀀시 값 조회: " + productNo);
@@ -118,7 +124,7 @@ public class ProductService {
 	}
 
 
-	/* 상품 목록에서 상품 상세보기 페이지로 이동 */
+	/* 상품 목록에서 상품 상세보기 페이지로 이동 */ /* 상품 업데이트 */ 
 	public HashMap<String, Object> selectThumbnailMap(int num) {
 		Connection con = getConnection();
 		
@@ -132,6 +138,7 @@ public class ProductService {
 		
 		return hmap;
 	}
+
 
 
 

@@ -17,9 +17,6 @@
 	Attachment detailImg6 = fileList.get(5);	 
 	
 	ArrayList<PlusProduct> pList = (ArrayList<PlusProduct>)request.getAttribute("pList");
-	/* PlusProduct detail1 = pList.get(0);
-	PlusProduct detail2 = pList.get(1);		
-	PlusProduct detail3 = pList.get(2);	 */ 
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -128,7 +125,7 @@
 		<tr>
 			<td width="50%">
 				<div style="font-size: 15px; font: bold; margin-left: 5%; margin-top: 15%;">
-					기본 금액: <span style="font-size: 20px; margin-left: 60%;"><%= product.getProductItemPrice() %></span>원
+					<b><%= product.getProductItem() %></b> : <span style="font-size: 20px; margin-left: 60%;"><%= product.getProductItemPrice() %></span>원
 				</div>
 			</td>
 		</tr>
@@ -138,16 +135,10 @@
 					style="padding-right: 10%; margin-left: 5%;">
 					<select class="btn btn-outline-secondary">
 						<option value="category" selected>추가옵션(선택)</option>
-						<% for(int i=0; i<pList.size(); i++){ %>
-							<option value=""><span><%=pList.get(i).getPlusProductItem()%></span> : <span><%=pList.get(i).getPlusProductPrice()%></span>원
+						<% for(PlusProduct p : pList){ %>
+							<option value=""><span><%=p.getPlusProductItem()%></span> : <span><%=p.getPlusProductPrice()%></span>원
 							</option>						
 						<% } %>
-						<%-- <option value=""><span><%=detail1.getPlusProductItem()%></span> : <span><%=detail1.getPlusProductPrice()%></span>원
-						</option>
-						<option value=""><span><%=detail2.getPlusProductItem()%></span> : <span><%=detail2.getPlusProductPrice()%></span>원
-						</option>
-						<option value=""><span><%=detail3.getPlusProductItem()%></span> : <span><%=detail3.getPlusProductPrice()%></span>원
-						</option> --%>
 					</select>
 				</div>
 			</td>
@@ -295,7 +286,9 @@
 		</div>
 	</div>
 	<br><br><br><br>
-	<button onclick="location.href='productEdit.jsp'" class="btn btn-warning" style="width:7%; height:40px; margin-left: 80%">수정하기</button>
+	<% if(loginUser != null /* && loginUser.getMemberId().equals() */){ %> <!-- 조건 추가 (작성자와 로그인 유저가 일치했을 경우 처리..) -->
+	<button onclick="location.href='<%=request.getContextPath()%>/selectProduct.pr?num=<%=product.getProductNo()%>'" class="btn btn-warning" style="width:7%; height:40px; margin-left: 80%">수정하기</button>
+	<% } %>
 </section>
 
 	<script>

@@ -18,16 +18,16 @@ import com.kh.w7.product.model.vo.PlusProduct;
 import com.kh.w7.product.model.vo.Product;
 
 /**
- * Servlet implementation class SelectOneImageServlet
+ * Servlet implementation class SelectProductServlet
  */
-@WebServlet("/selectOne.pr")
-public class SelectOneImageServlet extends HttpServlet {
+@WebServlet("/selectProduct.pr") // 수정 버튼을 눌렀을 때 동작하는 서블릿
+public class SelectProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectOneImageServlet() {
+    public SelectProductServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -46,32 +46,21 @@ public class SelectOneImageServlet extends HttpServlet {
 		//PlusProduct plusProduct = (PlusProduct)hmap.get("plusProduct");
 		ArrayList<PlusProduct> pList = (ArrayList<PlusProduct>)hmap.get("plusProduct");
 		ArrayList<Attachment> fileList = (ArrayList<Attachment>)hmap.get("attachment");
-
-		System.out.println("1번이미지: "+fileList.get(0));
-		System.out.println("2번이미지: "+fileList.get(1));
-		System.out.println("3번이미지: "+fileList.get(2));
-		System.out.println("4번이미지: "+fileList.get(3));
-		System.out.println("5번이미지: "+fileList.get(4));
-		System.out.println("6번이미지: "+fileList.get(5));
-		/*System.out.println("1번 추가 목록: "+pList.get(0));
-		System.out.println("2번 추가 목록: "+pList.get(1));
-		System.out.println("3번 추가 목록: "+pList.get(2));*/
-		
 		
 		String page = "";
 		if(hmap != null) {
-			page = "views/product/productDetail.jsp";
+			page = "views/product/productUpdate.jsp";
 			request.setAttribute("product", product);
 			request.setAttribute("fileList", fileList);
 			request.setAttribute("member", member);
 			request.setAttribute("pList", pList);
 		}else {
 			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "상품 상세보기 실패!");
+			request.setAttribute("msg", "업데이트 페이지로 이동 실패!");
 		}
 		
 		RequestDispatcher view = request.getRequestDispatcher(page);
-		view.forward(request, response);
+		view.forward(request, response);		
 	}
 
 	/**
