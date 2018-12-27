@@ -127,7 +127,6 @@ public class MemberDao {
 	// 아이디 중복 검사
 	public int idCheck(Connection con, String memberId) {
 		
-		Connection con =null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		

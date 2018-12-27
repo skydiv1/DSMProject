@@ -1,269 +1,184 @@
 <%@page import="com.kh.w7.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%
-	Member loginUser = (Member)session.getAttribute("loginUser");
-
+	Member loginUser = (Member) session.getAttribute("loginUser");
 %>
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
+<head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
 
-    <title>DSM(Drone Service Market)</title>
+<title>DSM(Drone Service Market)</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="/dsm/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap core CSS -->
+<link href="/dsm/vendor/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
 
-    <!-- Custom fonts for this template -->
-    <link href="/dsm/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+<!-- Custom fonts for this template -->
+<link href="/dsm/vendor/fontawesome-free/css/all.min.css"
+	rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
+	rel="stylesheet" type="text/css">
+<link href='https://fonts.googleapis.com/css?family=Kaushan+Script'
+	rel='stylesheet' type='text/css'>
+<link
+	href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic'
+	rel='stylesheet' type='text/css'>
+<link
+	href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700'
+	rel='stylesheet' type='text/css'>
 
-    <!-- Custom styles for this template -->
-    <link href="css/agency.min.css" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link href="css/agency.min.css" rel="stylesheet">
 
 </head>
-
 <body id="page-top">
- <!-- 네비게이션 바 -->
- <% if(loginUser == null){ %>
-		<%@ include file = "navi.jsp" %> <!-- 로그인 전 -->
-		<% }else{%>
- 		<%@ include file = "naviLogin.jsp" %> <!-- 로그인 후 -->
-<%} %>
-<!-- 네비게이션 바 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-<!-- Header -->
-<!-- header 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+	<!-- 네비게이션 바 -->
+	<!-- //////////////////////////////////////////////////////////////// -->
+	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+		<div class="container">
+			<a class="navbar-brand js-scroll-trigger" href="/dsm/index.jsp">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DSM</a>
+			<button class="navbar-toggler navbar-toggler-right" type="button"
+				data-toggle="collapse" data-target="#navbarResponsive"
+				aria-controls="navbarResponsive" aria-expanded="false"
+				aria-label="Toggle navigation">
+				Menu <i class="fas fa-bars"></i>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav text-uppercase ml-auto">
+					<li class="nav-item"><a class="nav-link js-scroll-trigger"
+						href="/dsm/selectList.pr"><b>상품 목록</b></a></li>
+					<li class="nav-item" id="productEnrollment"><a
+						class="nav-link js-scroll-trigger"><b>상품 등록</b></a></li>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger"
+						href="/dsm/selectList.bo"><b>게시판</b></a></li>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger"
+						href="/dsm/views/member/login.jsp"><b>마이페이지</b></a></li>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger"
+						href="/dsm/views/faq/FAQ.jsp"><b>고객센터</b></a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- //////////////////////////////////////////////////////////////// -->
 
-<!-- 베스트판매자 -->
-<section class="bg-light" id="portfolio">
-<div class="container">
-	<div class="row">
-		<div class="col-lg-12 text-center">
-			<h2 class="section-heading text-uppercase">베스트판매자</h2>
-			<h3 class="section-subheading text-muted"><hr></h3>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-4 col-sm-6 portfolio-item">
-			<a class="portfolio-link" data-toggle="modal" href="#">
-			<div class="portfolio-hover">
-				<div class="portfolio-hover-content">
-					<i class="fas fa-plus fa-3x"></i>
-				</div>
-			</div>
-			<img class="img-fluid" src="img/portfolio/01-thumbnail.jpg" alt="">
-			</a>
-			<div class="portfolio-caption">
-				<h4>랭킹 1</h4>
-				<p class="text-muted">
-					IDIllustration
-				</p>
-			</div>
-		</div>
-		<div class="col-md-4 col-sm-6 portfolio-item">
-			<a class="portfolio-link" data-toggle="modal" href="#">
-			<div class="portfolio-hover">
-				<div class="portfolio-hover-content">
-					<i class="fas fa-plus fa-3x"></i>
-				</div>
-			</div>
-			<img class="img-fluid" src="img/portfolio/02-thumbnail.jpg" alt="">
-			</a>
-			<div class="portfolio-caption">
-				<h4>랭킹 2</h4>
-				<p class="text-muted">
-					IDGraphic Design
-				</p>
-			</div>
-		</div>
-		<div class="col-md-4 col-sm-6 portfolio-item">
-			<a class="portfolio-link" data-toggle="modal" href="#">
-			<div class="portfolio-hover">
-				<div class="portfolio-hover-content">
-					<i class="fas fa-plus fa-3x"></i>
-				</div>
-			</div>
-			<img class="img-fluid" src="img/portfolio/03-thumbnail.jpg" alt="">
-			</a>
-			<div class="portfolio-caption">
-				<h4>랭킹 3</h4>
-				<p class="text-muted">
-					IDIdentity
-				</p>
-			</div>
-		</div>
-		<div class="col-md-4 col-sm-6 portfolio-item">
-			<a class="portfolio-link" data-toggle="modal" href="#">
-			<div class="portfolio-hover">
-				<div class="portfolio-hover-content">
-					<i class="fas fa-plus fa-3x"></i>
-				</div>
-			</div>
-			<img class="img-fluid" src="img/portfolio/04-thumbnail.jpg" alt="">
-			</a>
-			<div class="portfolio-caption">
-				<h4>랭킹 4</h4>
-				<p class="text-muted">
-					IDBranding
-				</p>
-			</div>
-		</div>
-		<div class="col-md-4 col-sm-6 portfolio-item">
-			<a class="portfolio-link" data-toggle="modal" href="#">
-			<div class="portfolio-hover">
-				<div class="portfolio-hover-content">
-					<i class="fas fa-plus fa-3x"></i>
-				</div>
-			</div>
-			<img class="img-fluid" src="img/portfolio/05-thumbnail.jpg" alt="">
-			</a>
-			<div class="portfolio-caption">
-				<h4>랭킹 5</h4>
-				<p class="text-muted">
-					IDWebsite Design
-				</p>
-			</div>
-		</div>
-		<div class="col-md-4 col-sm-6 portfolio-item">
-			<a class="portfolio-link" data-toggle="modal" href="#">
-			<div class="portfolio-hover">
-				<div class="portfolio-hover-content">
-					<i class="fas fa-plus fa-3x"></i>
-				</div>
-			</div>
-			<img class="img-fluid" src="img/portfolio/06-thumbnail.jpg" alt="">
-			</a>
-			<div class="portfolio-caption">
-				<h4>랭킹 6</h4>
-				<p class="text-muted">
-					IDPhotography
-				</p>
-			</div>
-		</div>
-	</div>
-</div>
-</section>
-<!-- 베스트판매자 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
-<!-- 최근 본 상품 -->
-<section class="bg-light" id="portfolio">
-<div class="container">
-	<div class="row">
-		<div class="col-lg-12 text-center">
-			<h2 class="section-heading text-uppercase">최근 본 상품</h2>
-			<h3 class="section-subheading text-muted"><hr></h3>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-4 col-sm-6 portfolio-item">
-			<a class="portfolio-link" data-toggle="modal" href="#" id="product1"> <!-- 링크 스크립트에서 처리 -->
-			<div class="portfolio-hover">
-				<div class="portfolio-hover-content">
-					<i class="fas fa-plus fa-3x"></i>
-				</div>
-			</div>
-			<img class="img-fluid" src="img/portfolio/01-thumbnail.jpg" alt="">
-			</a>
-			<div class="portfolio-caption">
-				<h4>상품 1의 제목</h4>
-				<p class="text-muted">
-					IDIllustration
-				</p>
-			</div>
-		</div>
-		<div class="col-md-4 col-sm-6 portfolio-item">
-			<a class="portfolio-link" data-toggle="modal" href="#">
-			<div class="portfolio-hover">
-				<div class="portfolio-hover-content">
-					<i class="fas fa-plus fa-3x"></i>
-				</div>
-			</div>
-			<img class="img-fluid" src="img/portfolio/02-thumbnail.jpg" alt="">
-			</a>
-			<div class="portfolio-caption">
-				<h4>상품 2의 제목</h4>
-				<p class="text-muted">
-					IDGraphic Design
-				</p>
-			</div>
-		</div>
-		<div class="col-md-4 col-sm-6 portfolio-item">
-			<a class="portfolio-link" data-toggle="modal" href="#">
-			<div class="portfolio-hover">
-				<div class="portfolio-hover-content">
-					<i class="fas fa-plus fa-3x"></i>
-				</div>
-			</div>
-			<img class="img-fluid" src="img/portfolio/03-thumbnail.jpg" alt="">
-			</a>
-			<div class="portfolio-caption">
-				<h4>상품 3의 제목</h4>
-				<p class="text-muted">
-					IDIdentity
-				</p>
-			</div>
-		</div>
-		<div class="col-md-4 col-sm-6 portfolio-item" style="margin-left:180px;">
-			<a class="portfolio-link" data-toggle="modal" href="#">
-			<div class="portfolio-hover">
-				<div class="portfolio-hover-content">
-					<i class="fas fa-plus fa-3x"></i>
-				</div>
-			</div>
-			<img class="img-fluid" src="img/portfolio/04-thumbnail.jpg" alt="">
-			</a>
-			<div class="portfolio-caption">
-				<h4>상품 4의 제목</h4>
-				<p class="text-muted">
-					IDBranding
-				</p>
-			</div>
-		</div>
-		<div class="col-md-4 col-sm-6 portfolio-item">
-			<a class="portfolio-link" data-toggle="modal" href="#">
-			<div class="portfolio-hover">
-				<div class="portfolio-hover-content">
-					<i class="fas fa-plus fa-3x"></i>
-				</div>
-			</div>
-			<img class="img-fluid" src="img/portfolio/05-thumbnail.jpg" alt="">
-			</a>
-			<div class="portfolio-caption">
-				<h4>상품 5의 제목</h4>
-				<p class="text-muted">
-					IDWebsite Design
-				</p>
-			</div>
-		</div>
-	</div>
-</div>
-</section>
-<!-- 최근 본 상품 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+	<%
+		if (loginUser == null) {
+	%>
+	<header class="masthead"
+		style="background-image: url('/dsm/img/drone_background.jpg'); background-size: 100% 500px; margin-top: 0px; background-position: center;">
+		<form action="<%=request.getContextPath()%>/login.me" method="POST">
+			<div class="container">
+				<div class="intro-text" style="padding-top: 35px;">
+					<div>&nbsp;</div>
+					<div>&nbsp;</div>
+					<div>&nbsp;</div>
+					<div style="margin-bottom: 20px;">
+						<input type="text" id="memberId" name="memberId"
+							placeholder="아이디를 입력하세요"
+							style="width: 250px; height: 40px; font-size: 12px; box-shadow: 0px 0px 20px #000; border-radius: 6px;">
 
-<!-- 스크립트 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-<script>
-	$(function () {
-		$("#product1").click(function name() { // 최근 본 상품 1로 이동
-			location.href="views/product/productDetail.jsp";
+					</div>
+					<div style="margin-bottom: 20px">
+						<input type="password" id="memberPwd" name="memberPwd"
+							placeholder="비밀번호를 입력하세요"
+							style="width: 250px; height: 40px; font-size: 12px; box-shadow: 0px 0px 20px #000; border-radius: 6px;">
+					</div>
+					<div>
+						<input type="submit" id="login" value="로그인"
+							class="btn btn-primary btn-xl text-uppercase js-scroll-trigger"
+							style="padding: 7px 100px; box-shadow: 0px 0px 10px #000; background-color: #fed136;">
+					</div>
+					<div style="margin-top: 10px;">
+						<a href="/dsm/views/member/find_Id.jsp">아이디 찾기</a> / <a
+							href="/dsm/views/member/find_pw.jsp">비밀번호 찾기</a> / <a
+							href="/dsm/views/member/user_terms2.jsp">회원가입</a>
+					</div>
+				</div>
+			</div>
+		</form>
+	</header>
+
+	<script>
+		$(function() {
+			$("#productEnrollment").click(function() {
+				$("#productEnrollment").css("cursor", "pointer");
+				alert("로그인이 필요한 서비스 입니다.");
+			});
 		});
-	});
-</script>  
-<!-- 스크립트 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->       
+	</script>
+	<%
+		} else {
+	%>
 
-              
-<!-- Footer -->	
-<%@ include file="/views/common/footer.jsp" %>
-<!-- footer 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+	<header class="masthead"
+		style="background-image: url('/dsm/img/drone_background_login.png'); background-size: 100% 500px; margin-top: 0px; background-position: center;">
+		<div class="container">
+			<div class="intro-text" style="padding-top: 35px;">
+				<div>&nbsp;</div>
+				<div>&nbsp;</div>
+				<div>&nbsp;</div>
+				<table style="margin-left: 25%; width: 600px;">
+					<tr>
+						<td rowspan="2"><img class="mx-auto rounded-circle"
+							src="/dsm/img/team/2.jpg" alt=""
+							style="width: 120px; height: 120px;"></td>
+						<td style="padding-left: 2%;">
+							<h6>
+								<label><%=loginUser.getMemberName()%>님 환영합니다.</label>
+							</h6>
+							<div>
+								잔여 캐시: <b>100000</b>원
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td><a href="#"><button type="button"
+									class="btn btn-warning"
+									onclick="location.href = '/dsm/views/cash/cacheCharge.jsp'">캐시충전</button></a>
+							<a href="#"><button type="button" class="btn btn-light">내
+									정보 보기</button></a> <a href="/dsm/logout.me"><button type="button"
+									class="btn btn-light">로그아웃</button></a> <!--         			<a href="#"><button type="button" class="btn btn-light">관리자페이지</button></a> -->
+							<button class="btn btn-light" style="cursor: default;">
+								신고횟수: <span>0</span>회
+							</button></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</header>
+	<%
+		}
+	%>
+	<!-- 네비게이션 바 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+	<!-- Header -->
+	<!-- header 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+
+	<!-- 스크립트 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+	<!-- Bootstrap core JavaScript -->
+	<script src="/dsm/vendor/jquery/jquery.min.js"></script>
+	<script src="/dsm/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Plugin JavaScript -->
+	<script src="/dsm/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+	<!-- Contact form JavaScript -->
+	<script src="/dsm/js/jqBootstrapValidation.js"></script>
+	<script src="/dsm/js/contact_me.js"></script>
+
+	<!-- Custom scripts for this template -->
+	<script src="/dsm/js/agency.min.js"></script>
+
 
 </body>
 </html>

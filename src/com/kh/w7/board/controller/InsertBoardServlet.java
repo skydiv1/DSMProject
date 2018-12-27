@@ -36,7 +36,7 @@ public class InsertBoardServlet extends HttpServlet {
 		String content = request.getParameter("content");
 		
 		
-		String writer = String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getMember_code());
+		String writer = String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getMemberCode());
 		
 		Board b = new Board();
 		

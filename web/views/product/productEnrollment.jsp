@@ -73,10 +73,8 @@ input[type="number"]::-webkit-inner-spin-button{
 </head>
 <body>
 	<!-- 네비게이션 바 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-	<%-- <%@ include file="/views/common/navi.jsp" %> --%>
-	<!-- 로그인 전 -->
-	<%@ include file="/views/common/naviLogin.jsp"%>
-	<!-- 로그인 후 -->
+
+	<%@ include file="../common/menubar.jsp"%>
 	<!-- 네비게이션 바 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	<section class="bg-light" id="portfolio" style="">
 	<h2 style="margin-top: -80px; padding-left: 10%;">상품 등록</h2>

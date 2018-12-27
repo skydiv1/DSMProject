@@ -1,4 +1,4 @@
-
+<%-- 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.kh.w7.member.model.vo.Member"%>
 <% String memberName = ((Member)(session.getAttribute("loginUser"))).getMemberName();
@@ -111,4 +111,4 @@
     <!-- Custom scripts for this template -->
     <script src="/dsm/js/agency.min.js"></script>
 </body>
-</html>
+</html> --%>
