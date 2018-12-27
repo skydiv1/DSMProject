@@ -24,7 +24,7 @@
 			
 		<div>
 		 	<table class="table table-striped" style="text-align:center; border:1px; solid #dddddd">
-		 		<thead>
+		 		
 					<tr>
 						<th style="width: 6%; background-color:#eeeeee; text-align: center;">분류</th>
 						<th style="width: 30%; background-color:#eeeeee; text-align: center;">제목</th>
@@ -32,100 +32,20 @@
 						<th style="width: 10%; background-color:#eeeeee; text-align: center;">작성일</th>
 						<th style="width: 6%; background-color:#eeeeee; text-align: center;">조회수</th>
 					</tr>		 		
-		 		</thead>
-		 		<tbody>
-		 				<tr>
-                            <td>문의</td>
-                            <td onclick="location.href='qnaPosts.jsp'">얼마전에 신청했는데요</td>
-                            <td>옆집드론</td>
-                            <td>18.11.30</td>
-                            <td>231</td>
+		 		
+		 				<% for(Board b : list){ %>
+		 				<tr>		 				                      
+                            <td><%= b.getBoardNo() %></td>
+                            <td><%= b.getMemberCode() %></td>
+                            <td><%= b.getBoardTitle() %></td>
+                            <td><%= b.getBoardContext() %></td>
+                            <td><%= b.getBoardDate() %></td>
+                            <td><%= b.getBoardCategory() %></td>
+                            <td><%= b.getBoardCount() %></td>
+                            
                         </tr>
-                        <tr>
-                            <td>신고</td>
-                            <td>여기 게시판 도배하는 사람이 있는데요</td>
-                            <td>윤희맘</td>
-                            <td>18.11.30</td>
-                            <td>211</td>
-                        </tr>
-                        <tr>
-                            <td>문의</td>
-                            <td>로그인/계정정보 관련 문의드립니다</td>
-                            <td>옆집드론</td>
-                            <td>18.11.29</td>
-                            <td>131</td>
-                        </tr>
-                        <tr>
-                            <td>문의</td>
-                            <td>구매 취소/환불 관련 문의드립니다</td>
-                            <td>yes1231</td>
-                            <td>18.11.29</td>
-                            <td>162</td>
-                        </tr>
-                        <tr>
-                            <td>신고</td>
-                            <td>분쟁조정 관련 문의드립니다</td>
-                            <td>철수아저씨</td>
-                            <td>18.11.28</td>
-                            <td>121</td>
-                        </tr>
-                        <tr>
-                            <td>신고</td>
-                            <td>불법 자금관련 문의드립니다</td>
-                            <td>아무말대잔치</td>
-                            <td>18.11.27</td>
-                            <td>11</td>
-                        </tr>
-                        <tr>
-                            <td>문의</td>
-                            <td>촬영 관련 금액에 대해 문의드립니다</td>
-                            <td>닉네임어렵다</td>
-                            <td>18.11.26</td>
-                            <td>12</td>
-                        </tr>
-                        <tr>
-                            <td>신고</td>
-                            <td>웨딩쪽 판매자 신고합니다</td>
-                            <td>너뒤에</td>
-                            <td>18.11.25</td>
-                            <td>34</td>
-                        </tr>
-                        <tr>
-                            <td>문의</td>
-                            <td>조금 빠른 답변 부탁드립니다</td>
-                            <td>금요일밤</td>
-                            <td>18.11.24</td>
-                            <td>54</td>
-                        </tr>
-                        <tr>
-                            <td>신고</td>
-                            <td>진상 소비자관해 신고합니다</td>
-                            <td>으아아</td>
-                            <td>18.11.24</td>
-                            <td>45</td>
-                        </tr>
-                        <tr>
-                            <td>문의</td>
-                            <td>촬영/편집 관련 문의</td>
-                            <td>나에게맡겨요</td>
-                            <td>18.11.22</td>
-                            <td>34</td>
-                        </tr>
-                        <tr>
-                            <td>문의</td>
-                            <td>판매자 관련 문의드립니다</td>
-                            <td>yes1231</td>
-                            <td>18.11.21</td>
-                            <td>45</td>
-                        </tr>
-                        <tr>
-                            <td>문의</td>
-                            <td>결제 관련 문의 드립니다</td>
-                            <td>옆집드론</td>
-                            <td>18.11.18</td>
-                            <td>32</td>
-                        </tr>
-		 		</tbody>		 	
+                <% } %>
+		 			 	
 		 	</table>	
 		 	 	<nav aria-label="page" style="margin:0px 0px 0px 400px">
  			 <ul class="pagination">

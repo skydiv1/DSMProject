@@ -21,11 +21,10 @@ public class BoardService {
 		
 		int result = new BoardDao().insertBoard(con, b);
 		
-		if(result > 0) {
-			commit(con);
-		}else {
-			rollback(con);
-		}
+		if(result > 0) commit(con);
+		else rollback(con);
+		
+		close(con);
 		
 		return result;
 	}

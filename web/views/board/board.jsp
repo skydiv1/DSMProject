@@ -39,25 +39,23 @@
 		
 		<div class="container">
 			<!-- 로그인한 사용자만 게시글 작성할 수 있게 만드는거 2018-12-24 오후 3:05분 -->
+		 			 <% if(loginUser != null){ %> 
 		 		<div style="margin:10px 10px 10px 1050px">
-		 			<a class="btn btn-primary pull-right " href="boardWrite.jsp">
-		 			<%-- <% if(loginUser != null){ %> --%>
+		 			<a class="btn btn-primary pull-right " href="views/board/boardWrite.jsp">
 		 				<button>글쓰기</button>
-		 			<%-- <% } %> --%>	
 		 			</a>
 		 		</div>
+		 			 <% } %> 
 		 <div class="row" style="postion:static;">
 		 	<table class="table table-striped"  border:1px; solid #dddddd">
-		 		<thead>
+
 		 			<tr>
-						<th style="width: 3% background-color:#eeeeee; text-align: center;">번호</th>
-						<th style="width: 20% background-color:#eeeeee; text-align: center;">제목</th>
-						<th style="width: 5% background-color:#eeeeee; text-align: center;">작성자</th>
-						<th style="width: 5% background-color:#eeeeee; text-align: center;">작성일</th>
-						<th style="width: 3% background-color:#eeeeee; text-align: center;">조회수</th>
+						<td style="width: 3% background-color:#eeeeee; text-align: center;">번호</td>						
+						<td style="width: 20% background-color:#eeeeee; text-align: center;">제목</td>
+						<td style="width: 5% background-color:#eeeeee; text-align: center;">작성자</td>
+						<td style="width: 5% background-color:#eeeeee; text-align: center;">작성일</td>
+						<td style="width: 3% background-color:#eeeeee; text-align: center;">조회수</td>
 					</tr>		 		
-		 		</thead>
-		 		<tbody>
 		 		<% for(Board b : list){ %>
 		 				<tr>		 				                      
                             <td><%= b.getBoardNo() %></td>
@@ -70,7 +68,8 @@
                             
                         </tr>
                 <% } %>
-		 		</tbody>		 	
+		 		
+		 				 	
 		 	</table>
 		 			 	
 		 	<div class="pagingArea" align="center">

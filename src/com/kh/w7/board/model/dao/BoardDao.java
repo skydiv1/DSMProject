@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.w7.board.model.vo.Board;
+import com.kh.w7.member.model.vo.Member;
 
 
 public class BoardDao {
@@ -85,6 +86,9 @@ public class BoardDao {
 			/*pstmt.setInt(1, b.getMemberCode());*/
 			pstmt.setString(1, b.getBoardTitle());
 			pstmt.setString(2, b.getBoardContext());
+			pstmt.setInt(3, b.getMemberCode());
+			pstmt.setDate(4, b.getBoardDate());
+			
 			System.out.println(b);
 			result = pstmt.executeUpdate();
 			System.out.println(result);
@@ -123,8 +127,9 @@ public class BoardDao {
 			while(rset.next()) {
 				Board b = new Board();
 				
+				
 				b.setBoardNo(rset.getInt("BOARD_NO"));
-				b.setMemberCode(rset.getInt("MEMBER_CODE"));
+				b.setMemberCode(rset.getInt("MEMBER_CODE"));	
 				b.setBoardTitle(rset.getString("BOARD_TITLE"));
 				b.setBoardContext(rset.getString("BOARD_CONTEXT"));
 				b.setBoardDate(rset.getDate("BOADR_DATE"));

@@ -32,20 +32,17 @@ public class InsertReplyServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String writer = request.getParameter("writer");
-		int bid = Integer.parseInt(request.getParameter("bid"));
-		String content = request.getParameter("content");
+		int memberCode = Integer.parseInt(request.getParameter("Member_Code"));
+		int replyNo = Integer.parseInt(request.getParameter("Reply_NO"));
+		String replyContext = request.getParameter("Reply_Context");
 		
-		System.out.println(writer);
-		System.out.println(bid);
-		System.out.println(content);
-		
+				
 		Reply r = new Reply();
-		b.setBid(bid);;
-		b.setbWriter(writer);
-		b.setbContent(content);
+		r.setReplyNo(replyNo);
+		r.setMemberCode(memberCode);
 		
-		ArrayList<Board> replyList = new BoardService().insertReply(b);
+				
+		ArrayList<Reply> replyList = new ReplyService().insertReply(r);
 		
 		response.setContentType("application/json");
 		new Gson().toJson(replyList, response.getWriter());
