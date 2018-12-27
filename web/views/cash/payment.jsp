@@ -1,5 +1,11 @@
+<%@page import="com.kh.w7.deal.model.vo.Deal"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%
+		ArrayList<Deal> list = (ArrayList<Deal>)request.getAttribute("list");
+		int totalPrice = 0;
+	%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head lang="en">
@@ -13,6 +19,8 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
 	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
 	crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <title>DSM(payment Page)</title>
 <!-- 
 	Bootstrap core CSS
@@ -37,14 +45,15 @@ table {
 	width: 100%;
 }
 </style>
+
 </head>
 <body>
-	<%@ include file="../common/menubar.jsp"%>
+	<%@ include file="../common/navi.jsp"%>
 	<!--/////////////////////////////////////////네비끝, 헤더시작//////////////////////////////////////////////////////////////////////////////////////////////  -->
 
 	<!--/////////////////////////////////////////////헤더끝//////////////////////////////////////////////////////////////////////////////////////////  -->
 
-
+	
 
 
 	<section class="bg-light" id="portfolio">
@@ -61,14 +70,12 @@ table {
 		<div style="border: 1px solid black; padding: 30px;">
 			<table>
 				<tr>
-					<td rowspan="3"><img src="../../img/wedding.jpg" alt="결혼사진"></td>
-					<td><h4>멋있는 드론 촬영과 영상에 맞는 보정</h4></td>
+					<td width = "20%" rowspan="3"><img src="<%= list.get(0).getImgFilePath() %>" alt="판매자 상품 이미지"></td>
+					<td><h4><%= list.get(0).getProductTitle() %></h4></td>
 					<td></td>
 				</tr>
 				<tr>
-					<td rowspan="2">지역 : 수도권 외 지방 촬영<br> 실내외 : 무관<br> 추가
-						비용 : (교통비 포함, 항공비의 경우 별도) <br> 팬텀보유 장비 : 인스파이어,매빅,스파크 <br>
-						예상 작업일 : 4일<br></td>
+					<td rowspan="2"><%= list.get(0).getProductContext() %><br></td>
 					<td></td>
 
 				</tr>
@@ -83,26 +90,31 @@ table {
 					<td>가격</td>
 				</tr>
 				<tr>
-					<td>드론영상촬영<!-- 기본항목 이름 --></td>
+					<td><%= list.get(0).getMainProductName()%><!-- 기본항목 이름 --></td>
 					<td></td>
-					<td>35000<!-- 기본항목 가격 --></td>
+					<td><%= list.get(0).getMainProductPrice()%><!-- 기본항목 가격 --></td>
 				</tr>
 				<tr style="background: lightgray;">
 					<td style="font-weight: bold;">추가항목</td>
 					<td></td>
 					<td>가격</td>
 				</tr>
+				<% for(int i = 0; i < list.size() ; i++){ %>
 				<tr>
-					<td>영상편집<!-- 추가항목 이름 --></td>
+					<td><%= list.get(i).getSubProductName()%><!-- 추가항목 이름 --></td>
 					<td>
 						<!-- 예상소요일 -->
 					</td>
-					<td>10000<!-- 추가금액 --></td>
+					<td><%= list.get(i).getSubProductPrice() %><!-- 추가금액 --></td>
 				</tr>
-
+				<% 
+				totalPrice = list.get(0).getMainProductPrice();
+				totalPrice += list.get(i).getSubProductPrice();
+				} %>
 			</table>
 
 		</div>
+		
 
 		<div style="background: lightyellow; width: 100%;">
 			<table style="margin: 30px 0 0 0; width: 104.7%;">
@@ -118,18 +130,18 @@ table {
 					<td></td>
 					<td rowspan="3" style="text-align: right;"><button
 							type="button" class="btn btn-warning"
-							style="width: 200px; height: 100px; font-size: 1.8em">결제하기</button></td>
+							style="width: 200px; height: 100px; font-size: 1.8em" id = "dealButton">결제하기</button></td>
 				</tr>
 				<tr>
 					<td style="text-align: left; color: gray; font-weight: bold;">나의
-						보유 캐시 : 580,000<!-- 보유캐시 들어가는부분 -->
+						보유 캐시 : <%= list.get(0).getMemberNowCash()%><!-- 보유캐시 들어가는부분 -->
 					</td>
 					<td></td>
 					<td></td>
 				</tr>
 				<tr>
 					<td
-						style="text-align: left; font-size: 1.8em; color: red; font-weight: bold;">400,000<!-- 결제금액 들어가는 부분 --></td>
+						style="text-align: left; font-size: 1.8em; color: red; font-weight: bold;"><%= totalPrice%><!-- 결제금액 들어가는 부분 --></td>
 					<td></td>
 					<td></td>
 				</tr>
@@ -147,7 +159,53 @@ table {
 	</div>
 	</section>
 
-
+	<script>
+		$(function(){
+			/* 결제버튼 클릭시 금액 계산해서 돈 있으면 결제 진행, 부족하면 alert창 띄우면서 돌아가기  */
+			$("#dealButton").click(function(){
+				if(<%= totalPrice%> < <%= list.get(0).getMemberNowCash()%>){
+					//가진금액이 더 많음
+					console.log("가진금액이 더 많음");
+					//거래 내용이 진행되며 저장되는 서블릿으로 이동
+					/*필요한게 1.소비자 코드(해당 소비자 캐시 변경), 2. 거래번호(신청 상태인것을 진행상태로 변경), 3. 판매자코드(해당 판매자의 캐시 변경) , 4. 거래금액(거래금액만큼 맴버들의 캐시를 변화시킴) */
+					$.ajax({
+						url : "<%= request.getContextPath()%>/updateDealCash",
+						data : {customerCode : <%= list.get(0).getCustomerCode()%>,
+								sellerCode : <%= list.get(0).getSellerCode()%>,
+								dealNo : <%= list.get(0).getDealNo()%>,
+								totalPrice : <%= totalPrice%>,
+								nowCash : <%= list.get(0).getMemberNowCash()%>},
+						type : "post",
+						success : function(data){
+							if(data > 0){
+								swal("결제가 성공했습니다!", "ok버튼 클릭시 메인페이지로 이동합니다", "success").then((value) =>{
+									if(value = "ok"){
+										location.href = "/dsm/index.jsp";
+									}
+								});
+							}else{
+								location.href = "/dsm/views/common/errorPage.jsp";
+							}
+						},
+						error : function(data){
+							console.log("실패!");
+						}
+					});
+					<%-- //location.href = "<%= request.getContextPath()%>/updateDealCash"; --%>
+					//인자로 전달해서 판매자, 소비자의 캐시가 업데이트 되도록하는 서블릿작성
+					
+				}else{
+					//결제하려는 금액이 더 많을때
+					console.log("결제하려는 금액이 더 많을때");
+					swal("캐시가 부족합니다!", "버튼을 눌러 충전을 해주세요", "error").then((value) =>{
+						if(value = "ok"){
+							location.href = "/dsm/views/cash/cacheCharge.jsp";
+						}
+						});
+				}
+			});
+		});
+	</script>
 
 
 
