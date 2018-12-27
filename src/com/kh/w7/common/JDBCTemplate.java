@@ -32,7 +32,7 @@ public class JDBCTemplate {
 			
 			con.setAutoCommit(false); // �옄�룞 而ㅻ컠 諛⑹�
 			
-			System.out.println("connection 媛앹껜 �꽦�꽦 �솗�씤: "+con);
+			System.out.println("connection 확인: "+con);
 			
 			
 		} catch (IOException e) {

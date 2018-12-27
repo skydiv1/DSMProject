@@ -362,7 +362,7 @@ public class ProductDao {
 				product.setDeleteYN(rset.getInt("PRODUCT_DELETEYN"));
 				
 				member = new Member();
-				member.setMember_id(rset.getString("MEMBER_ID"));
+				member.setMemberId(rset.getString("MEMBER_ID"));
 
 				plusProduct = new PlusProduct();
 				if(count==0) {

@@ -103,8 +103,8 @@
 
 <body>
 <!-- 네비게이션 바 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-<%-- <%@ include file="/views/common/navi.jsp" %> --%> <!-- 로그인 전 -->
-<%@ include file="/views/common/naviLogin.jsp" %> <!-- 로그인 후 -->
+
+	<%@ include file="../common/menubar.jsp"%>
 <%@ include file = "/views/common/AskPopUp.jsp" %> <!-- 팝업 띄우기 --> <!-- 팝업을 include하면 서비스 설명이 안뜨는 오류발생!!! -->
 <!-- 네비게이션 바 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	<section class="bg-light" id="portfolio">
@@ -116,7 +116,7 @@
 				<br>
 			</td>	
 			<td>
-				<div style="font-size: 20px; margin-left: 5%; ">작성자 : <span><%=member.getMember_id() %></span></div>
+				<div style="font-size: 20px; margin-left: 5%; ">작성자 : <span><%=member.getMemberId() %></span></div>
 			</td>	
 		</tr>
 		<tr>

@@ -15,8 +15,7 @@
 </head>
 <body>
  <!-- 네비게이션 바 -->
-<%-- 		<%@ include file = "../common/navi.jsp" %> --%>
-		<%@ include file = "../common/naviLogin.jsp" %>
+	<%@ include file="../common/menubar.jsp"%>
 <!-- 네비게이션 바 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 <br><br>	
 <div class="container">

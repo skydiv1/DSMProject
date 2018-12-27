@@ -9,8 +9,7 @@
 </head>
 <body>
 <!-- 네비게이션 바 -->
-<%-- 		<%@ include file = "../common/navi.jsp" %> --%>
-		<%@ include file = "../common/naviLogin.jsp" %>
+	<%@ include file="../common/menubar.jsp"%>
 <!-- 네비게이션 바 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 		<div class="container">
 			<div id="faq" data-obj-id="FAQ" data-obj-type="element" data-text-editable="true" style="position: relative;width:100px; float:left; margin:10px;";  width: 128px; height: 44px;>
