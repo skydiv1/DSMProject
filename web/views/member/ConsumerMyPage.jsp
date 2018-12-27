@@ -23,7 +23,57 @@
  }
  
 </style>
+<script type="text/javascript">
+/* function addBtnEvent() {
+	$("#cancelBtn").클릭(){
+		ajax
+		succsses:selectListAp();
+		
+	}
+	
+	$("#삭제").클릭(){
+		ajax
+	}
+	
+	$("#abc").클릭(){
+		ajax
+	}	
+	
+} */
 
+
+
+//신청 리스트 ajax
+function selectListAp(pg) {
+	$.ajax({
+		url : "${pageContext.request.contextPath}/selectList.ap",
+		type :"get",
+		success : function (data) {
+			console.log(data[0].member_id+ ":2");
+			var apListHtml = [];
+			
+			for(var i=0; i<data.length; i++){
+				apListHtml.push('<tr>');
+				apListHtml.push('	<th scope="row">' + (i+1) + '</th>');
+				apListHtml.push('	<td class="td1">' +data[i].member_id + '</td>');
+				apListHtml.push('	<td class="td1">' +data[i].productName+ '</td>');
+				apListHtml.push('	<td class="td1">' +data[i].dealListaddMsg + '</td>');
+				apListHtml.push('	 <td style="width: 30px"><button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#cencelModal">취소</button></td>');
+				apListHtml.push('</tr>');
+				
+				
+			}
+			$("#applylist").html(apListHtml);
+			//addBtnEvent();버튼 함수 불러오기
+		}
+	});
+}
+
+//마이페이지 실행시에 뷰페이지 만들고 데이터 뿌려주는 ajax 메인(함수 호출 여기서)
+ 	$(function () {
+ 		selectListAp();
+	}); 
+</script>
 </head>
 <body>
 <!-- 네비게이션 바 -->
@@ -53,30 +103,18 @@
 			      <th scope="col"></th>
 			    </tr>
 			  </thead>
-			  <tbody>
+			 
+			  <tbody id="applylist">
 			    <tr>
-			      <th scope="row">1</th>
-			      <td class="td1">Mark</td>
-			      <td class="td1">Mark</td>
-			      <td class="td1">Mark</td>
+			      <th scope="row"></th>
+			      <td class="td1"></td>
+			      <td class="td1"></td>
+			      <td class="td1"></td>
 			      <td style="width: 30px"><button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#cencelModal">취소</button></td>
 			    </tr>
-			    
-			    <tr>
-			      <th scope="row">2</th>
-			      <td class="td1">Mark</td>
-			      <td class="td1">Mark</td>
-			      <td class="td1">Mark</td>
-			      <td style="width: 30px"><button type="button" class="btn btn-secondary"data-toggle="modal" data-target="#cencelModal">취소</button></td>
-			    </tr>
-			    <tr>
-			      <th scope="row">3</th>
-			      <td class="td1">Markㅇㄶㅇㄹㄴ</td>
-			      <td class="td1">Mark</td>
-			      <td class="td1">Mark</td>
-			      <td style="width: 30px"><button type="button" class="btn btn-secondary"data-toggle="modal" data-target="#cencelModal">취소</button></td>
-			    </tr>
+			     
 			  </tbody>
+			
 			</table>
          </div>
       </div>
