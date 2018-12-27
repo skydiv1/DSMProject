@@ -252,15 +252,16 @@ form {
 		</table>
 
 		<div align="center">
-			<a href="#">
+			<a href="/web/index.jsp">
 				<button type="submit" class="btn btn-warning"
-					style="width: 400px; height: 50px; font-size: 20px; border-radius: 6px;">정보수정</button>
-			</a> <a href="#">
+					style="width: 400px; height: 50px; font-size: 20px; border-radius: 6px;"><div id="updateBtn" onclick="updateMember();">정보수정</div></button>
+			</a> <a href="/web/index.jsp">
 				<button type="button" class="btn btn-cancle"
-					style="width: 400px; height: 50px; font-size: 20px; border-radius: 6px;">취소하기</button>
-			</a> <a href="#">
-				<button type="submit" class="btn btn-defualt"
-					style="width: 150px; height: 50px; font-size: 15px; border-radius: 6px;">탈퇴하기</button>
+					style="width: 400px; height: 50px; font-size: 20px; border-radius: 6px;"><div id="updateBtn" onclick="goMain();">취소하기</button>
+			</a>
+			<a href="/web/index.jsp">
+				<button type="submit" class="btn btn-defualt" 
+					style="width: 150px; height: 50px; font-size: 15px; border-radius: 6px;"><div id="DeleteBtn" onclick="DeleteMember();">탈퇴하기</button>
 			</a>
 		</div>
 		<br>

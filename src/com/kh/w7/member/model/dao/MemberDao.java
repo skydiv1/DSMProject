@@ -99,7 +99,7 @@ public class MemberDao {
 
 	public int insertMember(Connection con, Member reqMember) {
 		PreparedStatement pstmt = null;
-		int result = 0;
+		int result=0;
 		String query = prop.getProperty("insertMember");
 
 		try {
@@ -129,6 +129,7 @@ public class MemberDao {
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
+		int result=0;
 		
 		String query = prop.getProperty("idCheck");
 
@@ -155,19 +156,17 @@ public class MemberDao {
 			close(con);
 		}
 
-		return -1;//오류
+		return result;//오류
 		
 	}
 
-	public int changeMember(Connection con, Member reqMember) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	
 	public String findId (String name, String email){
 		  String memberId = null;
 		  Connection conn = null;
 		  PreparedStatement pstmt = null;
 		  ResultSet rset = null;
+		 
 		  String query = prop.getProperty("findID");
 		  try{
 		   
@@ -212,5 +211,42 @@ public class MemberDao {
 		  }
 		  return memberPwd;
 		 }
+	 public int updateMember(Connection con, Member reqMember){
+	        
+	        Connection conn = null;
+	        PreparedStatement pstmt = null;
+	        int result =0;
+	        String query= prop.getProperty("updateMember");
+	 
+	        try {
+	            
+	            pstmt = conn.prepareStatement(query);
+	 
+	            
+				pstmt.setString(1, reqMember.getMemberName());
+				pstmt.setString(2, reqMember.getMemberEmail());
+				pstmt.setString(3, reqMember.getMemberPwd());
+				pstmt.setString(4, reqMember.getMemberPhone());
+				pstmt.setString(5, reqMember.getSellerIntroduction());
+				pstmt.setString(6, reqMember.getSellerCareer());
+				
+	           result= pstmt.executeUpdate();
+	            
+	                        
+	        } catch (Exception e) {
+	           e.printStackTrace();
+	        } finally {
+	            try{
+	                if ( pstmt != null ){ pstmt.close(); pstmt=null; }
+	                if ( conn != null ){ conn.close(); conn=null;    }
+	            }catch(Exception e){
+	                throw new RuntimeException(e.getMessage());
+	            }
+	        }
+			return result;
+	    } 
+
+
+
 
 }

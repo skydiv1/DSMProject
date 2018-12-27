@@ -21,10 +21,8 @@
 	integrity = "sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
 	crossorigin = "anonymous"
 </script>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-<script
-	src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <title>JoinForm</title>
 <style>
 #link {
@@ -134,9 +132,9 @@ form {
 						<div class="col-sm-10">
 							<input type="Id" class="form-control" id="memberId" name="memberId"
 								style="width: 550px" placeholder="Id">
-						</div>
-						<td style="padding-top: 14px;"><button type="submit"
-								class="btn btn-danger" onclick ="location.href='<%= request.getContextPath() %>/idCheck.me'">중복확인</button></td>
+								<td style="padding-top: 14px;"><button type="submit" id="idCheck"
+								class="btn btn-danger">중복확인</button></td>
+						
 					</div></td>
 
 			</tr>
@@ -145,7 +143,7 @@ form {
 					<div class="form-group">
 						<label for="inputPassword3" class="col-sm-2 control-label">Password</label>
 						<div class="col-sm-10">
-							<input type="password" class="form-control" id="memberPwd" name="memberPwd"
+							<input type="password" class="form-control" id="memberPwd" name="memberPwd" maxlength="13"
 								style="width: 550px" placeholder="Password">
 						</div>
 					</div>
@@ -157,7 +155,7 @@ form {
 						<label for="inputPassword3" class="col-sm-4 control-label">Confirm
 							Password</label>
 						<div class="col-sm-10">
-							<input type="password" class="form-control" id="memberPwd2" name="memberPwd2"
+							<input type="password" class="form-control" id="memberPwd2" name="memberPwd2" maxlength="13"
 								style="width: 550px" placeholder="Password">
 						</div>
 					</div>
@@ -167,7 +165,7 @@ form {
 				<td><div class="form-group">
 						<label for="inputName" class="col-sm-2 control-label">Name</label>
 						<div class="col-sm-10">
-							<input type="Name" class="form-control" id="memberName" name="memberName"
+							<input type="Name" class="form-control" id="memberName" name="memberName" 
 								style="width: 550px" placeholder="Name">
 						</div>
 					</div></td>
@@ -177,12 +175,10 @@ form {
 				<td><div class="form-group">
 						<label for="inputTel" class="col-sm-2 control-label">Phone</label>
 					
-					<span><label for=""></label><input id="memberPhone1" name="memberPhone1" class="wth20" type="text"  class="form-control"></span>
-					<span> - </span>
-					<span><label for=""></label><input id="memberPhone2" name="memberPhone2" class="wth20" type="text"  class="form-control"></span>
-					<span> - </span>
-					<span><label for=""></label><input id="memberPhone3" name="memberPhone3" class="wth20" type="text"  class="form-control"></span>
-				</td>
+					<div class="col-sm-10">
+							<input type="int" class="form-control" id="memberTel" name="memberTel"
+								style="width: 550px" placeholder="Tel"> 숫자만 입력 해 주십시오.
+						</div>
 					</div></td>
 			</tr>
 			
@@ -218,13 +214,15 @@ form {
 		<div align="center">
 			<a href="/web/index.jsp">
 				<button type="submit" class="btn btn-warning"
-					style="width: 470px; height: 50px; font-size: 20px; border-radius: 6px;"><div id="joinBtn" onclick="insertMember();">회원가입</div></button>
+					style="width: 470px; height: 50px; font-size: 20px; border-radius: 6px;" onclick = "">회원가입</button>
 			</a> <a href="/web/index.jsp">
 				<button type="reset" class="btn btn-cancle"
-					style="width: 470px; height: 50px; font-size: 20px; border-radius: 6px;"><div id="joinBtn" onclick="insertMember();">취소하기</div></button>
+					style="width: 470px; height: 50px; font-size: 20px; border-radius: 6px;"><div id="joinBtn" onclick="goMain();">취소하기</div></button>
 			</a>
 		</div>
 		</form>
+		</div>
+						
 		<script>
 		function goMain() {
 			location.href="<%=request.getContextPath()%>/index.jsp";			
@@ -232,32 +230,36 @@ form {
 
 		function insertMember() {
 			$("#joinForm").submit();
+			location.href = "<%=request.getContextPath()%>/insertMember.me";
 		}
 		
-		$(function () {
-			$("#idCheck").click(function () {
-				var userId = $("#memberId").val();
-				
-				$.ajax({
-					url:"/jsp/idCheck.me",
-					type:"post",
-					data:{memberId:memberId},
-					success: function (data) {
-						if(data === "fail"){ // 서블릿에서 처리
-							alert("아이디가 중복합니다.")
-						}else{
-							alert("사용 가능한 아이디입니다.");
-						}
-						
-						
-					},
-					error: function (data) {
-						console.log("실패!");	
-					}					
-				});
+		
+	</script>
+	<script>
+	
+	$(function  () {
+		$("#idCheck").click(function () {
+			var memberId = $("#memberId").val();
+			
+			$.ajax({
+				url:"/dsm/idCheck.me",
+				type:"post",
+				data:{memberId:memberId},
+				success: function (data) {
+					if(data === "fail"){ // 서블릿에서 처리
+						alert("아이디가 중복합니다.")
+					}else{
+						alert("사용 가능한 아이디입니다.");
+					}
+				},
+				error: function (data) {
+					console.log("실패!");	
+				}					
 			});
 		});
-		
+	});
+	
+	
 	</script>
 		
 		<br>
