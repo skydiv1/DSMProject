@@ -11,8 +11,9 @@
 	<%@ include file="../common/menubar.jsp"%>
 <!-- 네비게이션 바 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 <br><br>	
-	<% if(loginUser != null && loginUser.getMemberId().equals("admin")){ %>
+	<% if(loginUser != null ){ %>
 		<div class="outer">
+			<form action="<%= request.getContextPath() %>/insert.bo" method="post">
 			<div class="container">
 			<thead>
         <caption> <h2>글쓰기</h2> </caption>
@@ -23,22 +24,17 @@
 				<input type="text" value="<%=loginUser.getMemberName()%>" name="memberName" readonly>
 				<input type="hidden" value="<%=loginUser.getMemberCode()%>" name="memberCode">
 			</td>
-			<form>
+			
 			  <div class="form-group">
 			    <label ><h3>제목 :</h3></label>
-			    <input type="text" class="form-control"  placeholder="제목을 입력해 주세요">
+			    <input type="title" name="title" placeholder="제목을 입력해 주세요">
 			  </div>
 			  <hr>
-			  <td>작성일</td>
-     		  <td><input type="date" name="date"></td>		 
-			  <div class="custom-file">
-			    <input type="file" class="custom-file-input" id="" >
-			    <label class="custom-file-label" >파일을 선택해주세요</label>			 
-			  </div>
+			  
 			  <hr>
 			  <div class="form-group">
 			    <label ><h3>내용 :</h3></label>
-			    <textarea class="form-control" rows="10" id="comment" placeholder="내용을 입력해 주세요"></textarea>
+			    <textarea type="text" rows="10" name="content" placeholder="내용을 입력해 주세요"></textarea>
 			  </div>
 			  <hr>
 			  <div style="margin:0px 0px 0px 980px; margin-right:10px; ">	

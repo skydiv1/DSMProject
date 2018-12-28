@@ -15,6 +15,8 @@ import java.util.Properties;
 import com.kh.w7.board.model.vo.Board;
 import com.kh.w7.member.model.vo.Member;
 
+import oracle.net.aso.b;
+
 
 public class BoardDao {
 	private Properties prop = new Properties();
@@ -38,26 +40,29 @@ public class BoardDao {
 		ResultSet rset = null;
 		ArrayList<Board> list = null;
 		String query = prop.getProperty("selectList");
-		Board b = null;
+		Board b = new Board();		
+		Member m = new Member();
+		
+		
+		
 		try {
 			stmt = con.createStatement();
 			rset = stmt.executeQuery(query);
 			list = new ArrayList<Board>();
 			
 			while(rset.next()) {
-				b = new Board();
-				if(b.getBoardCategory() == 0) {
+								
 				b.setBoardNo(rset.getInt("BOARD_NO"));
-				b.setMemberCode(rset.getInt("MEMBER_CODE"));
+				m.setMemberName(rset.getString("MEMBER_NAME"));
 				b.setBoardTitle(rset.getString("BOARD_TITLE"));
 				b.setBoardContext(rset.getString("BOARD_CONTEXT"));
-				b.setBoardDate(rset.getDate("BOADR_DATE"));
+				b.setBoardDate(rset.getDate("BOARD_DATE"));
 				b.setBoardCategory(rset.getInt("BOARD_CATEGORY"));
 				b.setBoardCount(rset.getInt("BOARD_COUNT"));
 				b.setBoardDelete(rset.getInt("BOARD_DELETE"));
 				
 				list.add(b);
-				}
+				
 			}
 			
 			
@@ -83,11 +88,10 @@ public class BoardDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			/*pstmt.setInt(1, b.getMemberCode());*/
-			pstmt.setString(1, b.getBoardTitle());
-			pstmt.setString(2, b.getBoardContext());
-			pstmt.setInt(3, b.getMemberCode());
-			pstmt.setDate(4, b.getBoardDate());
+			
+			pstmt.setInt(1, b.getMemberCode());
+			pstmt.setString(2, b.getBoardTitle());
+			pstmt.setString(3, b.getBoardContext());			
 			
 			System.out.println(b);
 			result = pstmt.executeUpdate();
@@ -109,6 +113,8 @@ public class BoardDao {
 		ResultSet rset = null;
 		ArrayList<Board> list = null;
 		
+		
+		
 		String query = prop.getProperty("selectList");
 		
 		try {
@@ -117,27 +123,33 @@ public class BoardDao {
 			int startRow = (currentPage - 1) * limit + 1;
 			int endRow = startRow + limit - 1;
 			
+			System.out.println("startRow : " + startRow);
+			System.out.println("endRow : " + endRow);
+			
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
 			
 			rset = pstmt.executeQuery();
-			
+
 			list = new ArrayList<Board>();
 			
-			while(rset.next()) {
-				Board b = new Board();
-				
+			Member m = new Member(); 
+			
+			
+			while(rset.next()) {			
+				Board b = new Board();			  
 				
 				b.setBoardNo(rset.getInt("BOARD_NO"));
-				b.setMemberCode(rset.getInt("MEMBER_CODE"));	
+				b.setMemberName(rset.getString("MEMBER_NAME"));
 				b.setBoardTitle(rset.getString("BOARD_TITLE"));
 				b.setBoardContext(rset.getString("BOARD_CONTEXT"));
-				b.setBoardDate(rset.getDate("BOADR_DATE"));
+				b.setBoardDate(rset.getDate(6));
 				b.setBoardCategory(rset.getInt("BOARD_CATEGORY"));
 				b.setBoardCount(rset.getInt("BOARD_COUNT"));
 				b.setBoardDelete(rset.getInt("BOARD_DELETE"));
 				
 				list.add(b);
+				
 			}
 			
 		} catch (SQLException e) {
@@ -223,7 +235,7 @@ public class BoardDao {
 				b = new Board();
 				
 				b.setBoardNo(rset.getInt("BOARD_NO"));
-				b.setMemberCode(rset.getInt("MEMBER_CODE"));
+				b.setMemberName(rset.getString("MEMBER_NAME"));
 				b.setBoardTitle(rset.getString("BOARD_TITLE"));
 				b.setBoardContext(rset.getString("BOARD_CONTEXT"));
 				b.setBoardDate(rset.getDate("BOADR_DATE"));

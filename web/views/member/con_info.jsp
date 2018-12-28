@@ -132,10 +132,10 @@ form {
 				<tr>
 				<td><div class="form-group">
 						<label for="inputId" class="col-sm-2 control-label">Id</label>
-						
+						<%-- 
 							
 						</div><td><%=Member.getMemberId() %></td>
-
+ --%>
 
 						
 					</div></td>
