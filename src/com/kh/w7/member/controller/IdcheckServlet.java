@@ -18,41 +18,51 @@ import com.kh.w7.member.model.service.MemberService;
 @WebServlet("/idCheck.me")
 public class IdcheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public IdcheckServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String memberId = request.getParameter("memberId");	
-		int result= new MemberService().idCheck(memberId);
-	
-		PrintWriter out = response.getWriter();
-		
+	public IdcheckServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String memberId = request.getParameter("memberId");
+		int result = new MemberService().idCheck(memberId);
+		System.out.println(result);
 		if(result>0) {
+			response.getWriter().print("success");
+		}else {
+			response.getWriter().print("fail");
+		}
+		/*PrintWriter out = response.getWriter();
+
+		if (result > 0) {
 			out.append("fail");
-	}else {
+		} else {
 			out.append("success");
 		}
-	out.flush();
-		out.close();
-			}
+		out.flush();
+		out.close();*/
+	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		request.setCharacterEncoding("UTF-8");
-//		response.setContentType("text/html;charset=UTF-8");
-//		String memberId= request.getParameter("memberId");
-//		response.getWriter().write(new MemberDao().idCheck(memberId)+"");
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// request.setCharacterEncoding("UTF-8");
+		// response.setContentType("text/html;charset=UTF-8");
+		// String memberId= request.getParameter("memberId");
+		// response.getWriter().write(new MemberDao().idCheck(memberId)+"");
+		doGet(request, response);
 	}
 
 }

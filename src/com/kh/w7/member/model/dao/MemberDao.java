@@ -141,11 +141,13 @@ public class MemberDao {
 			rset = pstmt.executeQuery();
 			
 
-			if (rset.next()|| memberId.equals("")) {
-				return 0;//이미가입
+			if (rset.next()) {
+				return 1;
+				
 				
 			}else {
-				return 1;//가입가능
+				return 0;//가입가능
+				
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -155,8 +157,9 @@ public class MemberDao {
 			close(rset);
 			close(con);
 		}
-
+		
 		return result;//오류
+		
 		
 	}
 
