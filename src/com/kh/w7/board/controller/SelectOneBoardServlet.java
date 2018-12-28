@@ -31,7 +31,7 @@ public class SelectOneBoardServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int num = Integer.parseInt(request.getParameter("num"));
+		String num = request.getParameter("num");
 		
 		System.out.println(num);
 		
@@ -44,7 +44,7 @@ public class SelectOneBoardServlet extends HttpServlet {
 			request.setAttribute("b", b);
 		}else {
 			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "寃뚯떆�뙋 �긽�꽭議고쉶 �떎�뙣!");
+			request.setAttribute("msg", "실패!");
 		}
 		
 		RequestDispatcher view = request.getRequestDispatcher(page);

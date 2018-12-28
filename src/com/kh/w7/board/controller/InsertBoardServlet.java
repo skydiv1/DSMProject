@@ -1,6 +1,7 @@
 package com.kh.w7.board.controller;
 
 import java.io.IOException;
+import java.util.GregorianCalendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,17 +33,17 @@ public class InsertBoardServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		String memberName = request.getParameter("membername");
 		String title = request.getParameter("title");
-		String content = request.getParameter("content");
+		String context = request.getParameter("context");
+				
 		
-		String writer = String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getMemberCode());
+		String writer = String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getMemberName());
 		
 		Board b = new Board();
 		
-		b.setMemberName(memberName);
 		b.setBoardTitle(title);
-		b.setBoardContext(content);
+		b.setBoardContext(context);
+		
 		
 		int result = new BoardService().insertBoard(b);
 		

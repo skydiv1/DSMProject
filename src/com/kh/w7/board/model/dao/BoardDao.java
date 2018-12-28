@@ -91,7 +91,9 @@ public class BoardDao {
 			
 			pstmt.setInt(1, b.getMemberCode());
 			pstmt.setString(2, b.getBoardTitle());
-			pstmt.setString(3, b.getBoardContext());			
+			pstmt.setString(3, b.getBoardContext());	
+			
+
 			
 			System.out.println(b);
 			result = pstmt.executeUpdate();
@@ -193,7 +195,7 @@ public class BoardDao {
 		return listCount;
 	}
 
-	public int updateCount(Connection con, int num) {
+	public int updateCount(Connection con, int boardNo) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
@@ -201,8 +203,8 @@ public class BoardDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, num);
-			pstmt.setInt(2, num);
+			pstmt.setInt(1, boardNo);
+			pstmt.setInt(2, boardNo);
 			
 			result = pstmt.executeUpdate();
 			
@@ -218,16 +220,18 @@ public class BoardDao {
 		return result;
 	}
 
-	public Board selectOne(Connection con, int num) {
+	public Board selectOne(Connection con, String num) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Board b = null;
+		
+		
 		
 		String query = prop.getProperty("selectOne");
 
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, num);
+			pstmt.setInt(1, Integer.parseInt(num));
 			
 			rset = pstmt.executeQuery();
 			
@@ -235,11 +239,11 @@ public class BoardDao {
 				b = new Board();
 				
 				b.setBoardNo(rset.getInt("BOARD_NO"));
-				b.setMemberName(rset.getString("MEMBER_NAME"));
 				b.setBoardTitle(rset.getString("BOARD_TITLE"));
 				b.setBoardContext(rset.getString("BOARD_CONTEXT"));
 				b.setBoardDate(rset.getDate("BOADR_DATE"));
 				b.setBoardCategory(rset.getInt("BOARD_CATEGORY"));
+				b.setBoardCount(rset.getInt("BOARD_COUNT"));
 				b.setBoardDelete(rset.getInt("BOARD_DELETE"));
 				
 				
@@ -254,7 +258,35 @@ public class BoardDao {
 		
 		return b;
 	}
+	
+	public int selectBoardval(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		int boardNo = 0;
+		
+		String query = prop.getProperty("selectBoardval");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				boardNo = rset.getInt("BOARDVAL");
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+		}
+		
+		
+		return boardNo;
+	}
 
+	
 	
 
 
