@@ -16,6 +16,8 @@
 	Attachment detailImg5 = fileList.get(4);	
 	Attachment detailImg6 = fileList.get(5);	 
 	
+	//String idid = String.format(((Member)request.getSession().getAttribute("loginUser")).getMemberId());
+	
 	ArrayList<PlusProduct> pList = (ArrayList<PlusProduct>)request.getAttribute("pList");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -286,7 +288,7 @@
 		</div>
 	</div>
 	<br><br><br><br>
-	<% if(loginUser != null /* && loginUser.getMemberId().equals() */){ %> <!-- 조건 추가 (작성자와 로그인 유저가 일치했을 경우 처리..) -->
+	<% if(loginUser != null && loginUser.getMemberId().equals(member.getMemberId()) ){ %> <!-- 조건 추가 (작성자와 로그인 유저가 일치했을 경우 처리..) -->
 	<button onclick="location.href='<%=request.getContextPath()%>/selectProduct.pr?num=<%=product.getProductNo()%>'" class="btn btn-warning" style="width:7%; height:40px; margin-left: 80%">수정하기</button>
 	<% } %>
 </section>

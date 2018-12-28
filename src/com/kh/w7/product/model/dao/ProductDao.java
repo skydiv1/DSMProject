@@ -385,7 +385,7 @@ public class ProductDao {
 	}
 
  
-	/* 상품 목록에서 상품 상세보기 페이지로 이동 */ /* 상품 업데이트 */ 
+	/* 상품 목록에서 상품 상세보기 페이지로 이동 */
 	public HashMap<String, Object> selectThumbnailMap(Connection con, int num) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -476,6 +476,94 @@ public class ProductDao {
 		System.out.println("hmap확인: "+hmap);
 		
 		return hmap;
+	}
+
+	
+	 /* 상품 업데이트 */ 
+	public int updateThumbnailContent(Connection con, Product product) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateProduct");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, product.getProductName());
+			pstmt.setString(2, product.getProductCategory());
+			pstmt.setString(3, product.getProductItem());
+			pstmt.setInt(4, product.getProductItemPrice());
+			pstmt.setString(5, product.getProductContext());
+			pstmt.setInt(6, product.getProductNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println("result(updateThumbnailContent) 업데이트 확인 : "+result);
+		return result;
+	}
+
+	 /* 상품 업데이트 - 이미지 */ 
+	public int updateAttachment(Connection con, ArrayList<Attachment> fileList) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updateAttachment");
+		
+		
+		try {
+			for(int i=0; i<fileList.size(); i++) {
+				pstmt = con.prepareStatement(query);
+				pstmt.setString(1, fileList.get(i).getOriginName());
+				pstmt.setString(2, fileList.get(i).getChangeName());
+
+				int level = 0;
+				if(i==0) level=0;
+				else level=1;
+				pstmt.setInt(3, level);
+				pstmt.setString(4, fileList.get(i).getImgFilePath());
+				pstmt.setInt(5, fileList.get(i).getProductNo());
+				
+				result += pstmt.executeUpdate(); // 누적 연산으로 합쳐준다
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println("updateAttachment(result값): "+result);
+		
+		return result;
+	}
+
+	public int updatePlusProduct(Connection con, ArrayList<PlusProduct> pList) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updatePlusProduct");
+				
+		try {
+			for(int i=0; i<pList.size(); i++) {
+				pstmt = con.prepareStatement(query);
+				pstmt.setString(1, pList.get(i).getPlusProductItem());
+				pstmt.setInt(2, pList.get(i).getPlusProductPrice());
+				pstmt.setInt(3, pList.get(i).getProductNo());
+				
+				result += pstmt.executeUpdate(); // 누적 연산으로 합쳐준다
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println("plusProduct.size(크기확인..): "+pList.size());
+		System.out.println("plusProduct에 값이 들어오는지.. : "+pList);
+		System.out.println("updatePlusProduct(result값): "+result);
+		return result;
 	}
 
 	

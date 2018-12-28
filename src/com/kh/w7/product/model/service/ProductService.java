@@ -124,7 +124,7 @@ public class ProductService {
 	}
 
 
-	/* 상품 목록에서 상품 상세보기 페이지로 이동 */ /* 상품 업데이트 */ 
+	/* 상품 목록에서 상품 상세보기 페이지로 이동 */
 	public HashMap<String, Object> selectThumbnailMap(int num) {
 		Connection con = getConnection();
 		
@@ -137,6 +137,77 @@ public class ProductService {
 		System.out.println("hmap(service)확인: "+hmap);
 		
 		return hmap;
+	}
+
+
+	/* 상품 업데이트 - 이미지 */
+	public int updateThumbnail(Product product, ArrayList<Attachment> fileList) {
+		Connection con = getConnection();
+		int result = 0;
+		
+//		int imgNo = new ProductDao().selectImgNextval(con); // 다음시퀀스 값 조회
+//		System.out.println("nextNum(이미지테이블 다음시퀀스 조회) : "+imgNo);
+		
+		int result1= new ProductDao().updateThumbnailContent(con, product); // product 내용만 insert / 부모 테이블 먼저 insert 해야 한다.
+
+		if(result1>0) {
+			int productNo = new ProductDao().selectCurrval(con); // 현재시퀀스 값 조회
+			System.out.println("(updateThumbnail)현재시퀀시 값 조회: " + productNo);
+			
+			for(int i=0; i<fileList.size(); i++) { // 게시물 하나에 파일이 최대 6개가 존재
+				fileList.get(i).setProductNo(productNo); // Product에서 시퀀스 값을 가져와서 1,2,3,4번 사진에 해당 시퀀스 값을 넣어준다. / CURRVAL로 가져온 값
+			}
+		}
+		
+		int result2 = new ProductDao().updateAttachment(con, fileList);
+		
+		// 트랜젝션 처리
+		if(result1>0 && result2>0) { // 둘 다 양수여야 리턴할 수 있음
+			commit(con);
+			result = 1; // 대표값으로 바꿔준다. (2,3, ... 어떤 값이 올지 모른다.) 
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
+
+	/* 상품 업데이트 - 추가항목 */
+	public int updatePlusProduct(Product product, ArrayList<PlusProduct> pList) {
+		Connection con = getConnection();
+		int result = 0;
+
+//		int nextNum = new ProductDao().selectNextval(con); // 다음시퀀스 값 조회
+//		System.out.println("nextNum(다음시퀀스 조회) : "+nextNum);
+		
+		int result1= new ProductDao().updateThumbnailContent(con, product); // product 내용만 insert / 부모 테이블 먼저 insert 해야 한다.
+
+		System.out.println("result1  :  "+result1);
+		if(result1>0) {
+			int currNum = new ProductDao().selectCurrval(con); // 현재시퀀스 값 조회
+			System.out.println("(updatePlusProduct)현재시퀀시 값 조회: " + currNum);
+			
+			for(int i=0; i<pList.size(); i++) { // 게시물 하나에 값 최대 3개가 존재
+				pList.get(i).setProductNo(currNum); // product에서 시퀀스 값을 가져와서 1,2,3번에 해당 시퀀스 값을 넣어준다. / CURRVAL로 가져온 값
+			}
+		}
+
+		int result2 = new ProductDao().updatePlusProduct(con, pList);
+		
+		// 트랜젝션 처리
+		if(result1>0 && result2>0) { // 둘 다 양수여야 리턴할 수 있음
+			commit(con);
+			result = 1; // 대표값으로 바꿔준다. (2,3, ... 어떤 값이 올지 모른다.) 
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
 	}
 
 

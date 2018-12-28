@@ -16,7 +16,6 @@
 	Attachment detailImg6 = fileList.get(5);	 
 	
 	ArrayList<PlusProduct> pList = (ArrayList<PlusProduct>)request.getAttribute("pList");
-
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -72,14 +71,29 @@ include summernote-ko-KR
 <script src="lang/summernote-ko-KR.js"></script> -->
 
 <style>
+/* tr, td, table{
+	padding: 2% 2% 2% 2%; 
+	width:470px;
+} */
+
 #contentImgArea1, #contentImgArea2, #contentImgArea3, #contentImgArea4, #contentImgArea5, #contentImgArea6, 
-#contentImg1, #contentImg2, #contentImg3, #contentImg4, #contentImg5, #contentImg6 {
+#contentImg1, #contentImg2, #contentImg3, #contentImg4, #contentImg5, #contentImg6 
+{
 	width: 420px;
 	height: 270px;
-/* 	border: 2px dashed darkgray; */
+/*  	border: 2px dashed darkgray; */
 	text-align: center;
 	display: table-cell;
 	vertical-align: middle;
+}
+
+#contentImg1, #contentImg2, #contentImg3, #contentImg4, #contentImg5, #contentImg6 {
+	position: relative;
+}
+
+#text1, #text2, #text3, #text4, #text5, #text6{
+	position: absolute;
+/* 	text-align: center; */
 }
 
 input[type="number"]::-webkit-outer-spin-button, 
@@ -97,7 +111,9 @@ input[type="number"]::-webkit-inner-spin-button{
 	<section class="bg-light" id="portfolio" style="">
 	<h2 style="margin-top: -80px; padding-left: 10%;">상품 등록</h2>
 	<br>
-	<form action="<%=request.getContextPath() %>/insert.pr" onsubmit="return check()" method="post" enctype="multipart/form-data"> <!-- enctype="multipart/form-data":파일을 넘길때 -->
+	<form action="<%=request.getContextPath() %>/update.pr" onsubmit="return check()" method="post" enctype="multipart/form-data"> <!-- enctype="multipart/form-data":파일을 넘길때 -->
+		
+		<input type="hidden" name="num" value="<%=product.getProductNo()%>">	<!--  업데이트 문에서 사용하기 위해 가져오고 숨겨서 화면에 띄우지 않는다. -->	
 
 		<div class="input-group input-group-lg"
 			style="width: 70%; padding-left: 10%;">
@@ -233,7 +249,7 @@ input[type="number"]::-webkit-inner-spin-button{
 				style="font-size: 20px; font: bold;">이미지 첨부 (이미지는 최대 6장 까지 등록이 가능합니다.)</label>
 		</div>
 
-		<table align="center" border="0" width="700px" align="center">
+		<table align="center" border="0" width="80%" align="center">
 			<tr>
 				<td style="padding: 2% 2% 2% 2%;" width="470px">
 					<div id="contentImgArea1" style="cursor:pointer;">
@@ -241,31 +257,61 @@ input[type="number"]::-webkit-inner-spin-button{
 					</div>
 				</td>
 				<td  style="padding: 2% 2% 2% 2%;" width="470px">
-					<div id="contentImgArea2" style="cursor:pointer;">
-						<img id="contentImg2" style="box-shadow: 0px 0px 10px #000;" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg2.getChangeName()%>">
-					</div>
+						<% if(detailImg2.getChangeName() != null){ %>
+						<div id="contentImgArea2" style="cursor:pointer;">
+							<img id="contentImg2" style="box-shadow: 0px 0px 10px #000;" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg2.getChangeName()%>">
+						</div>
+						<% }else{ %>
+						<div id="contentImgArea2" style="cursor:pointer; border: 2px dashed darkgray;">
+							<img id="contentImg2" style="box-shadow: 0px 0px 10px #000;"><div id="text2" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
+						</div>	
+						<% } %>
 				</td>
 				<td  style="padding: 2% 2% 2% 2%;" width="470px">
-					<div id="contentImgArea3" style="cursor:pointer;">
-						<img id="contentImg3" style="box-shadow: 0px 0px 10px #000;" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg3.getChangeName()%>">
-					</div>
+						<% if(detailImg3.getChangeName() != null){ %>
+						<div id="contentImgArea3" style="cursor:pointer;">
+							<img id="contentImg3" style="box-shadow: 0px 0px 10px #000;" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg3.getChangeName()%>">
+						</div>
+						<% }else{ %>
+						<div id="contentImgArea3" style="cursor:pointer; border: 2px dashed darkgray;">
+							<img id="contentImg3" style="box-shadow: 0px 0px 10px #000;"><div id="text3" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
+						</div>	
+						<% } %>
 				</td>
 			</tr>
 			<tr>
 				<td style="padding: 2% 2% 2% 2%;">
-					<div id="contentImgArea4" style="cursor:pointer;">
-						<img id="contentImg4" style="box-shadow: 0px 0px 10px #000;" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg4.getChangeName()%>">
-					</div>
+						<% if(detailImg4.getChangeName() != null){ %>
+						<div id="contentImgArea4" style="cursor:pointer;">
+							<img id="contentImg4" style="box-shadow: 0px 0px 10px #000;" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg4.getChangeName()%>">
+						</div>
+						<% }else{ %>
+						<div id="contentImgArea4" style="cursor:pointer; border: 2px dashed darkgray;">
+							<img id="contentImg4" style="box-shadow: 0px 0px 10px #000;"><div id="text4" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
+						</div>	
+						<% } %>
 				</td>
 				<td style="padding: 2% 2% 2% 2%;">
-					<div id="contentImgArea5" style="cursor:pointer;">
-						<img id="contentImg5" style="box-shadow: 0px 0px 10px #000;" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg5.getChangeName()%>">
-					</div>
+						<% if(detailImg5.getChangeName() != null){ %>
+						<div id="contentImgArea5" style="cursor:pointer;">
+							<img id="contentImg5" style="box-shadow: 0px 0px 10px #000;" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg5.getChangeName()%>">
+						</div>
+						<% }else{ %>
+						<div id="contentImgArea5" style="cursor:pointer; border: 2px dashed darkgray;">
+							<img id="contentImg5" style="box-shadow: 0px 0px 10px #000;"><div id="text5" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
+						</div>	
+						<% } %>
 				</td>
 				<td style="padding: 2% 2% 2% 2%;">
-					<div id="contentImgArea6" style="cursor:pointer;">
-						<img id="contentImg6" style="box-shadow: 0px 0px 10px #000;" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg6.getChangeName()%>">
-					</div>
+						<% if(detailImg6.getChangeName() != null){ %>
+						<div id="contentImgArea6" style="cursor:pointer;">
+							<img id="contentImg6" style="box-shadow: 0px 0px 10px #000;" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg6.getChangeName()%>">
+						</div>
+						<% }else{ %>
+						<div id="contentImgArea6" style="cursor:pointer; border: 2px dashed darkgray;">
+							<img id="contentImg6" style="box-shadow: 0px 0px 10px #000;"><div id="text6" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
+						</div>	
+						<% } %>
 				</td>
 			</tr>
 		</table>
@@ -282,8 +328,8 @@ input[type="number"]::-webkit-inner-spin-button{
 
 		<br><br><br><br><br>
 		<div style="margin-left: 78%;">
-			<button type="submit" class="btn btn-warning" onclick="alertEvent();">저장</button>
-			<button type="button" class="btn btn-danger" onclick="location.href='<%=request.getContextPath()%>/selectList.pr'">취소</button><!-- 이전페이지로 이동 -->
+			<button type="submit" class="btn btn-warning" onclick="alertEvent();">수정</button>
+			<button type="button" class="btn btn-danger" onclick="location.href='<%=request.getContextPath()%>/selectList.pr'">삭제</button><!-- 이전페이지로 이동 -->
 		</div>
 	</form>
 	</section>
@@ -299,6 +345,7 @@ input[type="number"]::-webkit-inner-spin-button{
 					name++;
     				console.log("cnt: "+cnt);
 		    		console.log("name: "+name);
+		    		if(cnt==2)
 			    	$('#addtionalTable > tbody:last').append('<tr><th scope="row">'+cnt+'</th>' 
 			    		+'<td width="50%">'
 						+'<div class="input-group">'
@@ -307,7 +354,7 @@ input[type="number"]::-webkit-inner-spin-button{
 						+'<input type="radio" aria-label="Radio button for following text input">'
 						+'</div>'
 						+'</div>'
-						+'<input name="additionalItem'+name+'" type="text" value="" class="form-control" aria-label="Text input with radio button">'
+						+'<input name="additionalItem'+name+'" type="text" value="<%=pList.get(1).getPlusProductItem()%>" class="form-control" aria-label="Text input with radio button">'
 						+'</div>'
 						+'</td>'
 						+'<td width="50%">'
@@ -315,13 +362,37 @@ input[type="number"]::-webkit-inner-spin-button{
 						+'<div class="input-group-prepend">'
 						+'<span class="input-group-text">￦</span>'
 						+'</div>'
-						+'<input name="additionalPrice'+name+'" type="number" value="" class="form-control" aria-label="Amount (to the nearest dollar)" onkeydown="javascript: return event.keyCode == 69 ? false : true">'
+						+'<input name="additionalPrice'+name+'" type="number" value="<%=pList.get(1).getPlusProductPrice()%>" class="form-control" aria-label="Amount (to the nearest dollar)" onkeydown="javascript: return event.keyCode == 69 ? false : true">'
 						+'<div class="input-group-append">'
 						+'<span class="input-group-text">.00</span>'
 						+'</div>'
 						+'</div>'
 						+'</td>'
 						+'</tr>');
+		    		else if(cnt==3)
+				    	$('#addtionalTable > tbody:last').append('<tr><th scope="row">'+cnt+'</th>' 
+				    		+'<td width="50%">'
+							+'<div class="input-group">'
+							+'<div class="input-group-prepend">'
+							+'<div class="input-group-text">'
+							+'<input type="radio" aria-label="Radio button for following text input">'
+							+'</div>'
+							+'</div>'
+							+'<input name="additionalItem'+name+'" type="text" value="<%=pList.get(2).getPlusProductItem()%>" class="form-control" aria-label="Text input with radio button">'
+							+'</div>'
+							+'</td>'
+							+'<td width="50%">'
+							+'<div class="input-group mb-3">'
+							+'<div class="input-group-prepend">'
+							+'<span class="input-group-text">￦</span>'
+							+'</div>'
+							+'<input name="additionalPrice'+name+'" type="number" value="<%=pList.get(2).getPlusProductPrice()%>" class="form-control" aria-label="Amount (to the nearest dollar)" onkeydown="javascript: return event.keyCode == 69 ? false : true">'
+							+'<div class="input-group-append">'
+							+'<span class="input-group-text">.00</span>'
+							+'</div>'
+							+'</div>'
+							+'</td>'
+							+'</tr>');
 				}else{
 					alert("추가 항목은 최대 세 개까지 등록이 가능합니다.");
 				}
@@ -349,6 +420,17 @@ input[type="number"]::-webkit-inner-spin-button{
 			/* 첨부파일 숨기기 */
 	        $("#fileArea").hide();   
 			
+			/* 이 부분을 어떻게 불러와서 hide할지.. */
+	       /*  if(detailImg3.getChangeName() == null){ 
+				$("#contentImgArea3").hide();
+	        } if(detailImg4.getChangeName() == null){ 
+				$("#contentImgArea4").hide();
+	        } if(detailImg5.getChangeName() == null){ 
+				$("#contentImgArea5").hide();	        	
+	        } if(detailImg6.getChangeName() == null){ 
+				$("#contentImgArea6").hide();	        	
+	        } */
+
 			/* 이미지 첨부 영역 클릭 시 동작 */			
 			$("#contentImgArea1").click(function(){
 			    $("#thumbnailImg1").click();
@@ -356,7 +438,7 @@ input[type="number"]::-webkit-inner-spin-button{
 			});
 			$("#contentImgArea2").click(function(){
 			    $("#thumbnailImg2").click();
-				$("#contentImgArea3").show();
+				$("#contentImgArea3").show();	
 			});
 			$("#contentImgArea3").click(function(){
 			    $("#thumbnailImg3").click();
@@ -411,11 +493,7 @@ input[type="number"]::-webkit-inner-spin-button{
 	   		    	alert("서비스 설명을 입력해주세요.");
 	     		 	$("input[name=content]").focus();
 	     		    return false;
-		  	 }else if($("input[name=thumbnailImg1]").val() == ""){ 
-	   		    	alert("대표 이미지를 등록해주세요.");
-	     		 	$("input[name=thumbnailImg1]").focus();
-	     		    return false;
-	 		 }else if($("input[name=additionalItem1]").val() == ""){ 
+		  	 }else if($("input[name=additionalItem1]").val() == ""){ 
 	     		 	$("input[name=additionalItem1]").val("추가항목 없음");
 	     		 	$("input[name=additionalPrice1]").val("0");
 	     		    return false;
@@ -443,9 +521,9 @@ input[type="number"]::-webkit-inner-spin-button{
 	</script>
 	<script>
 		function alertEvent() {
-			alert("정상적으로 등록되었습니다.");
-		}
-	
+			alert("정상적으로 수정되었습니다.");
+		}		
+		
 	</script>
 	
 	<!-- Footer ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
