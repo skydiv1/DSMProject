@@ -1,3 +1,4 @@
+<%@page import="com.kh.w7.member.model.dao.MemberDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -20,7 +21,9 @@
 	src = "https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
 	integrity = "sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
 	crossorigin = "anonymous"
+	
 </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <title>소비자 정보 수정</title>
 <style>
 #link {
@@ -120,19 +123,21 @@ form {
 	<h3 align="center">소비자 가입 정보 입력</h3>
 	<br>
 	<hr>
-	<form action="<%=request.getContextPath()%>/insertMember" method="post">
+	<form action="<%=request.getContextPath()%>/updateInfo.me" method="post">
 		
+
+
 			
 			<table align="center">
 				<tr>
 				<td><div class="form-group">
 						<label for="inputId" class="col-sm-2 control-label">Id</label>
-						<div class="col-sm-10">
-							<input type="Id" class="form-control" id="memberId" name="memberId"
-								style="width: 550px" placeholder="Id" readonly>
-						</div>
-						<td style="padding-top: 14px;"><button type="submit"
-								class="btn btn-danger">중복확인</button></td>
+						
+							
+						</div><td><%=Member.getMemberId() %></td>
+
+
+						
 					</div></td>
 
 			</tr>
@@ -172,12 +177,9 @@ form {
 			<tr>
 				<td><div class="form-group">
 						<label for="inputTel" class="col-sm-2 control-label">Phone</label>
-						<div class="col-sm-3">
-							<input type="text" class="form-control" id="memberPhone1" name="memberPhone1" maxlength="3">-
-							<input type="text" class="form-control" id="memberPhone2" name="memberPhone2" maxlength="4">-
-							<input type="text" class="form-control" id="memberPhone3" name="memberPhone3" maxlength="4">
-							
-								
+						<div class="col-sm-10">
+							<input type="Name" class="form-control" id="memberName" name="memberName"
+								style="width: 550px" placeholder="Name"> 
 						</div>
 					</div></td>
 			</tr>
@@ -210,16 +212,16 @@ form {
 		</table>
 		
 		<div align="center">
-			<a href="#">
+			<a href="/web/index.jsp">
 				<button type="submit" class="btn btn-warning"
-					style="width: 400px; height: 50px; font-size: 20px; border-radius: 6px;">정보수정</button>
-			</a> <a href="#">
+					style="width: 400px; height: 50px; font-size: 20px; border-radius: 6px;"><div id="updateBtn" onclick="updateMember();">정보수정</div></button>
+			</a> <a href="/web/index.jsp">
 				<button type="button" class="btn btn-cancle"
-					style="width: 400px; height: 50px; font-size: 20px; border-radius: 6px;">취소하기</button>
+					style="width: 400px; height: 50px; font-size: 20px; border-radius: 6px;"><div id="updateBtn" onclick="goMain();">취소하기</button>
 			</a>
-			<a href="#">
+			<a href="/web/index.jsp">
 				<button type="submit" class="btn btn-defualt" 
-					style="width: 150px; height: 50px; font-size: 15px; border-radius: 6px;">탈퇴하기</button>
+					style="width: 150px; height: 50px; font-size: 15px; border-radius: 6px;"><div id="DeleteBtn" onclick="DeleteMember();">탈퇴하기</button>
 			</a>
 		</div>
 <br>

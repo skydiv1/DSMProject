@@ -35,9 +35,18 @@ public class InsertMemberServlet extends HttpServlet {
 		String memberName = request.getParameter("memberName");
 		String memberPhone = request.getParameter("memberPhone");
 		String memberEmail = request.getParameter("memberEmail");
-		String sellerIntroduction = request.getParameter("selleIntroduction");
+		String sellerIntroduction = request.getParameter("sellerIntroduction");
 		String sellerCareer = request.getParameter("sellerCareer");
 	
+		System.out.println("memberId : " + memberId);
+		System.out.println("memberPwd: " + memberPwd);
+		System.out.println("memberName: " + memberName);
+		System.out.println("memberPhone: " + memberPhone);
+		System.out.println("memberEmail: " + memberEmail);
+		System.out.println("selleIntroduction: " + sellerIntroduction);
+		System.out.println("sellerCareer: " + sellerCareer);
+		
+		
 		Member reqMember = new Member();
 		reqMember.setMemberId(memberId);
 		reqMember.setMemberPwd(memberPwd);
