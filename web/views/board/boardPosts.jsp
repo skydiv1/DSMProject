@@ -58,7 +58,7 @@
 			  <a href="<%=request.getContextPath()%>/selectList.bo" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">목록으로</a>
 			  <a href=
 			  "<% if(loginUser != null 
-				&& loginUser.getUserId().equals(b.getbWriter())){ %>" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">수정</a>
+				&& loginUser.getMemberName().equals(b.getMemberCode())){ %>" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">수정</a>
 				<% } %>
 			  <a href="board.jsp" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">삭제</a>
 			 </div> 

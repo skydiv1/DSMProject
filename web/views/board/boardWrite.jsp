@@ -11,22 +11,29 @@
 	<%@ include file="../common/menubar.jsp"%>
 <!-- 네비게이션 바 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 <br><br>	
+	<% if(loginUser != null && loginUser.getMemberId().equals("admin")){ %>
+		<div class="outer">
 			<div class="container">
 			<thead>
         <caption> <h2>글쓰기</h2> </caption>
    			 </thead>
    			 <hr>
+   			 <td id="title">작성자</td>
+   			<td>
+				<input type="text" value="<%=loginUser.getMemberName()%>" name="memberName" readonly>
+				<input type="hidden" value="<%=loginUser.getMemberCode()%>" name="memberCode">
+			</td>
 			<form>
 			  <div class="form-group">
 			    <label ><h3>제목 :</h3></label>
 			    <input type="text" class="form-control"  placeholder="제목을 입력해 주세요">
 			  </div>
 			  <hr>
-			  <div class="input-group">
+			  <td>작성일</td>
+     		  <td><input type="date" name="date"></td>		 
 			  <div class="custom-file">
 			    <input type="file" class="custom-file-input" id="" >
-			    <label class="custom-file-label" >파일을 선택해주세요</label>
-			  </div>
+			    <label class="custom-file-label" >파일을 선택해주세요</label>			 
 			  </div>
 			  <hr>
 			  <div class="form-group">
@@ -35,8 +42,10 @@
 			  </div>
 			  <hr>
 			  <div style="margin:0px 0px 0px 980px; margin-right:10px; ">	
-			   <button class="btn btn-default"  onclick="location.href='./board.jsp'">취소</button>
-			  <button class="btn btn-default"  onclick="location.href='./board.jsp'">수정</button>
+			  	<!-- <button onclick="location.href='./board.jsp'">취소</button>
+			  	<button  onclick="location.href='./board.jsp'">수정</button> -->
+		  	    <button type="reset">취소하기</button>
+				<button type="submit">등록하기</button>
 			  </div>
 			</form>
 			</div>
@@ -44,6 +53,12 @@
 			<hr>
 			<br>	
 	</div>
+	<% }else{
+		request.setAttribute("msg", "잘못된 경로로 접근하셨습니다.");
+		request.getRequestDispatcher("../common/errorPage.jsp").forward(request, response);
+		
+	} %>
+	
 <!-- Footer -->
 		<%@ include file = "../common/footer.jsp" %>
 <!-- footer 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->

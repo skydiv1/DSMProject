@@ -4,11 +4,8 @@ import static com.kh.w7.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.HashMap;
-
 import com.kh.w7.board.model.dao.BoardDao;
 import com.kh.w7.board.model.vo.Board;
-import com.kh.w7.common.Attachment;
 
 public class BoardService {
 
@@ -24,11 +21,10 @@ public class BoardService {
 		
 		int result = new BoardDao().insertBoard(con, b);
 		
-		if(result > 0) {
-			commit(con);
-		}else {
-			rollback(con);
-		}
+		if(result > 0) commit(con);
+		else rollback(con);
+		
+		close(con);
 		
 		return result;
 	}
