@@ -76,6 +76,7 @@ input[type="number"]::-webkit-inner-spin-button{
 
 	<%@ include file="../common/menubar.jsp"%>
 	<!-- 네비게이션 바 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+	<% if(loginUser != null  && loginUser.getSellerCertcheck()==1){ %>
 	<section class="bg-light" id="portfolio" style="">
 	<h2 style="margin-top: -80px; padding-left: 10%;">상품 등록</h2>
 	<br>
@@ -270,6 +271,10 @@ input[type="number"]::-webkit-inner-spin-button{
 		</div>
 	</form>
 	</section>
+	<% }else{
+		request.setAttribute("msg", "잘못된 경로로 접근하셨습니다.");
+		request.getRequestDispatcher("../common/errorPage.jsp").forward(request, response);
+	} %>
 	
 	<script>
 		$(function () {
