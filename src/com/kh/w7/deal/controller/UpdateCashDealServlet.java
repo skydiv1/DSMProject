@@ -1,28 +1,26 @@
 package com.kh.w7.deal.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.w7.deal.model.service.DealService;
-import com.kh.w7.deal.model.vo.Deal;
 
 /**
- * Servlet implementation class SelectOneProductServlet
+ * Servlet implementation class UpdateCashDealServlet
  */
-@WebServlet("/selectOneProduct.de")
-public class SelectOneProductServlet extends HttpServlet {
+@WebServlet("/updateDealCash")
+public class UpdateCashDealServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectOneProductServlet() {
+    public UpdateCashDealServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,32 +30,25 @@ public class SelectOneProductServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int memberCode = Integer.parseInt(request.getParameter("memberCode")); //2번 소비자가 구매한
+		int customerCode = Integer.parseInt(request.getParameter("customerCode"));
+		int sellerCode = Integer.parseInt(request.getParameter("sellerCode"));
+		int dealNo = Integer.parseInt(request.getParameter("dealNo"));
+		int totalPrice = Integer.parseInt(request.getParameter("totalPrice"));
+		int nowCash = Integer.parseInt(request.getParameter("nowCash"));
 		
-		int productNo = Integer.parseInt(request.getParameter("productNo")); //6번 상품
+		/*
+		 * 정상적으로 인자전달 완료
+		 * System.out.println("customerCode : " + customerCode);
+		System.out.println("sellerCode : " + sellerCode);
+		System.out.println("dealNo : " + dealNo);
+		System.out.println("totalPrice : " + totalPrice);*/
+		
+		int result = new DealService().updateCashDeal(customerCode, sellerCode, dealNo, totalPrice, nowCash);
 		
 		
-		
-		System.out.println("memberCode : " + memberCode);
-		System.out.println("productNo : " + productNo);
-		
-		
-		ArrayList<Deal> list = new ArrayList<Deal>();
-		Deal d = new Deal();
-		
-		list = new DealService().selectOneProduct(memberCode, productNo);
-		
-		System.out.println("serveltList : "+list);
-		
-		String page = "";
-		if(list != null) {
-			page = "views/cash/payment.jsp";
-			request.setAttribute("list", list);
-		}else {
-			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "거래창 불러오기 실패!");
-		}
-		request.getRequestDispatcher(page).forward(request, response);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		new Gson().toJson(result, response.getWriter());
 		
 		
 	}

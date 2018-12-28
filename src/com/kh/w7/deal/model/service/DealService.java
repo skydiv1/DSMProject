@@ -17,8 +17,32 @@ public class DealService {
 		Deal d = new Deal();
 		
 		list = new DealDao().selectOneProduct(con, memberCode, productNo);
-		System.out.println("serviceList : "+list);
+		//System.out.println("serviceList : "+list);
 		return list;
+	}
+
+	public int updateCashDeal(int customerCode, int sellerCode, int dealNo, int totalPrice, int nowCash) {
+		// TODO Auto-generated method stub
+		Connection con = getConnection();
+		int resultA = new DealDao().updateCashDeal(con, dealNo);
+		int resultB = resultA + new DealDao().updateCustomerCash(con, customerCode, dealNo,  totalPrice, nowCash);
+		int resultC = resultB + new DealDao().updateSellerCash(con, sellerCode, dealNo, totalPrice, nowCash);
+		
+		int result = resultC;
+		System.out.println("resultA : " + resultA);
+		System.out.println("resultB : " + resultB);
+		System.out.println("resultC : " + resultC);
+		System.out.println("result : " + result);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
 	}
 
 }
