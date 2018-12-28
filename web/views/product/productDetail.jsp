@@ -119,7 +119,7 @@
 			</td>	
 		</tr>
 		<tr>
-			<td rowspan="4"><img class="img-fluid" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg1.getChangeName()%>" alt="" style="box-shadow: 0px 0px 10px #000; width:530px; height:420px;"></td>
+			<td rowspan="4"><img class="img-fluid" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg6.getChangeName()%>" alt="" style="box-shadow: 0px 0px 10px #000; width:530px; height:420px;"></td>
 			<td>
 				<div style="font-size: 20px; font: bold; margin-left: 5%; margin-bottom: 5%;"><%=product.getProductName() %></div> <!-- 상품 제목 -->
 			</td>
@@ -191,33 +191,33 @@
 				<br><br>
 				
 				<div>
-					<%= product.getProductContext() %> <!-- 상품 설명 -->
+					<%= (product.getProductContext()).replace("\r\n", "<br>") %> <!-- 상품 설명 --> <!-- .replace("\r\n", "<br>") : 줄바꿈 처리 -->
 				</div>
 				<br><br>
 				
 				<table>
 					<tr>
 						<td style="padding: 2% 2% 2% 0%;"><img class="img-fluid" id="detailImg1"
-							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg1.getChangeName()%>"
+							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg6.getChangeName()%>"
 							style="width: 420px; height: 300px;"></td>
 						<td style="padding: 2% 2% 2% 2%;"><img class="img-fluid" id="detailImg2"
-							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg2.getChangeName()%>"
+							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg5.getChangeName()%>"
 							style="width: 420px; height: 300px;"></td>
 					</tr>
 					<tr>
 						<td style="padding: 2% 2% 2% 0%;"><img class="img-fluid" id="detailImg3"
-							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg3.getChangeName()%>"
+							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg4.getChangeName()%>"
 							style="width: 420px; height: 300px;"></td>
 						<td style="padding: 2% 2% 2% 2%;"><img class="img-fluid" id="detailImg4"
-							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg4.getChangeName()%>"
+							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg3.getChangeName()%>"
 							style="width: 420px; height: 300px;"></td>
 					</tr>
 					<tr>
 						<td style="padding: 2% 2% 2% 0%;"><img class="img-fluid" id="detailImg5"
-							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg5.getChangeName()%>"
+							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg2.getChangeName()%>"
 							style="width: 420px; height: 300px;"></td>
 						<td style="padding: 2% 2% 2% 2%;"><img class="img-fluid" id="detailImg6"
-							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg6.getChangeName()%>"
+							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg1.getChangeName()%>"
 							style="width: 420px; height: 300px;"></td>
 					</tr>
 				</table>
@@ -237,7 +237,7 @@
 					<br><br> 나. 전문가 책임 사유 
 					<br>1. 소비자 피해 보상 규정에 의거하여 촬영 원본의 멸실 및 재해로 인한 피해 발생 시, 전액 환불합니다. 
 					<br>2. 작업 기간 미준수, 작업 태만 및 이에 상응하는 전문가 책임으로 인한 청약 철회 시, 환불 및 촬영 원본 제공이 가능합니다. 
-					<br><br> 다. 의뢰인 책임 사유 
+					<br><br> 다. 의뢰인 책임 사유 .
 					<br>작업이 시작되면 단순 변심 또는 의뢰인 책임 사유로 인한 전액 환불이 불가능합니다.<br>
 				</div>
 			</div>

@@ -197,6 +197,7 @@ input[type="number"]::-webkit-inner-spin-button{
 					</tr>
 				</thead>
 				<tbody>
+				<% for(int i=0; i<pList.size(); i++){ %>
 					<tr>
 						<th scope="row">1</th>
 						<td width="50%">
@@ -207,8 +208,9 @@ input[type="number"]::-webkit-inner-spin-button{
 											aria-label="Radio button for following text input">
 									</div>
 								</div>
-								<input name="additionalItem1"type="text" class="form-control"
-									aria-label="Text input with radio button" value="<%=pList.get(0).getPlusProductItem()%>">
+								<input name="additionalItem"type="text" class="form-control"
+									aria-label="Text input with radio button" value="<%=pList.get(i).getPlusProductItem()%>">
+								<input name="fixedItem"type="hidden" value="<%=pList.get(i).getPlusProductItem()%>">
 							</div>
 						</td>
 						<td width="50%">
@@ -216,14 +218,16 @@ input[type="number"]::-webkit-inner-spin-button{
 								<div class="input-group-prepend">
 									<span class="input-group-text">￦</span>
 								</div>
-								<input name="additionalPrice1"  type="number" class="form-control" onkeydown="javascript: return event.keyCode == 69 ? false : true"
-									aria-label="Amount (to the nearest dollar)" value="<%=pList.get(0).getPlusProductPrice()%>">
+								<input name="additionalPrice"  type="number" class="form-control" onkeydown="javascript: return event.keyCode == 69 ? false : true"
+									aria-label="Amount (to the nearest dollar)" value="<%=pList.get(i).getPlusProductPrice()%>">
+								<input name="fixedPrice"type="hidden" value="<%=pList.get(i).getPlusProductPrice()%>">
 								<div class="input-group-append">
 									<span class="input-group-text">.00</span>
 								</div>
 							</div>
 						</td>
 					</tr>
+					<% } %>
 				</tbody>
 			</table>
 			<div style="margin-left: 89%;">
@@ -252,49 +256,14 @@ input[type="number"]::-webkit-inner-spin-button{
 		<table align="center" border="0" width="80%" align="center">
 			<tr>
 				<td style="padding: 2% 2% 2% 2%;" width="470px">
-					<div id="contentImgArea1" style="cursor:pointer;">
-						<img id="contentImg1" style="box-shadow: 0px 0px 10px #000;" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg1.getChangeName()%>">
+					<div id="contentImgArea6" style="cursor:pointer;">
+						<img id="contentImg6" name="img6" style="box-shadow: 0px 0px 10px #000;" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg6.getChangeName()%>">
 					</div>
 				</td>
 				<td  style="padding: 2% 2% 2% 2%;" width="470px">
-						<% if(detailImg2.getChangeName() != null){ %>
-						<div id="contentImgArea2" style="cursor:pointer;">
-							<img id="contentImg2" style="box-shadow: 0px 0px 10px #000;" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg2.getChangeName()%>">
-						</div>
-						<% }else{ %>
-						<div id="contentImgArea2" style="cursor:pointer; border: 2px dashed darkgray;">
-							<img id="contentImg2" style="box-shadow: 0px 0px 10px #000;"><div id="text2" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
-						</div>	
-						<% } %>
-				</td>
-				<td  style="padding: 2% 2% 2% 2%;" width="470px">
-						<% if(detailImg3.getChangeName() != null){ %>
-						<div id="contentImgArea3" style="cursor:pointer;">
-							<img id="contentImg3" style="box-shadow: 0px 0px 10px #000;" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg3.getChangeName()%>">
-						</div>
-						<% }else{ %>
-						<div id="contentImgArea3" style="cursor:pointer; border: 2px dashed darkgray;">
-							<img id="contentImg3" style="box-shadow: 0px 0px 10px #000;"><div id="text3" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
-						</div>	
-						<% } %>
-				</td>
-			</tr>
-			<tr>
-				<td style="padding: 2% 2% 2% 2%;">
-						<% if(detailImg4.getChangeName() != null){ %>
-						<div id="contentImgArea4" style="cursor:pointer;">
-							<img id="contentImg4" style="box-shadow: 0px 0px 10px #000;" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg4.getChangeName()%>">
-						</div>
-						<% }else{ %>
-						<div id="contentImgArea4" style="cursor:pointer; border: 2px dashed darkgray;">
-							<img id="contentImg4" style="box-shadow: 0px 0px 10px #000;"><div id="text4" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
-						</div>	
-						<% } %>
-				</td>
-				<td style="padding: 2% 2% 2% 2%;">
 						<% if(detailImg5.getChangeName() != null){ %>
 						<div id="contentImgArea5" style="cursor:pointer;">
-							<img id="contentImg5" style="box-shadow: 0px 0px 10px #000;" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg5.getChangeName()%>">
+							<img id="contentImg5" name="img5" style="box-shadow: 0px 0px 10px #000;" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg5.getChangeName()%>">
 						</div>
 						<% }else{ %>
 						<div id="contentImgArea5" style="cursor:pointer; border: 2px dashed darkgray;">
@@ -302,14 +271,49 @@ input[type="number"]::-webkit-inner-spin-button{
 						</div>	
 						<% } %>
 				</td>
-				<td style="padding: 2% 2% 2% 2%;">
-						<% if(detailImg6.getChangeName() != null){ %>
-						<div id="contentImgArea6" style="cursor:pointer;">
-							<img id="contentImg6" style="box-shadow: 0px 0px 10px #000;" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg6.getChangeName()%>">
+				<td  style="padding: 2% 2% 2% 2%;" width="470px">
+						<% if(detailImg4.getChangeName() != null){ %>
+						<div id="contentImgArea4" style="cursor:pointer;">
+							<img id="contentImg4" name="img4" style="box-shadow: 0px 0px 10px #000;" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg4.getChangeName()%>">
 						</div>
 						<% }else{ %>
-						<div id="contentImgArea6" style="cursor:pointer; border: 2px dashed darkgray;">
-							<img id="contentImg6" style="box-shadow: 0px 0px 10px #000;"><div id="text6" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
+						<div id="contentImgArea4" style="cursor:pointer; border: 2px dashed darkgray;">
+							<img id="contentImg4" style="box-shadow: 0px 0px 10px #000;"><div id="text4" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
+						</div>	
+						<% } %>
+				</td>
+			</tr>
+			<tr>
+				<td style="padding: 2% 2% 2% 2%;">
+						<% if(detailImg3.getChangeName() != null){ %>
+						<div id="contentImgArea3" style="cursor:pointer;">
+							<img id="contentImg3" name="img3" style="box-shadow: 0px 0px 10px #000;" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg3.getChangeName()%>">
+						</div>
+						<% }else{ %>
+						<div id="contentImgArea3" style="cursor:pointer; border: 2px dashed darkgray;">
+							<img id="contentImg3" style="box-shadow: 0px 0px 10px #000;"><div id="text3" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
+						</div>	
+						<% } %>
+				</td>
+				<td style="padding: 2% 2% 2% 2%;">
+						<% if(detailImg2.getChangeName() != null){ %>
+						<div id="contentImgArea2" style="cursor:pointer;">
+							<img id="contentImg2" name="img2" style="box-shadow: 0px 0px 10px #000;" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg2.getChangeName()%>">
+						</div>
+						<% }else{ %>
+						<div id="contentImgArea2" style="cursor:pointer; border: 2px dashed darkgray;">
+							<img id="contentImg2" style="box-shadow: 0px 0px 10px #000;"><div id="text2" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
+						</div>	
+						<% } %>
+				</td>
+				<td style="padding: 2% 2% 2% 2%;">
+						<% if(detailImg1.getChangeName() != null){ %>
+						<div id="contentImgArea1" style="cursor:pointer;">
+							<img id="contentImg1" name="img1" style="box-shadow: 0px 0px 10px #000;" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg1.getChangeName()%>">
+						</div>
+						<% }else{ %>
+						<div id="contentImgArea1" style="cursor:pointer; border: 2px dashed darkgray;">
+							<img id="contentImg1" style="box-shadow: 0px 0px 10px #000;"><div id="text1" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
 						</div>	
 						<% } %>
 				</td>
@@ -338,65 +342,6 @@ input[type="number"]::-webkit-inner-spin-button{
 		$(function () {
 			var cnt = 1;
 			var name = 1;
-			/* 추가 버튼을 눌렀을 때 동작하는 함수 */
-			$("#additionalItem").click(function () {				
-				if(cnt<3){
-		    		cnt++;
-					name++;
-    				console.log("cnt: "+cnt);
-		    		console.log("name: "+name);
-		    		if(cnt==2)
-			    	$('#addtionalTable > tbody:last').append('<tr><th scope="row">'+cnt+'</th>' 
-			    		+'<td width="50%">'
-						+'<div class="input-group">'
-						+'<div class="input-group-prepend">'
-						+'<div class="input-group-text">'
-						+'<input type="radio" aria-label="Radio button for following text input">'
-						+'</div>'
-						+'</div>'
-						+'<input name="additionalItem'+name+'" type="text" value="<%=pList.get(1).getPlusProductItem()%>" class="form-control" aria-label="Text input with radio button">'
-						+'</div>'
-						+'</td>'
-						+'<td width="50%">'
-						+'<div class="input-group mb-3">'
-						+'<div class="input-group-prepend">'
-						+'<span class="input-group-text">￦</span>'
-						+'</div>'
-						+'<input name="additionalPrice'+name+'" type="number" value="<%=pList.get(1).getPlusProductPrice()%>" class="form-control" aria-label="Amount (to the nearest dollar)" onkeydown="javascript: return event.keyCode == 69 ? false : true">'
-						+'<div class="input-group-append">'
-						+'<span class="input-group-text">.00</span>'
-						+'</div>'
-						+'</div>'
-						+'</td>'
-						+'</tr>');
-		    		else if(cnt==3)
-				    	$('#addtionalTable > tbody:last').append('<tr><th scope="row">'+cnt+'</th>' 
-				    		+'<td width="50%">'
-							+'<div class="input-group">'
-							+'<div class="input-group-prepend">'
-							+'<div class="input-group-text">'
-							+'<input type="radio" aria-label="Radio button for following text input">'
-							+'</div>'
-							+'</div>'
-							+'<input name="additionalItem'+name+'" type="text" value="<%=pList.get(2).getPlusProductItem()%>" class="form-control" aria-label="Text input with radio button">'
-							+'</div>'
-							+'</td>'
-							+'<td width="50%">'
-							+'<div class="input-group mb-3">'
-							+'<div class="input-group-prepend">'
-							+'<span class="input-group-text">￦</span>'
-							+'</div>'
-							+'<input name="additionalPrice'+name+'" type="number" value="<%=pList.get(2).getPlusProductPrice()%>" class="form-control" aria-label="Amount (to the nearest dollar)" onkeydown="javascript: return event.keyCode == 69 ? false : true">'
-							+'<div class="input-group-append">'
-							+'<span class="input-group-text">.00</span>'
-							+'</div>'
-							+'</div>'
-							+'</td>'
-							+'</tr>');
-				}else{
-					alert("추가 항목은 최대 세 개까지 등록이 가능합니다.");
-				}
-			});
 			
 			/* 삭제 버튼을 눌렀을 때 동작하는 함수 */
 		  	$('#deleteItem').click(function() {

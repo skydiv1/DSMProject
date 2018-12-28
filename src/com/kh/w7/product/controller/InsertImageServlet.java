@@ -172,6 +172,7 @@ public class InsertImageServlet extends HttpServlet {
 			
 			// 반복문을 통해 거꾸로 넘어온 파일들을 다시 역순으로 바꿔준다.
 			for(int i=originFiles.size()-1; i>=0; i--) {
+//			for(int i=0; i<originFiles.size(); i++) {
 				Attachment at = new Attachment();
 				at.setImgFilePath(filePath);
 				at.setOriginName(originFiles.get(i));
