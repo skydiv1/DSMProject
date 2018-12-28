@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
@@ -45,6 +46,63 @@ public class PayDao {
 		}finally {
 			close(pstmt);
 		}
+		
+		
+		return result;
+	}
+
+	public int selectMemberNowCash(Connection con, int memberCode) {
+		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int nowCash = 0;
+		
+		String query = prop.getProperty("selectMemberNowCash");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, memberCode);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				nowCash = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		
+		
+		return nowCash;
+	}
+
+	public int insertMemberCash(Connection con, Pay p) {
+		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertMemberCash");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, p.getMember_code());
+			pstmt.setInt(2, p.getMember_code());
+			pstmt.setInt(3, p.getPay_price());
+			pstmt.setInt(4, p.getPay_price());
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
 		
 		
 		return result;

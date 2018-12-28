@@ -156,9 +156,16 @@
 						</td>
 					</tr>
 					<tr>
-						<td><a href="#"><button type="button"
+						<td>
+						<% if(loginUser != null&& loginUser.getMemberCategory() == 0) {%>
+							<a href="#"><button type="button"
 									class="btn btn-warning"
-									onclick="location.href = '/dsm/views/cash/cacheCharge.jsp'">캐시충전</button></a>
+									onclick="location.href = '/dsm/selectUser.pa?memberCode=<%= loginUser.getMemberCode()%>'">캐시충전</button></a>
+						<%}else if(loginUser != null&& loginUser.getMemberCategory() == 1) {%>
+						<a href="#"><button type="button"
+									class="btn btn-warning"
+									onclick="location.href = '/dsm/views/cash/refunds.jsp?memberCode=<%= loginUser.getMemberCode()%>'">캐시환급</button></a>
+						<%}%>
 							<a href="#"><button type="button" class="btn btn-light">내
 									정보 보기</button></a> <a href="/dsm/logout.me"><button type="button"
 									class="btn btn-light">로그아웃</button></a> <!--         			<a href="#"><button type="button" class="btn btn-light">관리자페이지</button></a> -->

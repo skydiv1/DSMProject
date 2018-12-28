@@ -47,14 +47,8 @@
 			text-align : center;
 			padding : auto 0; !important
 		}
-		th{
-			width : 10%;
-			
-			
-		}
-		td{
-			width : 50%;
-		}
+
+
 	</style>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script>
@@ -86,18 +80,18 @@
 	  </thead>
 	  <tbody>
 	    <tr>
-	      <th class="tRow" >예금주</th>
-	      <td id = "tdRefundsName"><input type = "text" name = "refundsName" placeholder = "성함을 입력하세요"></td>
+	      <th class="tRow" width = "10%">예금주</th>
+	      <td id = "tdRefundsName" width = "50%"><input type = "text" name = "refundsName" placeholder = "성함을 입력하세요"></td>
 	
 	    </tr>
 	    <tr>
-	      <th class="tRow">생년월일</th>
-	      <td id = "tdRefundsBirth"><input type = "text" name = "refundsBirth" placeholder = "생년월일 6자리를 입력하세요">&nbsp;&nbsp;<div style = "color : gray;  display : inline; font-size : 0.8em;">예)831027</div></td>
+	      <th class="tRow" width = "10%">생년월일</th>
+	      <td id = "tdRefundsBirth" width = "50%"><input type = "text" name = "refundsBirth" placeholder = "생년월일 6자리를 입력하세요">&nbsp;&nbsp;<div style = "color : gray;  display : inline; font-size : 0.8em;">예)831027</div></td>
 	
 	    </tr>
 	    <tr>
-	      <th class="tRow">은행선택</th>
-	      <td id = "tdRefundsBank"><select name = "refundsBank">
+	      <th class="tRow" width = "10%">은행선택</th>
+	      <td id = "tdRefundsBank" width = "50%"><select name = "refundsBank">
 	      	<option value = "">은행 선택</option>
 	       	<option value = "국민은행">국민은행</option>
 	        <option value = "신한은행">신한은행</option>
@@ -109,18 +103,18 @@
 	      </select></td>
 	
 	    </tr>
-	    <tr>
+	    <tr width = "10%">
 	      <th class="tRow">계좌번호</th>
-	      <td id = "tdRefundsAccount"><input type = "text" name = "refundsAccount" placeholder = "-를 포함하여 숫자를 입력해주세요" style = "width : 300px"></td>
+	      <td id = "tdRefundsAccount" width = "50%"><input type = "text" name = "refundsAccount" placeholder = "-를 포함하여 숫자를 입력해주세요" style = "width : 300px"></td>
 	
 	    </tr>
 	    <tr>
-	      <th style = "vertical-align: middle;" class="tRow">계좌인증</th>
-	      <td id = "printEffectiveness"><button type="button" class="btn btn-danger" name = "refundsCertification" id = "accountCertBtn">계좌 인증하기</button></td>
+	      <th style = "vertical-align: middle;" class="tRow" width = "10%">계좌인증</th>
+	      <td id = "printEffectiveness" width = "50%"><button type="button" class="btn btn-danger" name = "refundsCertification" id = "accountCertBtn">계좌 인증하기</button></td>
 	    </tr>
 	    <tr>
-	      <th style = "vertical-align: middle;" class="tRow">환급동의</th>
-	      <td id = "tdRefundsLaw" class="p-2 text-dark">본인은  환급급액에 대해 위 계좌를 환급되는 것에 동의합니다.  타인계좌로 환급 요청시, 이에 대한 모든 법적인 책임은 본인에게 있습니다.<br>
+	      <th style = "vertical-align: middle;" class="tRow" width = "10%">환급동의</th>
+	      <td id = "tdRefundsLaw" class="p-2 text-dark" width = "50%">본인은  환급급액에 대해 위 계좌를 환급되는 것에 동의합니다.  타인계좌로 환급 요청시, 이에 대한 모든 법적인 책임은 본인에게 있습니다.<br>
 	      	<div style = "color : red;  display : inline">위 내용에 확인하였으며, 이에 동의합니다.</div><input type = "checkbox" name = "refundsAgree"></td>
 	
 	    </tr>

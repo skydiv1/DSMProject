@@ -5,10 +5,19 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
 <script>
    var chargeMoney = <%= request.getParameter("chargeMoney")%>;
+   var memberCode = <%= request.getParameter("memberCode")%>;
+   <%-- var memberName = <%= request.getParameter("memberName")%>; --%>
+   <%-- var memberId = <%= request.getParameter("memberId")%>;
+   var memberEmail = <%= request.getParameter("memberEmail")%>;
+   var memberPhone = <%= request.getParameter("memberPhone")%>; --%>
+   
+   
+   
    var IMP = window.IMP; 
    IMP.init('imp11530773');
    
@@ -18,10 +27,10 @@
 	    merchant_uid : 'merchant_' + new Date().getTime(),
 	    name : 'DSM_CashCharge',
 	    amount : chargeMoney,
-	    buyer_email : 'iamport@siot.do',
-	    buyer_code : 1,
-	    buyer_id : 'gildong',
-	    buyer_name : 'HongGD',
+	    buyer_email : 'eksan@naver.com',
+	    buyer_code : memberCode,
+	    buyer_id : 'aaa',
+	    buyer_name : 'hongGD',
 	    buyer_tel : '010-1234-5678',
 	    buyer_addr : 'seoul gangnam',
 	    buyer_postcode : '123-456'
@@ -33,11 +42,27 @@
 	    		type: 'POST',
 	    		dataType: 'json',
 	    		data: {
-	    			buyer_code : 1, //나중에 로그인 되면 결제하는 회원코드로 전환하기
+	    			buyer_code : memberCode, //나중에 로그인 되면 결제하는 회원코드로 전환하기
 	    			buyer_name : 'HongGD',
 	    			amount : chargeMoney,
 		    		imp_uid : rsp.imp_uid
 		    		//기타 필요한 데이터가 있으면 추가 전달
+	    		},
+	    		success : function(data){
+	    			if(data > 0) {
+						page = "/dsm/index.jsp";
+						swal("Charge is complete!", "when you click 'OK'button return to mainPage", "success").then((value) =>{
+							if(value = "ok"){
+								location.href = page;
+							}
+						});
+						
+						
+					}else {
+						page = "/dsm/views/common/errorPage.jsp";
+						location.href = page;
+						//request.getRequestDispatcher(page).forward(request, response);
+					}
 	    		}
 	    	}).done(function(data) {
 	    		//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우

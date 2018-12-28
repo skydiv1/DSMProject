@@ -48,12 +48,12 @@ table {
 
 </head>
 <body>
-	<%@ include file="../common/navi.jsp"%>
+	<%@ include file="../common/menubar.jsp"%>
 	<!--/////////////////////////////////////////네비끝, 헤더시작//////////////////////////////////////////////////////////////////////////////////////////////  -->
 
 	<!--/////////////////////////////////////////////헤더끝//////////////////////////////////////////////////////////////////////////////////////////  -->
 
-	
+	<!-- 고객코드, 상품코드로 어떤 상품을 가지고 올지 판단(CostomerMyPage에서 가지고옴)  -->
 
 
 	<section class="bg-light" id="portfolio">
@@ -99,7 +99,10 @@ table {
 					<td></td>
 					<td>가격</td>
 				</tr>
-				<% for(int i = 0; i < list.size() ; i++){ %>
+				<%
+				totalPrice = list.get(0).getMainProductPrice(); 
+				
+				for(int i = 0; i < list.size() ; i++){ %>
 				<tr>
 					<td><%= list.get(i).getSubProductName()%><!-- 추가항목 이름 --></td>
 					<td>
@@ -108,7 +111,6 @@ table {
 					<td><%= list.get(i).getSubProductPrice() %><!-- 추가금액 --></td>
 				</tr>
 				<% 
-				totalPrice = list.get(0).getMainProductPrice();
 				totalPrice += list.get(i).getSubProductPrice();
 				} %>
 			</table>

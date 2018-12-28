@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+		int nowCash = (Integer)request.getAttribute("nowCash");
+	%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head lang="en">
@@ -65,34 +68,35 @@ table {
 							<th>￦5,000</th>
 							<td style="text-align: right;"><button onclick="minusBtn1()">-</button>
 								<label>&nbsp;&nbsp;</label><label id="la1">0</label><label>&nbsp;&nbsp;</label>
-							<button onclick="plusBtn1()">+</button></td>
+								<button onclick="plusBtn1()">+</button></td>
 						</tr>
 						<!-- 버튼이 클릭될때마다 가운데 숫자가 바뀌게 스크립트 작성 -->
 						<tr>
 							<th>￦10,000</th>
 							<td style="text-align: right;"><button onclick="minusBtn2()">-</button>
 								<label>&nbsp;&nbsp;</label><label id="la2">0</label><label>&nbsp;&nbsp;</label>
-							<button onclick="plusBtn2()">+</button></td>
+								<button onclick="plusBtn2()">+</button></td>
 						</tr>
 						<tr>
 							<th>￦30,000</th>
 							<td style="text-align: right;"><button onclick="minusBtn3()">-</button>
 								<label>&nbsp;&nbsp;</label><label id="la3">0</label><label>&nbsp;&nbsp;</label>
-							<button onclick="plusBtn3()">+</button></td>
+								<button onclick="plusBtn3()">+</button></td>
 						</tr>
 						<tr>
 							<th>￦50,000</th>
 							<td style="text-align: right;"><button onclick="minusBtn4()">-</button>
 								<label>&nbsp;&nbsp;</label><label id="la4">0</label><label>&nbsp;&nbsp;</label>
-							<button onclick="plusBtn4()">+</button></td>
-							
+								<button onclick="plusBtn4()">+</button></td>
+
 						</tr>
 						<tr>
-							<td colspan = "2" align = "right"><button type="button" class="btn btn-secondary" id = "calcBtn">계산하기</button></td>
+							<td colspan="2" align="right"><button type="button"
+									class="btn btn-secondary" id="calcBtn">계산하기</button></td>
 						</tr>
 					</tbody>
 				</table>
-				
+
 
 				<script>
 					/* ajax를 사용해서 버튼 누를때마다 결제 값이 바뀌도록 하기  */
@@ -151,13 +155,13 @@ table {
 					<tbody>
 						<tr>
 							<td><input type="radio" name="paymentMethod"
-								value="creditCard">신용카드</td>
-							<td><input type="radio" name="paymentMethod"
+								value="creditCard">카카오 페이</td>
+							<!-- <td><input type="radio" name="paymentMethod"
 								value="checkCard">체크카드</td>
 							<td><input type="radio" name="paymentMethod"
 								value="depositless">무통장입금</td>
 							<td><input type="radio" name="paymentMethod"
-								value="giftCard">문화상품권</td>
+								value="giftCard">문화상품권</td> -->
 						</tr>
 					</tbody>
 				</table>
@@ -193,49 +197,52 @@ table {
 				<tr>
 					<td colspan="2"
 						style="text-align: right; font-size: 1.3em; font-weight: bold;">보유캐시</td>
-						<!--DB에서 보유캐시 가져오기  -->
+					<!--DB에서 보유캐시 가져오기  -->
 					<td></td>
 				</tr>
 				<tr>
 					<td colspan="2"
-						style="text-align: right; font-size: 1.3em; font-weight: bold; color: red;" id = "tdHaveMoney">50000</td>
+						style="text-align: right; font-size: 1.3em; font-weight: bold; color: red;"
+						id="tdHaveMoney"><%= nowCash%></td>
 					<td></td>
 				</tr>
 				<tr>
 					<td><br>
-					<hr>
-						<br></td>
+						<hr> <br></td>
 					<td></td>
 				</tr>
 				<tr>
 					<td style="text-align: left; font-size: 1.3em; font-weight: bold;">충전캐시</td>
 					<!-- (+,-)누른걸로 충전 캐시 판단  -->
 					<td
-						style="text-align: right; font-size: 1.3em; font-weight: bold; color: red;" id = "tdChargeCashMoney">0</td>
+						style="text-align: right; font-size: 1.3em; font-weight: bold; color: red;"
+						id="tdChargeCashMoney">0</td>
 				</tr>
 				<tr>
 					<td style="text-align: left; font-size: 1.3em; font-weight: bold;">충전
-						후 캐시</td>
-						<!-- 1, 2번자리 숫자 덧샘 계산  -->
+						후 <br> 캐시
+					</td>
+					<!-- 1, 2번자리 숫자 덧샘 계산  -->
 					<td
-						style="text-align: right; font-size: 1.3em; font-weight: bold; color: red;">50000</td>
+						style="text-align: right; font-size: 1.3em; font-weight: bold; color: red;"
+						id="afterChargeCash"><%= nowCash%></td>
 				</tr>
 				<tr>
 					<td colspan="2"
 						style="text-align: left; font-size: 1.3em; font-weight: bold;">총
 						결제 캐시</td>
-						<!-- (+,-)누른걸로 충전 캐시 판단  -->
+					<!-- (+,-)누른걸로 충전 캐시 판단  -->
 					<td></td>
 				</tr>
 				<tr>
 					<td colspan="2"
-						style="text-align: right; font-size: 1.7em; font-weight: bold; color: red;" id = "tdResultMoney">0</td>
+						style="text-align: right; font-size: 1.7em; font-weight: bold; color: red;"
+						id="tdResultMoney">0</td>
 					<td></td>
 				</tr>
 				<tr>
 					<td><br>
-					<hr>
-						<br></td>
+						<hr> <br></td>
 					<td></td>
 				</tr>
 				<tr>
@@ -245,8 +252,8 @@ table {
 				</tr>
 				<tr>
 					<td colspan="2"><button type="button" class="btn btn-danger"
-							style="width: 108%; height: 100px " onclick = "chargeAPI()">충전하기</button></td>
-							
+							style="width: 108%; height: 100px" onclick="chargeAPI()">충전하기</button></td>
+
 					<td></td>
 					<!-- 버튼 클릭시 '결제 가격', '결제 품목(캐시충전)' 값이 넘어가게 하기  -->
 				</tr>
@@ -279,20 +286,69 @@ table {
 				type : "post",
 				success : function(data){
 					$("#tdChargeCashMoney").text(data);
-					$("#tdResultMoney").text(data+haveMoney);
+					$("#tdResultMoney").text(data);
+					$("#afterChargeCash").text(<%= nowCash%> + data); //50000원 부분을 db에서 현재 내가 보유하고 있는 캐시를 뽑아와서 넣기
+					//$("#afterChargeCash").text(Number($("#afterChargeCash").text()) + data);
+					//$("#tdResultMoney").text(data+haveMoney);
 				},
 				error : function(){
 					console.log("실패!");
 				}
 			}); 
 		});
+
 	});
 	
+	
 	function chargeAPI(){
+		//결제 api로 memberCode와 결제금액을 전달
+		location.href = "/dsm/views/common/impordPayment.jsp?chargeMoney=" + chargeMoney+
+		"&memberCode="+<%= loginUser.getMemberCode()%>;
+		
 		/* 결제 서블릿에서 index로 안넘어가서 새창열어서  결제, 기존창을 index로 변경 */
-		location.href = window.open('/dsm/views/common/impordPayment.jsp?chargeMoney='+ chargeMoney);
-		location.href = "/dsm/index.jsp";
+		//location.href = window.open('/dsm/views/common/impordPayment.jsp?chargeMoney='+ chargeMoney);
+		//location.href = "/dsm/index.jsp";
 	}
+	
+	
+	
+	<%-- $(function(){
+		$("#chargeAPI").click(function(){
+				
+				$.ajax({
+					url : "/dsm/views/common/impordPayment.jsp",
+					data : {chargeMoney : chargeMoney,
+							memberCode : <%= loginUser.getMemberCode()%>,
+							memberName : <%= loginUser.getMemberName()%>,
+							memberId : <%= loginUser.getMemberId()%>,
+							memberEmail : <%= loginUser.getMemberEmail()%>,
+							memberPhone : <%= loginUser.getMemberPhone()%>},
+					type : "post",
+					success : function(data){
+						if(data > 0) {
+							page = "/dsm/index.jsp";
+							swal("충전이 성공적으로 완료되었습니다!", "OK버튼을 눌러 메인페이지로 돌아가세요", "success").then((value) =>{
+								if(value = "ok"){
+									location.href = page;
+								}
+							});
+							
+							
+						}else {
+							page = "/dsm/views/common/errorPage.jsp";
+							location.href = page;
+							//request.getRequestDispatcher(page).forward(request, response);
+						}
+					},
+					error : function(data){
+						
+					}
+				});
+			});
+			
+			
+		}); --%>
+
 	</script>
 
 
