@@ -33,7 +33,7 @@
 						<th style="width: 6%; background-color:#eeeeee; text-align: center;">조회수</th>
 					</tr>		 		
 		 		
-		 				<% for(Board b : list){ %>
+		 	<%-- 			<% for(Board b : list){ %>
 		 				<tr>		 				                      
                             <td><%= b.getBoardNo() %></td>
                             <td><%= b.getMemberCode() %></td>
@@ -44,7 +44,7 @@
                             <td><%= b.getBoardCount() %></td>
                             
                         </tr>
-                <% } %>
+                <% } %> --%>
 		 			 	
 		 	</table>	
 		 	 	<nav aria-label="page" style="margin:0px 0px 0px 400px">

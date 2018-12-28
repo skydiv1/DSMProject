@@ -31,15 +31,16 @@ public class InsertBoardServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int membercode = Integer.parseInt(request.getParameter("membercode"));
+		request.setCharacterEncoding("utf-8");
+		String memberName = request.getParameter("membername");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-		
 		
 		String writer = String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getMemberCode());
 		
 		Board b = new Board();
 		
+		b.setMemberName(memberName);
 		b.setBoardTitle(title);
 		b.setBoardContext(content);
 		
@@ -49,7 +50,7 @@ public class InsertBoardServlet extends HttpServlet {
 		if(result > 0) {
 			response.sendRedirect(request.getContextPath() + "/selectList.bo");
 		}else {
-			request.setAttribute("msg", "寃뚯떆�뙋 �옉�꽦 �떎�뙣");
+			request.setAttribute("msg", "실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 		

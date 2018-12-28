@@ -1,7 +1,7 @@
+<%@page import="java.io.ObjectInputStream.GetField"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*, com.kh.w7.board.model.vo.*"%>
  <%
-
 	ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	int listCount = pi.getListCount();
@@ -39,37 +39,40 @@
 		
 		<div class="container">
 			<!-- 로그인한 사용자만 게시글 작성할 수 있게 만드는거 2018-12-24 오후 3:05분 -->
-		 			 <% if(loginUser != null){ %> 
-		 		<div style="margin:10px 10px 10px 1050px">
-		 			<a class="btn btn-primary pull-right " href="views/board/boardWrite.jsp">
-		 				<button>글쓰기</button>
+		 		<div style="margin:10px 10px 10px 1000px">
+		 			<%-- <% if(loginUser != null){ %> --%> 
+		 				<button onclick="location.href='views/board/boardWrite.jsp'">글쓰기</button>
+		 			<%-- <% } %> --%> 
 		 			</a>
 		 		</div>
-		 			 <% } %> 
 		 <div class="row" style="postion:static;">
-		 	<table class="table table-striped"  border:1px; solid #dddddd">
-
+		 	<table align="center" id="listArea" class="table table-striped"  border:1px; solid #dddddd">
+		 		<thead>
 		 			<tr>
-						<td style="width: 3% background-color:#eeeeee; text-align: center;">번호</td>						
-						<td style="width: 20% background-color:#eeeeee; text-align: center;">제목</td>
-						<td style="width: 5% background-color:#eeeeee; text-align: center;">작성자</td>
-						<td style="width: 5% background-color:#eeeeee; text-align: center;">작성일</td>
-						<td style="width: 3% background-color:#eeeeee; text-align: center;">조회수</td>
+						<th style="width: 3% background-color:#eeeeee; text-align: center;">번호</th>
+						<th style="width: 20% background-color:#eeeeee; text-align: center;">제목</th>
+						<th style="width: 5% background-color:#eeeeee; text-align: center;">작성자</th>
+						<th style="width: 5% background-color:#eeeeee; text-align: center;">작성일</th>
+						<th style="width: 3% background-color:#eeeeee; text-align: center;">조회수</th>
 					</tr>		 		
+		 		</thead>
+		 		<tbody>
 		 		<% for(Board b : list){ %>
+
+		 		<% if(b.getBoardCategory() == 0) { %>
 		 				<tr>		 				                      
                             <td><%= b.getBoardNo() %></td>
-                            <td><%= b.getMemberCode() %></td>
                             <td><%= b.getBoardTitle() %></td>
-                            <td><%= b.getBoardContext() %></td>
+                            <td><%= b.getMemberName() %></td>
+                            <input type="hidden" value="<%= b.getBoardContext() %>">
                             <td><%= b.getBoardDate() %></td>
-                            <td><%= b.getBoardCategory() %></td>
+                            <input type="hidden" value="<%= b.getBoardCategory() %>">
                             <td><%= b.getBoardCount() %></td>
                             
                         </tr>
+                <% }%>        
                 <% } %>
-		 		
-		 				 	
+		 		</tbody>		 	
 		 	</table>
 		 			 	
 		 	<div class="pagingArea" align="center">
@@ -100,7 +103,19 @@
 			
 			<button onclick="location.href='<%=request.getContextPath()%>/selectList.bo?currentPage=<%=maxPage%>'">>></button>
 			
-		</div>
+			</div>
+			<script>
+			$(function(){
+			$("#listArea td").mouseenter(function(){
+				$(this).parent().css({ "cursor":"pointer"});
+			}).click(function(){
+				var num = $(this).parent().children("input").val();
+				
+				location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num;
+				});
+			});
+			</script>
+		
 	        	 <!-- 검색 드롭박스 부분 보류 -->
  <div class="searchArea" id="searchText" style="margin:0px 0px 0px 240px">
     <button class="dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">제목</button>
