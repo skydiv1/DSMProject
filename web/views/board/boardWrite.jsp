@@ -27,14 +27,14 @@
 			
 			  <div class="form-group">
 			    <label ><h3>제목 :</h3></label>
-			    <input type="title" name="title" placeholder="제목을 입력해 주세요">
+			    <input type="text" name="title" placeholder="제목을 입력해 주세요">
 			  </div>
 			  <hr>
 			  
 			  <hr>
 			  <div class="form-group">
 			    <label ><h3>내용 :</h3></label>
-			    <textarea type="text" rows="10" name="content" placeholder="내용을 입력해 주세요"></textarea>
+			    <textarea name="context" type="context" rows="10" name="content" placeholder="내용을 입력해 주세요"></textarea>
 			  </div>
 			  <hr>
 			  <div style="margin:0px 0px 0px 980px; margin-right:10px; ">	

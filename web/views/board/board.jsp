@@ -64,7 +64,7 @@
                             <td><%= b.getBoardNo() %></td>
                             <td><%= b.getBoardTitle() %></td>
                             <td><%= b.getMemberName() %></td>
-                            <input type="hidden" value="<%= b.getBoardContext() %>">
+							 <input type="hidden" value="<%= b.getBoardContext() %>">
                             <td><%= b.getBoardDate() %></td>
                             <input type="hidden" value="<%= b.getBoardCategory() %>">
                             <td><%= b.getBoardCount() %></td>

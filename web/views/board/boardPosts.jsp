@@ -21,7 +21,7 @@
 <div class="container">
 			
 			<form>
-			      <caption> <h2><%= b.getBoardTitle() %></h2> </caption>
+			      <caption><h2><input type="text" name="title" value="<%= b.getBoardTitle() %>" readonly></h2> </caption>
         </thead>
         <hr>
 	 <tr height="1" bgcolor="#dddddd"><td colspan="4" width="407"></td></tr>
@@ -30,14 +30,14 @@
       <td rowspan="2"><img class="mx-auto rounded-circle"
                      src="/dsm/img/team/1.jpg" alt=""
                      style="width: 90px; height: 90px;"></td>
-      <td align="center" width="76"  ><b><%= b.getBoardNo() %></b></td>     
+      <td align="center" width="76"  ><b><input type="text" value"<%= b.getMemberName() %>" name="memberName" readonly></b></td>     
       <td width="50"></td>  
       
       <td align="center" width="76" ">조회수 : </td>      
-      <td width="50"><b><%= b.getBoardCount() %></b></td>	
+      <td width="50"><b><input typue="count" name="count" value="<%= b.getBoardCount() %>" readonly></b></td>	
       
       <td align="center" width="76">작성일 : </td>      
-      <td width="150"><b><%= b.getBoardDate() %></b></td>
+      <td width="150"><b><input type="date" name="date" value="<%= b.getBoardDate() %>" readonly></b></td>
      </tr>
      </table>
      <hr>
