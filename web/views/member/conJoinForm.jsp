@@ -22,7 +22,8 @@
 	crossorigin = "anonymous"
 </script>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <title>JoinForm</title>
 <style>
 #link {
@@ -55,6 +56,7 @@ form {
 	margin-right: 15%
 }
 </style>
+
 <script language="javascript">
    function validate() {
        var re = /^[a-zA-Z0-9]{4,12}$/ // 아이디와 패스워드가 적합한지 검사할 정규식
@@ -66,7 +68,7 @@ form {
        var memberEmail = document.getElementById("memberEmail");
        var num1 = document.getElementById("num1");
        var num2 = document.getElementById("num2");
-
+		
        
        // ------------ 이메일 까지 -----------
 
@@ -122,7 +124,7 @@ form {
 	<h3 align="center">소비자 가입 정보 입력</h3>
 	<br>
 	<hr>
-	<form action="<%=request.getContextPath()%>/insertMember.me" method="post" name="join">
+	<form method="post" name="join" id="join">
 
 
 		<table align="center">
@@ -130,12 +132,12 @@ form {
 				<td><div class="form-group">
 						<label for="inputId" class="col-sm-2 control-label">Id</label>
 						<div class="col-sm-10">
-							<input type="Id" class="form-control" id="memberId" name="memberId"
-								style="width: 550px" placeholder="Id">
-								<td style="padding-top: 14px;"><button type="submit" id="idCheck"
-								class="btn btn-danger" onclick="return dupCheck()">중복확인</button></td>
-					
-					</div></td>
+							<input type="Id" class="form-control" id="memberId"
+								name="memberId" style="width: 550px" placeholder="Id">
+							<td style="padding-top: 14px;"><button id="idCheck"
+									class="btn btn-danger" onclick="dupCheck(); return false;">중복확인</button></td>
+
+						</div></td>
 
 			</tr>
 			<tr>
@@ -143,8 +145,9 @@ form {
 					<div class="form-group">
 						<label for="inputPassword3" class="col-sm-2 control-label">Password</label>
 						<div class="col-sm-10">
-							<input type="password" class="form-control" id="memberPwd" name="memberPwd" maxlength="13"
-								style="width: 550px" placeholder="Password">
+							<input type="password" class="form-control" id="memberPwd"
+								name="memberPwd" maxlength="13" style="width: 550px"
+								placeholder="Password">
 						</div>
 					</div>
 				</td>
@@ -155,8 +158,9 @@ form {
 						<label for="inputPassword3" class="col-sm-4 control-label">Confirm
 							Password</label>
 						<div class="col-sm-10">
-							<input type="password" class="form-control" id="memberPwd2" name="memberPwd2" maxlength="13"
-								style="width: 550px" placeholder="Password">
+							<input type="password" class="form-control" id="memberPwd2"
+								name="memberPwd2" maxlength="13" style="width: 550px"
+								placeholder="Password">
 						</div>
 					</div>
 				</td>
@@ -165,8 +169,8 @@ form {
 				<td><div class="form-group">
 						<label for="inputName" class="col-sm-2 control-label">Name</label>
 						<div class="col-sm-10">
-							<input type="Name" class="form-control" id="memberName" name="memberName" 
-								style="width: 550px" placeholder="Name">
+							<input type="Name" class="form-control" id="memberName"
+								name="memberName" style="width: 550px" placeholder="Name">
 						</div>
 					</div></td>
 			</tr>
@@ -174,103 +178,145 @@ form {
 			<tr>
 				<td><div class="form-group">
 						<label for="inputTel" class="col-sm-2 control-label">Phone</label>
-					
-					<div class="col-sm-10">
-							<input type="text" class="form-control" id="memberTel" name="memberTel"
-								style="width: 550px" placeholder="Tel"> -를 포함하여 입력 해 주십시오.
+
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="memberTel"
+								name="memberTel" style="width: 550px" placeholder="Tel">
+							-를 포함하여 입력 해 주십시오.
 						</div>
 					</div></td>
 			</tr>
-			
+
 			<tr>
 				<td><div class="form-group">
 						<label for="inputEmail" class="col-sm-2 control-label">Email</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="memberEmail" name="memberEmail"
-								style="width: 550px" placeholder="Email">
+							<input type="text" class="form-control" id="memberEmail"
+								name="memberEmail" style="width: 550px" placeholder="Email">
 						</div>
 					</div></td>
 				<td style="padding-top: 14px;">
-					<button type="submit" class="btn btn-warning">이메일 인증</button>
+					<button class="btn btn-warning">이메일 인증</button>
 				</td>
 			</tr>
-			<%!public int getRandom(){
-				int random=0;
-				random=(int)Math.floor((Math.random()*(99999-10000+1)))+10000;
-				return random;
-				}%>
-			}
+			<%!public int getRandom() {
+		int random = 0;
+		random = (int) Math.floor((Math.random() * (99999 - 10000 + 1))) + 10000;
+		return random;
+	}%>
+
 			<tr>
 				<td><div class="form-group">
 						<label for="inputEConfirm" class="col-sm-2 control-label">인증번호</label>
 						<div class="col-sm-5">
 							<input type="text" class="form-control" id="inputEconfirm"
-								style="width: 250px" placeholder="인증번호 입력">
-								<input type= "hidden" readonly="readonly" name="code_check" id="code_check" value="<%=request.getAttribute("code") %>">
-								
-   					</div>
+								style="width: 250px" placeholder="인증번호 입력"> <input
+								type="hidden" readonly="readonly" name="code_check"
+								id="code_check" value="<%=request.getAttribute("code")%>">
+
+						</div>
 					</div></td>
-				<td style="padding-top: 14px;"><button type="submit"
-						class="btn btn-danger">인증번호 확인</button></td>
+				<td style="padding-top: 14px;"><button class="btn btn-danger">인증번호
+						확인</button></td>
 			</tr>
 
 
-	
+
 
 		</table>
 
 		<div align="center">
 			<a href="/web/index.jsp">
-				<button type="submit" class="btn btn-warning"
-					style="width: 470px; height: 50px; font-size: 20px; border-radius: 6px;" onclick = "">회원가입</button>
+				<button class="btn btn-warning"
+					style="width: 470px; height: 50px; font-size: 20px; border-radius: 6px;"
+					onclick="insertCon();">회원가입</button>
 			</a> <a href="/web/index.jsp">
 				<button type="reset" class="btn btn-cancle"
-					style="width: 470px; height: 50px; font-size: 20px; border-radius: 6px;"><div id="joinBtn" onclick="goMain();">취소하기</div></button>
+					style="width: 470px; height: 50px; font-size: 20px; border-radius: 6px;">
+					<div id="joinBtn" onclick="goMain();">취소하기</div>
+				</button>
 			</a>
 		</div>
-		</form>
+	</form>
+
+
+	<script>
+		function insertCon(){
+			
+			join.action = "<%=request.getContextPath()%>/insertMember.me";
+			var memberId=$("#memberId").val();
+			var memberPwd=$("#memberPwd").val();
+			var memberPwd2=$("#memberPwd2").val();
+			var memberPwdCheck = /[a-zA-Z0-9]{10,15}/g;
+			memberPwdResult = memberPwdCheck.test(memberPwd);
+			
+			if (($("#memberId").val() == "")) {
+				alert("아이디를 입력해주세요.");
+			}
+			console.log(userId);
+			
+				
+				if(userPwd1==userPwd2){
+					if(memberPwdResult){
+						$("#join").submit();
+					}else{
+						alert("비밀번호를 확인해주세요")
+					}										
+				}else{
+					alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.\n 비밀번호를 확인해주세요.");
+				}
+			
+					
+
+			
+			
+		}
 		
-						
-		<script>
 		function goMain() {
 			location.href="<%=request.getContextPath()%>/index.jsp";			
 		}		
 
-		function insertMember() {
+		<%-- function insertMember() {
 			$("#joinForm").submit();
 			location.href = "<%=request.getContextPath()%>/insertMember.me";
-		}
+		} --%>
 		
 		
 	</script>
 	<script>
 	function dupCheck(){
-		console.log("test")
 		var memberId = $("#memberId").val();
-			
+		console.log(memberId);
+		var re = /[a-zA-Z0-9]{4,12}/g; // 아이디와 패스워드가 적합한지 검사할 정규식
+	
+		if(memberId==""){
+			alert("아이디를 입력해주세요")
+		}else if(re.test(memberId)){
 			$.ajax({
 				url:"/dsm/idCheck.me",
 				type:"post",
 				data:{memberId:memberId},
 				success: function (data) {
-					if(data === "fail"){ // 서블릿에서 처리
-						alert("아이디가 중복합니다.")
-					}else{
-						alert("사용 가능한 아이디입니다.");
+					if(data == "fail"){ // 서블릿에서 처리
+						alert("중복");
+					}else if(data == "success"){
+						alert("사용");
 					}
 				},
 				error: function (data) {
 					console.log("실패!");	
 				}					
 			});
-		return false;
+		}else{
+			alert("부적절");
+		}
 	}
 	
 	
 	
 	</script>
-		
-		<br>
-		<%@ include file="/views/common/footer.jsp"%>
+
+	<br>
+	<%@ include file="/views/common/footer.jsp"%>
 </body>
 </html>
