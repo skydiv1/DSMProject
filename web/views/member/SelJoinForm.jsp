@@ -20,10 +20,8 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
 	integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
 	crossorigin="anonymous"></script>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-<script
-	src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <title>JoinForm</title>
 <style>
 #link {
@@ -123,7 +121,7 @@ form {
 	<h3 align="center">판매자 가입 정보 입력</h3>
 	<br>
 	<hr>
-	<form action="<%=request.getContextPath()%>/insertMember" method="post">
+	<form action="<%=request.getContextPath()%>/insertMember.me" method="post" name="join">
 
 
 		<table align="center">
@@ -134,8 +132,8 @@ form {
 							<input type="Id" class="form-control" id="memberId" name="memberId"
 								style="width: 550px" placeholder="Id">
 						</div>
-						<td style="padding-top: 14px;"><button type="submit"
-								class="btn btn-danger">중복확인</button></td>
+						<td style="padding-top: 14px;"><button type="submit" id="idCheck"
+								class="btn btn-danger" onclick="return dupCheck()">중복확인</button></td>
 					</div></td>
 
 			</tr>
@@ -175,12 +173,9 @@ form {
 			<tr>
 				<td><div class="form-group">
 						<label for="inputTel" class="col-sm-2 control-label">Phone</label>
-						<div class="col-sm-3">
-							<input type="text" class="form-control" id="memberPhone1" name="memberPhone1" maxlength="3">-
-							<input type="text" class="form-control" id="memberPhone2" name="memberPhone2" maxlength="4">-
-							<input type="text" class="form-control" id="memberPhone3" name="memberPhone3" maxlength="4">
-							
-								
+						<div class="col-sm-10">
+							<input type="number" class="form-control" id="memberTel" name="memberTel"
+								style="width: 550px" placeholder="Tel"> -를 포함하여 입력 해 주십시오.
 						</div>
 					</div></td>
 			</tr>
@@ -255,12 +250,50 @@ form {
 		<div align="center">
 			<a href="/web/index.jsp">
 				<button type="submit" class="btn btn-warning"
-					style="width: 470px; height: 50px; font-size: 20px; border-radius: 6px;">회원가입</button>
+					style="width: 470px; height: 50px; font-size: 20px; border-radius: 6px;" onclick = "">회원가입</button>
 			</a> <a href="/web/index.jsp">
-				<button type="button" class="btn btn-cancle"
-					style="width: 470px; height: 50px; font-size: 20px; border-radius: 6px;">취소하기</button>
+				<button type="reset" class="btn btn-cancle"
+					style="width: 470px; height: 50px; font-size: 20px; border-radius: 6px;"><div id="joinBtn" onclick="goMain();">취소하기</div></button>
 			</a>
-		</div>
+		</div></form>
+		<script>
+		function goMain() {
+			location.href="<%=request.getContextPath()%>/index.jsp";			
+		}		
+
+		function insertMember() {
+			$("#joinForm").submit();
+			location.href = "<%=request.getContextPath()%>/insertMember.me";
+		}
+		
+		
+	</script>
+	<script>
+	function dupCheck(){
+		console.log("test")
+		var memberId = $("#memberId").val();
+			
+			$.ajax({
+				url:"/dsm/idCheck.me",
+				type:"post",
+				data:{memberId:memberId},
+				success: function (data) {
+					if(data === "fail"){ // 서블릿에서 처리
+						alert("아이디가 중복합니다.")
+					}else{
+						alert("사용 가능한 아이디입니다.");
+					}
+				},
+				error: function (data) {
+					console.log("실패!");	
+				}					
+			});
+		return false;
+	}
+	
+	
+	
+	</script>
 		<br>
 		<%@ include file="/views/common/footer.jsp"%>
 </body>

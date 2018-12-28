@@ -27,7 +27,7 @@
 	href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 <script
 	src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <title>아이디찾기</title>
 <style>
@@ -100,11 +100,11 @@ p {
 			<tr>
 				<td>
 					<div style="margin-bottom: 15px; margin-left: 5%;">
-						<input type="text" id="" placeholder="이름을 입력하세요"
+						<input type="text" id="memberName" placeholder="이름을 입력하세요"
 							style="width: 500px; height: 50px; margin: 0 auto; font-size: 20px; border-radius: 6px;">
 					</div>
 					<div style="margin-bottom: 15px; margin-left: 5%;";>
-						<input type="text" id="" placeholder="이메일을 입력하세요"
+						<input type="text" id="memberEmail" placeholder="이메일을 입력하세요"
 							style="width: 500px; height: 50px; font-size: 20px; border-radius: 6px;">
 					</div>
 				</td>
@@ -115,8 +115,8 @@ p {
 			</tr>
 			<tr>
 				<td>
-					<button type="submit" class="btn btn-warning"
-						style="width: 500px; height: 50px; font-size: 20px; border-radius: 6px; margin-left: 5%; color:gray;; ">이메일로
+					<button type="" class="btn btn-warning" id="findIdBtn"
+						style="width: 500px; height: 50px; font-size: 20px; border-radius: 6px; margin-left: 5%; color:gray;">이메일로
 						아이디 전송</button>
 				</td>
 			</tr>
@@ -124,6 +124,33 @@ p {
 		</table>
 		
 	</form>
+	<script>
+	$(function(){
+		// 2번
+		$("#findIdBtn").click(function(){
+			 var memberName = $("#memberName").val();
+			 var memberEmail = $("#memberEmail").val();
+			 
+			$.ajax({
+				url:"findid_me",
+				data:{memberName:memberName,
+					memberEmail:memberEmail},
+				type:"get",
+				dataType:"jason",
+				success:function(data){ // data: 문자열이 들어온다
+					var memberId = data.memberId;
+					var memberIdLength= memberId.length;
+					var memberIdfind = memberId.substring(1,memberIdLength-1);
+					$("#memberId").append("<h1>"+"회원님의 정보로 등록된 이메일은 "+memberIdfind+"입니다.</h1>")
+					
+			
+				},
+				
+				
+			
+		});
+	});
+	</script>
 		<br> <br>
 	
 	<!-- 	</section> -->

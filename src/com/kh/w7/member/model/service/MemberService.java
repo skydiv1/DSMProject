@@ -39,10 +39,10 @@ public class MemberService {
 		
 		
 	}
-	public int changeMember(Member reqMember) {
+	public int updateMember(Member reqMember) {
 		Connection con = getConnection();
 		
-		int result= new MemberDao().changeMember(con, reqMember);
+		int result= new MemberDao().updateMember(con, reqMember);
 			
 		if(result>0) {
 			commit(con);

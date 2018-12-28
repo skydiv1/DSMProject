@@ -133,8 +133,8 @@ form {
 							<input type="Id" class="form-control" id="memberId" name="memberId"
 								style="width: 550px" placeholder="Id">
 								<td style="padding-top: 14px;"><button type="submit" id="idCheck"
-								class="btn btn-danger">중복확인</button></td>
-						
+								class="btn btn-danger" onclick="return dupCheck()">중복확인</button></td>
+					
 					</div></td>
 
 			</tr>
@@ -176,8 +176,8 @@ form {
 						<label for="inputTel" class="col-sm-2 control-label">Phone</label>
 					
 					<div class="col-sm-10">
-							<input type="int" class="form-control" id="memberTel" name="memberTel"
-								style="width: 550px" placeholder="Tel"> 숫자만 입력 해 주십시오.
+							<input type="text" class="form-control" id="memberTel" name="memberTel"
+								style="width: 550px" placeholder="Tel"> -를 포함하여 입력 해 주십시오.
 						</div>
 					</div></td>
 			</tr>
@@ -186,7 +186,7 @@ form {
 				<td><div class="form-group">
 						<label for="inputEmail" class="col-sm-2 control-label">Email</label>
 						<div class="col-sm-10">
-							<input type="email" class="form-control" id="memberEmail" name="memberEmail"
+							<input type="text" class="form-control" id="memberEmail" name="memberEmail"
 								style="width: 550px" placeholder="Email">
 						</div>
 					</div></td>
@@ -194,13 +194,21 @@ form {
 					<button type="submit" class="btn btn-warning">이메일 인증</button>
 				</td>
 			</tr>
+			<%!public int getRandom(){
+				int random=0;
+				random=(int)Math.floor((Math.random()*(99999-10000+1)))+10000;
+				return random;
+				}%>
+			}
 			<tr>
 				<td><div class="form-group">
 						<label for="inputEConfirm" class="col-sm-2 control-label">인증번호</label>
-						<div class="col-sm-10">
+						<div class="col-sm-5">
 							<input type="text" class="form-control" id="inputEconfirm"
 								style="width: 250px" placeholder="인증번호 입력">
-						</div>
+								<input type= "hidden" readonly="readonly" name="code_check" id="code_check" value="<%=request.getAttribute("code") %>">
+								
+   					</div>
 					</div></td>
 				<td style="padding-top: 14px;"><button type="submit"
 						class="btn btn-danger">인증번호 확인</button></td>
@@ -221,7 +229,7 @@ form {
 			</a>
 		</div>
 		</form>
-		</div>
+		
 						
 		<script>
 		function goMain() {
@@ -236,10 +244,9 @@ form {
 		
 	</script>
 	<script>
-	
-	$(function  () {
-		$("#idCheck").click(function () {
-			var memberId = $("#memberId").val();
+	function dupCheck(){
+		console.log("test")
+		var memberId = $("#memberId").val();
 			
 			$.ajax({
 				url:"/dsm/idCheck.me",
@@ -256,8 +263,9 @@ form {
 					console.log("실패!");	
 				}					
 			});
-		});
-	});
+		return false;
+	}
+	
 	
 	
 	</script>
