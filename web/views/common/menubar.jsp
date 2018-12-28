@@ -39,6 +39,9 @@
 <!-- Custom styles for this template -->
 <link href="css/agency.min.css" rel="stylesheet">
 
+<!-- 제이쿼리 CDN -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 </head>
 <body id="page-top">
 	<!-- 네비게이션 바 -->
@@ -56,13 +59,16 @@
 				<ul class="navbar-nav text-uppercase ml-auto">
 					<li class="nav-item"><a class="nav-link js-scroll-trigger"
 						href="/dsm/selectList.pr"><b>상품 목록</b></a></li>
-					<%-- <% if(loginUser == null){ %>
+					<% if(loginUser != null  && loginUser.getSellerCertcheck()==1){ %>
 					<li class="nav-item" id="productEnrollment"><a class="nav-link js-scroll-trigger"
-						id="productEnrollment"><b>상품 등록</b></a></li>
-					<% } else{ %>
+						href="/dsm/views/product/productEnrollment.jsp"><b>상품 등록</b></a></li>
+					<%} else if(loginUser != null  && loginUser.getSellerCertcheck()==0){ %>
 					<li class="nav-item" id="productEnrollment"><a class="nav-link js-scroll-trigger"
-						href="/dsm/selectList.pr"><b>상품 등록</b></a></li>
-					<% { %> --%>
+						id="productEnrollment2"><b>상품 등록</b></a></li>
+					<% } else if(loginUser == null){ %>
+					<li class="nav-item" id="productEnrollment"><a class="nav-link js-scroll-trigger"
+						id="productEnrollment1"><b>상품 등록</b></a></li>
+					<% } %>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger"
 						href="/dsm/selectList.bo"><b>게시판</b></a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger"
@@ -75,6 +81,18 @@
 	</nav>
 	<!-- //////////////////////////////////////////////////////////////// -->
 
+	<script>
+		$(function() {
+			$("#productEnrollment1").click(function() {
+				$("#productEnrollment").css("cursor", "pointer");
+				alert("로그인이 필요한 서비스 입니다.");
+			});
+			$("#productEnrollment2").click(function() {
+				$("#productEnrollment").css("cursor", "pointer");
+				alert("해당 페이지는 판매자만 이용할 수 있습니다.");
+			});
+		});
+	</script>
 
 	<%
 		if (loginUser == null) {
@@ -112,19 +130,10 @@
 			</div>
 		</form>
 	</header>
-
-	<script>
-		$(function() {
-			$("#productEnrollment").click(function() {
-				$("#productEnrollment").css("cursor", "pointer");
-				alert("로그인이 필요한 서비스 입니다.");
-			});
-		});
-	</script>
+	
 	<%
 		} else {
 	%>
-
 	<header class="masthead"
 		style="background-image: url('/dsm/img/drone_background_login.png'); background-size: 100% 500px; margin-top: 0px; background-position: center;">
 		<div class="container">

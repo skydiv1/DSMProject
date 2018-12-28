@@ -210,15 +210,16 @@ public class ProductDao {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
-		String query = prop.getProperty("insertThumb");
+		String query = prop.getProperty("insertProduct");
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, product.getProductName());
-			pstmt.setString(2, product.getProductCategory());
-			pstmt.setString(3, product.getProductItem());
-			pstmt.setInt(4, product.getProductItemPrice());
-			pstmt.setString(5, product.getProductContext());
+			pstmt.setInt(1, product.getMemberCode());
+			pstmt.setString(2, product.getProductName());
+			pstmt.setString(3, product.getProductCategory());
+			pstmt.setString(4, product.getProductItem());
+			pstmt.setInt(5, product.getProductItemPrice());
+			pstmt.setString(6, product.getProductContext());
 						
 			result = pstmt.executeUpdate();
 			
@@ -227,7 +228,7 @@ public class ProductDao {
 		} finally {
 			close(pstmt);
 		}
-		
+		System.out.println("result(insertThumbnailContent) 업데이트 확인 : "+result);
 		return result;
 	}
 
@@ -259,6 +260,65 @@ public class ProductDao {
 		
 		return currNum;
 	}	
+
+	
+	/* 다음 시퀀스 조회 */
+	public int selectNextval(Connection con) {
+		Statement stmt = null;
+		ResultSet rset =null;
+		
+		int nextNum=0;
+		
+		String query = prop.getProperty("selectNextval"); // 현재 동작한 시퀀스 번호를 알 수 있다.
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				nextNum = rset.getInt("NEXTVAL");
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt); // Connection을 닫으면 안된다. service에서 트랜젝션 처리를 해 줄 수 없다
+		}
+		
+		return nextNum;
+	}
+
+	
+	/* 이미지 테이블의 다음시퀀스 값 조회 */
+	public int selectImgNextval(Connection con) {
+		Statement stmt = null;
+		ResultSet rset =null;
+		
+		int nextNum=0;
+		
+		String query = prop.getProperty("selectImgNextval"); // 현재 동작한 시퀀스 번호를 알 수 있다.
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				nextNum = rset.getInt("NEXTVAL");
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt); // Connection을 닫으면 안된다. service에서 트랜젝션 처리를 해 줄 수 없다
+		}
+		
+		return nextNum;
+	}
+
 
 	
 	/* 상품 추가 목록에 데이터 삽입 */
@@ -294,7 +354,6 @@ public class ProductDao {
 	public int insertAttachment(Connection con, ArrayList<Attachment> fileList) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		
 		String query = prop.getProperty("insertAttachment");
 		
 		
@@ -303,13 +362,14 @@ public class ProductDao {
 				pstmt = con.prepareStatement(query);
 				pstmt.setString(1, fileList.get(i).getOriginName());
 				pstmt.setString(2, fileList.get(i).getChangeName());
-				//pstmt.setInt(3, fileList.get(i).getProductNo());
+				pstmt.setInt(3, fileList.get(i).getMemberCode());
+				//pstmt.setInt(4, fileList.get(i).getProductNo()); // IMG_FK2
 
 				int level = 0;
 				if(i==0) level=0;
 				else level=1;
-				pstmt.setInt(3, level);
-				pstmt.setString(4, fileList.get(i).getImgFilePath());
+				pstmt.setInt(4, level);
+				pstmt.setString(5, fileList.get(i).getImgFilePath());
 				
 				result += pstmt.executeUpdate(); // 누적 연산으로 합쳐준다
 				
@@ -324,8 +384,8 @@ public class ProductDao {
 		return result;
 	}
 
-
-	/* 상품 목록에서 상품 상세보기 페이지로 이동 */
+ 
+	/* 상품 목록에서 상품 상세보기 페이지로 이동 */ /* 상품 업데이트 */ 
 	public HashMap<String, Object> selectThumbnailMap(Connection con, int num) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -418,8 +478,6 @@ public class ProductDao {
 		return hmap;
 	}
 
-
-
-
+	
 
 }

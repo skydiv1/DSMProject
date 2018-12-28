@@ -16,6 +16,7 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.kh.w7.common.Attachment;
 import com.kh.w7.common.MyFileRenamePolicy;
+import com.kh.w7.member.model.vo.Member;
 import com.kh.w7.product.model.service.ProductService;
 import com.kh.w7.product.model.vo.PlusProduct;
 import com.kh.w7.product.model.vo.Product;
@@ -89,6 +90,7 @@ public class InsertImageServlet extends HttpServlet {
 			int multiAdditionalPrice3 = 0;	
 			
 			/* name으로 준 값들을 java에서 servlet으로 가져온다. */
+			//String membercode = "";
 			String multiTile = multiRequest.getParameter("title"); // title: 키값
 			String multiCateList = multiRequest.getParameter("cateList");
 			String multiBasicItem = multiRequest.getParameter("basicItem");
@@ -130,7 +132,7 @@ public class InsertImageServlet extends HttpServlet {
 			
 			/* Product객체 생성 */
 			Product product = new Product();
-			//product.setMemberCode(로그인되면 맴버코드);			
+			product.setMemberCode(Integer.parseInt(String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getMemberCode())));			
 			product.setProductName(multiTile);
 			product.setProductCategory(multiCateList);
 			product.setProductItem(multiBasicItem);
@@ -163,7 +165,7 @@ public class InsertImageServlet extends HttpServlet {
 			int result2 = new ProductService().insertPlusProduct(product, pList);
 						
 			// 세션으로 작성자를 가져온다.
-			//product.setbWriter(String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getUno()));
+			//String writer = String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getUno());
 			
 			// Attachment 객체 생성하여 ArrayList 객체 생성
 			ArrayList<Attachment> fileList = new ArrayList<Attachment>();
@@ -174,6 +176,7 @@ public class InsertImageServlet extends HttpServlet {
 				at.setImgFilePath(filePath);
 				at.setOriginName(originFiles.get(i));
 				at.setChangeName(saveFiles.get(i));
+				at.setMemberCode(Integer.parseInt(String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getMemberCode())));
 				
 				fileList.add(at);
 			}			
