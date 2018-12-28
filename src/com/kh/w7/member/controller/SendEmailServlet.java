@@ -101,7 +101,7 @@ public class SendEmail extends HttpServlet {
 	}
 		
 		
-		public PasswordAuthentication getPasswordAuthentication() {
+		
 			return pa;
 		}
 
