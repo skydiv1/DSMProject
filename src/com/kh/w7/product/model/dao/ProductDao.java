@@ -480,7 +480,7 @@ public class ProductDao {
 
 	
 	 /* 상품 업데이트 */ 
-	public int updateThumbnailContent(Connection con, Product product) {
+	public int updateThumbnailContent(Connection con, Product product, int num) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
@@ -493,7 +493,16 @@ public class ProductDao {
 			pstmt.setString(3, product.getProductItem());
 			pstmt.setInt(4, product.getProductItemPrice());
 			pstmt.setString(5, product.getProductContext());
-			pstmt.setInt(6, product.getProductNo());
+			pstmt.setInt(6, num);
+			
+			System.out.println("---------------------------------");
+			System.out.println("getProductName: "+product.getProductName());
+			System.out.println("getProductCategory: "+product.getProductCategory());
+			System.out.println("getProductItem: "+product.getProductItem());
+			System.out.println("getProductItemPrice: "+product.getProductItemPrice());
+			System.out.println("getProductContext: "+product.getProductContext());
+			System.out.println("getProductNo: "+product.getProductNo());
+			System.out.println("---------------------------------");
 			
 			result = pstmt.executeUpdate();
 			
@@ -507,7 +516,7 @@ public class ProductDao {
 	}
 
 	 /* 상품 업데이트 - 이미지 */ 
-	public int updateAttachment(Connection con, ArrayList<Attachment> fileList) {
+	public int updateAttachment(Connection con, ArrayList<Attachment> fileList, int num) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String query = prop.getProperty("updateAttachment");
@@ -524,7 +533,13 @@ public class ProductDao {
 				else level=1;
 				pstmt.setInt(3, level);
 				pstmt.setString(4, fileList.get(i).getImgFilePath());
-				pstmt.setInt(5, fileList.get(i).getProductNo());
+				pstmt.setInt(5, num);
+
+				System.out.println("getOriginName() updateAttachment Dao 이미지 : "+fileList.get(i).getOriginName());
+				System.out.println("getChangeName() updateAttachment Dao 이미지 : "+fileList.get(i).getChangeName());
+				System.out.println("level updateAttachment Dao 이미지 : "+level);
+				System.out.println("getImgFilePath() updateAttachment Dao 이미지 : "+fileList.get(i).getImgFilePath());
+				System.out.println("num updateAttachment Dao 이미지 : "+num);
 				
 				result += pstmt.executeUpdate(); // 누적 연산으로 합쳐준다
 				
@@ -539,7 +554,7 @@ public class ProductDao {
 		return result;
 	}
 
-	public int updatePlusProduct(Connection con, ArrayList<PlusProduct> pList) {
+	public int updatePlusProduct(Connection con, ArrayList<PlusProduct> pList, int num, ArrayList<String> plusList, ArrayList<PlusProduct> fixedpList) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
@@ -550,7 +565,16 @@ public class ProductDao {
 				pstmt = con.prepareStatement(query);
 				pstmt.setString(1, pList.get(i).getPlusProductItem());
 				pstmt.setInt(2, pList.get(i).getPlusProductPrice());
-				pstmt.setInt(3, pList.get(i).getProductNo());
+				pstmt.setInt(3, num);
+				if(i<fixedpList.size())
+					pstmt.setString(4, fixedpList.get(i).getPlusProductItem());
+				
+				System.out.println("-----------------------------");
+				System.out.println("getPlusProductItem: "+pList.get(i).getPlusProductItem());
+				System.out.println("getPlusProductPrice: "+pList.get(i).getPlusProductPrice());
+				System.out.println("getPlusProductItem(fixedpList): "+fixedpList.get(i).getPlusProductItem());
+				System.out.println("num: "+num);
+				System.out.println("-----------------------------");
 				
 				result += pstmt.executeUpdate(); // 누적 연산으로 합쳐준다
 				
@@ -565,6 +589,34 @@ public class ProductDao {
 		System.out.println("updatePlusProduct(result값): "+result);
 		return result;
 	}
+
+	
+	/* plusProduct 테이블의 item을 저장하기 위해 조회가 필요 */
+/*	public int selectPlusProduct(Connection con) {
+		Statement stmt = null;
+		int result = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectPlusProduct");
+		
+		try {
+			stmt = con.createStatement();			
+			rset = stmt.executeQuery(query);
+			
+			while(rset.next()) {
+				listCount = rset.getInt(1);				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		System.out.println("listCount(게시물 총 개수) : "+listCount);
+		return result;
+	}*/
 
 	
 

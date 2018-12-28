@@ -61,8 +61,10 @@ public class UpdateProductServlet extends HttpServlet {
 			
 			MultipartRequest multiRequest = new MultipartRequest(request, filePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 			
-			int num = Integer.parseInt(multiRequest.getParameter("num")); // update.jsp에서 받아온 hidden의 num값을 담아준다.
-			
+			// update.jsp에서 받아온 hidden의 num값을 담아준다.
+			int num = Integer.parseInt(multiRequest.getParameter("num")); 
+			System.out.println("updateProduct 서블릿(num 값): "+num);
+
 			// 다중 파일을 묶어서 업로드 하기 위해 컬렉션 사용
 			// 저장한 파일의 이름을 저장할 ArrayList 생성
 			ArrayList<String> saveFiles = new ArrayList<String>(); // 바뀐이름의 파일 저장
@@ -83,13 +85,6 @@ public class UpdateProductServlet extends HttpServlet {
 				System.out.println("fileSystem name: "+multiRequest.getFilesystemName(name)); // 2018121912231355085.jpg
 				System.out.println("originalFileName name: "+multiRequest.getOriginalFileName(name)); // 다운로드.jpg
 			}
-
-			String multiAdditionalItem1 = "";
-			String multiAdditionalItem2 = "";
-			String multiAdditionalItem3 = "";
-			int multiAdditionalPrice1 = 0;
-			int multiAdditionalPrice2 = 0;
-			int multiAdditionalPrice3 = 0;	
 			
 			/* name으로 준 값들을 java에서 servlet으로 가져온다. */
 			//String membercode = "";
@@ -98,23 +93,46 @@ public class UpdateProductServlet extends HttpServlet {
 			String multiBasicItem = multiRequest.getParameter("basicItem");
 			int multiBasicPrice = Integer.parseInt(multiRequest.getParameter("basicPrice"));		
 			
-			if(multiRequest.getParameter("additionalItem1") != null ) {
-				multiAdditionalItem1 = multiRequest.getParameter("additionalItem1");
-			}
-			if(multiRequest.getParameter("additionalItem2") != null ) {
-				multiAdditionalItem2 = multiRequest.getParameter("additionalItem2");
-			}
-			if(multiRequest.getParameter("additionalItem3") != null ) {
-				multiAdditionalItem3 = multiRequest.getParameter("additionalItem3");
-			}
-			if(multiRequest.getParameter("additionalPrice1") != null ) {
-				multiAdditionalPrice1 = Integer.parseInt(multiRequest.getParameter("additionalPrice1"));
-			}
-			if(multiRequest.getParameter("additionalPrice2") != null ) {
-				multiAdditionalPrice2 = Integer.parseInt(multiRequest.getParameter("additionalPrice2"));
-			}
-			if(multiRequest.getParameter("additionalPrice3") != null ) {
-				multiAdditionalPrice3 = Integer.parseInt(multiRequest.getParameter("additionalPrice3"));
+			/* 이미지 값 jsp에서 가져오기 */ // getParameter (x), 
+			/*String multiThumbnailImg1 = multiRequest.getParameter("thumbnailImg1");
+			String multiThumbnailImg2 = multiRequest.getParameter("thumbnailImg2");
+			String multiThumbnailImg3 = multiRequest.getParameter("thumbnailImg3");
+			String multiThumbnailImg4 = multiRequest.getParameter("thumbnailImg4");
+			String multiThumbnailImg5 = multiRequest.getParameter("thumbnailImg5");
+			String multiThumbnailImg6 = multiRequest.getParameter("thumbnailImg6");
+			System.out.println("◆multiThumbnailImg1 : "+multiThumbnailImg1);
+			System.out.println("◆multiThumbnailImg2 : "+multiThumbnailImg2);
+			System.out.println("◆multiThumbnailImg3 : "+multiThumbnailImg3);
+			System.out.println("◆multiThumbnailImg4 : "+multiThumbnailImg4);
+			System.out.println("◆multiThumbnailImg5 : "+multiThumbnailImg5);
+			System.out.println("◆multiThumbnailImg6 : "+multiThumbnailImg6);
+			String  img1 = multiRequest.getParameter("img1");
+			String img2 = multiRequest.getParameter("img2");
+			String img3 = multiRequest.getParameter("img3");
+			String img4 = multiRequest.getParameter("img4");
+			String img5 = multiRequest.getParameter("img5");
+			String img6 = multiRequest.getParameter("img6");
+			System.out.println("img1 : "+img1);
+			System.out.println("img2 : "+img2);
+			System.out.println("img3 : "+img3);
+			System.out.println("img4 : "+img4);
+			System.out.println("img5 : "+img5);
+			System.out.println("img6 : "+img6);*/
+			
+			
+			
+		
+			/* 추가항목 값 jsp에서 가져오기 */
+			String[] multiAdditionalItem = multiRequest.getParameterValues("additionalItem");
+			String[] multiAdditionalPrice = multiRequest.getParameterValues("additionalPrice");
+			String[] multiFixedItem = multiRequest.getParameterValues("fixedItem");
+			String[] multiFixedPrice = multiRequest.getParameterValues("fixedPrice");
+			
+			int[] additionalPriceArr = new int[multiAdditionalPrice.length];
+			int[] fixedPriceArr = new int[multiFixedPrice.length];
+			for(int i=0; i<multiAdditionalPrice.length; i++) {
+				additionalPriceArr[i] = Integer.parseInt(multiAdditionalPrice[i]);
+				fixedPriceArr[i] = Integer.parseInt(multiFixedPrice[i]);
 			}
 			
 			String multiContent = multiRequest.getParameter("content");
@@ -123,13 +141,7 @@ public class UpdateProductServlet extends HttpServlet {
 			System.out.println("■(업데이트) title: "+multiTile);
 			System.out.println("■(업데이트) cateList: "+multiCateList);
 			System.out.println("■(업데이트) basicItem: "+multiBasicItem);
-			System.out.println("■(업데이트) basicPrice: "+multiBasicPrice);
-			System.out.println("■(업데이트) additionalItem1: "+multiAdditionalItem1);
-			System.out.println("■(업데이트) additionalItem2: "+multiAdditionalItem2);
-			System.out.println("■(업데이트) additionalItem3: "+multiAdditionalItem3);
-			System.out.println("■(업데이트) additionalPrice1: "+multiAdditionalPrice1);
-			System.out.println("■(업데이트) additionalPrice2: "+multiAdditionalPrice2);
-			System.out.println("■(업데이트) additionalPrice3: "+multiAdditionalPrice3);				
+			System.out.println("■(업데이트) basicPrice: "+multiBasicPrice);			
 			System.out.println("■(업데이트) content: "+multiContent);
 			
 			/* Product객체 생성 */
@@ -140,31 +152,41 @@ public class UpdateProductServlet extends HttpServlet {
 			product.setProductItem(multiBasicItem);
 			product.setProductItemPrice(multiBasicPrice);
 			product.setProductContext(multiContent);
+			product.setProductNo(num);
 			
 			// 배열에 담아서 가져와야 한다.
 			ArrayList<PlusProduct> pList = new ArrayList<PlusProduct>();
 			PlusProduct pp = null;			
-
-			if(multiAdditionalItem1 != "") {
+			
+			for(int i=0; i<multiAdditionalPrice.length; i++) {
 				pp = new PlusProduct();
-				pp.setPlusProductItem(multiAdditionalItem1);
-				pp.setPlusProductPrice(multiAdditionalPrice1);		
+				pp.setProductNo(num);
+				pp.setPlusProductItem(multiAdditionalItem[i]);
+				pp.setPlusProductPrice(additionalPriceArr[i]);
+				System.out.println("(UpdateProduct서블릿) num : "+num);
+				System.out.println("(UpdateProduct서블릿) multiAdditionalItem[i] : "+multiAdditionalItem[i]);
+				System.out.println("(UpdateProduct서블릿) additionalPriceArr[i] : "+additionalPriceArr[i]);
 				pList.add(pp);		
-			}	
-			if(multiAdditionalItem2 != "") {
-				pp = new PlusProduct();
-				pp.setPlusProductItem(multiAdditionalItem2);
-				pp.setPlusProductPrice(multiAdditionalPrice2);		
-				pList.add(pp);		
-			}	
-			if(multiAdditionalItem3 != "") {
-				pp = new PlusProduct();
-				pp.setPlusProductItem(multiAdditionalItem3);
-				pp.setPlusProductPrice(multiAdditionalPrice3);		
-				pList.add(pp);		
+				System.out.println("(updateProduct)서블릿 : "+pList);
+			}
+			
+			// 배열에 담아서 가져와야 한다. (고정값!!)
+			ArrayList<PlusProduct> fixedpList = new ArrayList<PlusProduct>();
+			PlusProduct ppFixed = null;			
+			
+			for(int i=0; i<multiAdditionalPrice.length; i++) {
+				ppFixed = new PlusProduct();
+				ppFixed.setProductNo(num);
+				ppFixed.setPlusProductItem(multiFixedItem[i]);
+				ppFixed.setPlusProductPrice(fixedPriceArr[i]);
+				System.out.println("(UpdateProduct (고정값!!)서블릿) num : "+num);
+				System.out.println("(UpdateProduct (고정값!!)서블릿) multiFixedItem[i] : "+multiFixedItem[i]);
+				System.out.println("(UpdateProduct (고정값!!)서블릿) fixedPriceArr[i] : "+fixedPriceArr[i]);
+				fixedpList.add(ppFixed);		
+				System.out.println("(updateProduct (고정값!!)서블릿) : "+fixedpList);
 			}
 						
-			int result2 = new ProductService().updatePlusProduct(product, pList);
+			int result2 = new ProductService().updatePlusProduct(product, pList, num, fixedpList);
 						
 			// 세션으로 작성자를 가져온다.
 			//String writer = String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getUno());
@@ -175,6 +197,7 @@ public class UpdateProductServlet extends HttpServlet {
 			// 반복문을 통해 거꾸로 넘어온 파일들을 다시 역순으로 바꿔준다.
 			for(int i=originFiles.size()-1; i>=0; i--) {
 				Attachment at = new Attachment();
+				at.setProductNo(num);
 				at.setImgFilePath(filePath);
 				at.setOriginName(originFiles.get(i));
 				at.setChangeName(saveFiles.get(i));
@@ -182,9 +205,9 @@ public class UpdateProductServlet extends HttpServlet {
 				
 				fileList.add(at);
 			}			
-			int result1 = new ProductService().updateThumbnail(product, fileList);
+			int result1 = new ProductService().updateThumbnail(product, fileList, num);
 		
-			if(result1>0 && result2>0) {				
+			if(result1>0 /*&& result2>0*/) {				
 				response.sendRedirect("/dsm/selectOne.no?num="+num); // 수정완료 후 해당 상품 상세 페이지를 보기 위해서는 num의 값을 넘겨줘야 한다. - detail.jsp로 가기 위해
 			}else {
 				// 실패했을 때 저장된 사진 삭제
