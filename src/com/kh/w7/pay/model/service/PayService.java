@@ -12,8 +12,14 @@ public class PayService {
 	public int insertPay(Pay p) {
 		// TODO Auto-generated method stub
 		Connection con = getConnection();
+		//pay테이블에 결제 한 값을 넣고 맴버캐시테이블에도 넣기
+		int resultA = new PayDao().insertPay(con, p);
+		int resultB = new PayDao().insertMemberCash(con,p);
+		int result = resultA + resultB;
 		
-		int result = new PayDao().insertPay(con, p);
+		System.out.println("resultA : " + resultA);
+		System.out.println("resultB : " + resultB);
+		System.out.println("result : " + result);
 		
 		if(result > 0) {
 			commit(con);
@@ -24,6 +30,22 @@ public class PayService {
 		close(con);
 		
 		return result;
+	}
+
+	public int selectMemberNowCash(int memberCode) {
+		// TODO Auto-generated method stub
+		Connection con = getConnection();
+		
+		int nowCash = new PayDao().selectMemberNowCash(con, memberCode);
+		
+		if(nowCash > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return nowCash;
 	}
 
 }
