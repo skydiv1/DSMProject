@@ -47,6 +47,8 @@
 	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 	crossorigin="anonymous"></script>
 
+<!-- ajax -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- 시멘틱 -->
 <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"> -->
 <!-- <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script> -->
@@ -61,16 +63,16 @@
 	<div class="input-group input-group-lg"
 		style="width: 70%; padding-left: 19%;">
 		<input type="text" class="form-control"
-			aria-label="Sizing example input"
+			aria-label="Sizing example input" id="searchList"
 			aria-describedby="inputGroup-sizing-lg"
 			style="width: 30%; font-size: 20px" placeholder="검색어를 입력해주세요">
 		<div class="input-group-prepend">
 			<button class="input-group-text" id="inputGroup-sizing-lg"
-				style="color: black;"><b>검색</b></button>
+				style="color: black; cursor:pointer;"><b>검색</b></button>
 		</div>
 	</div>
 	<div style="padding-left: 19%;">
-		'<span>웨딩</span>' 으로 검색된 결과는 <span>15</span>건 입니다.
+		'<span id="searchResult"></span>' 으로 검색된 결과는 <span>15</span>건 입니다.
 	</div>
 	<div align="right" class="dropdown" style="padding-right: 19%;">
 		<select class="btn btn-secondary">
@@ -88,7 +90,7 @@
 			HashMap<String, Object> hmap = list.get(i);	
 		%>
 			<input type="hidden" value="<%=hmap.get("productNo")%>"> 
-			<div name="imageList" class="col-md-4 col-sm-6 portfolio-item">
+			<div name="imageList" class="col-md-4 col-sm-6 portfolio-item" id="searchListDiv">
 				<a class="portfolio-link" data-toggle="modal" >
 					<div class="portfolio-hover">
 						<div class="portfolio-hover-content">
@@ -109,7 +111,8 @@
 	
 	<!-- 페이징 처리 시작 ////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 		
-		<div class="pagingArea" align="center">
+		<div class="pagingArea" align="center" id="paging">
+		<div>
 			<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/selectList.pr?currentPage=1'"><<</button>
 			
 			<% if(currentPage <= 1){ %>
@@ -136,6 +139,7 @@
 			
 			<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/selectList.pr?currentPage=<%=maxPage%>'">>></button>
 		</div>
+		</div>
 	<!-- 페이징 처리 끝 //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	</section>
 	
@@ -149,6 +153,91 @@
 				location.href = "<%=request.getContextPath()%>/selectOne.pr?num=" + num; 
 			});
 		});
+		
+		/* 검색 버튼 클릭 시 */
+		$(function () {
+			$("#inputGroup-sizing-lg").click(function () {
+				var searchList = $("#searchList").val();
+				
+				$.ajax({
+					url:"/dsm/searchList.pr",
+					type:"get",
+					data:{searchList:searchList},
+					success:function(data){
+						console.log(data);
+						$("#searchResult").text(searchList);
+
+						$select = $("#searchListDiv"); // 해당 div 영역을 찾아서 
+						$select.find('a').remove(); // a부터 하위에 있는 모든 태그를 찾아서 지운다.
+						$select.find('div').remove();
+						
+					 	for(var key in data){
+							var productNo = decodeURIComponent(data[key].productNo);
+							var changeName = decodeURIComponent(data[key].changeName); 
+							var productName = decodeURIComponent(data[key].productName); 
+							var productItemPrice = decodeURIComponent(data[key].productItemPrice); 
+							
+							$select.append(
+									  '<a class="portfolio-link" data-toggle="modal" >'
+									+'<div class="portfolio-hover">'
+									+'<div class="portfolio-hover-content">'
+									+'<input type="hidden" value="'+productNo+'">'
+									+'<i class="fas fa-plus fa-3x"></i>'
+									+'</div>'
+									+'</div> <img style="width:400px; height:300px" class="img-fluid" src="/dsm/image_uploadFiles/'+changeName+'" alt="">'
+									+'</a>'
+									+'<div class="portfolio-caption">'
+									+'<h4>'+productName+'</h4>'
+									+'<p class="text-muted"><spna>'+productItemPrice+'</spna>원</p>'
+									+'</div>'
+									+'</div>');							
+						 } 
+
+
+						$select2 = $("#paging"); 
+						$select2.find('div').remove();
+						
+						/* var listCount = pi.getListCount();
+						var currentPage = pi.getCurrentPage();
+						var maxPage = pi.getMaxPage();
+						var startPage = pi.getStartPage();
+						var endPage = pi.getEndPage(); */
+						var reqContext='<%=request.getContextPath()%>';
+						
+		/* 				$select2.append(		'<div class="pagingArea" align="center" id="paging">');
+						$select2.append(	'<button class="btn btn-warning" onclick="location.href=reqContext/searchList.pr?'currentPage=1'"><<</button>');
+								if(currentPage <= 1){
+									$select2.append(	'<button class="btn btn-warning" disabled><</button>');
+								}else{ 
+									$select2.append(	'<button class="btn btn-warning" onclick="location.href='+request.getContextPath()/searchList.pr?currentPage=currentPage - 1+'"><</button>');
+								}
+								
+								for(var p = startPage; p <= endPage; p++){ 
+										if(p == currentPage){
+											$select2.append(	'<button class="btn btn-warning" disabled>'+ p +'</button>');
+										}else{
+											$select2.append(	'<button class="btn btn-warning" onclick="location.href='+request.getContextPath()/searchList.pr?currentPage=p+'"> '+p+'</button>');
+								      }
+								} 
+											
+								if(currentPage >= maxPage){
+									$select2.append(	'<button class="btn btn-warning" disable>></button>');
+								}else{
+									$select2.append(	'<button class="btn btn-warning" onclick="location.href='+request.getContextPath()/searchList.pr?currentPage=currentPage + 1'">></button>');
+								}
+								
+								$select2.append(	'<button class="btn btn-warning" onclick="location.href='+request.getContextPath()/searchList.pr?currentPage=maxPage'">>></button>');
+								$select2.append(	'</div>'); */
+						
+					},
+					error:function(data){
+						console.log("에러")
+					}
+				});				
+			});
+		});
+		
+		
 	</script>
 
 	<!-- Footer ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->

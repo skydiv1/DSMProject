@@ -119,7 +119,7 @@
 			</td>	
 		</tr>
 		<tr>
-			<td rowspan="4"><img class="img-fluid" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg6.getChangeName()%>" alt="" style="box-shadow: 0px 0px 10px #000; width:530px; height:420px;"></td>
+			<td rowspan="4"><img class="img-fluid" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg1.getChangeName()%>" alt="" style="box-shadow: 0px 0px 10px #000; width:530px; height:420px;"></td>
 			<td>
 				<div style="font-size: 20px; font: bold; margin-left: 5%; margin-bottom: 5%;"><%=product.getProductName() %></div> <!-- 상품 제목 -->
 			</td>
@@ -198,26 +198,26 @@
 				<table>
 					<tr>
 						<td style="padding: 2% 2% 2% 0%;"><img class="img-fluid" id="detailImg1"
-							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg6.getChangeName()%>"
+							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg1.getChangeName()%>"
 							style="width: 420px; height: 300px;"></td>
 						<td style="padding: 2% 2% 2% 2%;"><img class="img-fluid" id="detailImg2"
-							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg5.getChangeName()%>"
+							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg2.getChangeName()%>"
 							style="width: 420px; height: 300px;"></td>
 					</tr>
 					<tr>
 						<td style="padding: 2% 2% 2% 0%;"><img class="img-fluid" id="detailImg3"
-							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg4.getChangeName()%>"
+							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg3.getChangeName()%>"
 							style="width: 420px; height: 300px;"></td>
 						<td style="padding: 2% 2% 2% 2%;"><img class="img-fluid" id="detailImg4"
-							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg3.getChangeName()%>"
+							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg4.getChangeName()%>"
 							style="width: 420px; height: 300px;"></td>
 					</tr>
 					<tr>
 						<td style="padding: 2% 2% 2% 0%;"><img class="img-fluid" id="detailImg5"
-							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg2.getChangeName()%>"
+							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg5.getChangeName()%>"
 							style="width: 420px; height: 300px;"></td>
 						<td style="padding: 2% 2% 2% 2%;"><img class="img-fluid" id="detailImg6"
-							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg1.getChangeName()%>"
+							src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg6.getChangeName()%>"
 							style="width: 420px; height: 300px;"></td>
 					</tr>
 				</table>

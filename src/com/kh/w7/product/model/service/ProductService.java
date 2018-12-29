@@ -221,6 +221,18 @@ public class ProductService {
 	}
 
 
+	/* ajax를 이용한 검색(검색어 입력 후 검색버튼 클릭 시) */
+	public ArrayList<HashMap<String, Object>> searchtList(int currentPage, int limit, String searchList) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = new ProductDao().searchtList(con, currentPage, limit, searchList);
+		
+		close(con);
+		
+		return list;
+	}
+
+
 
 
 
