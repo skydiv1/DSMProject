@@ -48,6 +48,7 @@ public class MypageDao {
 			while(rset.next()) {
 				MyPage m = new MyPage();
 				
+				m.setDealNo(rset.getInt("DEAL_NO"));
 				m.setMember_id(rset.getString("MEMBER_ID"));
 				m.setProductName(rset.getString("PRODUCT_NAME"));
 				m.setDealListaddMsg(rset.getString("DEALLIST_ADDMESSAGE"));
@@ -64,6 +65,17 @@ public class MypageDao {
 		
 		
 		return list;
+	}
+
+
+	public int cancelUpdate(Connection con, int loginCode, int no, String textContent) {
+		PreparedStatement pstmt = null;
+		int result =0;
+		
+		String query = prop.getProperty("cancelUpdate");
+		
+	
+		return 0;
 	}
 
 

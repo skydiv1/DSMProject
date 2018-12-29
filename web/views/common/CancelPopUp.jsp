@@ -25,7 +25,7 @@
         </div>
         <div class="modal-body">
          <div align="center">
-			<textarea rows="10%" cols="30%" name="cancel" style="resize: none;" >내용을 입력해주세요.</textarea>
+			<textarea rows="10%" cols="30%" name="cancel" style="resize: none;" id="textContent" >내용을 입력해주세요.</textarea>
 		</div>
         </div>
         <div class="modal-footer" style="align: center">
