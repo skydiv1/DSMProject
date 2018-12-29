@@ -57,66 +57,7 @@ form {
 }
 </style>
 
-<script language="javascript">
-   function validate() {
-       var re = /^[a-zA-Z0-9]{4,12}$/ // 아이디와 패스워드가 적합한지 검사할 정규식
-       var re2 = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-       // 이메일이 적합한지 검사할 정규식
 
-       var memberId = document.getElementById("memberId");
-       var memberPwd = document.getElementById("memberPwd");
-       var memberEmail = document.getElementById("memberEmail");
-       var num1 = document.getElementById("num1");
-       var num2 = document.getElementById("num2");
-		
-       
-       // ------------ 이메일 까지 -----------
-
-       if(!check(re,memberId)) {
-           return false;
-       }
-
-       if(!check(re,memberPwd)) {
-           return false;
-       }
-
-       if(join.memberPwd.value != join.memberPwd2.value) {
-           alert("비밀번호가 다릅니다. 다시 확인해 주세요.");
-           join.memberPwd.value = "";
-           join.memberPwd.focus();
-           return false;
-       }
-
-       if(memberEmail.value=="") {
-           alert("이메일을 입력해 주세요");
-           memberEmail.focus();
-           return false;
-       }
-
-       if(!check(re2, memberEmail, "적합하지 않은 이메일 형식입니다.")) {
-           return false;
-       }
-
-       if(join.memberName.value=="") {
-           alert("이름을 입력해 주세요");
-           join.memberName.focus();
-           return false;
-       }
-
-       
-       alert("회원가입이 완료되었습니다.");
-   }
-
-   function check(re, what, message) {
-       if(re.test(what.value)) {
-           return true;
-       }
-       alert(message);
-       what.value = "";
-       what.focus();
-       //return false;
-   }
-</script>
 </head>
 <body>
 	<a href="/web/index.jsp" id="link">DSM</a>
@@ -196,7 +137,12 @@ form {
 						</div>
 					</div></td>
 				<td style="padding-top: 14px;">
-					<button class="btn btn-warning">이메일 인증</button>
+					<button class="btn btn-warning" onclick="sendEmail();">이메일
+						인증</button> <span> <input type="hidden" value="<%=getRandom()%>"
+						id="randomCode"> <input type="hidden"
+						value="DroneServiceMarket@gmail.com" id="from"> <input
+						type="hidden" value="DSM" id="adName">
+				</span>
 				</td>
 			</tr>
 			<%!public int getRandom() {
@@ -209,14 +155,13 @@ form {
 				<td><div class="form-group">
 						<label for="inputEConfirm" class="col-sm-2 control-label">인증번호</label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" id="inputEconfirm"
-								style="width: 250px" placeholder="인증번호 입력"> <input
-								type="hidden" readonly="readonly" name="code_check"
-								id="code_check" value="<%=request.getAttribute("code")%>">
+							<input type="text" class="form-control" id="code" onkeyup="checkCode()"
+								style="width: 250px" placeholder="인증번호 입력"> <div id="checkCode"></div><input
+								type="hidden" readonly="readonly" name="code_check" id="code_check" value="<%=request.getAttribute("code")%>">
 
 						</div>
 					</div></td>
-				<td style="padding-top: 14px;"><button class="btn btn-danger">인증번호
+				<td style="padding-top: 14px;"><button class="btn btn-danger" id="combtn">인증번호
 						확인</button></td>
 			</tr>
 
@@ -253,10 +198,10 @@ form {
 			if (($("#memberId").val() == "")) {
 				alert("아이디를 입력해주세요.");
 			}
-			console.log(userId);
+			console.log(memberId);
 			
 				
-				if(userPwd1==userPwd2){
+				if(memberPwd==memberPwd2){
 					if(memberPwdResult){
 						$("#join").submit();
 					}else{
@@ -282,8 +227,7 @@ form {
 		} --%>
 		
 		
-	</script>
-	<script>
+	
 	function dupCheck(){
 		var memberId = $("#memberId").val();
 		console.log(memberId);
@@ -297,10 +241,10 @@ form {
 				type:"post",
 				data:{memberId:memberId},
 				success: function (data) {
-					if(data == "fail"){ // 서블릿에서 처리
-						alert("중복");
-					}else if(data == "success"){
-						alert("사용");
+					if(data == "success"){ // 서블릿에서 처리
+						alert("사용이 가능한 아이디 입니다");
+					}else if(data == "fail"){
+						alert("중복 된 아이디입니다");
 					}
 				},
 				error: function (data) {
@@ -308,11 +252,58 @@ form {
 				}					
 			});
 		}else{
-			alert("부적절");
+			alert("부적절한 아이디입니다");
 		}
 	}
 	
+	function sendEmail(){
+		var memberEmail=$("#memberEmail").val();
+		var randomCode = $("#randomCode").val();
+		var from = $("#from").val();memberName
+		var adName = $("#adName").val();
 	
+		$.ajax({
+			url:"/dsm/SendEmail.me",
+			type:"post",
+			data:{memberEmail:memberEmail,randomCode:randomCode,from:from,adName:adName},
+			success:function(data){
+				if(data == "YES"){
+					alert("메일 발송");
+				}else{
+					alert("메일 발송 실패");
+				}
+			},
+			error:function(data){
+				console.log("이메일 통신 실패");
+			}
+			
+		
+		});
+	
+	}
+	function checkCode(){
+		var v1= join.code_check.value;
+		var v2= join.code.value;
+		if(v1!=v2){
+			document.getElementById('checkCode').style.color="red";
+			document.getElementById('checkCode').innerHTML ="잘못된 인증번호";
+			//mekeNull();
+		}else{
+			document.getElementById('checkCode').style.color="blue";
+			document.getElementById('checkCode').innerHTML ="인증가능";
+			//mekeReal();
+			
+		}
+	
+	}
+	/* function memkReal() {
+		var combtn = document.getElementById("combtn");
+		combtn.type="submit";
+	}
+	function memkNull() {
+		var combtn = document.getElementById("combtn");
+		combtn.type="hidden";
+	} */
 	
 	</script>
 

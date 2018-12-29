@@ -126,10 +126,10 @@ public class MemberDao {
 
 	// 아이디 중복 검사
 	public int idCheck(Connection con, String memberId) {
-		
+		int result=0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		int result=0;
+		
 		
 		String query = prop.getProperty("idCheck");
 
@@ -139,16 +139,11 @@ public class MemberDao {
 			pstmt.setString(1, memberId);
 			
 			rset = pstmt.executeQuery();
-			
-
-			if (rset.next()) {
-				return 1;
-				
-				
-			}else {
-				return 0;//가입가능
-				
+			if(rset.next()) {
+				result = rset.getInt(1);
 			}
+
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -158,7 +153,7 @@ public class MemberDao {
 			close(con);
 		}
 		
-		return result;//오류
+		return result;
 		
 		
 	}
