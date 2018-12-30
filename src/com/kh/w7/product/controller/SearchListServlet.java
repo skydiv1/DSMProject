@@ -62,8 +62,8 @@ public class SearchListServlet extends HttpServlet {
 		limit = 6; // 한 페이지에 1번~6번까지만 보여준다.
 		
 		ProductService ps = new ProductService();
-		// 전체 게시글 수 조회
-		int listCount = ps.getListCount();
+		// 특정 게시글 수 조회
+		int listCount = ps.getTitleListCount(searchList);
 		
 		// 총 페이지 수 계산
 		// ex. 목록 수가 123개면 페이지 수는 13페이지가 필요하다.
@@ -87,22 +87,11 @@ public class SearchListServlet extends HttpServlet {
 
 		// 조회
 		//ArrayList<Product> list = new ProductService().selectList(currentPage, limit);
-		ArrayList<HashMap<String, Object>> list = new ProductService().searchtList(currentPage, limit, searchList); 
+		ArrayList<HashMap<String, Object>> list = new ProductService().searchtList(currentPage, listCount, limit, searchList); 
 		
 		/* 출력 */
+		//new Gson().toJson(listCount, response.getWriter());
 		new Gson().toJson(list, response.getWriter()); // 누구에게 어떤 정보를 보낼것인지 정하면 끝
-		
-		// 성공 여부에 따라 처리
-		/*String page = "";
-		if(list != null) { // 사용자에게 리스트를 넘겨줘야 함 request로 forward 해야한다.
-			request.setAttribute("list", list);
-			request.setAttribute("pi", pi);		
-			
-			page="views/product/productList.jsp";
-		}else {
-			page="views/common/errorPage.jsp";
-			request.setAttribute("msg", "상품 목록 조회 실패!");			
-		}*/
 		
 	}
 

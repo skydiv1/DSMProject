@@ -112,7 +112,7 @@ input[type="number"]::-webkit-inner-spin-button{
 	<section class="bg-light" id="portfolio" style="">
 	<h2 style="margin-top: -80px; padding-left: 10%;">상품 등록</h2>
 	<br>
-	<form action="<%=request.getContextPath() %>/update.pr" onsubmit="return check()" method="post" enctype="multipart/form-data"> <!-- enctype="multipart/form-data":파일을 넘길때 -->
+	<form id="updateForm" action="" onsubmit="return check()" method="post" enctype="multipart/form-data"> <!-- enctype="multipart/form-data":파일을 넘길때 -->
 		
 		<input type="hidden" name="num" value="<%=product.getProductNo()%>">	<!--  업데이트 문에서 사용하기 위해 가져오고 숨겨서 화면에 띄우지 않는다. -->	
 
@@ -256,7 +256,7 @@ input[type="number"]::-webkit-inner-spin-button{
 		
 		<!-- 이미지 값의 기본키를 저장해서 서블릿으로 보내주기 위해  -->
 		<% for(int i=0; i<fileList.size(); i++){ %>
-			<input type="hidden" name="imgs" value="<%=fileList.get(i).getImgNo()%>">
+			<input type="hidden" name="imgsNo" value="<%=fileList.get(i).getImgNo()%>">
 			<input type="hidden" name="changeImgs" value="<%=fileList.get(i).getChangeName()%>">
 			<input type="hidden" name="originImgs" value="<%=fileList.get(i).getOriginName()%>">
 		<% } %>
@@ -275,7 +275,7 @@ input[type="number"]::-webkit-inner-spin-button{
 						</div>
 						<% }else{ %>
 						<div id="contentImgArea2" style="cursor:pointer; border: 2px dashed darkgray;">
-							<img id="contentImg2" style="box-shadow: 0px 0px 10px #000;"><div id="text5" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
+							<img id="contentImg2" style="box-shadow: 0px 0px 10px #000;" src=""><div id="text5" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
 						</div>	
 						<% } %>
 				</td>
@@ -286,7 +286,7 @@ input[type="number"]::-webkit-inner-spin-button{
 						</div>
 						<% }else{ %>
 						<div id="contentImgArea3" style="cursor:pointer; border: 2px dashed darkgray;">
-							<img id="contentImg3" style="box-shadow: 0px 0px 10px #000;"><div id="text4" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
+							<img id="contentImg3" style="box-shadow: 0px 0px 10px #000;" src=""><div id="text4" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
 						</div>	
 						<% } %>
 				</td>
@@ -299,7 +299,7 @@ input[type="number"]::-webkit-inner-spin-button{
 						</div>
 						<% }else{ %>
 						<div id="contentImgArea4" style="cursor:pointer; border: 2px dashed darkgray;">
-							<img id="contentImg4" style="box-shadow: 0px 0px 10px #000;"><div id="text3" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
+							<img id="contentImg4" style="box-shadow: 0px 0px 10px #000;" src=""><div id="text3" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
 						</div>	
 						<% } %>
 				</td>
@@ -310,7 +310,7 @@ input[type="number"]::-webkit-inner-spin-button{
 						</div>
 						<% }else{ %>
 						<div id="contentImgArea5" style="cursor:pointer; border: 2px dashed darkgray;">
-							<img id="contentImg5" style="box-shadow: 0px 0px 10px #000;"><div id="text2" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
+							<img id="contentImg5" style="box-shadow: 0px 0px 10px #000;" src=""><div id="text2" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
 						</div>	
 						<% } %>
 				</td>
@@ -321,7 +321,7 @@ input[type="number"]::-webkit-inner-spin-button{
 						</div>
 						<% }else{ %>
 						<div id="contentImgArea6" style="cursor:pointer; border: 2px dashed darkgray;">
-							<img id="contentImg6" style="box-shadow: 0px 0px 10px #000;"><div id="text1" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
+							<img id="contentImg6" style="box-shadow: 0px 0px 10px #000;" src=""><div id="text1" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
 						</div>	
 						<% } %>
 				</td>
@@ -340,8 +340,8 @@ input[type="number"]::-webkit-inner-spin-button{
 
 		<br><br><br><br><br>
 		<div style="margin-left: 78%;">
-			<button type="submit" class="btn btn-warning" onclick="alertEvent();">수정</button>
-			<button type="button" class="btn btn-danger" onclick="location.href='<%=request.getContextPath()%>/selectList.pr'">삭제</button><!-- 이전페이지로 이동 -->
+			<button type="submit" class="btn btn-warning" onclick="editPr();">상품 수정</button>
+			<button type="submit" class="btn btn-danger" onclick="deletePr();">상품 삭제</button>
 		</div>
 	</form>
 	</section>
@@ -349,20 +349,38 @@ input[type="number"]::-webkit-inner-spin-button{
 		request.setAttribute("msg", "잘못된 경로로 접근하셨습니다.");
 		request.getRequestDispatcher("../common/errorPage.jsp").forward(request, response);
 	<% } %>
+	
+	<!-- 스크립트  /////////////////////////////////////////////////////////////////////////////////////////// -->
+	
+		<script>
+			function editPr() {	
+				alert("정상적으로 수정되었습니다.");
+				$("#updateForm").attr("action", "<%=request.getContextPath() %>/update.pr");		
+				console.log($("#updateForm"));	
+			}
+			function deletePr() { 
+ 				 if(confirm("정말 삭제하시겠습니까?")) { // 확인
+					console.log($("#updateForm"));
+					$("#updateForm").attr("action", "<%=request.getContextPath()%>/deleteOne.pr");		
+					return true;
+				}else { // 취소
+					console.log($("#updateForm"));
+					return false;
+				} 
+			}
+		</script>
 	<script>
-		cnt = 1;	
+		cnt = 0;	
 		$(function () {
-			if(cnt==2 || $("input[name=additionalItem]").eq(1).val() != ""){
+			if($("input[name=additionalItem]").eq(0).val() != ""){
+				cnt=1;
+			} if($("input[name=additionalItem]").eq(1).val() != ""){
 				cnt=2;
-			} if(cnt==3 || $("input[name=additionalItem]").eq(2).val() != ""){
-				cnt=3;
-			}		
+			}	
 			/* 추가 버튼을 눌렀을 때 동작하는 함수 */
 			$("#additionalItem").click(function () {	
-				if(cnt<=2){
-		    		cnt++;
-    				console.log("cnt: "+cnt);
-			    	$('#addtionalTable > tbody:last').append('<tr><th scope="row">'+cnt+'</th>' 
+				if(cnt<3){
+			    	$('#addtionalTable > tbody:last').append('<tr><th scope="row">'+(cnt+1)+'</th>' 
 			    		+'<td width="50%">'
 						+'<div class="input-group">'
 						+'<div class="input-group-prepend">'
@@ -385,6 +403,8 @@ input[type="number"]::-webkit-inner-spin-button{
 						+'</div>'
 						+'</td>'
 						+'</tr>');
+		    		cnt++;
+    				console.log("cnt: "+cnt);
 				}else if(cnt>=3){
 					alert("추가 항목은 최대 세 개까지 등록이 가능합니다.");
 					cnt=3;
@@ -395,38 +415,28 @@ input[type="number"]::-webkit-inner-spin-button{
 		  	$('#deleteItem').click(function() {
 		  		if(cnt<=3){
 				    $('#addtionalTable > tbody:last > tr:last').remove();	
-				    $("input[name=additionalItem]").eq(cnt-1).val("");
-				    $("input[name=additionalPrice]").eq(cnt-1).val("");
 			  		cnt--;
 			  		console.log("cnt: "+cnt);
-		  		}else if(cnt<=1){
-		  			cnt=1;
+		  		}else if(cnt<1){
+		  			cnt=0;
 		  		}
-/* 		  		if(cnt==3){
-				    $('#addtionalTable > tbody:last > tr:last').remove();	
-				}else if(cnt==2){
-		  		    $('#addtionalTable > tbody:last > tr:last').remove();	
-				  }else if(cnt==1){  	
-		  			console.log("삭제 불가능");
-		  			cnt=2; // 초기화 (아래에서 한 번 더 빼주기 때문에 1 많은수로)
-		  		}
-		  		cnt--;
-		  		console.log("cnt: "+cnt); */
 			});
 		      
 			/* 첨부파일 숨기기 */
 	        $("#fileArea").hide();   
 			
-			/* 이 부분을 어떻게 불러와서 hide할지.. */
-	       /*  if(detailImg3.getChangeName() == null){ 
+			/* 이미지가 있으면 띄워주고 없으면 숨긴다. */
+	        if($("#contentImg2").attr("src").length<1){
+				$("#contentImgArea2").hide(); // 해당 공간을 숨긴다.				
+	        } if($("#contentImg3").attr("src").length<1){
 				$("#contentImgArea3").hide();
-	        } if(detailImg4.getChangeName() == null){ 
+	        } if($("#contentImg4").attr("src").length<1){
 				$("#contentImgArea4").hide();
-	        } if(detailImg5.getChangeName() == null){ 
-				$("#contentImgArea5").hide();	        	
-	        } if(detailImg6.getChangeName() == null){ 
-				$("#contentImgArea6").hide();	        	
-	        } */
+	        } if($("#contentImg5").attr("src").length<1){
+				$("#contentImgArea5").hide();
+	        } if($("#contentImg6").attr("src").length<1){
+				$("#contentImgArea6").hide();
+	        } 
 
 			/* 이미지 첨부 영역 클릭 시 동작 */			
 			$("#contentImgArea1").click(function(){
@@ -516,12 +526,7 @@ input[type="number"]::-webkit-inner-spin-button{
 	        });
 	      }); */
 	</script>
-	<script>
-		function alertEvent() {
-			alert("정상적으로 수정되었습니다.");
-		}		
-		
-	</script>
+
 	
 	<!-- Footer ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	<%@ include file="/views/common/footer.jsp"%>

@@ -94,12 +94,12 @@ public class UpdateProductServlet extends HttpServlet {
 			int multiBasicPrice = Integer.parseInt(multiRequest.getParameter("basicPrice"));		
 			
 			/* 이미지 값 jsp에서 가져오기 */
-			String[] multiImgs = multiRequest.getParameterValues("imgs");
+			String[] multiImgsNo = multiRequest.getParameterValues("imgsNo");
 			String[] multiOriginImgs = multiRequest.getParameterValues("originImgs");
 			String[] multiChangeImgs = multiRequest.getParameterValues("changeImgs");
-			int[] multiImgsArr = new int[multiImgs.length];
+			int[] multiImgsArr = new int[multiImgsNo.length];
 			for(int i=0; i<multiImgsArr.length; i++) {
-				multiImgsArr[i] = Integer.parseInt(multiImgs[i]);
+				multiImgsArr[i] = Integer.parseInt(multiImgsNo[i]);
 				System.out.println("multiImgsArr[i] : "+ multiImgsArr[i]);
 				System.out.println("multiOriginImgs[i] : "+ multiOriginImgs[i]);
 				System.out.println("multiChangeImgs[i] : "+ multiChangeImgs[i]);
@@ -179,6 +179,7 @@ public class UpdateProductServlet extends HttpServlet {
 				Attachment at = new Attachment();
 				at.setProductNo(num);
 				at.setImgFilePath(filePath);
+				at.setImgNo(multiImgsArr[i]);
 				at.setOriginName(multiOriginImgs[i]);
 				at.setChangeName(multiChangeImgs[i]);
 				// 세션으로 작성자를 가져온다.

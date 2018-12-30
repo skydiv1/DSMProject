@@ -1,3 +1,4 @@
+<%@page import="com.kh.w7.product.model.service.ProductService"%>
 <%@page import="com.kh.w7.common.*"%><%@page import="com.kh.w7.product.model.vo.*"%><%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -7,11 +8,12 @@
 
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	// 미리 값을 꺼내서 저장해서 사용 (매번 꺼내서 사용하는 불편함을 줄이기 위함)
-	int listCount = pi.getListCount();
+	int listCount = pi.getListCount(); // 전체 개수
 	int currentPage = pi.getCurrentPage();
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
+
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -52,6 +54,9 @@
 <!-- 시멘틱 -->
 <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"> -->
 <!-- <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script> -->
+
+<style>
+</style>
 </head>
 <body>
 	<!-- 네비게이션 바 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
@@ -60,6 +65,10 @@
 	<!-- 네비게이션 바 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	<section class="bg-light" id="portfolio" style="">
 
+	<div style="padding-left: 19%;">
+		<span>● 전체 상품 수는 ' <%=listCount%> ' </span>건 입니다.
+	</div>
+	
 	<div class="input-group input-group-lg"
 		style="width: 70%; padding-left: 19%;">
 		<input type="text" class="form-control"
@@ -71,8 +80,8 @@
 				style="color: black; cursor:pointer;"><b>검색</b></button>
 		</div>
 	</div>
-	<div style="padding-left: 19%;">
-		'<span id="searchResult"></span>' 으로 검색된 결과는 <span>15</span>건 입니다.
+	<div style="padding-left: 49%;">
+		'<span id="searchResult"></span>' (으)로 검색된 결과는 <span id="searchResultCount"></span>건 입니다.
 	</div>
 	<div align="right" class="dropdown" style="padding-right: 19%;">
 		<select class="btn btn-secondary">
@@ -84,13 +93,13 @@
 	</div>
 	<br><br>
 
-	<div class="container">
+	<div class="container" id="searchListDiv">
 		<div class="row">
 		<% for(int i=0; i<list.size(); i++){ 
 			HashMap<String, Object> hmap = list.get(i);	
 		%>
 			<input type="hidden" value="<%=hmap.get("productNo")%>"> 
-			<div name="imageList" class="col-md-4 col-sm-6 portfolio-item" id="searchListDiv">
+			<div name="imageList" class="col-md-4 col-sm-6 portfolio-item">
 				<a class="portfolio-link" data-toggle="modal" >
 					<div class="portfolio-hover">
 						<div class="portfolio-hover-content">
@@ -147,9 +156,9 @@
 		$(function () {
 			$("[name=imageList]").click(function () {
 				var num = $(this).children().children().children().children().eq(0).val(); // eq(0).val(); //eq 0번째의 value값
-				console.log(num); // bid 값 확인
+				console.log(num); // num 값 확인
 				
-				// bid의 값이 num에 담겨 넘겨준다.
+				// num의 값이 num에 담겨 넘겨준다.
 				location.href = "<%=request.getContextPath()%>/selectOne.pr?num=" + num; 
 			});
 		});
@@ -168,17 +177,23 @@
 						$("#searchResult").text(searchList);
 
 						$select = $("#searchListDiv"); // 해당 div 영역을 찾아서 
-						$select.find('a').remove(); // a부터 하위에 있는 모든 태그를 찾아서 지운다.
-						$select.find('div').remove();
-						
+						//$select.find('a').remove(); // a부터 하위에 있는 모든 태그를 찾아서 지운다.
+						$select.find('div').remove(); // div부터 하위에 있는 모든 태그를 찾아서 지운다.
+
+						console.log(decodeURIComponent(data.listCount));
+						//$select.append('<div class="container">');
+						$select.append('<div class="row">');
 					 	for(var key in data){
 							var productNo = decodeURIComponent(data[key].productNo);
 							var changeName = decodeURIComponent(data[key].changeName); 
 							var productName = decodeURIComponent(data[key].productName); 
 							var productItemPrice = decodeURIComponent(data[key].productItemPrice); 
+							var listCount = decodeURIComponent(data[key].listCount)
+							console.log("검색한 게시글 수: "+listCount);
 							
-							$select.append(
-									  '<a class="portfolio-link" data-toggle="modal" >'
+							 $select.append(
+									 '<div name="imageList" class="col-md-4 col-sm-6 portfolio-item" id="">'
+									+'<a class="portfolio-link" data-toggle="modal" >'
 									+'<div class="portfolio-hover">'
 									+'<div class="portfolio-hover-content">'
 									+'<input type="hidden" value="'+productNo+'">'
@@ -190,9 +205,11 @@
 									+'<h4>'+productName+'</h4>'
 									+'<p class="text-muted"><spna>'+productItemPrice+'</spna>원</p>'
 									+'</div>'
+									+'</div>'
 									+'</div>');							
-						 } 
-
+						 }
+						$select.append('</div>');  
+						$("#searchResultCount").text(listCount); // 특정 검색어 게시글 수 
 
 						$select2 = $("#paging"); 
 						$select2.find('div').remove();
@@ -202,32 +219,32 @@
 						var maxPage = pi.getMaxPage();
 						var startPage = pi.getStartPage();
 						var endPage = pi.getEndPage(); */
-						var reqContext='<%=request.getContextPath()%>';
+						<%-- var reqContext='<%=request.getContextPath()%>';
 						
-		/* 				$select2.append(		'<div class="pagingArea" align="center" id="paging">');
-						$select2.append(	'<button class="btn btn-warning" onclick="location.href=reqContext/searchList.pr?'currentPage=1'"><<</button>');
+		 				$select2.append(	'<div class="pagingArea" align="center" id="paging">');
+						$select2.append(	'<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/searchList.pr?currentPage=1'"><<</button>');
 								if(currentPage <= 1){
 									$select2.append(	'<button class="btn btn-warning" disabled><</button>');
 								}else{ 
-									$select2.append(	'<button class="btn btn-warning" onclick="location.href='+request.getContextPath()/searchList.pr?currentPage=currentPage - 1+'"><</button>');
+									$select2.append(	'<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/searchList.pr?currentPage=currentPage - 1+'"><</button>');
 								}
 								
 								for(var p = startPage; p <= endPage; p++){ 
 										if(p == currentPage){
 											$select2.append(	'<button class="btn btn-warning" disabled>'+ p +'</button>');
 										}else{
-											$select2.append(	'<button class="btn btn-warning" onclick="location.href='+request.getContextPath()/searchList.pr?currentPage=p+'"> '+p+'</button>');
+											$select2.append(	'<button class="btn btn-warning" onclick="location.href='+<%=request.getContextPath()%>/searchList.pr?currentPage=p+'"> '+p+'</button>');
 								      }
 								} 
 											
 								if(currentPage >= maxPage){
 									$select2.append(	'<button class="btn btn-warning" disable>></button>');
 								}else{
-									$select2.append(	'<button class="btn btn-warning" onclick="location.href='+request.getContextPath()/searchList.pr?currentPage=currentPage + 1'">></button>');
+									$select2.append(	'<button class="btn btn-warning" onclick="location.href='+<%=request.getContextPath()%>/searchList.pr?currentPage=currentPage + 1'">></button>');
 								}
 								
-								$select2.append(	'<button class="btn btn-warning" onclick="location.href='+request.getContextPath()/searchList.pr?currentPage=maxPage'">>></button>');
-								$select2.append(	'</div>'); */
+								$select2.append(	'<button class="btn btn-warning" onclick="location.href='+<%=request.getContextPath()%>/searchList.pr?currentPage=maxPage'">>></button>');
+								$select2.append(	'</div>'); --%>
 						
 					},
 					error:function(data){

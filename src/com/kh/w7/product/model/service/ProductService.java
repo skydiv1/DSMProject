@@ -145,19 +145,7 @@ public class ProductService {
 		Connection con = getConnection();
 		int result = 0;
 		
-//		int imgNo = new ProductDao().selectImgNextval(con); // 다음시퀀스 값 조회
-//		System.out.println("nextNum(이미지테이블 다음시퀀스 조회) : "+imgNo);
-		
 		int result1= new ProductDao().updateThumbnailContent(con, product, num); // product 내용만 insert / 부모 테이블 먼저 insert 해야 한다.
-
-//		if(result1>0) {
-//			int productNo = new ProductDao().selectCurrval(con); // 현재시퀀스 값 조회
-//			System.out.println("(updateThumbnail)현재시퀀시 값 조회: " + productNo);
-//			
-//			for(int i=0; i<fileList.size(); i++) { // 게시물 하나에 파일이 최대 6개가 존재
-//				fileList.get(i).setProductNo(productNo); // Product에서 시퀀스 값을 가져와서 1,2,3,4번 사진에 해당 시퀀스 값을 넣어준다. / CURRVAL로 가져온 값
-//			}
-//		}
 		
 		int result2 = new ProductDao().updateAttachment(con, fileList, num);
 		System.out.println("result2(updateThumbnail) 이미지 수정되는지 확인 : "+result2);
@@ -181,21 +169,10 @@ public class ProductService {
 		Connection con = getConnection();
 		int result = 0;
 
-//		int nextNum = new ProductDao().selectNextval(con); // 다음시퀀스 값 조회
-//		System.out.println("nextNum(다음시퀀스 조회) : "+nextNum);
-		
 		int result1= new ProductDao().updateThumbnailContent(con, product,num); // product 내용만 insert / 부모 테이블 먼저 insert 해야 한다.
 
 		System.out.println("result1  :  "+result1);
-//		if(result1>0) {
-//			int currNum = new ProductDao().selectCurrval(con); // 현재시퀀스 값 조회
-//			System.out.println("(updatePlusProduct)현재시퀀시 값 조회: " + currNum);
-//			
-//			for(int i=0; i<pList.size(); i++) { // 게시물 하나에 값 최대 3개가 존재
-//				pList.get(i).setProductNo(currNum); // product에서 시퀀스 값을 가져와서 1,2,3번에 해당 시퀀스 값을 넣어준다. / CURRVAL로 가져온 값
-//			}
-//		}
-	
+
 		int result2 =0;
 		//String item[]= new String[pList.size()];
 		ArrayList<String> plusList = new ArrayList<String>();
@@ -222,14 +199,44 @@ public class ProductService {
 
 
 	/* ajax를 이용한 검색(검색어 입력 후 검색버튼 클릭 시) */
-	public ArrayList<HashMap<String, Object>> searchtList(int currentPage, int limit, String searchList) {
+	public ArrayList<HashMap<String, Object>> searchtList(int currentPage, int listCount, int limit, String searchList) {
 		Connection con = getConnection();
 		
-		ArrayList<HashMap<String, Object>> list = new ProductDao().searchtList(con, currentPage, limit, searchList);
+		ArrayList<HashMap<String, Object>> list = new ProductDao().searchtList(con, currentPage, listCount, limit, searchList);
 		
 		close(con);
 		
 		return list;
+	}
+
+
+	/* 상품 삭제(update PRODUCT_DELETEYN=1) */
+	public int deleteOne(String num) {
+		Connection con = getConnection();
+		
+		int result= new ProductDao().deleteOne(con, num); // product 내용만 insert / 부모 테이블 먼저 insert 해야 한다.
+		System.out.println("result1(deleteOne)  :  "+result);
+		
+		// 트랜젝션 처리
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
+
+	/* 특정 게시글 수 조회 */
+	public int getTitleListCount(String searchList) {
+		Connection con = getConnection();
+		int listCount = new ProductDao().getTitleListCount(con, searchList);
+		close(con);	
+
+		return listCount;
 	}
 
 
