@@ -29,7 +29,7 @@ public class MypageDao {
 	}
 
 
-	public ArrayList<MyPage> selectList(Connection con, int loginCode) {
+	public ArrayList<MyPage> selectList(Connection con, int loginCode,int currentPage, int limit) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<MyPage> list= null;
@@ -38,7 +38,13 @@ public class MypageDao {
 		
 		try {
 			pstmt=con.prepareStatement(query);
+			
+			int startRow = (currentPage - 1) * limit + 1;
+			int endRow = startRow + limit - 1;
+			
 			pstmt.setInt(1, loginCode);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset= pstmt.executeQuery();
 			
@@ -68,14 +74,59 @@ public class MypageDao {
 	}
 
 
-	public int cancelUpdate(Connection con, int loginCode, int no, String textContent) {
+	public int cancelUpdate(Connection con, int dealnum, String textContent) {
 		PreparedStatement pstmt = null;
 		int result =0;
 		
 		String query = prop.getProperty("cancelUpdate");
 		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, textContent);
+			pstmt.setInt(2, dealnum);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
 	
-		return 0;
+		return result;
+	}
+
+
+	
+
+	public int getListCount(Connection con, int loginCode) {
+		PreparedStatement pstmt= null;
+		int listCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("listCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, loginCode);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		
+		return listCount;
 	}
 
 

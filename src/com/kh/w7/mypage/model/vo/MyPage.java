@@ -194,7 +194,8 @@ public class MyPage {
 	public void setReviewGrade(int reviewGrade) {
 		this.reviewGrade = reviewGrade;
 	}
-	
+
+
 	
 	
 	
