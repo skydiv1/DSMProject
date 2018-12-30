@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.w7.board.model.service.BoardService;
 import com.kh.w7.board.model.vo.Board;
-import com.kh.w7.board.model.vo.PageInfo;
+import com.kh.w7.common.PageInfo;
 
 /**
  * Servlet implementation class SelectBoardListServlet
@@ -53,9 +53,10 @@ public class SelectBoardListServlet extends HttpServlet {
 		BoardService bs = new BoardService();
 
 		int listCount = bs.getListCount();
+		maxPage = (int)((double)listCount / limit + 0.9);
 		
 		startPage = (((int)((double)currentPage / limit + 0.9)) - 1) * limit + 1;
-		maxPage = (int)((double)listCount / limit + 0.9);
+		
 
 		endPage = startPage + 10 - 1;
 		
@@ -72,9 +73,9 @@ public class SelectBoardListServlet extends HttpServlet {
 		
 		String page = "";
 		if(list != null) {
-			page = "views/board/board.jsp";
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
+			page = "views/board/board.jsp";
 		}else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "실패!");

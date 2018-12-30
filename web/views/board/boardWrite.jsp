@@ -13,38 +13,34 @@
 <br><br>	
 	<% if(loginUser != null ){ %>
 		<div class="outer">
-			<form action="<%= request.getContextPath() %>/insert.bo" method="post">
 			<div class="container">
+	        <caption> <h1>게시글 작성</h1> </caption>
+			<form action="<%= request.getContextPath() %>/insert.bo" method="post">
+	        <hr>
 			<thead>
-        <caption> <h2>글쓰기</h2> </caption>
+			  <div class="form-group">
+			    <label ><h3>제목 : &nbsp;</h3></label>
+			    <h7><input type="text" name="title" placeholder="제목을 입력해 주세요"></h7>
+			  </div>
+			  <hr>
    			 </thead>
-   			 <hr>
-   			 <td id="title">작성자</td>
-   			<td>
-				<input type="text" value="<%=loginUser.getMemberName()%>" name="memberName" readonly>
+   			<td><h4><label>작성자 : &nbsp;</label><span><b><%=loginUser.getMemberName()%></b></h4></span>
 				<input type="hidden" value="<%=loginUser.getMemberCode()%>" name="memberCode">
 			</td>
-			
+			<hr>			
+			    <label ><h3>내용 </h3></label>
+			<hr>
 			  <div class="form-group">
-			    <label ><h3>제목 :</h3></label>
-			    <input type="text" name="title" placeholder="제목을 입력해 주세요">
+			    <textarea name="context" type="context" cols="60" rows="15" name="content" placeholder="내용을 입력해 주세요" style="resize:none";></textarea>
 			  </div>
 			  <hr>
-			  
-			  <hr>
-			  <div class="form-group">
-			    <label ><h3>내용 :</h3></label>
-			    <textarea name="context" type="context" rows="10" name="content" placeholder="내용을 입력해 주세요"></textarea>
-			  </div>
-			  <hr>
-			  <div style="margin:0px 0px 0px 980px; margin-right:10px; ">	
+			  <div style="margin:0px 0px 0px 900px; margin-right:10px; ">	
 			  	<!-- <button onclick="location.href='./board.jsp'">취소</button>
 			  	<button  onclick="location.href='./board.jsp'">수정</button> -->
 		  	    <button type="reset">취소하기</button>
 				<button type="submit">등록하기</button>
 			  </div>
 			</form>
-			</div>
 			<br>
 			<hr>
 			<br>	

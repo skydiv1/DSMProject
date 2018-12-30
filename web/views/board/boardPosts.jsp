@@ -2,6 +2,7 @@
     pageEncoding="UTF-8" import="com.kh.w7.board.model.vo.*"%>
 <%
 	Board b = (Board)request.getAttribute("b");
+	Member m = (Member)request.getAttribute("m");
 %> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -21,46 +22,39 @@
 <div class="container">
 			
 			<form>
-			      <caption><h2><input type="text" name="title" value="<%= b.getBoardTitle() %>" readonly></h2> </caption>
+			      <caption><h2><span><b><%=b.getBoardTitle() %></b></span> </td></h2> </caption>
         </thead>
         <hr>
 	 <tr height="1" bgcolor="#dddddd"><td colspan="4" width="407"></td></tr>
 	 <table>
     <tr>
-      <td rowspan="2"><img class="mx-auto rounded-circle"
+      <!-- <td rowspan="2"><img class="mx-auto rounded-circle"
                      src="/dsm/img/team/1.jpg" alt=""
-                     style="width: 90px; height: 90px;"></td>
-      <td align="center" width="76"  ><b><input type="text" value"<%= b.getMemberName() %>" name="memberName" readonly></b></td>     
+                     style="width: 90px; height: 90px;"></td> -->
+      <td align="center" width="76"  ><span><b><%=b.getMemberName() %></b></span> </td>     
       <td width="50"></td>  
       
       <td align="center" width="76" ">조회수 : </td>      
-      <td width="50"><b><input typue="count" name="count" value="<%= b.getBoardCount() %>" readonly></b></td>	
+      <td width="50"><span><b><%=b.getBoardCount() %></b></span> </td>	
       
       <td align="center" width="76">작성일 : </td>      
-      <td width="150"><b><input type="date" name="date" value="<%= b.getBoardDate() %>" readonly></b></td>
+      <td width="150"><span><b><%=b.getBoardDate() %></b></span> </td>
      </tr>
      </table>
      <hr>
-            			 
-			   <textarea class="form-control" readonly rows="10"  id="comment" >
-			   		<p><%= b.getBoardContext() %></p>
-			   </textarea>	
-			                     
-               </p>
-            
+     	<textarea class="form-control" readonly rows="10"  id="comment" ><%= b.getBoardContext() %></textarea>    	  
    	<hr>
      <div class="form-group">
 			  
 			<form action="" method="post" name="">
 			<font size="4" color="red">댓글 2</font>
       
-			<div style="margin:0px 0px 0px 800px; margin-right:10px; ">	
-			  <a href="<%=request.getContextPath()%>/selectList.bo" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">목록으로</a>
-			  <a href=
-			  "<% if(loginUser != null 
-				&& loginUser.getMemberName().equals(b.getMemberCode())){ %>" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">수정</a>
-				<% } %>
-			  <a href="board.jsp" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">삭제</a>
+			<div style="margin:0px 0px 0px 900px; margin-right:10px; ">	
+			  <a href="<%=request.getContextPath()%>/selectList.bo" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">목록으로</a>			  
+			  <% if(loginUser != null && loginUser.getMemberCode() == b.getMemberCode()){ %>			  	  
+			  <a href="<%=request.getContextPath()%>/selectBoard.no?num=<%=b.getBoardNo()%>"class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">수정하기</a>			  	
+			  <% } %>
+				
 			 </div> 
 				<hr>
 			</form>

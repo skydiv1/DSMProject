@@ -35,25 +35,23 @@ public class InsertBoardServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		String title = request.getParameter("title");
 		String context = request.getParameter("context");
-				
+		int result=0;		
 		
 		String writer = String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getMemberName());
 		
 		Board b = new Board();
 		
 		b.setBoardTitle(title);
-		b.setBoardContext(context);
+		b.setBoardContext(context);		
 		
-		
-		int result = new BoardService().insertBoard(b);
-		
-		String page = "";
-		if(result > 0) {
-			response.sendRedirect(request.getContextPath() + "/selectList.bo");
+		if(result>0) {
+			response.sendRedirect(request.getContextPath()+"/selectList.bo");
 		}else {
 			request.setAttribute("msg", "실패");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);			
 		}
+		String page = "";
+		
 		
 	}
 

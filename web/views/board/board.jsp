@@ -1,6 +1,7 @@
 <%@page import="java.io.ObjectInputStream.GetField"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*, com.kh.w7.board.model.vo.*"%>
+<%@page import="com.kh.w7.common.*" %>
  <%
 	ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
@@ -49,7 +50,7 @@
 		 	<table align="center" id="listArea" class="table table-striped"  border:1px; solid #dddddd">
 		 		<thead>
 		 			<tr>
-						<th style="width: 3% background-color:#eeeeee; text-align: center;">번호</th>
+						<!-- <th style="width: 3% background-color:#eeeeee; text-align: center;">번호</th> -->
 						<th style="width: 20% background-color:#eeeeee; text-align: center;">제목</th>
 						<th style="width: 5% background-color:#eeeeee; text-align: center;">작성자</th>
 						<th style="width: 5% background-color:#eeeeee; text-align: center;">작성일</th>
@@ -59,9 +60,9 @@
 		 		<tbody>
 		 		<% for(Board b : list){ %>
 
-		 		<% if(b.getBoardCategory() == 0) { %>
+		 		 <%-- <% if(b.getBoardCategory() == 0) { %> --%> 
 		 				<tr>		 				                      
-                            <td><%= b.getBoardNo() %></td>
+                            <input type="hidden" value="<%= b.getBoardNo() %>">
                             <td><%= b.getBoardTitle() %></td>
                             <td><%= b.getMemberName() %></td>
 							 <input type="hidden" value="<%= b.getBoardContext() %>">
@@ -70,7 +71,7 @@
                             <td><%= b.getBoardCount() %></td>
                             
                         </tr>
-                <% }%>        
+             	<%-- <% }%> --%>        
                 <% } %>
 		 		</tbody>		 	
 		 	</table>

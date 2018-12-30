@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.w7.board.model.vo.Board;
+import com.kh.w7.common.Attachment;
 import com.kh.w7.member.model.vo.Member;
 
 import oracle.net.aso.b;
@@ -79,7 +80,7 @@ public class BoardDao {
 		
 	}
 
-	public int insertBoard(Connection con, Board b) {
+	public int insertBoard(Connection con, Board board) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
@@ -89,13 +90,13 @@ public class BoardDao {
 		try {
 			pstmt = con.prepareStatement(query);
 			
-			pstmt.setInt(1, b.getMemberCode());
-			pstmt.setString(2, b.getBoardTitle());
-			pstmt.setString(3, b.getBoardContext());	
+			pstmt.setInt(1, board.getMemberCode());
+			pstmt.setString(2, board.getBoardTitle());
+			pstmt.setString(3, board.getBoardContext());	
 			
 
 			
-			System.out.println(b);
+			System.out.println(board);
 			result = pstmt.executeUpdate();
 			System.out.println(result);
 			
@@ -237,11 +238,12 @@ public class BoardDao {
 			
 			if(rset.next()) {
 				b = new Board();
-				
+		
 				b.setBoardNo(rset.getInt("BOARD_NO"));
+				b.setMemberName(rset.getString("MEMBER_NAME"));
 				b.setBoardTitle(rset.getString("BOARD_TITLE"));
 				b.setBoardContext(rset.getString("BOARD_CONTEXT"));
-				b.setBoardDate(rset.getDate("BOADR_DATE"));
+				b.setBoardDate(rset.getDate("BOARD_DATE"));
 				b.setBoardCategory(rset.getInt("BOARD_CATEGORY"));
 				b.setBoardCount(rset.getInt("BOARD_COUNT"));
 				b.setBoardDelete(rset.getInt("BOARD_DELETE"));
@@ -259,13 +261,14 @@ public class BoardDao {
 		return b;
 	}
 	
-	public int selectBoardval(Connection con) {
+	/* 현재 시퀀스 값 조회 */
+	public int selectCurrval(Connection con) {
 		Statement stmt = null;
-		ResultSet rset = null;
+		ResultSet rset =null;
 		
-		int boardNo = 0;
+		int boardNo=0;
 		
-		String query = prop.getProperty("selectBoardval");
+		String query = prop.getProperty("selectCurrval"); // 현재 동작한 시퀀스 번호를 알 수 있다.
 		
 		try {
 			stmt = con.createStatement();
@@ -273,19 +276,76 @@ public class BoardDao {
 			rset = stmt.executeQuery(query);
 			
 			if(rset.next()) {
-				boardNo = rset.getInt("BOARDVAL");
+				boardNo = rset.getInt("CURRVAL");
 			}
-		
+			
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(stmt);
+			close(stmt); // Connection을 닫으면 안된다. service에서 트랜젝션 처리를 해 줄 수 없다
 		}
 		
+		return boardNo;
+	}	
+
+	
+	/* 다음 시퀀스 조회 */
+	public int selectNextval(Connection con) {
+		Statement stmt = null;
+		ResultSet rset =null;
+		
+		int boardNo=0;
+		
+		String query = prop.getProperty("selectNextval"); // 현재 동작한 시퀀스 번호를 알 수 있다.
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				boardNo = rset.getInt("NEXTVAL");
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt); // Connection을 닫으면 안된다. service에서 트랜젝션 처리를 해 줄 수 없다
+		}
 		
 		return boardNo;
 	}
 
+	public int updateBoard(Connection con, Board b) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateBoard");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, b.getBoardTitle());
+			pstmt.setString(2, b.getBoardContext());
+			pstmt.setInt(3, b.getBoardNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public int insertAttachment(Connection con, ArrayList<Attachment> boardNo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 	
 
