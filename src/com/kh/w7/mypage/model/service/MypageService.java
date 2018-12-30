@@ -9,10 +9,10 @@ import static com.kh.w7.common.JDBCTemplate.*;
 
 public class MypageService {
 
-	public ArrayList<MyPage> selectList(int loginCode) {
+	public ArrayList<MyPage> selectList(int loginCode,int currentPage, int limit ) {
 		Connection con = getConnection();
 		
-		ArrayList<MyPage> list = new MypageDao().selectList(con, loginCode);
+		ArrayList<MyPage> list = new MypageDao().selectList(con, loginCode,currentPage,limit);
 		System.out.println("list값service:"+list);
 		if(list != null) {
 			commit(con);
@@ -25,10 +25,10 @@ public class MypageService {
 		return list;
 	}
 
-	public int cancelUpdate(int loginCode, int no, String textContent) {
+	public int cancelUpdate(int dealnum, String textContent) {
 		Connection con = getConnection();
 		
-		int result = new MypageDao().cancelUpdate(con, loginCode, no,textContent );
+		int result = new MypageDao().cancelUpdate(con,dealnum,textContent );
 		
 		if(result>0) {
 			commit(con);
@@ -41,6 +41,15 @@ public class MypageService {
 		return result;
 	}
 
+	public int getListCount(int loginCode) {
+		Connection con = getConnection();
+		int listCount = new MypageDao().getListCount(con,loginCode);
+		close(con);
+		return listCount;
+	}
+
+	
+	
 	
 	
 }

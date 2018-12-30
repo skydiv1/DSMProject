@@ -24,23 +24,29 @@
  
 </style>
 <script type="text/javascript">
-/*  function addBtnEvent() {
-	$("#cancelBtn").click(function () {//취소 팝업에 있는 버튼 누를때
-		var textContent = $("textContent").val();//신청사유
-		
-		.ajax({
+  function addBtnEvent() {
+
+	  $("#cancelBtn").click(function () {//취소 팝업에 있는 버튼 누를때
+		var textContent = $("#textContent").val();//신청사유
+		var dealnum = $("#dealnum").val();
+		$.ajax({
 			url:"${pageContext.request.contextPath}/cancelupdate.consumer",
 			type : "get",
-			data : {no:no, textContent:textContent}
+			data : {dealnum:dealnum, textContent:textContent},
 			success : function (data) {
 				selectListAp();
 			}
-			
 		});
-	});
+	}); 
+	 $("#cBtn").click(function () {//목록에서 취소버튼 누를때
+			var no = $(this).parent().parent().children().eq(1).text();
+			 console.log("딜값:"+no);
+			$("#dealnum").val(no);
+			
 		
-	} 
-  */
+		});
+  
+  }
 		
 	/*
 	$("#삭제").클릭(){
@@ -57,39 +63,68 @@
 
 //신청 리스트 ajax
 function selectListAp(pg) {
+	
 	$.ajax({
 		url : "${pageContext.request.contextPath}/selectList.ap",
 		type :"get",
+		data : {currentPage : pg},
 		success : function (data) {
+			console.log(data);
+			
 			var apListHtml = [];
 			var no =0;
-			for(var i=0; i<data.length; i++){
+			for(var i=0; i<data.aplist.length; i++){
 				apListHtml.push('<tr>');
 				apListHtml.push('	<th scope="row">' + (i+1) + '</th>');
-				apListHtml.push('	<td class="td1" style="display: none">' +data[i].dealNo + '</td>');
-				apListHtml.push('	<td class="td1">' +data[i].member_id + '</td>');
-				apListHtml.push('	<td class="td1">' +data[i].productName+ '</td>');
-				apListHtml.push('	<td class="td1">' +data[i].dealListaddMsg + '</td>');
+				apListHtml.push('	<td class="td1" style="display: none">' +data.aplist[i].dealNo + '</td>');
+				apListHtml.push('	<td class="td1">' +data.aplist[i].member_id + '</td>');
+				apListHtml.push('	<td class="td1">' +data.aplist[i].productName+ '</td>');
+				apListHtml.push('	<td class="td1">' +data.aplist[i].dealListaddMsg + '</td>');
 				apListHtml.push('	 <td style="width: 30px"><button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#cencelModal" id="cBtn" >취소</button></td>');
 				apListHtml.push('</tr>');
 				
 				
 			}
-			$("#applylist").html(apListHtml);
+			$("#applylist").html("");//이전틀 지우고
+			$("#applylist").append(apListHtml.join(""));//""를 기준으로 배열에 담긴 데이터 꺼내오기
 			
-			/* addBtnEvent(
-					$("#cBtn").click(function () {
-						no = $("#applylist").children().eq(1).val();
-					})
-					
-			);//버튼 함수 불러오기 */
+			
+		 	var apPageHtml= [];
+			apPageHtml.push('<button onclick="selectListAp(1)"><<</button>');
+			if(pg <=1){
+				apPageHtml.push('<button disabled><</button>');
+			}else{
+				apPageHtml.push('<button onclick="selectListAp(' + pg-1 + ')"><</button>');
+			}
+			for(var p = data.startPage; p<= data.endPage; p++) {
+				if(p == pg){
+				apPageHtml.push('<button disabled>'+p+'</button>');
+				}else{
+					apPageHtml.push('<button onclick="selectListAp('+p+')">'+p+'</button>');
+					}
+				}
+			if(pg >= data.maxPage){ 
+				apPageHtml.push('<button disabled>></button>');
+			}else{
+				apPageHtml.push('<button onclick="selectListAp('+pg+1+')">></button>');
+			}
+				apPageHtml.push('<button onclick="selectListAp('+data.maxPage +')">>></button>');
+			
+				$("#ApplyPagingArea").html("");
+				$("#ApplyPagingArea").append(apPageHtml.join(""));
+				 
+			
+			 addBtnEvent();//버튼 함수 불러오기
+			 
+			 
+			 
 		}
 	});
 }
 
 //마이페이지 실행시에 뷰페이지 만들고 데이터 뿌려주는 ajax 메인(함수 호출 여기서)
  	$(function () {
- 		selectListAp();
+ 		selectListAp(1);
 	}); 
 </script>
 </head>
@@ -124,21 +159,15 @@ function selectListAp(pg) {
 			  </thead>
 			 
 			  <tbody id="applylist">
-			    <tr>
-			      <th scope="row"></th>
-			      <td class="td1" style="display: none"></td>
-			      <td class="td1"></td>
-			      <td class="td1"></td>
-			      <td class="td1"></td>
-			      <td style="width: 30px"><button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#cencelModal" id="cBtn">취소</button></td>
-			    </tr>
-
-		
-
+				<!-- ajax에서 도는부분 -->
 			  </tbody>
+				
 			
 			</table>
          </div>
+				<div class="pagingArea" align="center" id="ApplyPagingArea">
+				<!-- ajax에서 도는부분 -->
+				</div>
       </div>
    </section>
   <!-- 수락 목록 -->

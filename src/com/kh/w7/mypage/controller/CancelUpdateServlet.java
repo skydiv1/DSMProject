@@ -22,15 +22,11 @@ public class CancelUpdateServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-
-		Member loginUser = (Member)session.getAttribute("loginUser");
-		int loginCode = loginUser.getMemberCode();
-		
-		int no = Integer.parseInt(request.getParameter("no"));
+	
+		int dealnum = Integer.parseInt(request.getParameter("dealnum"));
 		String textContent = request.getParameter("textContent");
 	
-		int result = new MypageService().cancelUpdate(loginCode,no,textContent);
+		int result = new MypageService().cancelUpdate(dealnum,textContent);
 		
 		
 		response.setContentType("application/json");

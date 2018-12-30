@@ -24,12 +24,13 @@
           <h1 class="modal-title" style="font-weight:bold ">신청 취소 사유</h1>
         </div>
         <div class="modal-body">
+        
          <div align="center">
 			<textarea rows="10%" cols="30%" name="cancel" style="resize: none;" id="textContent" >내용을 입력해주세요.</textarea>
 		</div>
         </div>
         <div class="modal-footer" style="align: center">
-          
+        		<input type="text" style="display: none" id="dealnum">
 				<button type="button" class="btn btn-secondary" style="width:200px" data-dismiss="modal">취소</button>
 				<button type="submit" class="btn btn-warning" style="width: 200px" data-dismiss="modal" id="cancelBtn">보내기</button>
 		
