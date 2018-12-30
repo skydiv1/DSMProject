@@ -590,6 +590,63 @@ public class ProductDao {
 		return result;
 	}
 
+
+	/* ajax를 이용한 검색(검색어 입력 후 검색버튼 클릭 시) */
+	public ArrayList<HashMap<String, Object>> searchtList(Connection con, int currentPage, int limit, String searchList) {
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+
+		String query = prop.getProperty("searchList");
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			int startRow = (currentPage - 1) * limit + 1; // 조회할 때 시작할 행 번호
+			int endRow = startRow + limit - 1;
+			
+			pstmt.setString(1, searchList); // jsp에서 검색한 단어 
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>(); // 맴버 객체 대신 hashmap 사용 / Object: 다형성,autoBoxing 처리
+				
+				hmap.put("imgNo", rset.getInt("IMG_NO")); // 오토박싱 처리로 코드를 줄일 수 있다. 
+				hmap.put("originName", rset.getString("ORIGINNAME"));
+				hmap.put("changeName", rset.getString("CHANGENAME"));
+				hmap.put("imgCategoy", rset.getInt("IMG_CATEGORY"));
+				hmap.put("memberCode", rset.getInt("MEMBER_CODE"));
+				hmap.put("productNo", rset.getInt("PRODUCT_NO"));
+				hmap.put("imgFilePath", rset.getString("IMG_FILEPATH"));
+				hmap.put("imgDelete", rset.getInt("IMG_DELETE"));
+				hmap.put("imgLevel", rset.getInt("IMG_LEVEL"));
+				
+				hmap.put("productName", rset.getString("PRODUCT_NAME"));
+				hmap.put("productCategory", rset.getString("PRODUCT_CATEGORY"));
+				hmap.put("productItem", rset.getString("PRODUCT_ITEM"));
+				hmap.put("productItemPrice", rset.getInt("PRODUCT_ITEMPRICE"));
+				hmap.put("productContext", rset.getString("PRODUCT_CONTEXT"));
+				hmap.put("productRegisterDate", rset.getDate("PRODUCT_REGISTERDATE"));
+				hmap.put("productDeleteYN", rset.getInt("PRODUCT_DELETEYN"));				
+				
+				list.add(hmap);
+			}
+						
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally { // 자원반납
+			close(pstmt);
+			close(rset);
+		}
+		System.out.println("이미지 리스트(검색어: "+searchList+" ): "+list);
+		return list;
+	}
+
 	
 	/* plusProduct 테이블의 item을 저장하기 위해 조회가 필요 */
 /*	public int selectPlusProduct(Connection con) {

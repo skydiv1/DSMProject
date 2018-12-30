@@ -93,35 +93,18 @@ public class UpdateProductServlet extends HttpServlet {
 			String multiBasicItem = multiRequest.getParameter("basicItem");
 			int multiBasicPrice = Integer.parseInt(multiRequest.getParameter("basicPrice"));		
 			
-			/* 이미지 값 jsp에서 가져오기 */ // getParameter (x), 
-			/*String multiThumbnailImg1 = multiRequest.getParameter("thumbnailImg1");
-			String multiThumbnailImg2 = multiRequest.getParameter("thumbnailImg2");
-			String multiThumbnailImg3 = multiRequest.getParameter("thumbnailImg3");
-			String multiThumbnailImg4 = multiRequest.getParameter("thumbnailImg4");
-			String multiThumbnailImg5 = multiRequest.getParameter("thumbnailImg5");
-			String multiThumbnailImg6 = multiRequest.getParameter("thumbnailImg6");
-			System.out.println("◆multiThumbnailImg1 : "+multiThumbnailImg1);
-			System.out.println("◆multiThumbnailImg2 : "+multiThumbnailImg2);
-			System.out.println("◆multiThumbnailImg3 : "+multiThumbnailImg3);
-			System.out.println("◆multiThumbnailImg4 : "+multiThumbnailImg4);
-			System.out.println("◆multiThumbnailImg5 : "+multiThumbnailImg5);
-			System.out.println("◆multiThumbnailImg6 : "+multiThumbnailImg6);
-			String  img1 = multiRequest.getParameter("img1");
-			String img2 = multiRequest.getParameter("img2");
-			String img3 = multiRequest.getParameter("img3");
-			String img4 = multiRequest.getParameter("img4");
-			String img5 = multiRequest.getParameter("img5");
-			String img6 = multiRequest.getParameter("img6");
-			System.out.println("img1 : "+img1);
-			System.out.println("img2 : "+img2);
-			System.out.println("img3 : "+img3);
-			System.out.println("img4 : "+img4);
-			System.out.println("img5 : "+img5);
-			System.out.println("img6 : "+img6);*/
-			
-			
-			
-		
+			/* 이미지 값 jsp에서 가져오기 */
+			String[] multiImgs = multiRequest.getParameterValues("imgs");
+			String[] multiOriginImgs = multiRequest.getParameterValues("originImgs");
+			String[] multiChangeImgs = multiRequest.getParameterValues("changeImgs");
+			int[] multiImgsArr = new int[multiImgs.length];
+			for(int i=0; i<multiImgsArr.length; i++) {
+				multiImgsArr[i] = Integer.parseInt(multiImgs[i]);
+				System.out.println("multiImgsArr[i] : "+ multiImgsArr[i]);
+				System.out.println("multiOriginImgs[i] : "+ multiOriginImgs[i]);
+				System.out.println("multiChangeImgs[i] : "+ multiChangeImgs[i]);
+			}
+					
 			/* 추가항목 값 jsp에서 가져오기 */
 			String[] multiAdditionalItem = multiRequest.getParameterValues("additionalItem");
 			String[] multiAdditionalPrice = multiRequest.getParameterValues("additionalPrice");
@@ -154,7 +137,7 @@ public class UpdateProductServlet extends HttpServlet {
 			product.setProductContext(multiContent);
 			product.setProductNo(num);
 			
-			// 배열에 담아서 가져와야 한다.
+			/* 배열에 담아서 가져와야 한다. */
 			ArrayList<PlusProduct> pList = new ArrayList<PlusProduct>();
 			PlusProduct pp = null;			
 			
@@ -170,7 +153,7 @@ public class UpdateProductServlet extends HttpServlet {
 				System.out.println("(updateProduct)서블릿 : "+pList);
 			}
 			
-			// 배열에 담아서 가져와야 한다. (고정값!!)
+			/* 배열에 담아서 가져와야 한다. (고정값!!) */
 			ArrayList<PlusProduct> fixedpList = new ArrayList<PlusProduct>();
 			PlusProduct ppFixed = null;			
 			
@@ -188,9 +171,6 @@ public class UpdateProductServlet extends HttpServlet {
 						
 			int result2 = new ProductService().updatePlusProduct(product, pList, num, fixedpList);
 						
-			// 세션으로 작성자를 가져온다.
-			//String writer = String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getUno());
-			
 			// Attachment 객체 생성하여 ArrayList 객체 생성
 			ArrayList<Attachment> fileList = new ArrayList<Attachment>();
 			
@@ -199,16 +179,17 @@ public class UpdateProductServlet extends HttpServlet {
 				Attachment at = new Attachment();
 				at.setProductNo(num);
 				at.setImgFilePath(filePath);
-				at.setOriginName(originFiles.get(i));
-				at.setChangeName(saveFiles.get(i));
+				at.setOriginName(multiOriginImgs[i]);
+				at.setChangeName(multiChangeImgs[i]);
+				// 세션으로 작성자를 가져온다.
 				at.setMemberCode(Integer.parseInt(String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getMemberCode())));
 				
 				fileList.add(at);
 			}			
 			int result1 = new ProductService().updateThumbnail(product, fileList, num);
 		
-			if(result1>0 /*&& result2>0*/) {				
-				response.sendRedirect("/dsm/selectOne.no?num="+num); // 수정완료 후 해당 상품 상세 페이지를 보기 위해서는 num의 값을 넘겨줘야 한다. - detail.jsp로 가기 위해
+			if(result1>0 && result2>0) {				
+				response.sendRedirect("/dsm/selectOne.pr?num="+num); // 수정완료 후 해당 상품 상세 페이지를 보기 위해서는 num의 값을 넘겨줘야 한다. - detail.jsp로 가기 위해
 			}else {
 				// 실패했을 때 저장된 사진 삭제
 				for(int i=0; i<saveFiles.size(); i++) {

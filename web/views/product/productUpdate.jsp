@@ -108,6 +108,7 @@ input[type="number"]::-webkit-inner-spin-button{
 
 	<%@ include file="../common/menubar.jsp"%>
 	<!-- 네비게이션 바 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+	<% if(loginUser != null && loginUser.getMemberId().equals(member.getMemberId()) ){ %> <!-- 조건 추가 (작성자와 로그인 유저가 일치했을 경우 처리..) -->
 	<section class="bg-light" id="portfolio" style="">
 	<h2 style="margin-top: -80px; padding-left: 10%;">상품 등록</h2>
 	<br>
@@ -199,7 +200,7 @@ input[type="number"]::-webkit-inner-spin-button{
 				<tbody>
 				<% for(int i=0; i<pList.size(); i++){ %>
 					<tr>
-						<th scope="row">1</th>
+						<th scope="row"><%=(i+1) %></th>
 						<td width="50%">
 							<div class="input-group">
 								<div class="input-group-prepend">
@@ -252,68 +253,75 @@ input[type="number"]::-webkit-inner-spin-button{
 			<label for="exampleFormControlTextarea6"
 				style="font-size: 20px; font: bold;">이미지 첨부 (이미지는 최대 6장 까지 등록이 가능합니다.)</label>
 		</div>
-
+		
+		<!-- 이미지 값의 기본키를 저장해서 서블릿으로 보내주기 위해  -->
+		<% for(int i=0; i<fileList.size(); i++){ %>
+			<input type="hidden" name="imgs" value="<%=fileList.get(i).getImgNo()%>">
+			<input type="hidden" name="changeImgs" value="<%=fileList.get(i).getChangeName()%>">
+			<input type="hidden" name="originImgs" value="<%=fileList.get(i).getOriginName()%>">
+		<% } %>
+		
 		<table align="center" border="0" width="80%" align="center">
 			<tr>
 				<td style="padding: 2% 2% 2% 2%;" width="470px">
-					<div id="contentImgArea6" style="cursor:pointer;">
-						<img id="contentImg6" name="img6" style="box-shadow: 0px 0px 10px #000;" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg6.getChangeName()%>">
+					<div id="contentImgArea1" style="cursor:pointer;">
+						<img id="contentImg1" name="img1" style="box-shadow: 0px 0px 10px #000;" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg1.getChangeName()%>">	
 					</div>
 				</td>
 				<td  style="padding: 2% 2% 2% 2%;" width="470px">
-						<% if(detailImg5.getChangeName() != null){ %>
-						<div id="contentImgArea5" style="cursor:pointer;">
-							<img id="contentImg5" name="img5" style="box-shadow: 0px 0px 10px #000;" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg5.getChangeName()%>">
-						</div>
-						<% }else{ %>
-						<div id="contentImgArea5" style="cursor:pointer; border: 2px dashed darkgray;">
-							<img id="contentImg5" style="box-shadow: 0px 0px 10px #000;"><div id="text5" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
-						</div>	
-						<% } %>
-				</td>
-				<td  style="padding: 2% 2% 2% 2%;" width="470px">
-						<% if(detailImg4.getChangeName() != null){ %>
-						<div id="contentImgArea4" style="cursor:pointer;">
-							<img id="contentImg4" name="img4" style="box-shadow: 0px 0px 10px #000;" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg4.getChangeName()%>">
-						</div>
-						<% }else{ %>
-						<div id="contentImgArea4" style="cursor:pointer; border: 2px dashed darkgray;">
-							<img id="contentImg4" style="box-shadow: 0px 0px 10px #000;"><div id="text4" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
-						</div>	
-						<% } %>
-				</td>
-			</tr>
-			<tr>
-				<td style="padding: 2% 2% 2% 2%;">
-						<% if(detailImg3.getChangeName() != null){ %>
-						<div id="contentImgArea3" style="cursor:pointer;">
-							<img id="contentImg3" name="img3" style="box-shadow: 0px 0px 10px #000;" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg3.getChangeName()%>">
-						</div>
-						<% }else{ %>
-						<div id="contentImgArea3" style="cursor:pointer; border: 2px dashed darkgray;">
-							<img id="contentImg3" style="box-shadow: 0px 0px 10px #000;"><div id="text3" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
-						</div>	
-						<% } %>
-				</td>
-				<td style="padding: 2% 2% 2% 2%;">
 						<% if(detailImg2.getChangeName() != null){ %>
 						<div id="contentImgArea2" style="cursor:pointer;">
 							<img id="contentImg2" name="img2" style="box-shadow: 0px 0px 10px #000;" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg2.getChangeName()%>">
 						</div>
 						<% }else{ %>
 						<div id="contentImgArea2" style="cursor:pointer; border: 2px dashed darkgray;">
-							<img id="contentImg2" style="box-shadow: 0px 0px 10px #000;"><div id="text2" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
+							<img id="contentImg2" style="box-shadow: 0px 0px 10px #000;"><div id="text5" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
+						</div>	
+						<% } %>
+				</td>
+				<td  style="padding: 2% 2% 2% 2%;" width="470px">
+						<% if(detailImg3.getChangeName() != null){ %>
+						<div id="contentImgArea3" style="cursor:pointer;">
+							<img id="contentImg3" name="img3" style="box-shadow: 0px 0px 10px #000;" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg3.getChangeName()%>">
+						</div>
+						<% }else{ %>
+						<div id="contentImgArea3" style="cursor:pointer; border: 2px dashed darkgray;">
+							<img id="contentImg3" style="box-shadow: 0px 0px 10px #000;"><div id="text4" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
+						</div>	
+						<% } %>
+				</td>
+			</tr>
+			<tr>
+				<td style="padding: 2% 2% 2% 2%;">
+						<% if(detailImg4.getChangeName() != null){ %>
+						<div id="contentImgArea4" style="cursor:pointer;">
+							<img id="contentImg4" name="img4" style="box-shadow: 0px 0px 10px #000;" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg4.getChangeName()%>">
+						</div>
+						<% }else{ %>
+						<div id="contentImgArea4" style="cursor:pointer; border: 2px dashed darkgray;">
+							<img id="contentImg4" style="box-shadow: 0px 0px 10px #000;"><div id="text3" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
 						</div>	
 						<% } %>
 				</td>
 				<td style="padding: 2% 2% 2% 2%;">
-						<% if(detailImg1.getChangeName() != null){ %>
-						<div id="contentImgArea1" style="cursor:pointer;">
-							<img id="contentImg1" name="img1" style="box-shadow: 0px 0px 10px #000;" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg1.getChangeName()%>">
+						<% if(detailImg5.getChangeName() != null){ %>
+						<div id="contentImgArea5" style="cursor:pointer;">
+							<img id="contentImg5" name="img5" style="box-shadow: 0px 0px 10px #000;" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg5.getChangeName()%>">
 						</div>
 						<% }else{ %>
-						<div id="contentImgArea1" style="cursor:pointer; border: 2px dashed darkgray;">
-							<img id="contentImg1" style="box-shadow: 0px 0px 10px #000;"><div id="text1" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
+						<div id="contentImgArea5" style="cursor:pointer; border: 2px dashed darkgray;">
+							<img id="contentImg5" style="box-shadow: 0px 0px 10px #000;"><div id="text2" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
+						</div>	
+						<% } %>
+				</td>
+				<td style="padding: 2% 2% 2% 2%;">
+						<% if(detailImg6.getChangeName() != null){ %>
+						<div id="contentImgArea6" style="cursor:pointer;">
+							<img id="contentImg6" name="img6" style="box-shadow: 0px 0px 10px #000;" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg6.getChangeName()%>">
+						</div>
+						<% }else{ %>
+						<div id="contentImgArea6" style="cursor:pointer; border: 2px dashed darkgray;">
+							<img id="contentImg6" style="box-shadow: 0px 0px 10px #000;"><div id="text1" style="font-size: 20px; color: darkgray;">추가 이미지를 넣어주세요</div>
 						</div>	
 						<% } %>
 				</td>
@@ -321,12 +329,12 @@ input[type="number"]::-webkit-inner-spin-button{
 		</table>
 		
 		<div id="fileArea">
-			<input type="file" id="thumbnailImg1" name="thumbnailImg1" onchange="loadImg(this, 1)" value="이미지 첨부" style="padding-left: 10%; padding-right: 10%;"> 
-			<input type="file" id="thumbnailImg2" name="thumbnailImg2" onchange="loadImg(this, 2)" value="이미지 첨부" style="padding-left: 10%; padding-right: 10%;"> 
-			<input type="file" id="thumbnailImg3" name="thumbnailImg3" onchange="loadImg(this, 3)" value="이미지 첨부" style="padding-left: 10%; padding-right: 10%;"> 
-			<input type="file" id="thumbnailImg4" name="thumbnailImg4" onchange="loadImg(this, 4)" value="이미지 첨부" style="padding-left: 10%; padding-right: 10%;"> 
-			<input type="file" id="thumbnailImg5" name="thumbnailImg5" onchange="loadImg(this, 5)" value="이미지 첨부" style="padding-left: 10%; padding-right: 10%;"> 
-			<input type="file" id="thumbnailImg6" name="thumbnailImg6" onchange="loadImg(this, 6)" value="이미지 첨부" style="padding-left: 10%; padding-right: 10%;">
+			<input type="file" id="thumbnailImg1" name="thumbnailImg1" onchange="loadImg(this, 1)" value="" style="padding-left: 10%; padding-right: 10%;"> 
+			<input type="file" id="thumbnailImg2" name="thumbnailImg2" onchange="loadImg(this, 2)" value="" style="padding-left: 10%; padding-right: 10%;"> 
+			<input type="file" id="thumbnailImg3" name="thumbnailImg3" onchange="loadImg(this, 3)" value="" style="padding-left: 10%; padding-right: 10%;"> 
+			<input type="file" id="thumbnailImg4" name="thumbnailImg4" onchange="loadImg(this, 4)" value="" style="padding-left: 10%; padding-right: 10%;"> 
+			<input type="file" id="thumbnailImg5" name="thumbnailImg5" onchange="loadImg(this, 5)" value="" style="padding-left: 10%; padding-right: 10%;"> 
+			<input type="file" id="thumbnailImg6" name="thumbnailImg6" onchange="loadImg(this, 6)" value="" style="padding-left: 10%; padding-right: 10%;">
 		</div>
 		<!-- 이미지 미리보기 끝-->
 
@@ -337,29 +345,73 @@ input[type="number"]::-webkit-inner-spin-button{
 		</div>
 	</form>
 	</section>
-	
+	<% }else{ %>
+		request.setAttribute("msg", "잘못된 경로로 접근하셨습니다.");
+		request.getRequestDispatcher("../common/errorPage.jsp").forward(request, response);
+	<% } %>
 	<script>
+		cnt = 1;	
 		$(function () {
-			var cnt = 1;
-			var name = 1;
+			if(cnt==2 || $("input[name=additionalItem]").eq(1).val() != ""){
+				cnt=2;
+			} if(cnt==3 || $("input[name=additionalItem]").eq(2).val() != ""){
+				cnt=3;
+			}		
+			/* 추가 버튼을 눌렀을 때 동작하는 함수 */
+			$("#additionalItem").click(function () {	
+				if(cnt<=2){
+		    		cnt++;
+    				console.log("cnt: "+cnt);
+			    	$('#addtionalTable > tbody:last').append('<tr><th scope="row">'+cnt+'</th>' 
+			    		+'<td width="50%">'
+						+'<div class="input-group">'
+						+'<div class="input-group-prepend">'
+						+'<div class="input-group-text">'
+						+'<input type="radio" aria-label="Radio button for following text input">'
+						+'</div>'
+						+'</div>'
+						+'<input name="additionalItem" type="text" class="form-control" aria-label="Text input with radio button">'
+						+'</div>'
+						+'</td>'
+						+'<td width="50%">'
+						+'<div class="input-group mb-3">'
+						+'<div class="input-group-prepend">'
+						+'<span class="input-group-text">￦</span>'
+						+'</div>'
+						+'<input name="additionalPrice" type="number" class="form-control" aria-label="Amount (to the nearest dollar)" onkeydown="javascript: return event.keyCode == 69 ? false : true">'
+						+'<div class="input-group-append">'
+						+'<span class="input-group-text">.00</span>'
+						+'</div>'
+						+'</div>'
+						+'</td>'
+						+'</tr>');
+				}else if(cnt>=3){
+					alert("추가 항목은 최대 세 개까지 등록이 가능합니다.");
+					cnt=3;
+				}
+			});
 			
 			/* 삭제 버튼을 눌렀을 때 동작하는 함수 */
 		  	$('#deleteItem').click(function() {
-		  		if(cnt<1 || name<1){
-		  			cnt=1; name=1;
+		  		if(cnt<=3){
+				    $('#addtionalTable > tbody:last > tr:last').remove();	
+				    $("input[name=additionalItem]").eq(cnt-1).val("");
+				    $("input[name=additionalPrice]").eq(cnt-1).val("");
+			  		cnt--;
+			  		console.log("cnt: "+cnt);
+		  		}else if(cnt<=1){
+		  			cnt=1;
 		  		}
-		  		if(cnt==3){
+/* 		  		if(cnt==3){
 				    $('#addtionalTable > tbody:last > tr:last').remove();	
 				}else if(cnt==2){
 		  		    $('#addtionalTable > tbody:last > tr:last').remove();	
-				  }else{  	
+				  }else if(cnt==1){  	
 		  			console.log("삭제 불가능");
-		  			cnt=2; name=2; // 초기화 (아래에서 한 번 더 빼주기 때문에 1 많은수로)
+		  			cnt=2; // 초기화 (아래에서 한 번 더 빼주기 때문에 1 많은수로)
 		  		}
 		  		cnt--;
-		  		name--;
-		  		console.log("cnt: "+cnt);
-	    		console.log("name: "+name);
+		  		console.log("cnt: "+cnt); */
 			});
 		      
 			/* 첨부파일 숨기기 */
