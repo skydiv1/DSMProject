@@ -123,7 +123,7 @@ form {
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="memberTel"
 								name="memberTel" style="width: 550px" placeholder="Tel">
-							-를 포함하여 입력 해 주십시오.
+							-를 포함해 입력하여 주십시오.
 						</div>
 					</div></td>
 			</tr>
@@ -176,7 +176,7 @@ form {
 					style="width: 470px; height: 50px; font-size: 20px; border-radius: 6px;"
 					onclick="insertCon();">회원가입</button>
 			</a> <a href="/web/index.jsp">
-				<button type="reset" class="btn btn-cancle"
+				<button type="button" class="btn btn-cancle"
 					style="width: 470px; height: 50px; font-size: 20px; border-radius: 6px;">
 					<div id="joinBtn" onclick="goMain();">취소하기</div>
 				</button>

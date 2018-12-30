@@ -115,7 +115,7 @@ p {
 			</tr>
 			<tr>
 				<td>
-					<button type="" class="btn btn-warning" id="findIdBtn"
+					<button type="" class="btn btn-warning" id="findIdBtn" onclick="sendId"
 						style="width: 500px; height: 50px; font-size: 20px; border-radius: 6px; margin-left: 5%; color:gray;">이메일로
 						아이디 전송</button>
 				</td>
@@ -125,31 +125,34 @@ p {
 		
 	</form>
 	<script>
-	$(function(){
+	$(function sendId(){
 		// 2번
-		$("#findIdBtn").click(function(){
+			var memberId=$("#memberId").val();
 			 var memberName = $("#memberName").val();
 			 var memberEmail = $("#memberEmail").val();
+			 var from = $("#from").val();memberName
+				var adName = $("#adName").val();
 			 
 			$.ajax({
-				url:"findid_me",
-				data:{memberName:memberName,
+				url:"/dsm/findid_me",
+				type:"post",
+				data:{memberId:memberId,memberName:memberName,
 					memberEmail:memberEmail},
-				type:"get",
-				dataType:"jason",
+				
+				
 				success:function(data){ // data: 문자열이 들어온다
 					var memberId = data.memberId;
 					var memberIdLength= memberId.length;
 					var memberIdfind = memberId.substring(1,memberIdLength-1);
-					$("#memberId").append("<h1>"+"회원님의 정보로 등록된 이메일은 "+memberIdfind+"입니다.</h1>")
+					
 					
 			
 				},
 				
 				
-			
-		});
-	});
+			});
+		});		
+	
 	</script>
 		<br> <br>
 	

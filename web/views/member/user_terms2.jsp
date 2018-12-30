@@ -54,7 +54,32 @@ form {
 a{
 text-decoration: none;
 }
+
 </style>
+<script type="text/javascript">
+function chk(){
+ var req1 = document.form.req1.checked;
+ var req2 = document.form.req2.checked;
+ var num = 0;
+ if(req1 == true){
+  num = 1;
+ }
+ if(num==1){
+  document.form.submit();
+ }else{
+  alert("개인정보 약관에 동의하셔야 합니다.");
+ }
+ if(req2 == true){
+	  num = 1;
+	 }
+	 if(num==1){
+	  document.form.submit();
+	 }else{
+	  alert("개인정보 약관에 동의하셔야 합니다.");
+	 }
+}
+
+</script>
 </head>
 <body>
 	<a href="/web/index.jsp" id="link">DSM</a>
@@ -63,7 +88,7 @@ text-decoration: none;
 	<br>
 	<br>
 	<hr>
-	<form action="<%=request.getContextPath()%>/insertMember" method="post">
+	<form action="<%=request.getContextPath()%>/insertMember" method="post" id=form>
 		<table align="center">
 			<tr>
 				<td align=center>
@@ -303,7 +328,7 @@ text-decoration: none;
                 </textarea></td>
 						</tr>
 						<tr>
-							<td><input type="checkbox">이용약관에 동의합니다.<br> <br>
+							<td><input type="checkbox" id="req1">이용약관에 동의합니다.<br> <br>
 								<br> <br></td>
 						</tr>
 						<tr>
@@ -418,7 +443,7 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
                 </td>
 						</tr>
 						<tr>
-							<td><input type="checkbox">개인정보 수집 및 이용에 대한 안내에
+							<td><input type="checkbox" id="req2">개인정보 수집 및 이용에 대한 안내에
 								동의합니다.</td>
 						</tr>
 					</table>
@@ -429,10 +454,10 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
 		<tr>
 		<td><div align="center"style="margin-top:5%;">
 		
-			<button type="button" class="btn btn-warning"
+			<button type="button" class="btn btn-warning" onclick="chk()"
 				style="width: 470px; height: 50px; font-size: 20px; border-radius: 6px;"><a href="/dsm/views/member/conJoinForm.jsp"><div style="color:white">소비자로 가입하기</div></a></button>
 		
-			<button type="button" class="btn btn-warning"
+			<button type="button" class="btn btn-warning" onclick="chk()"
 				style="width: 470px; height: 50px; font-size: 20px; border-radius: 6px; :white;"><a href="/dsm/views/member/SelJoinForm.jsp"><div style="color:white">판매자로 가입하기</div></a></button>
 		
 </div></td>
