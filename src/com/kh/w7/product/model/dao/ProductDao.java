@@ -515,6 +515,7 @@ public class ProductDao {
 		return result;
 	}
 
+	
 	 /* 상품 업데이트 - 이미지 */ 
 	public int updateAttachment(Connection con, ArrayList<Attachment> fileList, int num) {
 		PreparedStatement pstmt = null;
@@ -527,19 +528,15 @@ public class ProductDao {
 				pstmt = con.prepareStatement(query);
 				pstmt.setString(1, fileList.get(i).getOriginName());
 				pstmt.setString(2, fileList.get(i).getChangeName());
+				pstmt.setString(3, fileList.get(i).getImgFilePath());
+				pstmt.setInt(4, num);
+				pstmt.setInt(5, fileList.get(i).getImgNo());
 
-				int level = 0;
-				if(i==0) level=0;
-				else level=1;
-				pstmt.setInt(3, level);
-				pstmt.setString(4, fileList.get(i).getImgFilePath());
-				pstmt.setInt(5, num);
-
-				System.out.println("getOriginName() updateAttachment Dao 이미지 : "+fileList.get(i).getOriginName());
-				System.out.println("getChangeName() updateAttachment Dao 이미지 : "+fileList.get(i).getChangeName());
-				System.out.println("level updateAttachment Dao 이미지 : "+level);
+				System.out.println("getOriginName() updateAttachment Dao 이미지(ORIGIN) : "+fileList.get(i).getOriginName());
+				System.out.println("getChangeName() updateAttachment Dao 이미지(CHANGE) : "+fileList.get(i).getChangeName());
 				System.out.println("getImgFilePath() updateAttachment Dao 이미지 : "+fileList.get(i).getImgFilePath());
 				System.out.println("num updateAttachment Dao 이미지 : "+num);
+				System.out.println("getImgNo() updateAttachment Dao 이미지번호 : "+fileList.get(i).getImgNo());
 				
 				result += pstmt.executeUpdate(); // 누적 연산으로 합쳐준다
 				
@@ -554,6 +551,8 @@ public class ProductDao {
 		return result;
 	}
 
+
+	 /* 상품 업데이트 - 추가 상품 */ 
 	public int updatePlusProduct(Connection con, ArrayList<PlusProduct> pList, int num, ArrayList<String> plusList, ArrayList<PlusProduct> fixedpList) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -592,7 +591,7 @@ public class ProductDao {
 
 
 	/* ajax를 이용한 검색(검색어 입력 후 검색버튼 클릭 시) */
-	public ArrayList<HashMap<String, Object>> searchtList(Connection con, int currentPage, int limit, String searchList) {
+	public ArrayList<HashMap<String, Object>> searchtList(Connection con, int currentPage, int listCount, int limit, String searchList) {
 		PreparedStatement pstmt = null;
 		ArrayList<HashMap<String, Object>> list = null;
 		HashMap<String, Object> hmap = null;
@@ -634,6 +633,8 @@ public class ProductDao {
 				hmap.put("productRegisterDate", rset.getDate("PRODUCT_REGISTERDATE"));
 				hmap.put("productDeleteYN", rset.getInt("PRODUCT_DELETEYN"));				
 				
+				hmap.put("listCount", listCount);
+				
 				list.add(hmap);
 			}
 						
@@ -645,6 +646,59 @@ public class ProductDao {
 		}
 		System.out.println("이미지 리스트(검색어: "+searchList+" ): "+list);
 		return list;
+	}
+
+
+	/* 상품 삭제(update PRODUCT_DELETEYN=1) */
+	public int deleteOne(Connection con, String num) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteOne");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(num));
+						
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println("result(deleteOne) Dao 업데이트 확인 : "+result);
+		return result;
+	}
+
+	
+	/* 특정 게시글 수 조회 */
+	public int getTitleListCount(Connection con, String searchList) {
+		PreparedStatement pstmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("listCountTitle");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, searchList);
+
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		System.out.println("listCount(특정 게시물 수) : "+listCount);
+		return listCount;
 	}
 
 	
