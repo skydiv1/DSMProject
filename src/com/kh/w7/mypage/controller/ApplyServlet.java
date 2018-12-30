@@ -8,8 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
+import com.kh.w7.member.model.vo.Member;
 import com.kh.w7.mypage.model.service.MypageService;
 import com.kh.w7.mypage.model.vo.MyPage;
 
@@ -22,12 +24,11 @@ public class ApplyServlet extends HttpServlet {
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		//HttpSession session = request.getSession();
+		HttpSession session = request.getSession();
 
-		/*Member loginUser = (Member)session.getAttribute("loginUser");
-		int loginCode = loginUser.getMember_code();*/
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		int loginCode = loginUser.getMemberCode();
 		
-		int loginCode = 2;
 		
 		ArrayList<MyPage>list = new MypageService().selectList(loginCode);
 		

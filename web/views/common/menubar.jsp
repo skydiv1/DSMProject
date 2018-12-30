@@ -71,8 +71,21 @@
 					<% } %>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger"
 						href="/dsm/selectList.bo"><b>게시판</b></a></li>
+						
+						
+						
+					<%  if(loginUser!=null && loginUser.getMemberCategory() == 0){  %>	
+					<li class="nav-item"><a class="nav-link js-scroll-trigger"
+						href="/dsm/selectList.consumer"><b>마이페이지</b></a></li>
+					<%}else if(loginUser!=null && loginUser.getMemberCategory() == 1){  %>	
+					<li class="nav-item"><a class="nav-link js-scroll-trigger"
+						href="/dsm/selectList.seller"><b>마이페이지</b></a></li>
+					<%}else{ %>	
 					<li class="nav-item"><a class="nav-link js-scroll-trigger"
 						href="/dsm/views/member/login.jsp"><b>마이페이지</b></a></li>
+					<%} %>		
+					
+					
 					<li class="nav-item"><a class="nav-link js-scroll-trigger"
 						href="/dsm/views/faq/FAQ.jsp"><b>고객센터</b></a></li>
 				</ul>

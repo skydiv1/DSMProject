@@ -24,13 +24,25 @@
  
 </style>
 <script type="text/javascript">
-/* function addBtnEvent() {
-	$("#cancelBtn").클릭(){
-		ajax
-		succsses:selectListAp();
+/*  function addBtnEvent() {
+	$("#cancelBtn").click(function () {//취소 팝업에 있는 버튼 누를때
+		var textContent = $("textContent").val();//신청사유
 		
-	}
-	
+		.ajax({
+			url:"${pageContext.request.contextPath}/cancelupdate.consumer",
+			type : "get",
+			data : {no:no, textContent:textContent}
+			success : function (data) {
+				selectListAp();
+			}
+			
+		});
+	});
+		
+	} 
+  */
+		
+	/*
 	$("#삭제").클릭(){
 		ajax
 	}
@@ -39,7 +51,7 @@
 		ajax
 	}	
 	
-} */
+ */
 
 
 
@@ -49,22 +61,28 @@ function selectListAp(pg) {
 		url : "${pageContext.request.contextPath}/selectList.ap",
 		type :"get",
 		success : function (data) {
-			console.log(data[0].member_id+ ":2");
 			var apListHtml = [];
-			
+			var no =0;
 			for(var i=0; i<data.length; i++){
 				apListHtml.push('<tr>');
 				apListHtml.push('	<th scope="row">' + (i+1) + '</th>');
+				apListHtml.push('	<td class="td1" style="display: none">' +data[i].dealNo + '</td>');
 				apListHtml.push('	<td class="td1">' +data[i].member_id + '</td>');
 				apListHtml.push('	<td class="td1">' +data[i].productName+ '</td>');
 				apListHtml.push('	<td class="td1">' +data[i].dealListaddMsg + '</td>');
-				apListHtml.push('	 <td style="width: 30px"><button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#cencelModal">취소</button></td>');
+				apListHtml.push('	 <td style="width: 30px"><button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#cencelModal" id="cBtn" >취소</button></td>');
 				apListHtml.push('</tr>');
 				
 				
 			}
 			$("#applylist").html(apListHtml);
-			//addBtnEvent();버튼 함수 불러오기
+			
+			/* addBtnEvent(
+					$("#cBtn").click(function () {
+						no = $("#applylist").children().eq(1).val();
+					})
+					
+			);//버튼 함수 불러오기 */
 		}
 	});
 }
@@ -77,7 +95,7 @@ function selectListAp(pg) {
 </head>
 <body>
 <!-- 네비게이션 바 -->
-		<%@ include file = "../common/naviLogin.jsp" %>
+		<%@ include file = "../common/menubar.jsp" %>
 		<%@ include file = "../common/CancelPopUp.jsp" %>
 		<%@ include file = "../common/ReviewPopUp.jsp" %>
 		<%@ include file = "../common/AskPopUp.jsp" %>
@@ -97,6 +115,7 @@ function selectListAp(pg) {
 			  <thead>
 			    <tr>
 			      <th scope="col">No</th>
+			      <th scope="col" class="td1" style="display: none">거래번호</th>
 			      <th scope="col" class="td1">판매자ID</th>
 			      <th scope="col" class="td1">구매상품명</th>
 			      <th scope="col" class="td1">신청 내용</th>
@@ -107,10 +126,11 @@ function selectListAp(pg) {
 			  <tbody id="applylist">
 			    <tr>
 			      <th scope="row"></th>
+			      <td class="td1" style="display: none"></td>
 			      <td class="td1"></td>
 			      <td class="td1"></td>
 			      <td class="td1"></td>
-			      <td style="width: 30px"><button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#cencelModal">취소</button></td>
+			      <td style="width: 30px"><button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#cencelModal" id="cBtn">취소</button></td>
 			    </tr>
 
 		

@@ -25,6 +25,22 @@ public class MypageService {
 		return list;
 	}
 
+	public int cancelUpdate(int loginCode, int no, String textContent) {
+		Connection con = getConnection();
+		
+		int result = new MypageDao().cancelUpdate(con, loginCode, no,textContent );
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
 	
 	
 }
