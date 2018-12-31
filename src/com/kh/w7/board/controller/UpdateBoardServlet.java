@@ -32,44 +32,30 @@ public class UpdateBoardServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		int boardNo = Integer.parseInt(request.getParameter("BoardNo"));
 		String title = request.getParameter("Boardtitle");
 		String content = request.getParameter("BoardContext");
-		int boardNo = Integer.parseInt(request.getParameter("BoardNo"));
-		String date = request.getParameter("Boarddate");
+
 		
-		/*System.out.println(title);
+		System.out.println(boardNo);
+		System.out.println(title);
 		System.out.println(content);
-		System.out.println(nno);
-		System.out.println(date);*/
-		
-		java.sql.Date day = null;
-		
-		if(date != "") {
-			String[] drr = date.split("-");
-			int[] irr = new int[drr.length];
-			for(int i = 0; i < irr.length; i++) {
-				irr[i] = Integer.parseInt(drr[i]);
-			}
-			
-			day = new java.sql.Date(new GregorianCalendar(irr[0], irr[1] - 1, irr[2]).getTimeInMillis());
-		}else {
-			day = new java.sql.Date(new GregorianCalendar().getTimeInMillis());
-		}
-		
+
 		Board b = new Board();
 		b.setBoardTitle(title);
 		b.setBoardContext(content);
-		b.setBoardDate(day);
 		b.setBoardNo(boardNo);		
+
 	
 		
 		int result = new BoardService().updateBoard(b);
 		
 		String page = "";
 		if(result > 0) {
-			response.sendRedirect("/jsp/selectOne.no?num=" + boardNo);
+			page = "views/dsm/selectOne.bo?num="+boardNo;
+			response.sendRedirect("/dsm/selectOne.bo?num=" + boardNo);
 		}else {
-			request.setAttribute("msg", "공지사항 수정 실패!");
+			request.setAttribute("msg", "수정안됨");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 		

@@ -80,7 +80,7 @@ public class BoardDao {
 		
 	}
 
-	public int insertBoard(Connection con, Board board) {
+	public int insertBoard(Connection con, Board insertBoard) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
@@ -88,15 +88,13 @@ public class BoardDao {
 		System.out.println(query);
 		
 		try {
-			pstmt = con.prepareStatement(query);
-			
-			pstmt.setInt(1, board.getMemberCode());
-			pstmt.setString(2, board.getBoardTitle());
-			pstmt.setString(3, board.getBoardContext());	
-			
+			pstmt = con.prepareStatement(query);			
+			pstmt.setInt(1, insertBoard.getMemberCode());
+			pstmt.setString(2, insertBoard.getBoardTitle());
+			pstmt.setString(3, insertBoard.getBoardContext());	
 
 			
-			System.out.println(board);
+			System.out.println(insertBoard);
 			result = pstmt.executeUpdate();
 			System.out.println(result);
 			
@@ -143,6 +141,7 @@ public class BoardDao {
 				Board b = new Board();			  
 				
 				b.setBoardNo(rset.getInt("BOARD_NO"));
+				/*b.setMemberCode(rset.getInt("MEMBER_CODE"));*/
 				b.setMemberName(rset.getString("MEMBER_NAME"));
 				b.setBoardTitle(rset.getString("BOARD_TITLE"));
 				b.setBoardContext(rset.getString("BOARD_CONTEXT"));
@@ -323,7 +322,9 @@ public class BoardDao {
 		int result = 0;
 		
 		String query = prop.getProperty("updateBoard");
-
+		
+		System.out.println(query);
+		
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, b.getBoardTitle());
@@ -331,6 +332,8 @@ public class BoardDao {
 			pstmt.setInt(3, b.getBoardNo());
 			
 			result = pstmt.executeUpdate();
+			
+			System.out.println(result);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

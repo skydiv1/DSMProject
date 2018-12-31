@@ -23,7 +23,6 @@
 			
 			<form>
 			      <caption><h2><span><b><%=b.getBoardTitle() %></b></span> </td></h2> </caption>
-        </thead>
         <hr>
 	 <tr height="1" bgcolor="#dddddd"><td colspan="4" width="407"></td></tr>
 	 <table>
@@ -49,11 +48,12 @@
 			<form action="" method="post" name="">
 			<font size="4" color="red">댓글 2</font>
       
-			<div style="margin:0px 0px 0px 900px; margin-right:10px; ">	
+			<div style="margin:0px 0px 0px 800px; margin-right:10px; ">	
+			   <%-- <% if(loginUser != null && loginUser.getMemberCode() == b.getMemberCode()){ %> --%>
 			  <a href="<%=request.getContextPath()%>/selectList.bo" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">목록으로</a>			  
-			  <% if(loginUser != null && loginUser.getMemberCode() == b.getMemberCode()){ %>			  	  
-			  <a href="<%=request.getContextPath()%>/selectBoard.no?num=<%=b.getBoardNo()%>"class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">수정하기</a>			  	
-			  <% } %>
+			   <% if(loginUser != null && loginUser.getMemberName().equals(b.getMemberName())){ %> 			  	  
+			  <a href="<%=request.getContextPath()%>/selectBoard.bo?num=<%=b.getBoardNo()%>"class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">수정하기</a>			  	
+			   <% } %>
 				
 			 </div> 
 				<hr>

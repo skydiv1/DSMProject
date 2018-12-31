@@ -1,9 +1,6 @@
 package com.kh.w7.board.controller;
 
 import java.io.IOException;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.GregorianCalendar;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,22 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 import com.kh.w7.board.model.service.BoardService;
 import com.kh.w7.board.model.vo.Board;
-import com.kh.w7.member.model.vo.Member;
 
 /**
- * Servlet implementation class InsertBoardServlet
+ * Servlet implementation class SelectBoardServlet
  */
-@WebServlet("/insert.bo")
-public class InsertBoardServlet extends HttpServlet {
+@WebServlet("/selectBoard.bo")
+public class SelectBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertBoardServlet() {
+    public SelectBoardServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,40 +31,22 @@ public class InsertBoardServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-	
-		String title = request.getParameter("title");
-		String writer = request.getParameter("writer");
-		String uno = request.getParameter("memberCode");
-		String content = request.getParameter("content");
-		
-		/*java.sql.Date day = null;*/
-		
-		
-		
-		Board b = new Board();
-		b.setBoardTitle(title);
-		b.setMemberName(uno);
-		b.setBoardContext(content);
-		
-		int result = new BoardService().insertBoard(b);
-		
-		System.out.println(content);
-		System.out.println(title);
-		System.out.println(content);
-		
+		String num = request.getParameter("num");
+		Board b = new BoardService().selectOne(num);
 		
 		String page="";
-	
-		if(result>0) {
-			page = "/dsm/selectList.bo";
-			/*response.sendRedirect(request.getContextPath()+"/selectList.bo");*/
-			response.sendRedirect(page);
-			
+		if(b != null) {
+			page = "views/board/boardUpdate.jsp";
+			request.setAttribute("b", b);		
 		}else {
-			request.setAttribute("msg", "실패");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			page = "views/common/errorPage.jsp";
+			request.setAttribute("msg", "수정을 할 수 없습니다.");
 		}
+		RequestDispatcher view = request.getRequestDispatcher(page);
+		view.forward(request, response);
+		
+		
+		
 	}
 
 	/**
@@ -81,10 +58,3 @@ public class InsertBoardServlet extends HttpServlet {
 	}
 
 }
-
-
-
-
-
-
-
