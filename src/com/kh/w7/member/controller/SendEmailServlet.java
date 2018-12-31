@@ -113,7 +113,7 @@ public class SendEmailServlet extends HttpServlet {
             msg.setHeader("Content-type", "text/html; charset=UTF-8");
  */
 		    
-            Transport.send(msg);
+           //Transport.send(msg);
        
             System.out.println("보냄");
             
