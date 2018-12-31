@@ -213,6 +213,7 @@ public class MemberDao {
 	        
 	        Connection conn = null;
 	        PreparedStatement pstmt = null;
+	        
 	        int result =0;
 	        String query= prop.getProperty("updateMember");
 	 
@@ -234,15 +235,47 @@ public class MemberDao {
 	        } catch (Exception e) {
 	           e.printStackTrace();
 	        } finally {
-	            try{
-	                if ( pstmt != null ){ pstmt.close(); pstmt=null; }
-	                if ( conn != null ){ conn.close(); conn=null;    }
-	            }catch(Exception e){
-	                throw new RuntimeException(e.getMessage());
+	        	  close(pstmt);
+					
 	            }
-	        }
+	        
 			return result;
-	    } 
+	    }
+
+	public int leaveMember(Connection con, int memberStatus) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public String findid(Connection con, String memberName, String memberEmail) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String memberId="";
+		
+		String query = prop.getProperty("findID");
+		
+		try {
+			pstmt=con.prepareStatement(query);
+			pstmt.setString(1, memberName);
+			pstmt.setString(2, memberEmail);
+			
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				memberId = rset.getString("MEMBER_ID");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return memberId;
+	}
+	
 
 
 
