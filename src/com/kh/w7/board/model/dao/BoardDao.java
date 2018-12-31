@@ -21,6 +21,7 @@ import oracle.net.aso.b;
 
 public class BoardDao {
 	private Properties prop = new Properties();
+	private static String selectSEQ = "SELECT SEQ_BOARD.NEXTVAL FROM DUAL";
 	
 	public BoardDao() {
 		String fileName = BoardDao.class.getResource("/sql/board/board-query.properties").getPath();
@@ -100,6 +101,13 @@ public class BoardDao {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+			try {
+				pstmt = con.prepareStatement(selectSEQ);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
 		} finally {
 			close(pstmt);
 		}
@@ -345,10 +353,7 @@ public class BoardDao {
 		return result;
 	}
 
-	public int insertAttachment(Connection con, ArrayList<Attachment> boardNo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	
 	
 	
 

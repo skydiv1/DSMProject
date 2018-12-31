@@ -37,7 +37,7 @@
 			    <label ><h3>내용 </h3></label>
 			<hr>
 			  <div class="form-group">
-			    <textarea name="BoardContext" type="context" cols="60" rows="15" name="content" placeholder="내용을 입력해 주세요" value="<%= b.getBoardContext() %>"></textarea>
+			    <textarea name="BoardContext" type="context" cols="60" rows="15" name="context" placeholder="내용을 입력해 주세요" ><%= b.getBoardContext() %></textarea>
 			  </div>
         
         
@@ -46,9 +46,8 @@
    	<hr>      
 			<div style="margin:0px 0px 0px 870px; margin-right:10px; ">	
 		
-			  <button class="btn btn-default onclick="complet()">수정완료</button>
+			  <button class="btn btn-default onclick="complet()">확인</button>
 
-			  <button class="btn btn-default onclick="location.href='<%=request.getContextPath()%>/selectOne.bo?num=<%=b.getBoardNo() %>'">취소</button>
 			  
 			  <button class="btn btn-default onclick="deleteBoard()">삭제하기</button>			  
 			 </div> 
