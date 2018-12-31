@@ -10,13 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.kh.w7.board.model.service.BoardService;
+import com.kh.w7.board.model.vo.Board;
+import com.kh.w7.reply.*;
 import com.kh.w7.reply.model.service.ReplyService;
 import com.kh.w7.reply.model.vo.Reply;
 
 /**
  * Servlet implementation class InsertReplyServlet
  */
-@WebServlet("/insertReply.bo")
+@WebServlet("/insertReply.ro")
 public class InsertReplyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -32,22 +35,24 @@ public class InsertReplyServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int memberCode = Integer.parseInt(request.getParameter("Member_Code"));
-		int replyNo = Integer.parseInt(request.getParameter("Reply_NO"));
-		String replyContext = request.getParameter("Reply_Context");
+		request.setCharacterEncoding("utf-8");
+		int BoardNo = Integer.parseInt(request.getParameter("BoardCode"));
+		int MemberCode = Integer.parseInt(request.getParameter("MemberCode"));
+		String context = request.getParameter("BoardContext");
 		
-				
+		System.out.println(BoardNo);
+		System.out.println(MemberCode);
+		System.out.println(context);
+		
 		Reply r = new Reply();
-		r.setReplyNo(replyNo);
-		r.setMemberCode(memberCode);
+		r.setBoardNo(BoardNo);
+		r.setMemberCode(MemberCode);
+		r.setReplyContext(context);		
 		
-				
 		ArrayList<Reply> replyList = new ReplyService().insertReply(r);
 		
 		response.setContentType("application/json");
-		new Gson().toJson(replyList, response.getWriter());
-		
-		
+		new Gson().toJson(replyList, response.getWriter());		
 	}
 
 	/**

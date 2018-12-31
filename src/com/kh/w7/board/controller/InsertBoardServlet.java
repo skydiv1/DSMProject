@@ -41,22 +41,22 @@ public class InsertBoardServlet extends HttpServlet {
 		String title = request.getParameter("title");
 		String writer = request.getParameter("writer");
 		String uno = request.getParameter("memberCode");
-		String content = request.getParameter("content");
+		String context = request.getParameter("context");
 		
 		/*java.sql.Date day = null;*/
 		
 		
 		
 		Board b = new Board();
-		b.setBoardTitle(title);
 		b.setMemberName(uno);
-		b.setBoardContext(content);
+		b.setBoardTitle(title);
+		b.setBoardContext(context);
 		
 		int result = new BoardService().insertBoard(b);
 		
-		System.out.println(content);
+		System.out.println(uno);
 		System.out.println(title);
-		System.out.println(content);
+		System.out.println(context);
 		
 		
 		String page="";

@@ -62,6 +62,11 @@
 			</table>
 			<br><br>
 			<!-- 댓글 란 -->
+			<div class="replyArea">
+			  <input type="text" class="form-control" placeholder="댓글을 입력하세요" >
+			  <div >
+			    <button class="btn btn-outline-secondary" type="button" id="addReply">댓글 등록</button>
+			  </div>			
 			  <table style="width: 300px;">			       
                <tr>
                   <td rowspan="2"><img class="mx-auto rounded-circle"
@@ -81,41 +86,60 @@
                   </td>
                </tr>
             </table> 
-            	<hr>  
-            	  <table style="width: 300px;">			       
-               <tr>
-                  <td rowspan="2"><img class="mx-auto rounded-circle"
-                     src="/dsm/img/team/1.jpg" alt=""
-                     style="width: 90px; height: 90px;"></td>
-                  <td width="80%" style="border-bottom: 1px solid #EAEAEA;"><span>18.12.1
-                        11:42</span> 
-                  </span></td>
-               </tr>
-               <tr>
-                  <td>
-                     <div>
-                        <b>아는사람</b>
-                     </div>
-                     <div>좋은글이네요 퍼갑니다
-                     </div>
-                  </td>
-               </tr>               
-            </table>                      
-			<hr>
-			<div class="input-group mb-3">
-			  <input type="text" class="form-control" placeholder="댓글을 입력하세요" aria-label="Recipient's username" aria-describedby="button-addon2">
-			  <div class="input-group-append">
-			    <button class="btn btn-outline-secondary" type="button" id="button-addon2">댓글 등록</button>
-			  </div>
-			</div>			
-			<br>
-			<br>
-		
-		
-		</table>
-	</table>
-		</form>
+            <!--  위에 있는걸 밑에 있는거에 적용시켜야됨   -->
+			<div class="replyArea">
+				<div class="replyWriterArea">
+					<tr>
+						<td><textarea rows="3" cols="80" id="replyContext"></textarea>
+						<td><button id="addReply">댓글 등록</button></td>
+					</tr>					
+				</div>			
+			</div>
+			<div id="replySelectArea">
+			<table id="replySelectTable" border="1" align="center"></table>
 		</div>
+	</div>
+	
+	<script>
+		$(function(){
+			$("#addReply").click(function(){
+				var writer = <%= loginUser.getMemberName() %>;
+				var BoardNo = <%= b.getBoardNo() %>;
+				var content = $("#replyContext").val();
+				
+				$.ajax({
+					url:"/w7/insertReply.bo",
+					data:{writer:writer, context:context, BoardNo:BoardNo},
+					type:"post",
+					success:function(data){
+						console.log(data);
+						
+						var $replySelectTable = $("#replySelectTable");
+						$replySelectTable.html('');
+						
+						for(var key in data){
+							var $tr = $("<tr>");
+							var $writerTd = $("<td>").text(data[key].Member).css("width","100px");
+							var $contentTd = $("<td>").text(data[key].bContent).css("width","400px");
+							var $dateTd = $("<td>").text(data[key].bDate).css("width", "200px");
+							
+							$tr.append($writerTd);
+							$tr.append($contentTd);
+							$tr.append($dateTd);
+							$replySelectTable.append($tr);
+						}
+						
+						
+					},
+					error:function(){
+						console.log(실패);
+					}
+				});
+			});
+		});
+	</script>
+		<!-- 여기까지가 끌어온거 여러가지 바꿔야됨  -->	
+            	
 		<br>
 		<br><br>
 		<br>
