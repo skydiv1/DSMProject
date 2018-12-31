@@ -70,8 +70,8 @@
 <section class="bg-light" id="portfolio">
 <div class="container" align = "center">
 	<div align = "center">
-		<div  style = "font-size : 1.3em; font-weight : bold;">user1님의 환급 신청 가능한 금액은</div>
-		<div id = "refundMoney"  style = "font-size : 1.7em; font-weight : bold; color : red;">580000<div style = "display : inline; color : black; font-size : 0.8em; font-weight : bold;">원 입니다</div></div>
+		<div  style = "font-size : 1.3em; font-weight : bold;">'<%= loginUser.getMemberName() %>'님의 환급 신청 가능한 금액은</div>
+		<div id = "refundMoney"  style = "font-size : 1.7em; font-weight : bold; color : red;">0<div style = "display : inline; color : black; font-size : 0.8em; font-weight : bold;">원 입니다</div></div>
      	<div  style = "font-size : 1.3em; font-weight : bold;">아래 환급계좌 정보를 입력해 주세요.</div>
       	<div  style = "font-size : 1.0em; font-weight : bold; color : gray;">환급처리는 일반적으로 신청일로부터 2일 후(토,일, 공휴일제외)에 일괄 처리됩니다.</div>
 	</div>
@@ -178,10 +178,31 @@
 		
 		
 	}); */
-	
+	function addZero(i) {
+	  	if (i < 10) {
+	   	 	i = "0" + i;
+	 	}
+	 	return i;
+	}
 
 	
 	$(function(){
+		
+		$.ajax({
+			url : "/dsm/selectNowCashRefund",
+			data : {
+				memberCode : <%= loginUser.getMemberCode()%>
+			},
+			type : "post",
+			success : function(data){
+				var tag = $('<div style = "display : inline; color : black; font-size : 0.8em; font-weight : bold;">원 입니다</div>');
+				$("#refundMoney").text(data).append(tag);
+			},
+			error : function(data){
+				console.log(data);
+			}
+		});
+		
 		
 		var myAccessToken; //access_token저장용 변수
 		
@@ -253,16 +274,24 @@
 
 			
 			var d = new Date();
-			var nowDate = ""+d.getFullYear()+""+(d.getMonth() + 1)+""+d.getDate()+""+d.getHours()+""+d.getMinutes()+""+d.getSeconds();
+			var nowDate = ""+addZero(d.getFullYear())+""+addZero((d.getMonth() + 1))+""+addZero(d.getDate())+""+addZero(d.getHours())+""+addZero(d.getMinutes())+""+addZero(d.getSeconds());
 			console.log("nowDate : " + nowDate);
 			
-			var data = {
+			/* var data = {
 					  "bank_code_std": "002", 		
 					  "account_num": "1234567890123456",
 					  "account_holder_info_type" : " ",
 					  "account_holder_info": "880101",	
 					  "tran_dtime": nowDate 
-					};
+					}; */
+					
+			var data = {
+					  "bank_code_std": "004", 		
+					  "account_num": "93680101084273",
+					  "account_holder_info_type" : " ",
+					  "account_holder_info": "941202",	
+					  "tran_dtime": nowDate 
+					}; 
 			
 			$.ajax({
 				url : "https://testapi.open-platform.or.kr/v1.0/inquiry/real_name",

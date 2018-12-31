@@ -53,6 +53,12 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+
+	<script>
+		refundNoMap = {};
+	</script>
+	
+	
 </head>
 <body>
 
@@ -83,12 +89,12 @@
 				<!-- /.dropdown -->
 			</ul>
             <!-- /.navbar-top-links -->
-
+			
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href="/dsm/views/admin/pages/adminMember.jsp"><i class="fa fa-table fa-fw"></i> 회원관리</a>
+                            <a href="/dsm/selectAllMember"><i class="fa fa-table fa-fw"></i> 회원관리</a>
                         </li>
 						
 						<li>
@@ -118,10 +124,11 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            DataTables Advanced Tables
+                            	환불신청 판매자 목록
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
+                        
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                     <tr>
@@ -152,13 +159,12 @@
                                         <td class="center">지급완료</td>
                                         <% } %>
                                         <% if(list.get(i).getRefund_StatusYN() == 0) {%>
-                                        <td class="center" align = "center"><button style = "background : lightgray; color : black">지급하기</button></td>
+                                        <td class="center" align = "center"><input type = "hidden" value = "<%= i%>"><button style = "background : lightgray; color : black" onclick = "location.href = '/dsm/updateRefundStatus?refundNo=<%= list.get(i).getRefund_no() %>'">지급완료</button></td>
                                         <% }else{ %>
                                         <td class="center"></td>
                                         <% } %>
                                     </tr>
-                                <%} %>
-                                    
+                                <%} %>    
                                 </tbody>
                             </table>
                             <!-- /.table-responsive -->
@@ -166,6 +172,10 @@
                         <!-- /.panel-body -->
                     </div>
                     <!-- /.panel -->
+                    <div align = "right">
+                    <button style = "background : lightgray; color : black; width : 100px; height : 40px; margin-right : 20px;" onclick = "window.print()">인쇄하기</button>
+                    </div>
+                    
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -200,6 +210,8 @@
         });
     });
     
+
+   
 
     </script>
 
