@@ -12,7 +12,17 @@ public class RefundService {
 		// TODO Auto-generated method stub
 		Connection con = getConnection();
 		
-		int result = new RefundDao().insertRefundData(con, r);
+		int resultA = new RefundDao().insertRefundData(con, r); //refund테이블에 값넣기
+		int resultB = new RefundDao().insertRefundListData(con, r); //refundList테이블에 값 넣기
+		int resultC = new RefundDao().insertMemberCashRefundData(con, r); //membercash테이블에 값 넣기
+		
+		System.out.println("resultA : " + resultA);
+		System.out.println("resultB : " + resultB);
+		System.out.println("resultC : " + resultC);
+		
+		int result = resultA + resultB + resultC;
+		System.out.println("result : " + result);
+		
 		
 		if(result > 0) {
 			commit(con);

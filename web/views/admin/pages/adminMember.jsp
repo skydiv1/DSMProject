@@ -50,7 +50,7 @@
 			style="margin-bottom: 0">
 			<div class="navbar-header">
 				<a class="navbar-brand"
-					href="http://localhost:8001/dsm/views/admin/pages/adminMain.jsp#">관리자
+					href="/dsm/views/admin/pages/adminMain.jsp">관리자
 					페이지</a>
 			</div>
 			<!-- /.navbar-header -->
@@ -78,15 +78,15 @@
 				<div class="sidebar-nav navbar-collapse">
 					<ul class="nav" id="side-menu">
 	                 <li>
-                            <a href="adminMember.jsp"><i class="fa fa-table fa-fw"></i> 회원관리</a>
+                            <a href="/dsm/views/admin/pages/adminMember.jsp"><i class="fa fa-table fa-fw"></i> 회원관리</a>
                         </li>
 						
 						<li>
-                            <a href="adminCash.jsp"><i class="fa fa-table fa-fw"></i> 환불관리</a>
+                            <a href="/dsm/selectAllRefund"><i class="fa fa-table fa-fw"></i> 환불관리</a>
                         </li>
 						
 						<li>
-                            <a href="adminQnaAnswer.jsp"><i class="fa fa-table fa-fw"></i> 고객센터</a>
+                            <a href="/dsm/views/admin/pages/adminQnaAnswer.jsp"><i class="fa fa-table fa-fw"></i> 고객센터</a>
                         </li>
 					</ul>
 				</div>

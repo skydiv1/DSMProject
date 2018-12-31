@@ -1,8 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+   <%--  <%
+    	response.addHeader("Access-Control-Allow-Origin", "*");
+		response.setHeader("Access-Control-Allow-Headers", "origin, x-requested-with, content-type, accept");
+    %> --%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head lang="en">
+	
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -53,6 +58,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script>
 		accountCheck = 0;  //계좌 번호 정상입력 확인용 토글변수
+		
 	</script>
   </head>
 <body>
@@ -130,7 +136,7 @@
 
 
 <script>
-	$(function(){
+	/* $(function(){
 		
 		
 		$("#accountCertBtn").click(function(){
@@ -167,7 +173,130 @@
 				}
 			});
 		});
+		
+		
+		
+		
+	}); */
+	
+
+	
+	$(function(){
+		
+		var myAccessToken; //access_token저장용 변수
+		
+		$.ajax({
+			url : "https://testapi.open-platform.or.kr/oauth/2.0/token",
+			data : { 
+					"client_id": "l7xxf0b4cdc5b4f64969abbed10a215d2e34",
+				  "client_secret": "ef38c48fc14d46edb1ef9df3445ee63c",
+				  "scope" : "oob",
+				  "grant_type" : "client_credentials"
+				  //"redirect_uri" : "http://localhost:8097/dsm/views/cash/refunds.jsp"
+				  },
+			type : "post",
+			contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+			//responseType:'application/json',
+			//dataType: 'jsonp',
+			success : function(data){
+				console.log(data);
+				myAccessToken = data.access_token;
+				console.log(myAccessToken);
+			},
+			error : function(){
+				console.log("실패!");
+			}
+		});
+		
+		
+		$("#accountCertBtn").click(function(){
+			var name = $("input[name = refundsName]").val();
+			var birth = $("input[name = refundsBirth]").val();
+			var bank = $("select[name = refundsBank]").val();
+			var account = $("input[name = refundsAccount]").val();
+			
+			$.ajax({
+				url : "/dsm/accountCert.re",
+				data : {name : name,
+						birth : birth,
+						bank : bank,
+						account : account},
+				type : "post",
+				success : function(data){
+					//console.log(data);
+					
+					
+					if($.trim(data).substring(0,3) == "정상적"){
+						accountCheck = 1;
+						console.log("accountCheck = 1");
+					}else{
+						accountCheck = 0;
+						console.log("accountCheck = 0");
+					}
+					data ="<label>" + data + "</label>";
+					$("#printEffectiveness *").remove("label");
+					$("#printEffectiveness").append(data).css({"color" : "red"});
+					
+				},
+				error : function(){
+					console.log("실패!");
+				}
+			});
+		});
+		
+		
+		
+		
+		
+		
+		$("#accountCertBtn").click(function(){
+
+			
+			var d = new Date();
+			var nowDate = ""+d.getFullYear()+""+(d.getMonth() + 1)+""+d.getDate()+""+d.getHours()+""+d.getMinutes()+""+d.getSeconds();
+			console.log("nowDate : " + nowDate);
+			
+			var data = {
+					  "bank_code_std": "002", 		
+					  "account_num": "1234567890123456",
+					  "account_holder_info_type" : " ",
+					  "account_holder_info": "880101",	
+					  "tran_dtime": nowDate 
+					};
+			
+			$.ajax({
+				url : "https://testapi.open-platform.or.kr/v1.0/inquiry/real_name",
+				headers: { 				
+					//"Accept": "application/json",
+					//'Content-Type': 'application/json',
+					'Authorization': ('Bearer ' + myAccessToken)
+				},
+				data : JSON.stringify(data),
+				type : "post",
+				contentType:'application/json; charset=UTF-8',
+				//dataType: 'jsonp',
+				success : function(data){
+					console.log(data);
+
+					
+				},
+				error : function(){
+					console.log("실패!");
+				}
+			});
+			
+	
+
+			
+			
+			
+			
+			
+		});
 	});
+	
+	
+	
 	
 	
 	$(function(){	
@@ -207,6 +336,7 @@
 				
 			}else{
 				console.log("else부분 실행됨");
+				var memberCode = <%= loginUser.getMemberCode()%>;
 				var name = $("input[name = refundsName]").val();
 				var birth = $("input[name = refundsBirth]").val();
 				var bank = $("select[name = refundsBank]").val();
@@ -218,7 +348,8 @@
 				
 				$.ajax({
 					url : "/dsm/applyRefund.re",
-					data : {name : name,
+					data : {memberCode : memberCode,
+							name : name,
 							birth : birth,
 							bank : bank,
 							account : account,
