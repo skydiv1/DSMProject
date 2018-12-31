@@ -88,7 +88,7 @@ form {
 						<div class="col-sm-10">
 							<input type="password" class="form-control" id="memberPwd"
 								name="memberPwd" maxlength="13" style="width: 550px"
-								placeholder="Password">
+								placeholder="Password"> <font color="red">*7~15자 영문 대 소문자, 숫자를 사용하세요.</font>
 						</div>
 					</div>
 				</td>
@@ -121,9 +121,9 @@ form {
 						<label for="inputTel" class="col-sm-2 control-label">Phone</label>
 
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="memberTel"
-								name="memberTel" style="width: 550px" placeholder="Tel">
-							-를 포함해 입력하여 주십시오.
+							<input type="text" class="form-control" id="memberPhone"
+								name="memberPhone" style="width: 550px" placeholder="Phone">
+							<font color="red"> *숫자만 입력하세요.</font>
 						</div>
 					</div></td>
 			</tr>
@@ -132,17 +132,13 @@ form {
 				<td><div class="form-group">
 						<label for="inputEmail" class="col-sm-2 control-label">Email</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="memberEmail"
+							<input type="Email" class="form-control" id="memberEmail"
 								name="memberEmail" style="width: 550px" placeholder="Email">
 						</div>
 					</div></td>
 				<td style="padding-top: 14px;">
-					<button class="btn btn-warning" onclick="sendEmail();">이메일
-						인증</button> <span> <input type="hidden" value="<%=getRandom()%>"
-						id="randomCode"> <input type="hidden"
-						value="DroneServiceMarket@gmail.com" id="from"> <input
-						type="hidden" value="DSM" id="adName">
-				</span>
+					<button class="btn btn-warning" onclick="return sendEmail();">이메일인증</button> 
+						
 				</td>
 			</tr>
 			<%!public int getRandom() {
@@ -150,19 +146,22 @@ form {
 		random = (int) Math.floor((Math.random() * (99999 - 10000 + 1))) + 10000;
 		return random;
 	}%>
+	<span> <input type="hidden" value="<%=getRandom()%>"id="randomCode">
+						 <input type="hidden" value="DroneServiceMarket@gmail.com" id="from"> 
+						<input type="hidden" value="DSM" id="adName">
+					</span>
 
 			<tr>
 				<td><div class="form-group">
 						<label for="inputEConfirm" class="col-sm-2 control-label">인증번호</label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" id="code" onkeyup="checkCode()"
-								style="width: 250px" placeholder="인증번호 입력"> <div id="checkCode"></div><input
-								type="hidden" readonly="readonly" name="code_check" id="code_check" value="<%=request.getAttribute("code")%>">
+							<input type="text" class="form-control" id="code" style="width: 250px" placeholder="인증번호 입력">
+							
 
 						</div>
 					</div></td>
-				<td style="padding-top: 14px;"><button class="btn btn-danger" id="combtn">인증번호
-						확인</button></td>
+				<td style="padding-top: 14px;"><button class="btn btn-danger" onclick="return combtn();"
+						>인증번호 확인</button></td>
 			</tr>
 
 
@@ -188,12 +187,15 @@ form {
 	<script>
 		function insertCon(){
 			
-			join.action = "<%=request.getContextPath()%>/insertMember.me";
+			<%-- join.action = "<%=request.getContextPath()%>/insertMember.me"; --%>
 			var memberId=$("#memberId").val();
 			var memberPwd=$("#memberPwd").val();
 			var memberPwd2=$("#memberPwd2").val();
-			var memberPwdCheck = /[a-zA-Z0-9]{10,15}/g;
+			var memberPwdCheck = /[a-zA-Z0-9]{7,15}/g;
 			memberPwdResult = memberPwdCheck.test(memberPwd);
+			//여기까지 동작
+			console.log(memberPwd);
+			console.log(memberPwd2);
 			
 			if (($("#memberId").val() == "")) {
 				alert("아이디를 입력해주세요.");
@@ -201,20 +203,22 @@ form {
 			console.log(memberId);
 			
 				
-				if(memberPwd==memberPwd2){
-					if(memberPwdResult){
-						$("#join").submit();
-					}else{
-						alert("비밀번호를 확인해주세요")
-					}										
+				if(memberPwdResult){
+					if(memberPwd.equals(memberPwd2)){
+						alert("성공");
+						//$("#join").submit();
+						
+					}
+														
 				}else{
 					alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.\n 비밀번호를 확인해주세요.");
-				}
-			
 					
-
+					
+				}
+				alert("false리턴");
+				
 			
-			
+		
 		}
 		
 		function goMain() {
@@ -242,9 +246,9 @@ form {
 				data:{memberId:memberId},
 				success: function (data) {
 					if(data == "success"){ // 서블릿에서 처리
-						alert("사용이 가능한 아이디 입니다");
+						alert("중복 된 아이디 입니다");
 					}else if(data == "fail"){
-						alert("중복 된 아이디입니다");
+						alert("사용가능한 아이디 입니다.");
 					}
 				},
 				error: function (data) {
@@ -252,7 +256,7 @@ form {
 				}					
 			});
 		}else{
-			alert("부적절한 아이디입니다");
+			alert("부적절한 아이디입니다 영,숫자 혼합 7~15글자 이내로 입력하십시오");
 		}
 	}
 	
@@ -279,9 +283,10 @@ form {
 			
 		
 		});
+		return false;
 	
 	}
-	function checkCode(){
+	/* function checkCode(){
 		var v1= join.code_check.value;
 		var v2= join.code.value;
 		if(v1!=v2){
@@ -295,7 +300,25 @@ form {
 			
 		}
 	
+	} */
+	function combtn(){
+		var randomCode = $("#randomCode").val();
+		
+		if($("#code").val() == randomCode){
+			alert("이메일 인증 성공");
+			
+			
+		}else{
+			alert("이메일 인증 실패");
+			
+			 
+		}
+		console.log($("#code").val()); 
+		console.log(randomCode); 
+		return false;
 	}
+	
+
 	/* function memkReal() {
 		var combtn = document.getElementById("combtn");
 		combtn.type="submit";

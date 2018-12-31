@@ -220,10 +220,20 @@ form {
 					style="width: 400px; height: 50px; font-size: 20px; border-radius: 6px;"><div id="updateBtn" onclick="goMain();">취소하기</button>
 			</a>
 			<a href="/web/index.jsp">
-				<button type="submit" class="btn btn-defualt" 
-					style="width: 150px; height: 50px; font-size: 15px; border-radius: 6px;"><div id="DeleteBtn" onclick="DeleteMember();">탈퇴하기</button>
+				<button type="button" class="btn btn-defualt" 
+					style="width: 150px; height: 50px; font-size: 15px; border-radius: 6px;"><div id="DeleteBtn" onclick="leaveMember();">탈퇴하기</button>
 			</a>
 		</div>
+		</form>
+		<script>
+			function leaveMember() {
+				
+				
+			}
+		
+		
+		</script>
+		
 <br>
 		<%@ include file="/views/common/footer.jsp"%>
 		

@@ -19,8 +19,10 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
 	integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
 	crossorigin="anonymous"></script>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-	<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+<script
+	src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 <title>JoinForm</title>
 <style>
 #link {
@@ -48,38 +50,16 @@ form {
 #user {
 	padding-top: 20%;
 }
-.btn btn-cancle{
- margin-right:15%
-}
-a{
-text-decoration: none;
+
+.btn btn-cancle {
+	margin-right: 15%
 }
 
+a {
+	text-decoration: none;
+}
 </style>
-<script type="text/javascript">
-function chk(){
- var req1 = document.form.req1.checked;
- var req2 = document.form.req2.checked;
- var num = 0;
- if(req1 == true){
-  num = 1;
- }
- if(num==1){
-  document.form.submit();
- }else{
-  alert("개인정보 약관에 동의하셔야 합니다.");
- }
- if(req2 == true){
-	  num = 1;
-	 }
-	 if(num==1){
-	  document.form.submit();
-	 }else{
-	  alert("개인정보 약관에 동의하셔야 합니다.");
-	 }
-}
 
-</script>
 </head>
 <body>
 	<a href="/web/index.jsp" id="link">DSM</a>
@@ -88,7 +68,7 @@ function chk(){
 	<br>
 	<br>
 	<hr>
-	<form action="<%=request.getContextPath()%>/insertMember" method="post" id=form>
+	<form action="<%=request.getContextPath()%>/insertMember" method="post" id="form">
 		<table align="center">
 			<tr>
 				<td align=center>
@@ -104,13 +84,13 @@ function chk(){
 						<tr>
 							<td align=center><textarea name="tos" rows=15 cols=100>
 제1조(목적)
- 이 약관은 oooo 회사(전자상거래 사업자)가 운영하는 oooo 사이버 몰(이하 “몰”이라 한다)에서 제공하는 인터넷 관련
+ 이 약관은 DSM회사(전자상거래 사업자)가 운영하는 DSM(이하 “몰”이라 한다)에서 제공하는 인터넷 관련
  서비스(이하 “서비스”라 한다)를 이용함에 있어 사이버 몰과 이용자의 권리ㆍ의무 및 책임사항을 규정함을 목적으로 합니다.
     
  ※「PC통신, 무선 등을 이용하는 전자상거래에 대해서도 그 성질에 반하지 않는 한 이 약관을 준용합니다」
 
 제2조(정의)
- ①“몰” 이란 oooo 회사가 재화 또는 용역(이하 “재화등”이라 함)을 이용자에게 제공하기 위하여 컴퓨터등 정보통신설비를
+ ①“몰” 이란 DSM 회사가 재화 또는 용역(이하 “재화등”이라 함)을 이용자에게 제공하기 위하여 컴퓨터등 정보통신설비를
  이용하여 재화등을 거래할 수 있도록 설정한 가상의 영업장을 말하며, 아울러 사이버몰을 운영하는 사업자의 의미로도 
 사용합니다.
 
@@ -327,10 +307,15 @@ function chk(){
  ②“몰”과 이용자간에 제기된 전자상거래 소송에는 한국법을 적용합니다.
                 </textarea></td>
 						</tr>
+						
 						<tr>
-							<td><input type="checkbox" id="req1">이용약관에 동의합니다.<br> <br>
-								<br> <br></td>
+							<td><div align="center"><input type="checkbox" id="req2" 
+								style="width: 30px; height: 30px; margin-top:15px;">
+								<span style="font-size: 20px;">이용약관에 동의합니다.</span>
+								<br> <br> <br>
+							</div></td>
 						</tr>
+						
 						<tr>
 							<td>
 								<div>
@@ -340,7 +325,7 @@ function chk(){
 							</td>
 						</tr>
 						<tr>
-							<td align=center><textarea name="tos" rows=15 cols=100 >
+							<td align=center><textarea name="tos" rows=15 cols=100>
 수집하는 개인정보의 항목
 회사는 회원가입, 상담, 서비스 신청 및 제공 등을 위해 아래와 같은 개인정보를 수집하고 있습니다.
 - 이름, 이메일, 주소, 연락처, 핸드폰 번호, 아이디, 비밀번호, 닉네임, 팩스번호, 홈페이지 주소 또한 서비스 이용과정이나 사업
@@ -439,34 +424,75 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
 다음과 같습니다.
 '정보통신망 이용촉진 및 정보보호 등에 관한 법률'의 거래기록 보존 의무에 따른 보존: 1년
 
-                </textarea>
-                </td>
+                </textarea></td>
 						</tr>
+						
 						<tr>
-							<td><input type="checkbox" id="req2">개인정보 수집 및 이용에 대한 안내에
-								동의합니다.</td>
+							<td><div align="center"><input type="checkbox" 
+								style="width: 30px; height: 30px; margin-top:15px;">
+								<span style="font-size: 20px;">개인정보 수집 및 이용에 대한 안내에 동의합니다.</span>
+								<br> <br> <br>
+							</div></td>
 						</tr>
 					</table>
 
-			</td>
+				</td>
 			</tr>
-			
-		<tr>
-		<td><div align="center"style="margin-top:5%;">
-		
-			<button type="button" class="btn btn-warning" onclick="chk()"
-				style="width: 470px; height: 50px; font-size: 20px; border-radius: 6px;"><a href="/dsm/views/member/conJoinForm.jsp"><div style="color:white">소비자로 가입하기</div></a></button>
-		
-			<button type="button" class="btn btn-warning" onclick="chk()"
-				style="width: 470px; height: 50px; font-size: 20px; border-radius: 6px; :white;"><a href="/dsm/views/member/SelJoinForm.jsp"><div style="color:white">판매자로 가입하기</div></a></button>
-		
-</div></td>
-</tr>
-</table>
-</form>
 
-<br>
-		<%@ include file="/views/common/footer.jsp"%>
-	
+			<tr>
+				<td><div align="center" style="margin-top: 5%;">
+
+						<button type="button" class="btn btn-warning" onclick="chk1();"
+							style="width: 470px; height: 50px; font-size: 20px; border-radius: 6px;">
+							<a href="/dsm/views/member/conJoinForm.jsp"><div style="color: white">소비자로 가입하기</div></a>
+						</button>
+
+						<button type="button" class="btn btn-warning" onclick="chk1();"
+							style="width: 470px; height: 50px; font-size: 20px; border-radius: 6px; :white;">
+							<a href="/dsm/views/member/SelJoinForm.jsp"><div style="color: white">판매자로 가입하기</div></a>
+						</button>
+
+					</div></td>
+			</tr>
+		</table>
+	</form>
+	<script type="text/javascript">
+		function chk1() {
+			var req1 = form.req1;
+			
+			var num = 0;
+			if (req1 == true) {
+				num = 1;
+			}
+			if (num == 1) {
+				alert("개인정보 약관에 동의하십시오.");
+			} else {
+				
+				document.form.submit();
+			}
+
+		}
+		/* function chk2(form) {
+
+			var req2 = form.req2;
+			var num = 0;
+			if (req2 == true) {
+				num = 1;
+			}
+			if (num == 1) {
+				document.form.submit();
+
+			} else {
+				alert("이용약관에 동의하십시오.");
+			}
+
+			return false;
+
+		} */
+	</script>
+
+	<br>
+	<%@ include file="/views/common/footer.jsp"%>
+
 </body>
 </html>
