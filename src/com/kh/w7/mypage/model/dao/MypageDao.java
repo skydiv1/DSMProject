@@ -1,21 +1,20 @@
 package com.kh.w7.mypage.model.dao;
 
+import static com.kh.w7.common.JDBCTemplate.close;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
-
-import static com.kh.w7.common.JDBCTemplate.*;
 
 import com.kh.w7.mypage.model.vo.MyPage;
 
 public class MypageDao {
-	private Properties prop = new Properties();
+	private static Properties prop = new Properties();
 	
 	public MypageDao() {
 		String fileName = MypageDao.class.getResource("/sql/mypage/mypage_query.properties").getPath();
@@ -29,6 +28,7 @@ public class MypageDao {
 	}
 
 
+	//신청목록 조회
 	public ArrayList<MyPage> selectList(Connection con, int loginCode,int currentPage, int limit) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -73,7 +73,7 @@ public class MypageDao {
 		return list;
 	}
 
-
+	//취소버튼 눌렀을때
 	public int cancelUpdate(Connection con, int dealnum, String textContent) {
 		PreparedStatement pstmt = null;
 		int result =0;
@@ -99,7 +99,7 @@ public class MypageDao {
 
 
 	
-
+	//페이징 처리
 	public int getListCount(Connection con, int loginCode) {
 		PreparedStatement pstmt= null;
 		int listCount = 0;
@@ -127,6 +127,48 @@ public class MypageDao {
 		
 		
 		return listCount;
+	}
+
+	//취소 목록 조회
+	public static ArrayList<MyPage> selectCancelList(Connection con, int loginCode) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<MyPage> CancelList= null;
+		
+		String query = prop.getProperty("CancelselectList");
+		
+		try {
+			pstmt=con.prepareStatement(query);
+			
+			
+			pstmt.setInt(1, loginCode);
+			
+			rset= pstmt.executeQuery();
+			
+			
+			CancelList = new ArrayList<MyPage>();
+			
+			while(rset.next()) {
+				MyPage m = new MyPage();
+				
+				m.setDealNo(rset.getInt("DEAL_NO"));
+				m.setMember_id(rset.getString("MEMBER_ID"));
+				m.setProductName(rset.getString("PRODUCT_NAME"));
+				m.setDealListaddMsg(rset.getString("DEALLIST_ADDMESSAGE"));
+				
+				CancelList.add(m);
+			}
+			System.out.println("list값dao:"+CancelList);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return CancelList;
 	}
 
 
