@@ -592,7 +592,7 @@ public class ProductDao {
 
 
 	/* ajax를 이용한 검색(검색어 입력 후 검색버튼 클릭 시) */
-	public ArrayList<HashMap<String, Object>> searchtList(Connection con, int currentPage, int listCount, int limit, String searchList, int maxPage, int startPage, int endPage) {
+	public ArrayList<HashMap<String, Object>> searchtList(Connection con, int currentPage, int listCount, int limit, String searchList) {
 		PreparedStatement pstmt = null;
 		ArrayList<HashMap<String, Object>> list = null;
 		HashMap<String, Object> hmap = null;
@@ -635,9 +635,9 @@ public class ProductDao {
 				hmap.put("productDeleteYN", rset.getInt("PRODUCT_DELETEYN"));				
 				
 				hmap.put("listCount", listCount);
-				hmap.put("maxPage", maxPage);
+				/*hmap.put("maxPage", maxPage);
 				hmap.put("startPage", startPage);
-				hmap.put("endPage", endPage);
+				hmap.put("endPage", endPage);*/
 				
 				list.add(hmap);
 			}

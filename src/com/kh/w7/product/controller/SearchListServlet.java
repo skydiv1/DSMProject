@@ -34,14 +34,16 @@ public class SearchListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
+        response.setContentType("text/plain;charset=UTF-8");
+        
 		/* 검색 단어 가지오기 */
 		String searchList = request.getParameter("searchList");
 		System.out.println("searchList: "+searchList);
 
 		/* 한글 인코딩 */
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
+		/*response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");*/
 		
 		// =============== 페이징 처리 추가 ==============
 		int currentPage;	// 현재 페이지를 표시할 변수 (ex. 내가 1페이지를 보고 있는지 2페이지를 보고 있는지)
@@ -86,21 +88,28 @@ public class SearchListServlet extends HttpServlet {
 		PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 
 		// 조회
-		//ArrayList<Product> list = new ProductService().selectList(currentPage, limit);
-		ArrayList<HashMap<String, Object>> list = new ProductService().searchtList(currentPage, listCount, limit, searchList, maxPage, startPage, endPage); 
-		
-		/* page, list를 haspMap을 이용해 담아온다. */
-		/*HashMap<String, Object> result = new HashMap<>();
-		result.put("aplist", list);
-		result.put("currentPage"	,currentPage);
-		result.put("maxPage"		,maxPage);
-		result.put("startPage"		,startPage);
-		result.put("endPage"		,endPage);*/
+		//ArrayList<HashMap<String, Object>> list = new ProductService().searchtList(currentPage, listCount, limit, searchList, maxPage, startPage, endPage); 
 		
 		/* 출력 */
-		//new Gson().toJson(listCount, response.getWriter());
-		new Gson().toJson(list, response.getWriter()); // 누구에게 어떤 정보를 보낼것인지 정하면 끝
+		//new Gson().toJson(list, response.getWriter()); // 누구에게 어떤 정보를 보낼것인지 정하면 끝
 		
+		//-----------------------------------------ajax 끝 -------------------------------------------------
+		ArrayList<HashMap<String, Object>> list = new ProductService().searchtList(currentPage, listCount, limit, searchList); 
+		
+		// 성공 여부에 따라 처리
+		String page = "";
+		if(list != null) { // 사용자에게 리스트를 넘겨줘야 함 request로 forward 해야한다.
+			request.setAttribute("list", list);
+			request.setAttribute("pi", pi);		
+			request.setAttribute("searchList", searchList);		
+
+			page="views/product/productSearchList.jsp"; // 검색 후 화면으로 이동
+		}else {
+			page="views/common/errorPage.jsp";
+			request.setAttribute("msg", "상품 목록 조회 실패!");			
+		}
+		RequestDispatcher view = request.getRequestDispatcher(page);
+		view.forward(request, response);
 	}
 
 	/**
