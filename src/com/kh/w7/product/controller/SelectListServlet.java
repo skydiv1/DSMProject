@@ -80,6 +80,8 @@ public class SelectListServlet extends HttpServlet {
 		//ArrayList<Product> list = new ProductService().selectList(currentPage, limit);
 		ArrayList<HashMap<String, Object>> list = new ProductService().selecImagetList(currentPage, limit); 
 		
+		System.out.println("list확인  : "+list);
+		
 		// 성공 여부에 따라 처리
 		String page = "";
 		if(list != null) { // 사용자에게 리스트를 넘겨줘야 함 request로 forward 해야한다.

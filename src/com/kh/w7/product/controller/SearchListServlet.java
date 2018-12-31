@@ -87,7 +87,15 @@ public class SearchListServlet extends HttpServlet {
 
 		// 조회
 		//ArrayList<Product> list = new ProductService().selectList(currentPage, limit);
-		ArrayList<HashMap<String, Object>> list = new ProductService().searchtList(currentPage, listCount, limit, searchList); 
+		ArrayList<HashMap<String, Object>> list = new ProductService().searchtList(currentPage, listCount, limit, searchList, maxPage, startPage, endPage); 
+		
+		/* page, list를 haspMap을 이용해 담아온다. */
+		/*HashMap<String, Object> result = new HashMap<>();
+		result.put("aplist", list);
+		result.put("currentPage"	,currentPage);
+		result.put("maxPage"		,maxPage);
+		result.put("startPage"		,startPage);
+		result.put("endPage"		,endPage);*/
 		
 		/* 출력 */
 		//new Gson().toJson(listCount, response.getWriter());
