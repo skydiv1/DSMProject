@@ -13,6 +13,8 @@
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
+	
+	String searchList = (String)request.getAttribute("searchList");
 
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -66,15 +68,15 @@
 	<section class="bg-light" id="portfolio" style="">
 
 	<form id="formList" method="post">
-	<div style="padding-left: 19%;">
-		<span>● 전체 상품 수는 ' <%=listCount%> ' </span>건 입니다.
+	<div style="padding-left: 19%;">	
+		'<span id="searchResult"><%= searchList %></span>' (으)로 검색된 결과는 <span id="searchResultCount"><%=listCount%></span>건 입니다.
 	</div>
 	
 	<div class="input-group input-group-lg"
 		style="width: 70%; padding-left: 19%;">
-		<input type="text" class="form-control" name="searchList"
+		<input type="text" class="form-control"
 			aria-label="Sizing example input" id="searchList"
-			aria-describedby="inputGroup-sizing-lg"
+			aria-describedby="inputGroup-sizing-lg" name="searchList"
 			style="width: 30%; font-size: 20px" placeholder="검색어를 입력해주세요">
 		<div class="input-group-prepend">
 			<button class="input-group-text" id="inputGroup-sizing-lg" type="submit"
@@ -82,7 +84,7 @@
 		</div>
 	</div>
 	<div style="padding-left: 49%;">
-<!-- 		'<span id="searchResult"></span>' (으)로 검색된 결과는 <span id="searchResultCount"></span>건 입니다. -->
+<%-- 		'<span id="searchResult"><%= searchList %></span>' (으)로 검색된 결과는 <span id="searchResultCount"><%=listCount%></span>건 입니다. --%>
 	</div>
 	<div align="right" class="dropdown" style="padding-right: 19%;">
 		<select class="btn btn-secondary">
@@ -123,12 +125,12 @@
 		
 		<div class="pagingArea" align="center" id="paging">
 		<div>
-			<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/selectList.pr?currentPage=1'"><<</button>
+			<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/searchList.pr?currentPage=1'"><<</button>
 			
 			<% if(currentPage <= 1){ %>
 			<button class="btn btn-warning" disabled><</button>
 			<% }else{ %>
-			<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/selectList.pr?currentPage=<%=currentPage - 1%>'"><</button>
+			<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/searchList.pr?currentPage=<%=currentPage - 1%>'"><</button>
 			<% } %>
 			
 			<% for(int p = startPage; p <= endPage; p++){ 
@@ -136,7 +138,7 @@
 			%>
 					<button class="btn btn-warning" disabled><%= p %></button>
 			<%      }else{ %>
-					<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/selectList.pr?currentPage=<%= p %>'"><%= p %></button>
+					<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/searchList.pr?currentPage=<%= p %>'"><%= p %></button>
 			<%      } %>
 	
 			<% } %>
@@ -144,10 +146,10 @@
 			<% if(currentPage >= maxPage){ %>
 			<button class="btn btn-warning" disable>></button>
 			<% }else{ %>
-			<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/selectList.pr?currentPage=<%=currentPage + 1%>'">></button>
+			<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/searchList.pr?currentPage=<%=currentPage + 1%>'">></button>
 			<% } %>
 			
-			<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/selectList.pr?currentPage=<%=maxPage%>'">>></button>
+			<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/searchList.pr?currentPage=<%=maxPage%>'">>></button>
 		</div>
 		</div>
 	<!-- 페이징 처리 끝 //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
@@ -169,7 +171,6 @@
 		$("#inputGroup-sizing-lg").click(function () {
 			$("#formList").attr("action", "<%=request.getContextPath()%>/searchList.pr");
 		});
-
 	</script>
 
 	<!-- Footer ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->

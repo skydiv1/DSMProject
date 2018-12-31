@@ -198,10 +198,10 @@ public class ProductService {
 
 
 	/* ajax를 이용한 검색(검색어 입력 후 검색버튼 클릭 시) */
-	public ArrayList<HashMap<String, Object>> searchtList(int currentPage, int listCount, int limit, String searchList, int maxPage, int startPage, int endPage) {
+	public ArrayList<HashMap<String, Object>> searchtList(int currentPage, int listCount, int limit, String searchList) {
 		Connection con = getConnection();
 		
-		ArrayList<HashMap<String, Object>> list = new ProductDao().searchtList(con, currentPage, listCount, limit, searchList, maxPage, startPage, endPage);
+		ArrayList<HashMap<String, Object>> list = new ProductDao().searchtList(con, currentPage, listCount, limit, searchList);
 		
 		close(con);
 		
