@@ -41,10 +41,9 @@
 		<div class="container">
 			<!-- 로그인한 사용자만 게시글 작성할 수 있게 만드는거 2018-12-24 오후 3:05분 -->
 		 		<div style="margin:10px 10px 10px 1000px">
-		 			<%-- <% if(loginUser != null){ %> --%> 
+		 			 <% if(loginUser != null){ %> 
 		 				<button onclick="location.href='views/board/boardWrite.jsp'">글쓰기</button>
-		 			<%-- <% } %> --%> 
-		 			</a>
+		 			 <% } %> 
 		 		</div>
 		 <div class="row" style="postion:static;">
 		 	<table align="center" id="listArea" class="table table-striped"  border:1px; solid #dddddd">
@@ -64,6 +63,7 @@
 		 				<tr>		 				                      
                             <input type="hidden" value="<%= b.getBoardNo() %>">
                             <td><%= b.getBoardTitle() %></td>
+                            <%-- <input type="hidden" value="<%= b.getMemberCode() %>"> --%>
                             <td><%= b.getMemberName() %></td>
 							 <input type="hidden" value="<%= b.getBoardContext() %>">
                             <td><%= b.getBoardDate() %></td>
