@@ -3,6 +3,7 @@ package com.kh.w7.refund.model.service;
 import java.sql.Connection;
 import static com.kh.w7.common.JDBCTemplate.*;
 
+import com.kh.w7.pay.model.dao.PayDao;
 import com.kh.w7.refund.model.dao.RefundDao;
 import com.kh.w7.refund.model.vo.Refund;
 
@@ -33,5 +34,25 @@ public class RefundService {
 		//System.out.println("service result : " + result);
 		return result;
 	}
+	
+	
+	public int selectMemberNowCash(int memberCode) {
+		// TODO Auto-generated method stub
+		Connection con = getConnection();
+		
+		int nowCash = new RefundDao().selectMemberNowCash(con, memberCode);
+		
+		if(nowCash > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return nowCash;
+	}
+	
+	
+	
 
 }

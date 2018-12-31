@@ -17,6 +17,7 @@ public class Member implements java.io.Serializable {
 	private String sellerBank;
 	private String sellerAccount;
 	private int sellerCertcheck;
+	private int blackCount;
 	
 	public Member() {}
 
@@ -60,6 +61,16 @@ public class Member implements java.io.Serializable {
 		this.memberCode = memberCode;
 	}
 
+	
+	
+	public int getblackCount() {
+		return blackCount;
+	}
+
+
+	public void setblackCount(int blackCount) {
+		this.blackCount = blackCount;
+	}
 
 
 

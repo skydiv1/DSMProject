@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import static com.kh.w7.common.JDBCTemplate.*;
+
+import com.kh.w7.member.model.vo.Member;
 import com.kh.w7.pay.model.dao.PayDao;
 import com.kh.w7.refund.model.vo.Refund;
 
@@ -69,6 +71,97 @@ public class AdminDao {
 		}
 
 		return list;
+	}
+
+	public int updateRefundStatus(Connection con, int refundNo) {
+		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateRefundStatus");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, refundNo);
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		
+		
+		return result;
+	}
+
+	public ArrayList<Member> selectAllMember(Connection con) {
+		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member m = null;
+		ArrayList<Member> list = new ArrayList<Member>();
+		
+		String query = prop.getProperty("selectAllMember");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				m = new Member();
+				
+				m.setMemberCode(rset.getInt(1));
+				m.setMemberId(rset.getString(2));
+				m.setMemberName(rset.getString(3));
+				m.setMemberEmail(rset.getString(4));
+				m.setMemberPhone(rset.getString(5));
+				m.setMemberCategory(rset.getInt(6));
+				m.setPrivatememberStatus(rset.getInt(7));
+				m.setblackCount(rset.getInt(8));
+				
+				list.add(m);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return list;
+	}
+
+	public int memberDelete(Connection con, int memberCode) {
+		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("memberDelete");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, memberCode);
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		
+		
+		return result;
 	}
 
 }
