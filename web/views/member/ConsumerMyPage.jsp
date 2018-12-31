@@ -40,7 +40,6 @@
 	}); 
 	 $("#cBtn").click(function () {//목록에서 취소버튼 누를때
 			var no = $(this).parent().parent().children().eq(1).text();
-			 console.log("딜값:"+no);
 			$("#dealnum").val(no);
 			
 		
@@ -88,7 +87,7 @@ function selectListAp(pg) {
 			$("#applylist").html("");//이전틀 지우고
 			$("#applylist").append(apListHtml.join(""));//""를 기준으로 배열에 담긴 데이터 꺼내오기
 			
-			
+			//페이징 처리
 		 	var apPageHtml= [];
 			apPageHtml.push('<button onclick="selectListAp(1)"><<</button>');
 			if(pg <=1){
@@ -121,10 +120,47 @@ function selectListAp(pg) {
 		}
 	});
 }
+ //취소 목록 ajax
+ function selectListCencel(pg) {
+		
+		$.ajax({
+			url : "${pageContext.request.contextPath}/selectList.Can",
+			type :"get",
+			success : function (data) {
+				console.log(data);
+				
+				var apListHtml = [];
+				var no =0;
+				for(var i=0; i<data.length; i++){
+					apListHtml.push('<tr>');
+					apListHtml.push('	<th scope="row">' + (i+1) + '</th>');
+					apListHtml.push('	<td class="td1" style="display: none">' +data[i].dealNo + '</td>');
+					apListHtml.push('	<td class="td1">' +data[i].member_id + '</td>');
+					apListHtml.push('	<td class="td1">' +data[i].productName+ '</td>');
+					apListHtml.push('	<td class="td1">' +data[i].dealListaddMsg + '</td>');
+					apListHtml.push('	<td style="width: 10px"><button type="button" class="btn btn-secondary" id="cancelDelete">삭제</button></td>');
+					apListHtml.push('</tr>');
+					
+					
+				}
+				$("#cancelList").html("");//이전틀 지우고
+				$("#cancelList").append(apListHtml.join(""));//""를 기준으로 배열에 담긴 데이터 꺼내오기
+				
+				
+					 
+				
+				 addBtnEvent();//버튼 함수 불러오기
+				 
+				 
+				 
+			}
+		});
+	}
 
 //마이페이지 실행시에 뷰페이지 만들고 데이터 뿌려주는 ajax 메인(함수 호출 여기서)
  	$(function () {
  		selectListAp(1);
+ 		selectListCencel();
 	}); 
 </script>
 </head>
@@ -247,29 +283,8 @@ function selectListAp(pg) {
 			      <th scope="col"></th>
 			    </tr>
 			  </thead>
-			  <tbody>
-			    <tr>
-			      <th scope="row">1</th>
-			      <td class="td1">Mark</td>
-			      <td class="td1">Mark</td>
-			      <td>@mdo</td>
-			      <td style="width: 10px"><button type="button" class="btn btn-secondary">삭제</button></td>
-			    </tr>
-			    
-			    <tr>
-			      <th scope="row">2</th>
-			      <td class="td1">Mark</td>
-			      <td class="td1">Mark</td>
-			      <td>@mdo</td>
-			      <td style="width: 10px"><button type="button" class="btn btn-secondary">삭제</button></td>
-			    </tr>
-			    <tr>
-			      <th scope="row">3</th>
-			      <td class="td1">Mark</td>
-			      <td class="td1">Mark</td>
-			      <td>@mdo</td>
-			      <td style="width: 10px"><button type="button" class="btn btn-secondary">삭제</button></td>
-			    </tr>
+			  <tbody id="cancelList">
+			   <!-- ajax도는 부분 -->
 			  </tbody>
 			</table>
          </div>

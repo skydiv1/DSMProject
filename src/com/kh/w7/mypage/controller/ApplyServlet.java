@@ -55,7 +55,6 @@ public class ApplyServlet extends HttpServlet {
 		MypageService ms = new MypageService();
 		//전체 게시글 수 조회
 		int listCount = ms.getListCount(loginCode);
-		System.out.println("&&&&&&&&&&&&&" + listCount);
 		//총 페이지 수 계산
 		//예를 들어, 목록 수가 123개면 페이지수는 13페이지가 필요하다.
 		maxPage = listCount / limit;
