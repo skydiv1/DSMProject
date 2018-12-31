@@ -162,7 +162,7 @@ public class InsertImageServlet extends HttpServlet {
 				pList.add(pp);		
 			}
 						
-			int result2 = new ProductService().insertPlusProduct(product, pList);
+			//int result1 = new ProductService().insertPlusProduct(product, pList);
 						
 			// 세션으로 작성자를 가져온다.
 			//String writer = String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getUno());
@@ -181,9 +181,10 @@ public class InsertImageServlet extends HttpServlet {
 				
 				fileList.add(at);
 			}			
-			int result1 = new ProductService().insertThumbnail(product, fileList);
-		
-			if(result1>0 && result2>0) {
+			//int result2 = new ProductService().insertThumbnail(product, fileList); // 이미지+추가 항목 result1에 합침
+
+			int result1 = new ProductService().insertPlusProduct(product, pList, fileList);
+			if(result1>0) {
 				response.sendRedirect(request.getContextPath()+"/selectList.pr");
 			}else {
 				// 실패했을 때 저장된 사진 삭제

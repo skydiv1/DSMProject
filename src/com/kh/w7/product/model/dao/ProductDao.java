@@ -331,9 +331,9 @@ public class ProductDao {
 		try {
 			for(int i=0; i<pList.size(); i++) {
 				pstmt = con.prepareStatement(query);
-				pstmt.setInt(1, pList.get(i).getProductNo());
-				pstmt.setString(2, pList.get(i).getPlusProductItem());
-				pstmt.setInt(3, pList.get(i).getPlusProductPrice());
+				//pstmt.setInt(1, pList.get(i).getProductNo());
+				pstmt.setString(1, pList.get(i).getPlusProductItem());
+				pstmt.setInt(2, pList.get(i).getPlusProductPrice());
 				
 				result += pstmt.executeUpdate(); // 누적 연산으로 합쳐준다
 				
@@ -360,6 +360,7 @@ public class ProductDao {
 		try {
 			for(int i=0; i<fileList.size(); i++) {
 				pstmt = con.prepareStatement(query);
+				//pstmt.setInt(1, fileList.get(i).getImgNo());
 				pstmt.setString(1, fileList.get(i).getOriginName());
 				pstmt.setString(2, fileList.get(i).getChangeName());
 				pstmt.setInt(3, fileList.get(i).getMemberCode());
@@ -591,7 +592,7 @@ public class ProductDao {
 
 
 	/* ajax를 이용한 검색(검색어 입력 후 검색버튼 클릭 시) */
-	public ArrayList<HashMap<String, Object>> searchtList(Connection con, int currentPage, int listCount, int limit, String searchList) {
+	public ArrayList<HashMap<String, Object>> searchtList(Connection con, int currentPage, int listCount, int limit, String searchList, int maxPage, int startPage, int endPage) {
 		PreparedStatement pstmt = null;
 		ArrayList<HashMap<String, Object>> list = null;
 		HashMap<String, Object> hmap = null;
@@ -634,6 +635,9 @@ public class ProductDao {
 				hmap.put("productDeleteYN", rset.getInt("PRODUCT_DELETEYN"));				
 				
 				hmap.put("listCount", listCount);
+				hmap.put("maxPage", maxPage);
+				hmap.put("startPage", startPage);
+				hmap.put("endPage", endPage);
 				
 				list.add(hmap);
 			}
@@ -668,6 +672,29 @@ public class ProductDao {
 			close(pstmt);
 		}
 		System.out.println("result(deleteOne) Dao 업데이트 확인 : "+result);
+		return result;
+	}
+	
+
+	/* 상품 삭제(update IMG_DELETE=1) */
+	public int deleteImgOne(Connection con, String num) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteImgOne");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(num));
+						
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println("result(deleteImgOne) Dao 업데이트 확인 : "+result);
 		return result;
 	}
 

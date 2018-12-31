@@ -164,14 +164,15 @@
 		});
 		
 		/* 검색 버튼 클릭 시 */
-		$(function () {
+// 		$(function () {
+		function selectListPr(pg) {
 			$("#inputGroup-sizing-lg").click(function () {
 				var searchList = $("#searchList").val();
 				
 				$.ajax({
 					url:"/dsm/searchList.pr",
 					type:"get",
-					data:{searchList:searchList},
+					data:{searchList:searchList, currentPage:pg},
 					success:function(data){
 						console.log(data);
 						$("#searchResult").text(searchList);
@@ -189,7 +190,13 @@
 							var productName = decodeURIComponent(data[key].productName); 
 							var productItemPrice = decodeURIComponent(data[key].productItemPrice); 
 							var listCount = decodeURIComponent(data[key].listCount)
+							var maxPage = decodeURIComponent(data[key].maxPage)
+							var startPage = decodeURIComponent(data[key].startPage)
+							var endPage = decodeURIComponent(data[key].endPage)
 							console.log("검색한 게시글 수: "+listCount);
+							console.log("maxPage: "+maxPage);
+							console.log("startPage: "+startPage);
+							console.log("endPage: "+endPage);
 							
 							 $select.append(
 									 '<div name="imageList" class="col-md-4 col-sm-6 portfolio-item" id="">'
@@ -211,50 +218,69 @@
 						$select.append('</div>');  
 						$("#searchResultCount").text(listCount); // 특정 검색어 게시글 수 
 
-						$select2 = $("#paging"); 
-						$select2.find('div').remove();
+						//$select2 = $("#paging"); 
+						//$select2.find('div').remove();
 						
-						/* var listCount = pi.getListCount();
-						var currentPage = pi.getCurrentPage();
-						var maxPage = pi.getMaxPage();
-						var startPage = pi.getStartPage();
-						var endPage = pi.getEndPage(); */
-						<%-- var reqContext='<%=request.getContextPath()%>';
-						
-		 				$select2.append(	'<div class="pagingArea" align="center" id="paging">');
+						<%-- 페이징처리 -->
+		 				<%-- $select2.append(	'<div class="pagingArea" align="center" id="paging">');
 						$select2.append(	'<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/searchList.pr?currentPage=1'"><<</button>');
 								if(currentPage <= 1){
 									$select2.append(	'<button class="btn btn-warning" disabled><</button>');
 								}else{ 
-									$select2.append(	'<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/searchList.pr?currentPage=currentPage - 1+'"><</button>');
+									$select2.append(	'<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/searchList.pr?currentPage=currentPage - 1'"><</button>');
 								}
 								
 								for(var p = startPage; p <= endPage; p++){ 
 										if(p == currentPage){
 											$select2.append(	'<button class="btn btn-warning" disabled>'+ p +'</button>');
 										}else{
-											$select2.append(	'<button class="btn btn-warning" onclick="location.href='+<%=request.getContextPath()%>/searchList.pr?currentPage=p+'"> '+p+'</button>');
+											$select2.append(	'<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/searchList.pr?currentPage=p'"> '+p+'</button>');
 								      }
 								} 
 											
 								if(currentPage >= maxPage){
 									$select2.append(	'<button class="btn btn-warning" disable>></button>');
 								}else{
-									$select2.append(	'<button class="btn btn-warning" onclick="location.href='+<%=request.getContextPath()%>/searchList.pr?currentPage=currentPage + 1'">></button>');
+									$select2.append(	'<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/searchList.pr?currentPage=currentPage + 1'">></button>');
 								}
 								
-								$select2.append(	'<button class="btn btn-warning" onclick="location.href='+<%=request.getContextPath()%>/searchList.pr?currentPage=maxPage'">>></button>');
-								$select2.append(	'</div>'); --%>
+								$select2.append(	'<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/searchList.pr?currentPage=maxPage'">>></button>');
+								$select2.append(	'</div>');  --%>
+						var apPageHtml= [];
+						apPageHtml.push('<button class="btn btn-warning" onclick="selectListPr(1)"><<</button>');
+						if(pg <=1){
+							apPageHtml.push('<button class="btn btn-warning" disabled><</button>');
+						}else{
+							apPageHtml.push('<button class="btn btn-warning" onclick="selectListPr(' + pg-1 + ')"><</button>');
+						}
+						for(var p = startPage; p<= endPage; p++) {
+							if(p == pg){
+							apPageHtml.push('<button class="btn btn-warning" disabled>'+p+'</button>');
+							}else{
+								apPageHtml.push('<button class="btn btn-warning" onclick="selectListPr('+p+')">'+p+'</button>');
+								}
+							}
+						if(pg >= maxPage){ 
+							apPageHtml.push('<button class="btn btn-warning" disabled>></button>');
+						}else{
+							apPageHtml.push('<button class="btn btn-warning" onclick="selectListPr('+pg+1+')">></button>');
+						}
+							apPageHtml.push('<button class="btn btn-warning" onclick="selectListPr('+maxPage +')">>></button>');
+						
+							$("#paging").html("");
+							$("#paging").append(apPageHtml.join(""));
 						
 					},
 					error:function(data){
-						console.log("에러")
+						console.log("에러");
 					}
 				});				
 			});
-		});
+		}
 		
-		
+	 	$(function () {
+	 		selectListPr(1);
+		}); 		
 	</script>
 
 	<!-- Footer ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->

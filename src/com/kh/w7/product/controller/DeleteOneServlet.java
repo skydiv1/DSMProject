@@ -41,14 +41,18 @@ public class DeleteOneServlet extends HttpServlet {
 			
 			MultipartRequest multiRequest = new MultipartRequest(request, filePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 			
-			String num = multiRequest.getParameter("num"); // MultipartRequest로 보내지 않으면 null값이 들어오는 오류
-			
+			String num = multiRequest.getParameter("num"); // MultipartRequest로 보내지 않으면 null값이 들어오는 오류			
 			System.out.println("num값 확인(deleteOne 서블릿): "+num);
 			
-			int result = new ProductService().deleteOne(num);
-			System.out.println("deleteOne 서블릿(result값) : "+result);
+			/* PRODUCT_DELETEYN=1 */
+			int result1 = new ProductService().deleteOne(num);
+			System.out.println("deleteOne 서블릿(result값) : "+result1);
+
+			/* IMG_DELETE=1 */
+			int result2 = new ProductService().deleteImgOne(num);
+			System.out.println("deleteImgOne 서블릿(result값) : "+result2);
 			
-			if(result>0) {				
+			if(result1>0 && result2>0) {				
 				response.sendRedirect("/dsm/selectList.pr"); // 상품 삭제 후 리스트로 돌아가기
 			}else {		
 				request.setAttribute("msg", "상품 수정 실패!");
