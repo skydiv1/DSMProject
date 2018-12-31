@@ -12,7 +12,7 @@ public class Member implements java.io.Serializable {
 	private int sellerGrade;
 	private String sellerCareer;
 	private int memberAdmin;
-	private int privatememberStatus;
+	private int memberStatus;
 	private String sellerAccountName;
 	private String sellerBank;
 	private String sellerAccount;
@@ -26,7 +26,7 @@ public class Member implements java.io.Serializable {
 
 	public Member(int memberCode, String memberId, String memberPwd, String memberName, String memberPhone,
 			String memberEmail, int memberCategory, String sellerIntroduction, int sellerGrade, String sellerCareer,
-			int memberAdmin, int privatememberStatus, String sellerAccountName, String sellerBank, String sellerAccount,
+			int memberAdmin, int memberStatus, String sellerAccountName, String sellerBank, String sellerAccount,
 			int sellerCertcheck) {
 		super();
 		this.memberCode = memberCode;
@@ -40,7 +40,7 @@ public class Member implements java.io.Serializable {
 		this.sellerGrade = sellerGrade;
 		this.sellerCareer = sellerCareer;
 		this.memberAdmin = memberAdmin;
-		this.privatememberStatus = privatememberStatus;
+		this.memberStatus = memberStatus;
 		this.sellerAccountName = sellerAccountName;
 		this.sellerBank = sellerBank;
 		this.sellerAccount = sellerAccount;
@@ -214,15 +214,15 @@ public class Member implements java.io.Serializable {
 
 
 
-	public int getPrivatememberStatus() {
-		return privatememberStatus;
+	public int getmemberStatus() {
+		return memberStatus;
 	}
 
 
 
 
-	public void setPrivatememberStatus(int privatememberStatus) {
-		this.privatememberStatus = privatememberStatus;
+	public void setPrivatememberStatus(int memberStatus) {
+		this.memberStatus = memberStatus;
 	}
 
 
@@ -290,7 +290,7 @@ public class Member implements java.io.Serializable {
 				+ ", memberName=" + memberName + ", memberPhone=" + memberPhone + ", memberEmail=" + memberEmail
 				+ ", memberCategory=" + memberCategory + ", sellerIntroduction=" + sellerIntroduction + ", sellerGrade="
 				+ sellerGrade + ", sellerCareer=" + sellerCareer + ", memberAdmin=" + memberAdmin
-				+ ", privatememberStatus=" + privatememberStatus + ", sellerAccountName=" + sellerAccountName
+				+ ", memberStatus=" + memberStatus + ", sellerAccountName=" + sellerAccountName
 				+ ", sellerBank=" + sellerBank + ", sellerAccount=" + sellerAccount + ", sellerCertcheck="
 				+ sellerCertcheck + "]";
 	}

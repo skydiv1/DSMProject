@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
 	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
@@ -68,7 +69,7 @@ a {
 	<br>
 	<br>
 	<hr>
-	<form action="<%=request.getContextPath()%>/insertMember" method="post" id="form">
+<!-- 	<form method="post" id="form"> -->
 		<table align="center">
 			<tr>
 				<td align=center>
@@ -309,7 +310,7 @@ a {
 						</tr>
 						
 						<tr>
-							<td><div align="center"><input type="checkbox" id="req2" 
+							<td><div align="center"><input type="checkbox" id="req1" 
 								style="width: 30px; height: 30px; margin-top:15px;">
 								<span style="font-size: 20px;">이용약관에 동의합니다.</span>
 								<br> <br> <br>
@@ -428,8 +429,8 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
 						</tr>
 						
 						<tr>
-							<td><div align="center"><input type="checkbox" 
-								style="width: 30px; height: 30px; margin-top:15px;">
+							<td><div align="center"><input type="checkbox" id="req2"
+								style="width: 30px; height: 30px; margin-top:15px;" >
 								<span style="font-size: 20px;">개인정보 수집 및 이용에 대한 안내에 동의합니다.</span>
 								<br> <br> <br>
 							</div></td>
@@ -442,36 +443,64 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
 			<tr>
 				<td><div align="center" style="margin-top: 5%;">
 
-						<button type="button" class="btn btn-warning" onclick="chk1();"
+						<button type="button" class="btn btn-warning" id="chk1"
 							style="width: 470px; height: 50px; font-size: 20px; border-radius: 6px;">
-							<a href="/dsm/views/member/conJoinForm.jsp"><div style="color: white">소비자로 가입하기</div></a>
+							<a id="joinCustomer"><div style="color: white">소비자로 가입하기</div></a>
 						</button>
 
-						<button type="button" class="btn btn-warning" onclick="chk1();"
+						<button type="button" class="btn btn-warning" id="chk2"
 							style="width: 470px; height: 50px; font-size: 20px; border-radius: 6px; :white;">
-							<a href="/dsm/views/member/SelJoinForm.jsp"><div style="color: white">판매자로 가입하기</div></a>
+							<a id="joinSeller"><div style="color: white">판매자로 가입하기</div></a>
 						</button>
 
 					</div></td>
 			</tr>
 		</table>
-	</form>
+<!-- 	</form> -->
 	<script type="text/javascript">
-		function chk1() {
+	
+	$(function () {
+		$("#chk1").click(function () {
+			 if(!($("#req1").prop('checked')) || !($("#req2").prop('checked'))){
+				alert("모두 체크하세요");
+			} else{
+				$("#joinCustomer").attr("href", "/dsm/views/member/conJoinForm.jsp")
+			}
+		});
+		console.log($("#req1").prop('checked'));
+	});
+	$(function () {
+		$("#chk2").click(function () {
+			 if(!($("#req1").prop('checked')) || !($("#req2").prop('checked'))){
+				alert("모두 체크하세요");
+			} else{
+				$("#joinSeller").attr("href", "/dsm/views/member/SelJoinForm.jsp")
+			}
+		});
+		console.log($("#req2").prop('checked'));
+	});
+	
+	
+	
+	
+	/*  function chk1() {
 			var req1 = form.req1;
 			
 			var num = 0;
 			if (req1 == true) {
 				num = 1;
+				
+				
 			}
 			if (num == 1) {
+				 
 				alert("개인정보 약관에 동의하십시오.");
 			} else {
-				
 				document.form.submit();
 			}
+			return false;
 
-		}
+		}  */
 		/* function chk2(form) {
 
 			var req2 = form.req2;
@@ -486,8 +515,7 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
 				alert("이용약관에 동의하십시오.");
 			}
 
-			return false;
-
+			
 		} */
 	</script>
 

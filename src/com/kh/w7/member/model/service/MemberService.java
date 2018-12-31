@@ -59,6 +59,34 @@ public class MemberService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	
+	public int leaveMember(int memberStatus) {
+		Connection con = getConnection();
+		int result = new MemberDao().leaveMember(con,memberStatus);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return memberStatus;
+		
+	}
+
+	public String find(String memberName, String memberEmail) {
+Connection con = getConnection();
+		
+		String memberId = new MemberDao().findid(con, memberName, memberEmail);
+		
+		close(con);
+
+		return memberId;
+	}
+
+	
 
 	
 

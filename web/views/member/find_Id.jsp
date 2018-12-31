@@ -88,7 +88,7 @@ p {
 				
 			</div>
 			</div>
-	<form action="" method="GET">
+<!-- 	<form action="" method="GET"> -->
 
 		
 
@@ -115,7 +115,7 @@ p {
 			</tr>
 			<tr>
 				<td>
-					<button type="" class="btn btn-warning" id="findIdBtn" onclick="sendId"
+					<button type="submit" class="btn btn-warning" id="findIdBtn" 
 						style="width: 500px; height: 50px; font-size: 20px; border-radius: 6px; margin-left: 5%; color:gray;">이메일로
 						아이디 전송</button>
 				</td>
@@ -123,36 +123,34 @@ p {
 
 		</table>
 		
-	</form>
+<!-- 	</form> -->
 	<script>
-	$(function sendId(){
+	$(function (){
 		// 2번
-			var memberId=$("#memberId").val();
+		$("#findIdBtn").click(function (){
 			 var memberName = $("#memberName").val();
 			 var memberEmail = $("#memberEmail").val();
-			 var from = $("#from").val();memberName
-				var adName = $("#adName").val();
+			console.log(memberName)
+			console.log(memberEmail)
 			 
-			$.ajax({
-				url:"/dsm/findid_me",
+			 $.ajax({
+				url:"/dsm/find_id.me",
 				type:"post",
-				data:{memberId:memberId,memberName:memberName,
+				data:{memberName:memberName,
 					memberEmail:memberEmail},
 				
 				
 				success:function(data){ // data: 문자열이 들어온다
-					var memberId = data.memberId;
-					var memberIdLength= memberId.length;
-					var memberIdfind = memberId.substring(1,memberIdLength-1);
-					
-					
-			
-				},
-				
-				
-			});
-		});		
-	
+					if(data=="YES"){
+						alert("이메일로 아이디 전송")
+					}else{
+						alert("이름과 아이디를 다시 확인해주세요")
+					}
+				}
+			}); 
+		});	
+	});	
+			 
 	</script>
 		<br> <br>
 	
