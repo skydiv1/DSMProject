@@ -31,6 +31,7 @@ public class ApplyRefundServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		int memberCode = Integer.parseInt(request.getParameter("memberCode"));
 		String name = request.getParameter("name");
 		String birth = request.getParameter("birth");
 		String bank = request.getParameter("bank");
@@ -48,7 +49,7 @@ public class ApplyRefundServlet extends HttpServlet {
 		System.out.println("refundMoney : " + refundMoney);*/
 		
 		Refund r = new Refund();
-		r.setMember_code(3); //임시로 만든 신청 회원 코드
+		r.setMember_code(memberCode); //임시로 만든 신청 회원 코드
 		r.setRefund_money(refundMoney);
 		r.setMember_name(name);
 		r.setMember_birth(birth);

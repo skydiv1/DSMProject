@@ -59,4 +59,53 @@ public class RefundDao {
 		return result;
 	}
 
+	public int insertRefundListData(Connection con, Refund r) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertRefundListData");
+		try {
+			pstmt = con.prepareStatement(query);
+
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		
+		return result;
+	}
+
+	public int insertMemberCashRefundData(Connection con, Refund r) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertMemberCashRefundData");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, r.getMember_code());
+			pstmt.setInt(2, r.getMember_code());
+			pstmt.setInt(3, r.getRefund_money());
+			pstmt.setInt(4, r.getRefund_money());
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			
+		}
+		
+		
+		return result;
+	}
+
 }
