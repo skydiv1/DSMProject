@@ -128,7 +128,7 @@ input[type="number"]::-webkit-inner-spin-button{
 											aria-label="Radio button for following text input">
 									</div>
 								</div>
-								<input name="basicItem" type="text" class="form-control"
+								<input name="basicItem" type="text" class="form-control" placeholder="ex) 촬영"
 									aria-label="Text input with radio button">
 							</div>
 						</td>
@@ -174,7 +174,7 @@ input[type="number"]::-webkit-inner-spin-button{
 											aria-label="Radio button for following text input">
 									</div>
 								</div>
-								<input name="additionalItem1"type="text" class="form-control"
+								<input name="additionalItem1"type="text" class="form-control" placeholder="ex) 편집"
 									aria-label="Text input with radio button">
 							</div>
 						</td>

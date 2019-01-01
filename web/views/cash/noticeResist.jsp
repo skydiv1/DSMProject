@@ -106,7 +106,7 @@ input::placeholder {
 <section class="bg-light" id="portfolio" style = "padding: 50px">
 
 
-<div style="background : #2E2E2E; width:58%; height:250px; margin-top: 0px; margin-left:21%; background-position:center;">
+<div style="background : #fec810; width:58%; height:250px; margin-top: 0px; margin-left:21%; background-position:center;">
 	<div class="container">
 		<div class="intro-text" style="padding-top: 35px;">
 			
@@ -117,11 +117,11 @@ input::placeholder {
                      style="width: 150px; height: 150px;"></td>
                      
                   <td width="80%" style="border-bottom: 1px solid #EAEAEA;">
-                  <span style = "color : white;">DSM Seller</span></td>
+                  <span style = "color : black;">DSM Seller</span></td>
                </tr>
                <tr>
                   <td>
-                     <div style = "color : white;">
+                     <div style = "color : black;">
 				                        사진에 대한 필요성이 더욱 중요해진 멀티미디어 시대.<br>
 							어떻게 하면 고객이 원하는 이미지를 만들 것인가 고민하는 스튜디오입니다.
                      </div>

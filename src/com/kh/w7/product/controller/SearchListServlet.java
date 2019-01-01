@@ -35,7 +35,9 @@ public class SearchListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        response.setContentType("text/plain;charset=UTF-8");
+		/* 한글 인코딩 */
+		response.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("utf-8");
         
 		/* 검색 단어 가지오기 */
 		String searchList = request.getParameter("searchList");
@@ -85,7 +87,7 @@ public class SearchListServlet extends HttpServlet {
 		}
 		
 		// 객체로 만들어서 사용
-		PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
+		PageInfo pageInfo = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 
 		// 조회
 		//ArrayList<HashMap<String, Object>> list = new ProductService().searchtList(currentPage, listCount, limit, searchList, maxPage, startPage, endPage); 
@@ -94,14 +96,15 @@ public class SearchListServlet extends HttpServlet {
 		//new Gson().toJson(list, response.getWriter()); // 누구에게 어떤 정보를 보낼것인지 정하면 끝
 		
 		//-----------------------------------------ajax 끝 -------------------------------------------------
-		ArrayList<HashMap<String, Object>> list = new ProductService().searchtList(currentPage, listCount, limit, searchList); 
+		ArrayList<HashMap<String, Object>> searchArrayList= new ProductService().searchtList(currentPage, listCount, limit, searchList); 
 		
 		// 성공 여부에 따라 처리
 		String page = "";
-		if(list != null) { // 사용자에게 리스트를 넘겨줘야 함 request로 forward 해야한다.
-			request.setAttribute("list", list);
-			request.setAttribute("pi", pi);		
-			request.setAttribute("searchList", searchList);		
+		if(searchArrayList != null) { // 사용자에게 리스트를 넘겨줘야 함 request로 forward 해야한다.
+			request.setAttribute("searchArrayList", searchArrayList);
+			request.setAttribute("pageInfo", pageInfo);		
+			request.setAttribute("searchList", searchList);	
+			request.getSession().setAttribute("searchList", searchList);	
 
 			page="views/product/productSearchList.jsp"; // 검색 후 화면으로 이동
 		}else {
