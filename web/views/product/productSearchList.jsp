@@ -4,17 +4,18 @@
 	pageEncoding="UTF-8"%>
 <%
 	//ArrayList<Product> list = (ArrayList<Product>)request.getAttribute("list");
-	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>)request.getAttribute("list");
+	ArrayList<HashMap<String, Object>> searchArrayList = (ArrayList<HashMap<String, Object>>)request.getAttribute("searchArrayList");
 
-	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
 	// 미리 값을 꺼내서 저장해서 사용 (매번 꺼내서 사용하는 불편함을 줄이기 위함)
-	int listCount = pi.getListCount(); // 전체 개수
-	int currentPage = pi.getCurrentPage();
-	int maxPage = pi.getMaxPage();
-	int startPage = pi.getStartPage();
-	int endPage = pi.getEndPage();
-	
-	String searchList = (String)request.getAttribute("searchList");
+	int listCount = pageInfo.getListCount(); // 전체 개수
+	int currentPage = pageInfo.getCurrentPage();
+	int maxPage = pageInfo.getMaxPage();
+	int startPage = pageInfo.getStartPage();
+	int endPage = pageInfo.getEndPage();
+
+	//String searchList = (String)request.getAttribute("searchList");
+	String searchList = (String)session.getAttribute("searchList");
 
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -77,7 +78,7 @@
 		<input type="text" class="form-control"
 			aria-label="Sizing example input" id="searchList"
 			aria-describedby="inputGroup-sizing-lg" name="searchList"
-			style="width: 30%; font-size: 20px" placeholder="검색어를 입력해주세요">
+			style="width: 30%; font-size: 20px" placeholder=<%=searchList %>>
 		<div class="input-group-prepend">
 			<button class="input-group-text" id="inputGroup-sizing-lg" type="submit"
 				style="color: black; cursor:pointer;"><b>검색</b></button>
@@ -94,12 +95,17 @@
 			<option value="edit">편집</option>
 		</select>
 	</div>
+	</form>
 	<br><br>
+	<div class="dropdown" style="padding-left: 13%;">
+		<button class="btn btn-secondary" id="goToMainList"><b>전체상품목록</b></button>
+	</div>
+	<br>
 
 	<div class="container" id="searchListDiv">
 		<div class="row">
-		<% for(int i=0; i<list.size(); i++){ 
-			HashMap<String, Object> hmap = list.get(i);	
+		<% for(int i=0; i<searchArrayList.size(); i++){ 
+			HashMap<String, Object> hmap = searchArrayList.get(i);	
 		%>
 			<input type="hidden" value="<%=hmap.get("productNo")%>"> 
 			<div name="imageList" class="col-md-4 col-sm-6 portfolio-item">
@@ -153,7 +159,6 @@
 		</div>
 		</div>
 	<!-- 페이징 처리 끝 //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-	</form>
 	</section>
 	
 	<script>
@@ -170,6 +175,15 @@
 		/* 검색 버튼 클릭 시 */		
 		$("#inputGroup-sizing-lg").click(function () {
 			$("#formList").attr("action", "<%=request.getContextPath()%>/searchList.pr");
+		});
+	</script>
+	
+	<script>
+		/*  */
+		$(function () {
+			$("#goToMainList").click(function () {
+				$("#goToMainList").attr("onclick", "location.href='<%=request.getContextPath()%>/selectList.pr'")
+			});
 		});
 	</script>
 

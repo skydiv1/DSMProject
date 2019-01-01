@@ -1,3 +1,4 @@
+<%@page import="com.kh.w7.product.model.vo.Review"%>
 <%@page import="com.kh.w7.product.model.vo.PlusProduct"%>
 <%@page import="com.kh.w7.member.model.vo.Member"%>
 <%@page import="com.kh.w7.common.Attachment"%>
@@ -16,9 +17,10 @@
 	Attachment detailImg5 = fileList.get(4);	
 	Attachment detailImg6 = fileList.get(5);	 
 	
-	//String idid = String.format(((Member)request.getSession().getAttribute("loginUser")).getMemberId());
-	
 	ArrayList<PlusProduct> pList = (ArrayList<PlusProduct>)request.getAttribute("pList");
+	
+	ArrayList<Review> reviewList = (ArrayList<Review>)request.getAttribute("reviewList");
+	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -32,11 +34,11 @@
 
 <!-- 부트스트랩 -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <!-- 예전 버전아렁 현 버전이랑 호환문제?.. -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> 
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>  -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> 
 
@@ -89,6 +91,11 @@
 	    .rating:not(:hover) > :checked ~ label:before{
 	        opacity: 1;
 	    }
+	    	    .rating > label:hover:before,
+	    .rating > label:hover ~ label:before,
+	    .rating:not(:hover) > :checked ~ label:before{
+	        opacity: 1;
+	    }
 	    
 	    td{
 	    	padding:10px 10px 10px 10px;	    
@@ -108,26 +115,29 @@
 <!-- 네비게이션 바 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	<section class="bg-light" id="portfolio">
 
+	<input type="hidden" name="productNo" value="<%=product.getProductNo()%>"> <!-- 상품 번호 sevlet으로 넘긴다. -->
+	
 	<table width="70%" style="margin-left: 17%;" border="0">
 		<tr>
 			<td>			
-				<h2>상품 상세</h2>
-				<br>
+				<h2>상품 상세</h2><br>
 			</td>	
 			<td>
-				<div style="font-size: 20px; margin-left: 5%; ">작성자 : <span><%=member.getMemberId() %></span></div>
-			</td>	
+				<div style="font-size: 15px; margin-left: 5%;">작성자 : <span><%=member.getMemberId() %></span></div><hr>	
+			</td>
 		</tr>
 		<tr>
-			<td rowspan="4"><img class="img-fluid" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg1.getChangeName()%>" alt="" style="box-shadow: 0px 0px 10px #000; width:530px; height:420px;"></td>
+			<td rowspan="4">
+				<img class="img-fluid" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg1.getChangeName()%>" alt="" style="box-shadow: 0px 0px 10px #000; width:530px; height:420px;">
+			</td>
 			<td>
-				<div style="font-size: 20px; font: bold; margin-left: 5%; margin-bottom: 5%;"><%=product.getProductName() %></div> <!-- 상품 제목 -->
+				<div style="font-size: 20px; font: bold; margin-left: 5%; margin-bottom: 5%;"><%=product.getProductName() %></div><hr> <!-- 상품 제목 -->
 			</td>
 		</tr>
 		<tr>
 			<td width="50%">
 				<div style="font-size: 15px; font: bold; margin-left: 5%; margin-top: 15%;">
-					<b><%= product.getProductItem() %></b> : <span style="font-size: 20px; margin-left: 60%;"><%= product.getProductItemPrice() %></span>원
+					<b><%= product.getProductItem() %></b> : <span style="font-size: 20px; margin-left: 60%;"><%= product.getProductItemPrice() %></span>원<hr>
 				</div>
 			</td>
 		</tr>
@@ -135,10 +145,10 @@
 			<td>
 				<div align="left" class="dropdown"
 					style="padding-right: 10%; margin-left: 5%;">
-					<select class="btn btn-outline-secondary">
+					<select class="btn btn-outline-secondary" id="additionalOption" >
 						<option value="category" selected>추가옵션(선택)</option>
 						<% for(PlusProduct p : pList){ %>
-							<option value=""><span><%=p.getPlusProductItem()%></span> : <span><%=p.getPlusProductPrice()%></span>원
+							<option value="<%=p.getPlusProductPrice()%>"><span><%=p.getPlusProductItem()%></span> : <span><%=p.getPlusProductPrice()%></span>원
 							</option>						
 						<% } %>
 					</select>
@@ -155,34 +165,41 @@
 			<td align="left">
 				<div class="wrapper" style="font-size: 20px; margin-top: 2%;">
 					평점 : <span class="rating"> 
-							<input id="rating5" type="radio" name="rating" value="5" checked><label for="rating5">5</label>
-							<input id="rating4" type="radio" name="rating" value="4"><label for="rating4">4</label> 
-							<input id="rating3" type="radio" name="rating" value="3"> <label for="rating3">3</label> 
-							<input id="rating2" type="radio" name="rating" value="2"> <label for="rating2">2</label> 
-							<input id="rating1" type="radio" name="rating" value="1"> <label for="rating1">1</label>
+							<input id="rating5" type="radio" name="rating" value="5" checked disabled><label for="rating5">5</label>
+							<input id="rating4" type="radio" name="rating" value="4" disabled><label for="rating4">4</label> 
+							<input id="rating3" type="radio" name="rating" value="3" disabled> <label for="rating3">3</label> 
+							<input id="rating2" type="radio" name="rating" value="2" disabled> <label for="rating2">2</label> 
+							<input id="rating1" type="radio" name="rating" value="1" disabled> <label for="rating1">1</label>
 					</span> (<span><span>30</span>개의 평가</span>)
 				</div>
 			</td>
 			<td align="center">
-				<button type="button" class="btn btn-outline-secondary" style="width:90%; height:50px;" onclick="location.href='../cash/noticeResist.jsp'">판매자 프로필 보러가기</button>
+				<button type="button" class="btn btn-outline-secondary" style="width:90%; height:50px;" onclick="location.href='/dsm/views/cash/noticeResist.jsp'">판매자 프로필 보러가기</button>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			</td>
+			<td width="50%">
+				<div style="font-size: 15px; font: bold; margin-left: 5%; margin-top: 5%;">
+					<b>전체 금액</b> : <span id="totalPrice" style="font-size: 20px; margin-left: 60%;"><%= product.getProductItemPrice() %></span>원
+				</div>
 			</td>
 		</tr>
 	</table>
-	<br>
-	<br>
-	<br>
+	<br><br><br>
 
 	<div style="margin-left: 17%; padding-right: 13%;">
 		<ul class="nav nav-tabs" id="myTab" role="tablist">
 			<li class="nav-item"><a class="nav-link active" id="a-tab"
 				data-toggle="tab" href="#a" role="tab" aria-controls="a"
-				aria-selected="true">서비스 설명</a></li>
+				aria-selected="true">상품 설명</a></li>
 			<li class="nav-item"><a class="nav-link" id="b-tab"
 				data-toggle="tab" href="#b" role="tab" aria-controls="b"
 				aria-selected="false">취소 및 환불규정</a></li>
 			<li class="nav-item"><a class="nav-link" id="c-tab"
 				data-toggle="tab" href="#c" role="tab" aria-controls="c"
-				aria-selected="false">서비스 평가</a></li>
+				aria-selected="false">상품 평가</a></li><button id="test1"></button>
 		</ul>
 		<div class="tab-content" id="myTabContent">
 			<div class="tab-pane fade show active" id="a" role="tabpanel"
@@ -249,15 +266,16 @@
 				<div class="wrapper"
 					style="font-size: 20px; width: 600px; height: 110px; background-color: #EAEAEA; padding: 4% 7%;">
 					<span class="rating"> 
-						<input id="rating5_1" type="radio" name="rating1" value="5" checked><label for="rating5_1">5</label>
-						<input id="rating4_1" type="radio" name="rating1" value="4"><label for="rating4_1">4</label> 
-						<input id="rating3_1" type="radio" name="rating1" value="3"><label for="rating3_1">3</label> 
-						<input id="rating2_1" type="radio" name="rating1" value="2"><label for="rating2_1">2</label>
-						<input id="rating1_1" type="radio" name="rating1" value="1"><label for="rating1_1">1</label>
+						<input id="rating5_1" type="radio" name="rating1" value="5" checked disabled><label for="rating5_1">5</label>
+						<input id="rating4_1" type="radio" name="rating1" value="4" disabled><label for="rating4_1">4</label> 
+						<input id="rating3_1" type="radio" name="rating1" value="3" disabled><label for="rating3_1">3</label> 
+						<input id="rating2_1" type="radio" name="rating1" value="2" disabled><label for="rating2_1">2</label>
+						<input id="rating1_1" type="radio" name="rating1" value="1" disabled><label for="rating1_1">1</label>
 					</span><span style="margin-left: 3%;">30 </span>개의 평가
 				</div>
 				<br>
 
+				<div id="reviewResult">
 				<table style="width: 600px;">
 					<tr>
 						<td rowspan="2"><img class="mx-auto rounded-circle"
@@ -266,11 +284,11 @@
 						<td width="80%" style="border-bottom: 1px solid #EAEAEA;">
 							<span>18.12.07 14:02</span>
 							<span class="rating" style="margin-left: 15px;">
-								<input id="rating5_2" type="radio" name="rating2" value="5" checked><label for="rating5_2">5</label>
-								<input id="rating4_2" type="radio" name="rating2" value="4"><label for="rating4_2">4</label>
-								<input id="rating3_2" type="radio" name="rating2" value="3"><label for="rating3_2">3</label>
-								<input id="rating2_2" type="radio" name="rating2" value="2"><label for="rating2_2">2</label>
-								<input id="rating1_2" type="radio" name="rating2" value="1"><label for="rating1_2">1</label>
+								<input id="rating5_2" type="radio" name="rating2" value="5" checked disabled><label for="rating5_2">5</label>
+								<input id="rating4_2" type="radio" name="rating2" value="4" disabled><label for="rating4_2">4</label>
+								<input id="rating3_2" type="radio" name="rating2" value="3" disabled><label for="rating3_2">3</label>
+								<input id="rating2_2" type="radio" name="rating2" value="2" disabled><label for="rating2_2">2</label>
+								<input id="rating1_2" type="radio" name="rating2" value="1" disabled><label for="rating1_2">1</label>
 							</span>
 						</td>
 					</tr>
@@ -283,6 +301,8 @@
 						</td>
 					</tr>
 				</table>
+				</div>
+				
 				<hr>
 			</div>
 		</div>
@@ -312,6 +332,82 @@
 				$("#detailImg6").hide();
 			}
 		})
+	</script>
+	
+	<!-- Review Table Ajax 출력 -->
+	<script>
+		$(function () {
+			$("#test1").click(function () {
+				$.ajax({
+					url:"/dsm/reviewList.pr",
+					type:"get",
+					success: function (data) {
+						console.log(data);
+						console.log("들어오는지 확인 ")
+						
+						$select = $("#reviewResult");
+						$select.find("table").remove();
+						
+						for(var i in data){
+							/* var $option = $("<option>");
+							$option.val(data[index].userNo);
+							$option.text(data[index].userName);
+							$select.append($option); */
+							var reviewDate = decodeURIComponent(data[i].reviewDate);
+							var reviewGrade = decodeURIComponent(data[i].reviewGrade);
+							var memberId = decodeURIComponent(data[i].memberId);
+							var reviewContext = decodeURIComponent(data[i].reviewContext);
+							
+							$select.append(
+									'<table style="width: 600px;">'
+									+'<tr>'
+									+'<td rowspan="2"><img class="mx-auto rounded-circle" src="/dsm/img/team/1.jpg" alt="" style="width: 90px; height: 90px;"></td>'
+									+'<td width="80%" style="border-bottom: 1px solid #EAEAEA;">'
+									+'<span>'+reviewDate+'</span>'
+									+'<span class="rating" style="margin-left: 15px;">'
+									+'<input id="rating5_2" type="radio" name="rating2" value="5" checked disabled><label for="rating5_2">5</label>'
+									+'<input id="rating4_2" type="radio" name="rating2" value="4" disabled><label for="rating4_2">4</label>'
+									+'<input id="rating3_2" type="radio" name="rating2" value="3" disabled><label for="rating3_2">3</label>'
+									+'<input id="rating2_2" type="radio" name="rating2" value="2" disabled><label for="rating2_2">2</label>'
+									+'<input id="rating1_2" type="radio" name="rating2" value="1" disabled><label for="rating1_2">1</label>'
+									+'</span>'
+									+'</td>'
+									+'</tr>'
+									+'<tr>'
+									+'<td>'
+									+'<div>'
+									+'<b>'+memberId+'</b>'
+									+'</div>'
+									+'<div>'+reviewContext+'</div>'
+									+'</td>'
+									+'</tr>'
+									+'</table>'							
+							);
+						}
+					}					
+				});
+			});
+		});
+	</script>
+	
+	<script>
+		$(function () {
+			$("#additionalOption").change(function () {
+				var totalPrice=0;
+				if($("#additionalOption").val() == "<%=pList.get(0).getPlusProductPrice()%>"){
+					totalPrice = <%=pList.get(0).getPlusProductPrice()%> + <%= product.getProductItemPrice() %>
+					$("#totalPrice").text(totalPrice);
+				}else if($("#additionalOption").val() == "<%=pList.get(1).getPlusProductPrice()%>"){
+					totalPrice = <%=pList.get(1).getPlusProductPrice()%> + <%= product.getProductItemPrice() %>
+					$("#totalPrice").text(totalPrice);
+				}else if($("#additionalOption").val() == "<%=pList.get(2).getPlusProductPrice()%>"){
+					totalPrice = <%=pList.get(2).getPlusProductPrice()%> + <%= product.getProductItemPrice() %>
+					$("#totalPrice").text(totalPrice);
+				}else{
+					alert("해당 상품은 존재하지 않습니다.")
+				}
+			});
+		});
 	</script>
 
 	<!-- Footer ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->

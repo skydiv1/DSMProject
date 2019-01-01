@@ -49,8 +49,9 @@
 	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 	crossorigin="anonymous"></script>
 
-<!-- ajax -->
+<!-- JQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <!-- 시멘틱 -->
 <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"> -->
 <!-- <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script> -->
@@ -92,7 +93,8 @@
 			<option value="edit">편집</option>
 		</select>
 	</div>
-	<br><br>
+	<br><br>	
+	</form>
 
 	<div class="container" id="searchListDiv">
 		<div class="row">
@@ -151,7 +153,6 @@
 		</div>
 		</div>
 	<!-- 페이징 처리 끝 //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-	</form>
 	</section>
 	
 	<script>
