@@ -174,7 +174,7 @@
 				</div>
 			</td>
 			<td align="center">
-				<button type="button" class="btn btn-outline-secondary" style="width:90%; height:50px;" onclick="location.href='/dsm/views/cash/noticeResist.jsp'">판매자 프로필 보러가기</button>
+				<button type="button" class="btn btn-outline-secondary" style="width:90%; height:50px;" onclick="location.href='/dsm/noticeResist.pr'">판매자 프로필 보러가기</button>
 			</td>
 		</tr>
 		<tr>
