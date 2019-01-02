@@ -11,6 +11,7 @@ import java.util.Properties;
 
 import static com.kh.w7.common.JDBCTemplate.*;
 
+import com.kh.w7.board.model.vo.Board;
 import com.kh.w7.member.model.vo.Member;
 import com.kh.w7.pay.model.dao.PayDao;
 import com.kh.w7.refund.model.vo.Refund;
@@ -122,6 +123,9 @@ public class AdminDao {
 				m.setMemberCategory(rset.getInt(6));
 				m.setPrivatememberStatus(rset.getInt(7));
 				m.setblackCount(rset.getInt(8));
+				m.setSellerCertcheck(rset.getInt(9));
+				m.setsellerImgPath(rset.getString(10));
+				
 				
 				list.add(m);
 			}
@@ -162,6 +166,172 @@ public class AdminDao {
 		
 		
 		return result;
+	}
+
+	public int countPlusMinus(Connection con, String what, int memberCode) {
+		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = "";
+		
+		
+		if(what.equals("plus")) {
+			query = prop.getProperty("countPlus");
+		}else{
+			query = prop.getProperty("countMinus");
+		}
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, memberCode);
+			result = pstmt.executeUpdate(); //여기가 실행이 안됨
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+
+		System.out.println("DaoResult : " + result);
+		
+		return result;
+	}
+
+	public int memberLightOutF(Connection con, int memberCode) {
+		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("memberLightOutF");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, memberCode);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public int memberHeavyOutF(Connection con, int memberCode) {
+		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("memberHeavyOutF");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, memberCode);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public int memberRestoreF(Connection con, int memberCode) {
+		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("memberRestoreF");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, memberCode);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public int imgCert(Connection con, int memberCode) {
+		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("imgCert");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, memberCode);
+			result = pstmt.executeUpdate();
+
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		
+		return result;
+	}
+
+	public ArrayList<Board> selectAllBoard(Connection con) {
+		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Board b = null;
+		ArrayList<Board> list = new ArrayList<Board>();
+		
+		String query = prop.getProperty("selectAllBoard");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				b = new Board();
+				
+				b.setBoardNo(rset.getInt(1));
+				b.setBoardTitle(rset.getString(2));
+				b.setMemberName(rset.getString(3));
+				b.setBoardDate(rset.getDate(4));
+				
+				
+				list.add(b);
+			}
+			
+			
+			System.out.println(list);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		
+		return list;
 	}
 
 }

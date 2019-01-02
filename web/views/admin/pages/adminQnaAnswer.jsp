@@ -86,7 +86,7 @@
                         </li>
 						
 						<li>
-                            <a href="/dsm/views/admin/pages/adminQnaAnswer.jsp"><i class="fa fa-table fa-fw"></i> 고객센터</a>
+                            <a href="/dsm/selectAllBoard"><i class="fa fa-table fa-fw"></i> 고객센터</a>
                         </li>
 					</ul>
 				</div>
@@ -112,15 +112,11 @@
 							 <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                     <tr>
-                                        <th>환급 번호</th>
-                                        <th>이름</th>
-                                        <th>은행</th>
-                                        <th>계좌</th>
-                                        <th>생년월일</th>
-                                        <th>금액</th>
-                                        <th>신청날짜</th>
-                                        <th>지급상태</th>
-                                        <th>지급하기</th>
+                                        <th>게시글  번호</th>
+                                        <th>제목</th>
+                                        <th>작성자</th>
+                                        <th>작성일</th>
+                                        <th>답변 여부</th>
                                     </tr>
                                 </thead>
                                 <tbody>

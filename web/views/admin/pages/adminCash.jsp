@@ -102,7 +102,7 @@
                         </li>
 						
 						<li>
-                            <a href="/dsm/views/admin/pages/adminQnaAnswer.jsp"><i class="fa fa-table fa-fw"></i> ∞Ì∞¥ºæ≈Õ</a>
+                            <a href="/dsm/selectAllBoard"><i class="fa fa-table fa-fw"></i> ∞Ì∞¥ºæ≈Õ</a>
                         </li>
                         
                     </ul>
