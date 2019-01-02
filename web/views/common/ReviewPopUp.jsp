@@ -176,6 +176,7 @@
 			
         </div>
         <div class="modal-footer">
+        	<input type="text" style="display: none" id="reviewdealnum">
           <button type="button" class="btn btn-secondary" style="width:400px" data-dismiss="modal">취소</button>
 		  <button type="button" class="btn btn-warning" style="width: 400px">등록</button>
         </div>
