@@ -124,9 +124,25 @@ p {
 				</tr>
 				<tr>
 					<td>
-						<button type="button" class="btn btn-warning" id="findpwdBtn"
+						<button type="button" class="btn btn-warning" id="findpwdBtn" onclick="pwdSearch();"
 							style="width: 500px; height: 50px; font-size: 20px; border-radius: 6px; margin-left: 5%; margin-left: 5%; color: gray;">이메일로
 							임시비밀번호 전송</button>
+							
+							<%! public static String getRandomPassword(){
+									char[] charSet
+										=new char[]{'0','1','2','3','4','5','6','7','8','9',
+												'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S'
+												,'T','U','V','W','X','Y','Z'};
+									int idx =0;
+									StringBuffer sb =new StringBuffer();
+									for(int i =0; i<10; i++){
+										idx =(int)(charSet.length*Math.random());
+									sb.append(charSet[idx]);
+							}	
+									return sb.toString();
+
+							}%>
+							<input type="hidden" value="<%=getRandomPassword()%>"id="randomCode">
 					</td>
 				</tr>
 
@@ -134,7 +150,7 @@ p {
 
 		</form>
 		<script>
-		$(function (){
+		/* $(function (){
 			$("#findpwdBtn").click(function (){
 		var randomCode = Math.floor((Math.random()*9999999-999999))+1000000;
 		var memberName = $("#memberName").val();
@@ -156,7 +172,28 @@ p {
 			}
 		});
 			});
-		});
+		}); */
+			
+		function pwdSearch() {
+			var randomCode=$("#randomCode").val();
+			var memberName = $("#memberName").val();
+			var memberId = $("#memberId").val();
+			var memberEmail = $("#memberEmail").val();
+			
+
+			$.ajax({
+				url:"/dsm/find_pwd.me",
+				type:"get",
+				data:{memberName:memberName, memberId:memberId, memberEmail:memberEmail,randomCode:randomCode},
+				success:function(data){
+					if(data=="YES"){
+						alert("이메일로 임시비밀번호 전송되었습니다.")
+					}else{
+						alert("이름, 아이디, 이메일을 다시 확인해주세요.")
+					}
+				}
+			});
+				};
 			
 		
 		

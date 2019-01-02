@@ -40,10 +40,10 @@ public class SendIdpw extends HttpServlet {
 		String memberEmail = request.getParameter("memberEmail");
 		String memberId = (String) request.getAttribute("memberId");
 		
-		String randomCode = (String) request.getAttribute("randomCode");
+		String memberPwd = (String) request.getAttribute("memberPwd");
+		String randomCode=(String)request.getAttribute("randomCode");
 		
-		
-		System.out.println("memberPwd : " + randomCode);
+		System.out.println("u");
 
 		
 		Properties prop = new Properties();// 정보를 담을 객체
@@ -58,9 +58,9 @@ public class SendIdpw extends HttpServlet {
 		
 		try{
 		    Authenticator auth = new SMTPAuthenticator();
-		    Session ses = Session.getDefaultInstance(prop, auth);
+		    Session session = Session.getDefaultInstance(prop, auth);
 		    
-		    MimeMessage msg = new MimeMessage(ses); // 메일의 내용을 담을 객체
+		    MimeMessage msg = new MimeMessage(session); // 메일의 내용을 담을 객체
 		    
 		    InternetAddress from = new InternetAddress("DroneServiceMarket@gmail.com");
              
@@ -73,18 +73,19 @@ public class SendIdpw extends HttpServlet {
              
             // 이메일 제목
             if("memberId" != null) {
-            	msg.setSubject("요청하신 DSM 아이디입니다. ", "UTF-8");
-            }else if("randomCode" != null) {
-            	msg.setSubject("요청하신 DSM 임시비밀번호 입니다.", "UTF-8");
+            	msg.setSubject("[DSM] 아이디 찾기", "UTF-8");
+            }else if("memberPwd" != null) {
+            	msg.setSubject("[DSM] 비밀번호 찾기", "UTF-8");
             }
+            
             
             // 이메일 내용
             if("memberId" != null) {
             	 request.setAttribute("memberId", memberId);
                  msg.setText("아이디 : "+ memberId, "UTF-8");
-            }else if("randomCode" != null) {
-            	request.setAttribute("memberPwd", randomCode);
-                msg.setText("임시 비밀번호 : "+ randomCode, "UTF-8");
+            }else if("memberPwd" != null) {
+            	request.setAttribute("userPwd", memberPwd);
+                msg.setText("임시 비밀번호 : "+ memberPwd, "UTF-8");
             }
            
             // 이메일 헤더
@@ -104,6 +105,7 @@ public class SendIdpw extends HttpServlet {
 		
 		
 	}
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

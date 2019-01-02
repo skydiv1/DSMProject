@@ -72,7 +72,7 @@ public class MemberDao {
 
 				loginUser.setMemberAdmin(rset.getInt("MEMBER_ADMIN"));
 
-				loginUser.setPrivatememberStatus(rset.getInt("MEMBER_STATUS"));
+				loginUser.setMemberStatus(rset.getInt("MEMBER_STATUS"));
 
 				loginUser.setSellerAccountName(rset.getString("SELLER_ACCOUNTNAME"));
 
@@ -184,7 +184,7 @@ public class MemberDao {
 		  }
 		  return memberId;
 		 }
-	public  String findPwd (String id, String name, String email){
+	/*public  String findPwd (String id, String name, String email){
 		  String memberPwd = null;
 		  Connection conn = null;
 		  PreparedStatement pstmt = null;
@@ -208,7 +208,7 @@ public class MemberDao {
 				close(rset);
 		  }
 		  return memberPwd;
-		 }
+		 }*/
 	 public int updateMember(Connection con, Member reqMember){
 	        
 	        Connection conn = null;
@@ -300,22 +300,20 @@ public class MemberDao {
 
 	public int findpwd(Connection con, String memberName, String memberId, String memberEmail, String randomCode) {
 		PreparedStatement pstmt = null;
-		Member member=new Member();
 		int result = 0;
 		
 		String query = prop.getProperty("findPWD");
-		System.out.println(query);
-		
-		System.out.println(memberId);
-		System.out.println(memberName);
-		System.out.println(memberEmail);
 	
 		try {
 			pstmt=con.prepareStatement(query);
+			
 			pstmt.setString(1, randomCode);
 			pstmt.setString(2, memberName);
 			pstmt.setString(3, memberId);
 			pstmt.setString(4, memberEmail);
+			/*System.out.println(memberId);
+			System.out.println(memberEmail);
+			System.out.println(randomCode);*/
 			
 			result = pstmt.executeUpdate();
 			
@@ -324,7 +322,7 @@ public class MemberDao {
 		} finally {
 			close(pstmt);
 		}
-		System.out.println("dao result:"+result);
+
 		return result;
 	}
 	
