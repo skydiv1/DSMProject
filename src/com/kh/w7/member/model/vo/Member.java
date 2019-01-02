@@ -18,6 +18,7 @@ public class Member implements java.io.Serializable {
 	private String sellerAccount;
 	private int sellerCertcheck;
 	private int blackCount;
+	private String sellerImgPath;
 	
 	public Member() {}
 
@@ -54,11 +55,18 @@ public class Member implements java.io.Serializable {
 		return memberCode;
 	}
 
-
-
-
 	public void setMemberCode(int memberCode) {
 		this.memberCode = memberCode;
+	}
+	
+	
+	
+	public String getsellerImgPath() {
+		return sellerImgPath;
+	}
+
+	public void setsellerImgPath(String sellerImgPath) {
+		this.sellerImgPath = sellerImgPath;
 	}
 
 	

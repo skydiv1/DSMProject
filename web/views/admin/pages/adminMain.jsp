@@ -77,7 +77,7 @@
 					<li><a href="/dsm/selectAllRefund"><i class="fa fa-table fa-fw"></i> 환불관리</a>
 					</li>
 
-					<li><a href="/dsm/views/admin/pages/adminQnaAnswer.jsp"><i class="fa fa-table fa-fw"></i> 고객센터</a>
+					<li><a href="/dsm/selectAllBoard"><i class="fa fa-table fa-fw"></i> 고객센터</a>
 					</li>
 				</ul>
 			</div>

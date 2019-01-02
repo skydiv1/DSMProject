@@ -44,7 +44,9 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+<script>
+	temp = 0;
+</script>
 </head>
 <body>
 
@@ -91,7 +93,7 @@
                         </li>
 						
 						<li>
-                            <a href="/dsm/views/admin/pages/adminQnaAnswer.jsp"><i class="fa fa-table fa-fw"></i> 고객센터</a>
+                            <a href="/dsm/selectAllBoard"><i class="fa fa-table fa-fw"></i> 고객센터</a>
                         </li>
 					</ul>
 				</div>
@@ -122,10 +124,12 @@
                                         <th>이름</th>
                                         <th>이메일</th>
                                         <th>번호</th>
-                                        <th>분류<br>(소비자,판매자,관리자)</th>
-                                        <th>상태<br>(정상,탈퇴,블랙,블랙탈퇴)</th>
+                                        <th>분류</th>
+                                        <th>상태</th>
                                         <th>경고 횟수</th>
-                                        <!-- <th>탈퇴</th> -->
+                                        <th>상태관리</th>
+                                        <th>자격증<br>제출 여부</th>
+                                        <th>자격증<br>이미지</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -136,21 +140,73 @@
                                         <td><%= list.get(i).getMemberName() %></td>
                                         <td class="center"><%= list.get(i).getMemberEmail() %></td>
                                         <td class="center"><%= list.get(i).getMemberPhone() %></td>
-                                        <td class="center"><%= list.get(i).getMemberCategory() %></td>
-                                        <td class="center"><%= list.get(i).getPrivatememberStatus() %></td>
-                                        <td class="center"><%= list.get(i).getblackCount() %></td>
-                                       <%--  <% if(list.get(i).getPrivatememberStatus() != 1 && list.get(i).getPrivatememberStatus() != 3) {%>
+                                        <% if(list.get(i).getMemberCategory() == 0){%>
+                                        <td class="center">소비자</td>
+                                        <% }else if(list.get(i).getMemberCategory() == 1){ %>
+                                        <td class="center">판매자</td>
+                                        <% }else{ %>
+                                        <td class="center">관리자</td>
+                                        <% } %>
+                                        
+                                        
+                                        <% if(list.get(i).getmemberStatus() == 0){%>
+                                        <td class="center">정상</td>
+                                        <% }else if(list.get(i).getmemberStatus() == 1){ %>
+                                        <td class="center">탈퇴</td>
+                                        <% }else if(list.get(i).getmemberStatus() == 2){ %>
+                                        <td class="center">블랙리스트</td>
+                                        <% } %>
+                                        
+                                        <td class="center"><div id = "warningCountDiv<%= list.get(i).getMemberCode() %>" style = "display : inline"><%= list.get(i).getblackCount() %></div>&nbsp;&nbsp;
+                                        <button style = "width : 20px ;background : lightgray; color : black" onclick = "plusMinusBtn('minus',<%= list.get(i).getMemberCode() %>)">-</button>
+                                        <button style = "width : 20px ;background : lightgray; color : black" onclick = "plusMinusBtn('plus',<%= list.get(i).getMemberCode() %>)">+</button></td>
+                                        
+                                        
+                                        <% if(list.get(i).getmemberStatus() == 0){%>
+                                        <td class="center"><button style = "background : lightgray; color : black" onclick = "location.href = '/dsm/memberLightOut?memberCode=<%= list.get(i).getMemberCode() %>'">탈퇴</button>
+                                        <button style = "background : lightgray; color : black" onclick = "location.href = '/dsm/memberHeavyOut?memberCode=<%= list.get(i).getMemberCode() %>'">영구 탈퇴</button></td>
+                                        <% }else if(list.get(i).getmemberStatus() == 1){ %>
+                                        <td class="center"><button style = "background : lightgray; color : black" onclick = "location.href = '/dsm/memberRestore?memberCode=<%= list.get(i).getMemberCode() %>'">복구</button></td>
+                                        <% }else if(list.get(i).getmemberStatus() == 2){ %>
+										<td class="center">&nbsp;</td>
+                                        <% } %>
+                                        
+                                        <% if(list.get(i).getMemberCategory() == 1){%>
+                                         	<% if(list.get(i).getSellerCertcheck() == 0){%>
+                                        	<td class="center">미제출&nbsp;<button width = "20px" onclick = "location.href = '/dsm/imgCert?memberCode=<%= list.get(i).getMemberCode() %>'">인증</button></td>
+                                        	<% }else{ %>
+                                        	<td class="center">제출</td>
+                                        	<% } %>
+                                        <% }else{ %>
+                                        <td class="center">&nbsp;</td>
+                                        <% } %>
+                                        
+                                        <% if(list.get(i).getMemberCategory() == 1){%>
+	                                        <% if(list.get(i).getsellerImgPath() != null) {%>
+	                                        	<td class="center">
+	                                        	<a href="<%= list.get(i).getsellerImgPath()%>" onclick="window.open(this.href, '판매자 자격증 이미지', 'width = 300, height = 300');return false;" target="_blank">
+	                                        	<button>이미지 확인</button>
+	                                        	</a></td>    	
+	                                        <% }else{ %>
+	                                        	<td class="center">X</td>
+	                                        <% } %>
+                                        <% }else{ %>
+                                         	<td class="center">&nbsp;</td>
+                                        <% } %>
+                                       	<%--  <% if(list.get(i).getPrivatememberStatus() != 1 && list.get(i).getPrivatememberStatus() != 3) {%>
                                         <td class="center" align = "center"><button style = "background : lightgray; color : black" onclick = "location.href = '/dsm/memberDelete?memberCode=<%= list.get(i).getMemberCode() %>'">탈퇴</button></td>
                                         <% }else{ %>
                                         <td class="center"></td>
                                         <% } %> --%>
+                                        
+                                        
                                     </tr>
                                 <%} %>
                                     
                                 </tbody>
                             </table>
 							<!-- /.table-responsive -->
-
+						
 						</div>
 						<!-- /.panel-body -->
 					</div>
@@ -183,11 +239,44 @@
 
 	<!-- Page-Level Demo Scripts - Tables - Use for reference -->
 	<script>
+
+	
+		
+		
 		$(document).ready(function() {
 			$('#dataTables-example').DataTable({
 				responsive : true
 			});
 		});
+		
+		function plusMinusBtn(what, memberCode){
+			$.ajax({
+				url : "/dsm/plusMinus",
+				data : {what : what,
+						memberCode : memberCode},
+				type : "post",
+				success : function(data){
+					console.log(data);
+					var count = Number($("#warningCountDiv"+memberCode).text());
+					if(data == 'plus'){
+						$("#warningCountDiv"+memberCode).text(count+1);
+					}
+					else{
+						if(count <=0){
+							//0이하로는 안내려가게
+						}
+						else{
+							$("#warningCountDiv"+memberCode).text(count-1);
+						}
+					}
+				},
+				error : function(data){
+					console.log(data);
+				}
+			});
+			
+		}
+		
 	</script>
 
 </body>
