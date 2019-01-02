@@ -73,7 +73,7 @@ public class MypageDao {
 		return list;
 	}
 
-	//취소버튼 눌렀을때
+	//신청 목록에서 취소버튼 눌렀을때
 	public int cancelUpdate(Connection con, int dealnum, String textContent) {
 		PreparedStatement pstmt = null;
 		int result =0;
@@ -169,6 +169,72 @@ public class MypageDao {
 		
 		
 		return CancelList;
+	}
+
+	//취소 목록에서 삭제버튼 눌렀을 때
+	public int cancelDelete(Connection con, int dealnum) {
+		PreparedStatement pstmt = null;
+		int result =0;
+		
+		String query = prop.getProperty("cancelDelete");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, dealnum);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+	
+		return result;
+
+	}
+
+	//수락목록 조회
+	public static ArrayList<MyPage> selectAcceptList(Connection con, int loginCode) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<MyPage> appectlist= null;
+		
+		String query = prop.getProperty("AcceptselectList");
+		
+		try {
+			pstmt=con.prepareStatement(query);
+			
+			
+			pstmt.setInt(1, loginCode);
+			
+			rset= pstmt.executeQuery();
+			
+			
+			appectlist = new ArrayList<MyPage>();
+			
+			while(rset.next()) {
+				MyPage m = new MyPage();
+				
+				m.setDealNo(rset.getInt("DEAL_NO"));
+				m.setMember_id(rset.getString("MEMBER_ID"));
+				m.setProductName(rset.getString("PRODUCT_NAME"));
+				m.setDealListaddMsg(rset.getString("DEALLIST_ADDMESSAGE"));
+				
+				appectlist.add(m);
+			}
+			System.out.println("list값dao:"+appectlist);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return appectlist;
 	}
 
 

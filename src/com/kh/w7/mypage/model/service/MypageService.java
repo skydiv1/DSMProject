@@ -63,6 +63,38 @@ public class MypageService {
 		close(con);
 		return CancelList;
 	}
+	//취소목록에서 삭제
+	public int cancelDelete(int dealnum) {
+		
+		Connection con = getConnection();
+		
+		int result = new MypageDao().cancelDelete(con,dealnum);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+	//수락목록 조회
+	public ArrayList<MyPage> selectAcceptList(int loginCode) {
+		Connection con  = getConnection(); 
+		
+		ArrayList<MyPage>appectlist = MypageDao.selectAcceptList(con, loginCode);
+		
+		if(appectlist != null) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+
+		return appectlist;
+	}
 
 	
 	
