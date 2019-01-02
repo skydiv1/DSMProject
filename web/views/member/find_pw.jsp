@@ -27,7 +27,7 @@
 	href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 <script
 	src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <title>login</title>
 <style>
@@ -60,7 +60,8 @@ p {
 	font-weight: bold;
 	text-color: gray;
 }
-#searchId{
+
+#searchId {
 	text-decoration: none;
 }
 </style>
@@ -76,63 +77,94 @@ p {
 	<div align="center">
 
 		<div align="center">
-				
-					<div class="ui large buttons">
-						<a href="find_Id.jsp;"><button class="ui button" id="searchId" 
-							style="width: 470px; height: 50px; font-size: 20px;"><div style="color:white">아이디찾기</div></button>
-				</a>
+
+			<div class="ui large buttons">
+				<a href="find_Id.jsp;"><button class="ui button" id="searchId"
+						style="width: 470px; height: 50px; font-size: 20px;">
+						<div style="color: white">아이디찾기</div>
+					</button> </a>
 				<div class="or"></div>
-				
-					<a href="find_pw.jsp"><button class="ui button"
-						style="width: 470px; height: 50px; font-size: 20px;"><div style="color:white">비밀번호찾기</div></button></a>
-				
+
+				<a href="find_pw.jsp"><button class="ui button"
+						style="width: 470px; height: 50px; font-size: 20px;">
+						<div style="color: white">비밀번호찾기</div>
+					</button></a>
+
 			</div>
-			</div>
+		</div>
 
 
-	<form action="" method="GET">
+		<form action="" method="GET">
 
 
-		<table width="60%" height="400px" style="padding-left: 230px;" >
+			<table width="60%" height="400px" style="padding-left: 230px;">
 
 
 
 
-			<tr>
-				<td>
-					<div style="margin-bottom: 15px; margin-left: 5%;">
-						<input type="text" id="" placeholder="이름을 입력하세요"
-							style="width: 500px; height: 50px; margin: 0 auto; font-size: 20px; border-radius: 6px;">
-					</div>
-					<div style="margin-bottom: 15px; margin-left: 5%;">
-						<input type="text" id="" placeholder="아이디를 입력하세요"
-							style="width: 500px; height: 50px; margin: 0 auto; font-size: 20px; border-radius: 6px;">
-					</div>
-					<div style="margin-bottom: 15px; margin-left: 5%;";>
-						<input type="text" id="" placeholder="이메일을 입력하세요"
-							style="width: 500px; height: 50px; font-size: 20px; border-radius: 6px;">
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td><p text-align="center">DMS인증 시 입력되었던 이메일로 임시비밀번호를
-						보내드립니다.</p></td>
-			</tr>
-			<tr>
-				<td>
-					<button type="button" class="btn btn-warning"
-						style="width: 500px; height: 50px; font-size: 20px; border-radius: 6px; margin-left: 5%; margin-left: 5%; color: gray;">이메일로
-						임시비밀번호 전송</button>
-				</td>
-			</tr>
+				<tr>
+					<td>
+						<div style="margin-bottom: 15px; margin-left: 5%;">
+							<input type="text" id="memberName" placeholder="이름을 입력하세요"
+								style="width: 500px; height: 50px; margin: 0 auto; font-size: 20px; border-radius: 6px;">
+						</div>
+						<div style="margin-bottom: 15px; margin-left: 5%;">
+							<input type="text" id="memberId" placeholder="아이디를 입력하세요"
+								style="width: 500px; height: 50px; margin: 0 auto; font-size: 20px; border-radius: 6px;">
+						</div>
+						<div style="margin-bottom: 15px; margin-left: 5%;";>
+							<input type="text" id="memberEmail" placeholder="이메일을 입력하세요"
+								style="width: 500px; height: 50px; font-size: 20px; border-radius: 6px;">
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td><p text-align="center">DMS인증 시 입력되었던 이메일로 임시비밀번호를
+							보내드립니다.</p></td>
+				</tr>
+				<tr>
+					<td>
+						<button type="button" class="btn btn-warning" id="findpwdBtn"
+							style="width: 500px; height: 50px; font-size: 20px; border-radius: 6px; margin-left: 5%; margin-left: 5%; color: gray;">이메일로
+							임시비밀번호 전송</button>
+					</td>
+				</tr>
 
-		</table>
+			</table>
 
-	</form>
+		</form>
+		<script>
+		$(function (){
+			$("#findpwdBtn").click(function (){
+		var randomCode = Math.floor((Math.random()*9999999-999999))+1000000;
+		var memberName = $("#memberName").val();
+		var memberId = $("#memberId").val();
+		var memberEmail = $("#memberEmail").val();
+		
+		
+		
+		$.ajax({
+			url:"/dsm/find_pwd.me",
+			type:"post",
+			data:{memberName:memberName, memberId:memberId, memberEmail:memberEmail,randomCode:randomCode},
+			success:function(data){
+				if(data=="YES"){
+					alert("이메일로 임시비밀번호 전송되었습니다.")
+				}else{
+					alert("이름, 아이디, 이메일을 다시 확인해주세요.")
+				}
+			}
+		});
+			});
+		});
+			
+		
+		
+	
+	</script>
+		<!-- 	</section> -->
 		<br> <br>
-	<!-- 	</section> -->
-
-	<%@ include file="/views/common/footer.jsp"%>
+		<%@ include file="/views/common/footer.jsp"%>
 </body>
 
 

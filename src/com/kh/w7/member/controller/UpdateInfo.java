@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.w7.member.model.service.MemberService;
+import com.kh.w7.member.model.vo.Member;
+
 /**
  * Servlet implementation class UpdateInfo
  */
@@ -26,8 +29,48 @@ public class UpdateInfo extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.setCharacterEncoding("utf-8");
+		
+		String memberPwd = request.getParameter("memberPwd");
+		String memberName = request.getParameter("memberName");
+		String memberPhone = request.getParameter("memberPhone");
+		String memberEmail = request.getParameter("memberEmail");
+		String sellerIntroduction = request.getParameter("sellerIntroduction");
+		String sellerCareer = request.getParameter("sellerCareer");
+	
+		
+		System.out.println("memberPwd: " + memberPwd);
+		System.out.println("memberName: " + memberName);
+		System.out.println("memberPhone: " + memberPhone);
+		System.out.println("memberEmail: " + memberEmail);
+		System.out.println("selleIntroduction: " + sellerIntroduction);
+		System.out.println("sellerCareer: " + sellerCareer);
+		
+		
+		Member reqMember = new Member();
+		
+		reqMember.setMemberPwd(memberPwd);
+		reqMember.setMemberName(memberName);
+		reqMember.setMemberPhone(memberPhone);
+		reqMember.setMemberEmail(memberEmail);
+		reqMember.setSellerIntroduction(sellerIntroduction);
+		reqMember.setSellerCareer(sellerCareer);
+		
+
+		
+		int result = new MemberService().insertMember(reqMember);
+		
+		
+		if(result>0) {
+			request.getSession().setAttribute("msg", "정보수정에 성공하셨습니다.");
+			
+			response.sendRedirect("index.jsp");
+		}else {//다 했을때 팝업시도
+			request.setAttribute("msg", "정보수정 실패!");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
+		
+	
 	}
 
 	/**

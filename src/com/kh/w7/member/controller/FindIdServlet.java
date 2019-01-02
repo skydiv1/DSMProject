@@ -1,4 +1,5 @@
 package com.kh.w7.member.controller;
+
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,45 +16,45 @@ import com.kh.w7.member.model.vo.Member;
 @WebServlet("/find_id.me")
 public class FindIdServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public FindIdServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String memberName = request.getParameter("memberName");
-		String memberEmail = request.getParameter("memberEmail");
-		System.out.println(memberName);
-		System.out.println(memberEmail);
-		
-		String memberId = new MemberService().find(memberName, memberEmail);
-		System.out.println(memberId);
-		if(memberId != "") {			
-			request.setAttribute("memberId", memberId);
-			
-			
-			System.out.println("1");
-			request.getRequestDispatcher("/find_id.me").forward(request, response);
-			
-			response.getWriter().print("YES");
-			
-		}else {
-			response.getWriter().print("NO");
-		}
-		
+	public FindIdServlet() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String memberName = request.getParameter("memberName");
+		String memberEmail = request.getParameter("memberEmail");
+
+		String memberId = new MemberService().find(memberName, memberEmail);
+
+		if (memberId != "") {
+			request.setAttribute("memberId", memberId);
+
+			request.getRequestDispatcher("/SendIdpw.me").forward(request, response);
+
+			response.getWriter().print("YES");
+
+		} else {
+			response.getWriter().print("NO");
+		}
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

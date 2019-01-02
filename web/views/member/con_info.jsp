@@ -21,9 +21,9 @@
 	src = "https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
 	integrity = "sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
 	crossorigin = "anonymous"
-	
 </script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <title>소비자 정보 수정</title>
 <style>
 #link {
@@ -51,70 +51,68 @@ form {
 #user {
 	padding-top: 20%;
 }
-.btn btn-cancle{
- margin-right:15%
+
+.btn btn-cancle {
+	margin-right: 15%
 }
 </style>
 <script language="javascript">
-   function validate() {
-       var re = /^[a-zA-Z0-9]{4,12}$/ // 아이디와 패스워드가 적합한지 검사할 정규식
-       var re2 = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-       // 이메일이 적합한지 검사할 정규식
+	function validate() {
+		var re = /^[a-zA-Z0-9]{4,12}$/ // 아이디와 패스워드가 적합한지 검사할 정규식
+		var re2 = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+		// 이메일이 적합한지 검사할 정규식
 
-       var memberId = document.getElementById("memberId");
-       var memberPwd = document.getElementById("memberPwd");
-       var memberEmail = document.getElementById("memberEmail");
-       var num1 = document.getElementById("num1");
-       var num2 = document.getElementById("num2");
+		var memberId = document.getElementById("memberId");
+		var memberPwd = document.getElementById("memberPwd");
+		var memberEmail = document.getElementById("memberEmail");
+		var num1 = document.getElementById("num1");
+		var num2 = document.getElementById("num2");
 
-       
-       // ------------ 이메일 까지 -----------
+		// ------------ 이메일 까지 -----------
 
-       if(!check(re,memberId)) {
-           return false;
-       }
+		if (!check(re, memberId)) {
+			return false;
+		}
 
-       if(!check(re,memberPwd)) {
-           return false;
-       }
+		if (!check(re, memberPwd)) {
+			return false;
+		}
 
-       if(join.memberPwd.value != join.memberPwd2.value) {
-           alert("비밀번호가 다릅니다. 다시 확인해 주세요.");
-           join.memberPwd.value = "";
-           join.memberPwd.focus();
-           return false;
-       }
+		if (join.memberPwd.value != join.memberPwd2.value) {
+			alert("비밀번호가 다릅니다. 다시 확인해 주세요.");
+			join.memberPwd.value = "";
+			join.memberPwd.focus();
+			return false;
+		}
 
-       if(memberEmail.value=="") {
-           alert("이메일을 입력해 주세요");
-           memberEmail.focus();
-           return false;
-       }
+		if (memberEmail.value == "") {
+			alert("이메일을 입력해 주세요");
+			memberEmail.focus();
+			return false;
+		}
 
-       if(!check(re2, memberEmail, "적합하지 않은 이메일 형식입니다.")) {
-           return false;
-       }
+		if (!check(re2, memberEmail, "적합하지 않은 이메일 형식입니다.")) {
+			return false;
+		}
 
-       if(join.memberName.value=="") {
-           alert("이름을 입력해 주세요");
-           join.memberName.focus();
-           return false;
-       }
+		if (join.memberName.value == "") {
+			alert("이름을 입력해 주세요");
+			join.memberName.focus();
+			return false;
+		}
 
-       
-       alert("회원가입이 완료되었습니다.");
-   }
+		alert("회원가입이 완료되었습니다.");
+	}
 
-   function check(re, what, message) {
-       if(re.test(what.value)) {
-           return true;
-       }
-       alert(message);
-       what.value = "";
-       what.focus();
-       //return false;
-   }
-
+	function check(re, what, message) {
+		if (re.test(what.value)) {
+			return true;
+		}
+		alert(message);
+		what.value = "";
+		what.focus();
+		//return false;
+	}
 </script>
 </head>
 <body>
@@ -123,19 +121,22 @@ form {
 	<h3 align="center">소비자 가입 정보 입력</h3>
 	<br>
 	<hr>
-	<form action="<%=request.getContextPath()%>/updateInfo.me" method="post">
-		
+	<form action="<%=request.getContextPath()%>/updateInfo.me"
+		method="post">
 
 
-			
-			<table align="center">
-				<tr>
+
+
+		<table align="center">
+			<tr>
 				<td><div class="form-group">
 						<label for="inputId" class="col-sm-2 control-label">Id</label>
-						<%-- 
-							
-						</div><td><%=Member.getMemberId() %></td>
- --%>
+
+
+					</div><td><%=Member.getMemberId()%></td>
+				
+
+
 
 						
 					</div></td>
@@ -146,8 +147,8 @@ form {
 					<div class="form-group">
 						<label for="inputPassword3" class="col-sm-2 control-label">Password</label>
 						<div class="col-sm-10">
-							<input type="password" class="form-control" id="memberPwd" name="membePwd"
-								style="width: 550px" placeholder="Password">
+							<input type="password" class="form-control" id="memberPwd"
+								name="membePwd" style="width: 550px" placeholder="Password">
 						</div>
 					</div>
 				</td>
@@ -158,8 +159,8 @@ form {
 						<label for="inputPassword3" class="col-sm-4 control-label">Confirm
 							Password</label>
 						<div class="col-sm-10">
-							<input type="password" class="form-control" id="memberpwd2" name="memberPwd2"
-								style="width: 550px" placeholder="Password">
+							<input type="password" class="form-control" id="memberpwd2"
+								name="memberPwd2" style="width: 550px" placeholder="Password">
 						</div>
 					</div>
 				</td>
@@ -168,8 +169,8 @@ form {
 				<td><div class="form-group">
 						<label for="inputName" class="col-sm-2 control-label">Name</label>
 						<div class="col-sm-10">
-							<input type="Name" class="form-control" id="memberName" name="memberName"
-								style="width: 550px" placeholder="Name">
+							<input type="Name" class="form-control" id="memberName"
+								name="memberName" style="width: 550px" placeholder="Name">
 						</div>
 					</div></td>
 			</tr>
@@ -178,8 +179,8 @@ form {
 				<td><div class="form-group">
 						<label for="inputTel" class="col-sm-2 control-label">Phone</label>
 						<div class="col-sm-10">
-							<input type="Name" class="form-control" id="memberName" name="memberName"
-								style="width: 550px" placeholder="Name"> 
+							<input type="Name" class="form-control" id="memberName"
+								name="memberName" style="width: 550px" placeholder="Name"> 
 						</div>
 					</div></td>
 			</tr>
@@ -187,8 +188,8 @@ form {
 				<td><div class="form-group">
 						<label for="inputEmail" class="col-sm-2 control-label">Email</label>
 						<div class="col-sm-10">
-							<input type="email" class="form-control" id="memberEmail" name="memberEmail"
-								style="width: 550px" placeholder="Email">
+							<input type="email" class="form-control" id="memberEmail"
+								name="memberEmail" style="width: 550px" placeholder="Email">
 						</div>
 					</div></td>
 				<td style="padding-top: 14px;">
@@ -214,24 +215,27 @@ form {
 		<div align="center">
 			<a href="/web/index.jsp">
 				<button type="submit" class="btn btn-warning"
-					style="width: 400px; height: 50px; font-size: 20px; border-radius: 6px;"><div id="updateBtn" onclick="updateMember();">정보수정</div></button>
+					style="width: 400px; height: 50px; font-size: 20px; border-radius: 6px;">
+					<div id="updateBtn" onclick="updateMember();">정보수정</div>
+				</button>
 			</a> <a href="/web/index.jsp">
 				<button type="button" class="btn btn-cancle"
-					style="width: 400px; height: 50px; font-size: 20px; border-radius: 6px;"><div id="updateBtn" onclick="goMain();">취소하기</button>
+					style="width: 400px; height: 50px; font-size: 20px; border-radius: 6px;">
+					<div id="updateBtn" onclick="goMain();">취소하기
+				</button>
 			</a>
 			<a href="/web/index.jsp">
-				<button type="button" class="btn btn-defualt" 
-					style="width: 150px; height: 50px; font-size: 15px; border-radius: 6px;"><div id="DeleteBtn" onclick="leaveMember();">탈퇴하기</button>
+				<button type="button" class="btn btn-defualt"
+					style="width: 150px; height: 50px; font-size: 15px; border-radius: 6px;">
+					<div id="DeleteBtn" onclick="leaveMember();">탈퇴하기
+				</button>
 			</a>
 		</div>
 		</form>
 		<script>
 			function leaveMember() {
-				
-				
+
 			}
-		
-		
 		</script>
 		
 <br>

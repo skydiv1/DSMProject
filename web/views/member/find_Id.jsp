@@ -142,9 +142,9 @@ p {
 				
 				success:function(data){ // data: 문자열이 들어온다
 					if(data=="YES"){
-						alert("이메일로 아이디 전송")
+						alert("이메일로 아이디 전송되었습니다.")
 					}else{
-						alert("이름과 아이디를 다시 확인해주세요")
+						alert("이름과 아이디를 다시 확인해주세요.")
 					}
 				}
 			}); 
