@@ -15,29 +15,29 @@ import com.kh.w7.member.model.vo.Member;
 import com.kh.w7.mypage.model.service.MypageService;
 import com.kh.w7.mypage.model.vo.MyPage;
 
-@WebServlet("/selectList.dc")
-public class DealCompleteServlet extends HttpServlet {
+@WebServlet("/selectList.wait")
+public class WaitingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public DealCompleteServlet() {
+  
+    public WaitingServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		HttpSession session = request.getSession();
 
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		
 		int loginCode = loginUser.getMemberCode();
 		
-		ArrayList<MyPage>deallist = new MypageService().selectDealList(loginCode);
+		ArrayList<MyPage>waitlist = new MypageService().selectWaitingList(loginCode);
 		
 				
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
-		new Gson().toJson(deallist, response.getWriter());
-
+		new Gson().toJson(waitlist, response.getWriter());
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

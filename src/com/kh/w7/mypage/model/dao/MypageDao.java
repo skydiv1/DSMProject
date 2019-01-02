@@ -237,6 +237,86 @@ public class MypageDao {
 		return appectlist;
 	}
 
+	//소비자 구매완료 목록 조회
+	public static ArrayList<MyPage> selectDealList(Connection con, int loginCode) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<MyPage> deallist= null;
+		
+		String query = prop.getProperty("DealselectList");
+		
+		try {
+			pstmt=con.prepareStatement(query);
+			
+			
+			pstmt.setInt(1, loginCode);
+			
+			rset= pstmt.executeQuery();
+			
+			
+			deallist = new ArrayList<MyPage>();
+			
+			while(rset.next()) {
+				MyPage m = new MyPage();
+				
+				m.setDealNo(rset.getInt("DEAL_NO"));
+				m.setMember_id(rset.getString("MEMBER_ID"));
+				m.setProductName(rset.getString("PRODUCT_NAME"));
+				m.setDealListaddMsg(rset.getString("DEALLIST_ADDMESSAGE"));
+				
+				deallist.add(m);
+			}
+			System.out.println("list값dao:"+deallist);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		return deallist;
+	}
+
+
+	public static ArrayList<MyPage> selectWaitingList(Connection con, int loginCode) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<MyPage> waitlist= null;
+		
+		String query = prop.getProperty("selectWaitingList");
+		
+		try {
+			pstmt=con.prepareStatement(query);
+			
+			
+			pstmt.setInt(1, loginCode);
+			
+			rset= pstmt.executeQuery();
+			
+			
+			waitlist = new ArrayList<MyPage>();
+			
+			while(rset.next()) {
+				MyPage m = new MyPage();
+				
+				m.setDealNo(rset.getInt("DEAL_NO"));
+				m.setMember_id(rset.getString("MEMBER_ID"));
+				m.setProductName(rset.getString("PRODUCT_NAME"));
+				m.setDealListaddMsg(rset.getString("DEALLIST_ADDMESSAGE"));
+				
+				waitlist.add(m);
+			}
+			System.out.println("list값dao:"+waitlist);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return waitlist;
+	}
+
 
 	
 }

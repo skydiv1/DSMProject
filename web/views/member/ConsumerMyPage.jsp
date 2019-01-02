@@ -70,6 +70,7 @@
 				data : {dealnum:dealnum},
 				success : function (data) {
 					selectListAccept();
+					selectListdealcomplete();
 				}
 			});
 	});
@@ -78,11 +79,12 @@
 	$("#dealcomlete").click(function () {
 		var no = $(this).parent().parent().children().eq(1).text();
 		$("#reviewdealnum").val(no);
+		$("#dealcomlete").attr('disabled',true);
 		$("#dealreview").show();
 		
 	});
 	
-	/* //구매완료 목록에서 구매평작성 누를때
+	//구매완료 목록에서 구매평작성 누를때
 	$("#dealreview").click(function () {
 		var dealnum = $("#reviewdealnum").val();
 		$.ajax({
@@ -94,7 +96,7 @@
 				selectListCencel();
 			}
 		});
-	});  */
+	});  
   }
 		
 	

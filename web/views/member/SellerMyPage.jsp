@@ -1,9 +1,12 @@
+<%@page import="com.kh.w7.mypage.model.vo.*"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <title>판매자 마이페이지</title>
 <style type="text/css">
 .bg-light{
@@ -19,10 +22,62 @@
  }
 
 </style>
+<script type="text/javascript">
+function addBtnEvent() {
+
+	//취소 팝업에 있는 버튼 누를때
+	  $("#cancelBtn").click(function () {});
+}
+
+
+
+
+
+
+//대기자 목록 ajax
+function selectListWaiting(pg) {
+		
+		$.ajax({
+			url : "${pageContext.request.contextPath}/selectList.wait",
+			type :"get",
+			success : function (data) {
+				
+				var waitListHtml = [];
+				var no =0;
+				for(var i=0; i<data.length; i++){
+					waitListHtml.push('<tr>');
+					waitListHtml.push('	<th scope="row">' + (i+1) + '</th>');
+					waitListHtml.push('	<td class="td1" style="display: none">' +data[i].dealNo + '</td>');
+					waitListHtml.push('	<td class="td1">' +data[i].member_id + '</td>');
+					waitListHtml.push('	<td class="td1">' +data[i].productName+ '</td>');
+					waitListHtml.push('	<td class="td1">' +data[i].dealListaddMsg + '</td>');
+					waitListHtml.push('	<td style="width: 10px; padding-right: 0px"><button type="button" class="btn btn-warning"data-toggle="modal" data-target="#agreeModal" id="agreeBtn">수락하기</button></td>');
+					waitListHtml.push('	<td style="width: 5px"><button type="button" class="btn btn-secondary"data-toggle="modal" data-target="#cencelModal" id="cBtn">거절</button></td>');
+					waitListHtml.push('</tr>');
+					
+				}
+				$("#waitingList").html("");//이전틀 지우고
+				$("#waitingList").append(waitListHtml.join(""));//""를 기준으로 배열에 담긴 데이터 꺼내오기
+				
+				
+				 addBtnEvent();//버튼 함수 불러오기
+				 
+				 
+				 
+			}
+		});
+	}
+	
+//마이페이지 실행시에 뷰페이지 만들고 데이터 뿌려주는 ajax 메인(함수 호출 여기서)
+	$(function () {
+		selectListWaiting(1);
+		
+}); 
+</script>
 </head>
 <body>
 <!-- 네비게이션 바 -->
-		<%@ include file = "../common/naviLogin.jsp" %>
+		<%@ include file = "../common/menubar.jsp" %>
 		<%@ include file = "../common/CancelPopUp.jsp" %>
 		<%@ include file = "../common/AgreePopUp.jsp" %>
 
@@ -92,6 +147,7 @@
 			  <thead>
 			    <tr>
 			      <th scope="col">No</th>
+			      <th scope="col" class="td1" style="display: none">거래번호</th>
 			      <th scope="col" class="td1">소비자ID</th>
 			      <th scope="col" class="td1">판매 상품명</th>
 			      <th scope="col" class="td1">추가신청 내용</th>
@@ -99,31 +155,8 @@
 			      <th scope="col"></th>
 			    </tr>
 			  </thead>
-			  <tbody>
-			    <tr>
-			      <th scope="row">1</th>
-			      <td class="td1">Mark</td>
-			      <td class="td1">Otto</td>
-			      <td class="td1">@mdo</td>
-			      <td style="width: 10px; padding-right: 0px"><button type="button" class="btn btn-warning"data-toggle="modal" data-target="#agreeModal">수락하기</button></td>
-			      <td style="width: 5px"><button type="button" class="btn btn-secondary"data-toggle="modal" data-target="#cencelModal">거절</button></td>
-			    </tr>
-			    <tr>
-			      <th scope="row">2</th>
-			      <td class="td1">Mark</td>
-			      <td class="td1">Otto</td>
-			      <td class="td1">@mdo</td>
-			      <td style="width: 10px; padding-right: 0px"><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#agreeModal">수락하기</button></td>
-			      <td style="width: 5px"><button type="button" class="btn btn-secondary"data-toggle="modal" data-target="#cencelModal">거절</button></td>
-			    </tr>
-			    <tr>
-			      <th scope="row">3</th>
-			      <td class="td1">Mark</td>
-			      <td class="td1">Otto</td>
-			      <td class="td1">@mdo</td>
-			      <td style="width: 10px; padding-right: 0px"><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#agreeModal">수락하기</button></td>
-			      <td style="width: 5px"><button type="button" class="btn btn-secondary"data-toggle="modal" data-target="#cencelModal">거절</button></td>
-			    </tr>
+			  <tbody id="waitingList">
+				<!-- ajax도는부분 -->
 			  </tbody>
 			</table>
          </div>
