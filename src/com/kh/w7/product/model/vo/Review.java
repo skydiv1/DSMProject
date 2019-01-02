@@ -6,7 +6,7 @@ public class Review implements java.io.Serializable{
 	private int reviewNo;				// 리뷰번호 / 시퀀스(SEQ_REVIEW)
 	private int productNo;				// 상품번호
 	private int memberCode;			// 회원코드
-	private int memberId;				// 회원아이디 (member 테이블에서 조인으로 가져온다.)
+	private String memberId;			// 회원아이디 (member 테이블에서 조인으로 가져온다.)
 	private String reviewContext;	// 리뷰내용
 	private Date reviewDate;			// 작성시간
 	private int reviewGrade;			// 별점
@@ -14,7 +14,7 @@ public class Review implements java.io.Serializable{
 	
 	public Review() {}
 
-	public Review(int reviewNo, int productNo, int memberCode, int memberId, String reviewContext, Date reviewDate,
+	public Review(int reviewNo, int productNo, int memberCode, String memberId, String reviewContext, Date reviewDate,
 			int reviewGrade, int reviewDeleteYN) {
 		super();
 		this.reviewNo = reviewNo;
@@ -51,11 +51,11 @@ public class Review implements java.io.Serializable{
 		this.memberCode = memberCode;
 	}
 
-	public int getMemberId() {
+	public String getMemberId() {
 		return memberId;
 	}
 
-	public void setMemberId(int memberId) {
+	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
 
@@ -97,4 +97,6 @@ public class Review implements java.io.Serializable{
 				+ ", memberId=" + memberId + ", reviewContext=" + reviewContext + ", reviewDate=" + reviewDate
 				+ ", reviewGrade=" + reviewGrade + ", reviewDeleteYN=" + reviewDeleteYN + "]";
 	}
+
+	
 }

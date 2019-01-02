@@ -46,6 +46,10 @@
 <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"> -->
 <!-- <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script> -->
 
+<!-- <appSettings xdt:Transform="Replace"> -->
+<!--     <add key="ValidationSettings:UnobtrusiveValidationMode" value="None"/> -->
+<!-- </appSettings> -->
+
 <style>	
 	<meta name="format-detection" content="telephone=no" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -115,7 +119,8 @@
 <!-- 네비게이션 바 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	<section class="bg-light" id="portfolio">
 
-	<input type="hidden" name="productNo" value="<%=product.getProductNo()%>"> <!-- 상품 번호 sevlet으로 넘긴다. -->
+	<input type="hidden" name="productNo" id="productNo" value="<%=product.getProductNo()%>"> <!-- 상품 번호 sevlet으로 넘긴다. -->
+	<input type="hidden" name="memberCode" id="memberCode" value="<%=product.getMemberCode()%>"> <!-- 상품을 등록한 판매자의 memberCode -->
 	
 	<table width="70%" style="margin-left: 17%;" border="0">
 		<tr>
@@ -123,7 +128,7 @@
 				<h2>상품 상세</h2><br>
 			</td>	
 			<td>
-				<div style="font-size: 15px; margin-left: 5%;">작성자 : <span><%=member.getMemberId() %></span></div><hr>	
+				<div style="font-size: 15px; margin-left: 5%;">작성자 : <span id="memberId" name="memberId"><%=member.getMemberId() %></span></div><hr>	
 			</td>
 		</tr>
 		<tr>
@@ -199,7 +204,7 @@
 				aria-selected="false">취소 및 환불규정</a></li>
 			<li class="nav-item"><a class="nav-link" id="c-tab"
 				data-toggle="tab" href="#c" role="tab" aria-controls="c"
-				aria-selected="false">상품 평가</a></li><button id="test1"></button>
+				aria-selected="false">상품 평가</a></li>
 		</ul>
 		<div class="tab-content" id="myTabContent">
 			<div class="tab-pane fade show active" id="a" role="tabpanel"
@@ -298,6 +303,7 @@
 								<b>dsm***</b>
 							</div>
 							<div>감사합니다~~~</div>
+							<br><br>
 						</td>
 					</tr>
 				</table>
@@ -337,34 +343,31 @@
 	<!-- Review Table Ajax 출력 -->
 	<script>
 		$(function () {
-			$("#test1").click(function () {
+			$("#c-tab").click(function () {
 				$.ajax({
 					url:"/dsm/reviewList.pr",
 					type:"get",
+					data:{productNo:$('#productNo').val()},
 					success: function (data) {
 						console.log(data);
-						console.log("들어오는지 확인 ")
 						
 						$select = $("#reviewResult");
 						$select.find("table").remove();
+
+						$select.append('<table style="width: 600px;">');
 						
 						for(var i in data){
-							/* var $option = $("<option>");
-							$option.val(data[index].userNo);
-							$option.text(data[index].userName);
-							$select.append($option); */
 							var reviewDate = decodeURIComponent(data[i].reviewDate);
 							var reviewGrade = decodeURIComponent(data[i].reviewGrade);
 							var memberId = decodeURIComponent(data[i].memberId);
 							var reviewContext = decodeURIComponent(data[i].reviewContext);
 							
 							$select.append(
-									'<table style="width: 600px;">'
-									+'<tr>'
+									'<tr>'
 									+'<td rowspan="2"><img class="mx-auto rounded-circle" src="/dsm/img/team/1.jpg" alt="" style="width: 90px; height: 90px;"></td>'
 									+'<td width="80%" style="border-bottom: 1px solid #EAEAEA;">'
-									+'<span>'+reviewDate+'</span>'
-									+'<span class="rating" style="margin-left: 15px;">'
+									+'<span style="margin-left: 20px;">'+reviewDate+'</span>'
+									+'<span class="rating" style="margin-left: 20px;">'
 									+'<input id="rating5_2" type="radio" name="rating2" value="5" checked disabled><label for="rating5_2">5</label>'
 									+'<input id="rating4_2" type="radio" name="rating2" value="4" disabled><label for="rating4_2">4</label>'
 									+'<input id="rating3_2" type="radio" name="rating2" value="3" disabled><label for="rating3_2">3</label>'
@@ -376,14 +379,14 @@
 									+'<tr>'
 									+'<td>'
 									+'<div>'
-									+'<b>'+memberId+'</b>'
+									+'<b style="margin-left: 20px;">'+memberId+'</b>'
 									+'</div>'
-									+'<div>'+reviewContext+'</div>'
-									+'</td>'
-									+'</tr>'
-									+'</table>'							
+									+'<div style="margin-left: 20px; padding-bottom: 20px;">'+reviewContext+'</div>'
+									+'<hr></td>'
+									+'</tr>'				
 							);
 						}
+						$select.append('</table>');
 					}					
 				});
 			});

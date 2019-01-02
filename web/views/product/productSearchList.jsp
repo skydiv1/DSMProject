@@ -14,8 +14,8 @@
 	int startPage = pageInfo.getStartPage();
 	int endPage = pageInfo.getEndPage();
 
-	//String searchList = (String)request.getAttribute("searchList");
-	String searchList = (String)session.getAttribute("searchList");
+	String searchList = (String)request.getAttribute("searchList");
+	//String searchList = (String)session.getAttribute("searchList");
 
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -131,12 +131,12 @@
 		
 		<div class="pagingArea" align="center" id="paging">
 		<div>
-			<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/searchList.pr?currentPage=1'"><<</button>
+			<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/searchList.pr?currentPage=1&searchList=<%=searchList%>'"><<</button>
 			
 			<% if(currentPage <= 1){ %>
 			<button class="btn btn-warning" disabled><</button>
 			<% }else{ %>
-			<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/searchList.pr?currentPage=<%=currentPage - 1%>'"><</button>
+			<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/searchList.pr?currentPage=<%=currentPage - 1%>&searchList=<%=searchList%>'"><</button>
 			<% } %>
 			
 			<% for(int p = startPage; p <= endPage; p++){ 
@@ -144,7 +144,7 @@
 			%>
 					<button class="btn btn-warning" disabled><%= p %></button>
 			<%      }else{ %>
-					<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/searchList.pr?currentPage=<%= p %>'"><%= p %></button>
+					<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/searchList.pr?currentPage=<%= p %>&searchList=<%=searchList%>'"><%= p %></button>
 			<%      } %>
 	
 			<% } %>
@@ -152,10 +152,10 @@
 			<% if(currentPage >= maxPage){ %>
 			<button class="btn btn-warning" disable>></button>
 			<% }else{ %>
-			<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/searchList.pr?currentPage=<%=currentPage + 1%>'">></button>
+			<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/searchList.pr?currentPage=<%=currentPage + 1%>&searchList=<%=searchList%>'">></button>
 			<% } %>
 			
-			<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/searchList.pr?currentPage=<%=maxPage%>'">>></button>
+			<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/searchList.pr?currentPage=<%=maxPage%>&searchList=<%=searchList%>'">>></button>
 		</div>
 		</div>
 	<!-- 페이징 처리 끝 //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
