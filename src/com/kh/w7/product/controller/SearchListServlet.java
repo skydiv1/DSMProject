@@ -104,7 +104,7 @@ public class SearchListServlet extends HttpServlet {
 			request.setAttribute("searchArrayList", searchArrayList);
 			request.setAttribute("pageInfo", pageInfo);		
 			request.setAttribute("searchList", searchList);	
-			request.getSession().setAttribute("searchList", searchList);	
+			request.setAttribute("searchList", searchList);	
 
 			page="views/product/productSearchList.jsp"; // 검색 후 화면으로 이동
 		}else {

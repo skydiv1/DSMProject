@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -28,21 +29,25 @@ public class ReviewDao {
 	}
 
 	/* 리뷰 목록 페이지 조회 */
-	public ArrayList<Review> selectReviewList(Connection con) {
-		Statement stmt = null;
+	public ArrayList<Review> selectReviewList(Connection con, String productNo) {
+		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Review> reviewList = null;
 
-		String query = prop.getProperty("selectList");
-
+		// String query = prop.getProperty("selectList");
+		String query = "SELECT R.REVIEW_NO, R.PRODUCT_NO, R.MEMBER_CODE, M.MEMBER_ID, R.REVIEW_CONTEXT, R.REVIEW_DATE, R.REVIEW_GRADE, R.REVIEW_DELETEYN FROM REVIEW R INNER JOIN MEMBER M ON (R.MEMBER_CODE=M.MEMBER_CODE) WHERE PRODUCT_NO=?";
+		// TO_CHAR(R.REVIEW_DATE, 'YYYYMMDD HH24:MI:SS') AS REVIEW_DATE : IllegalArgumentException 오류발생
+		
 		try {
-			stmt = con.createStatement();
-			rset = stmt.executeQuery(query);
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(productNo));
+
+			rset = pstmt.executeQuery();
+			
 			reviewList = new ArrayList<Review>();
 
 			while (rset.next()) {
 				Review review = new Review();
-				
 				review.setReviewNo(rset.getInt("REVIEW_NO"));
 				review.setProductNo(rset.getInt("PRODUCT_NO"));
 				review.setMemberCode(rset.getInt("MEMBER_CODE"));
@@ -50,7 +55,7 @@ public class ReviewDao {
 				review.setReviewDate(rset.getDate("REVIEW_DATE"));
 				review.setReviewGrade(rset.getInt("REVIEW_GRADE"));
 				review.setReviewDeleteYN(rset.getInt("REVIEW_DELETEYN"));
-				review.setMemberId(rset.getInt("MEMBER_ID"));
+				review.setMemberId(rset.getString("MEMBER_ID"));
 
 				reviewList.add(review);
 			}
@@ -59,7 +64,7 @@ public class ReviewDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(stmt);
+			close(pstmt);
 			close(rset);
 		}
 		return reviewList;
