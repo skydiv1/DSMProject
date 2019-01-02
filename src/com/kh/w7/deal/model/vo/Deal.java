@@ -2,19 +2,19 @@ package com.kh.w7.deal.model.vo;
 
 public class Deal implements java.io.Serializable{
 
-	private int dealNo;
-	private int productNo;
+	private int dealNo;						// 거래번호 (DEAL_NO)
+	private int productNo;					// 상품번호 (PRODUCT_NO)
 	private String imgFilePath;
 	private String productTitle;
 	private String productContext;
-	private int customerCode;
-	private int sellerCode;
+	private int customerCode;			// 소비자코드 (CUSTOMER_CODE)
+	private int sellerCode;					// 판매자코드 (SELLER_CODE)
 	private String mainProductName;
-	private int mainProductPrice;
+	private int mainProductPrice;		// 거래금액 (DEAL_PRICE) - 임시로 사용
 	private String subProductName;
 	private int subProductPrice;
 	private int memberNowCash;
-	
+
 	public Deal() {
 		
 	}

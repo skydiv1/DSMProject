@@ -120,7 +120,6 @@
 	<section class="bg-light" id="portfolio">
 
 	<input type="hidden" name="productNo" id="productNo" value="<%=product.getProductNo()%>"> <!-- 상품 번호 sevlet으로 넘긴다. -->
-	<input type="hidden" name="memberCode" id="memberCode" value="<%=product.getMemberCode()%>"> <!-- 상품을 등록한 판매자의 memberCode -->
 	
 	<table width="70%" style="margin-left: 17%;" border="0">
 		<tr>
@@ -151,7 +150,7 @@
 				<div align="left" class="dropdown"
 					style="padding-right: 10%; margin-left: 5%;">
 					<select class="btn btn-outline-secondary" id="additionalOption" >
-						<option value="category" selected>추가옵션(선택)</option>
+						<option value="0" selected>추가옵션(선택)</option>
 						<% for(PlusProduct p : pList){ %>
 							<option value="<%=p.getPlusProductPrice()%>"><span><%=p.getPlusProductItem()%></span> : <span><%=p.getPlusProductPrice()%></span>원
 							</option>						
@@ -162,8 +161,23 @@
 		</tr>
 		<tr>
 			<td align="center">
-				<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#askModal"
-					style="width: 90%; height: 50px;">신청하기</button>
+				<%if(loginUser != null && loginUser.getMemberId().equals(member.getMemberId())){ %> <!-- 로그인유저 == 상품등록회원 -->
+					<button id="requestForm4" type="button" class="btn btn-warning" style="width: 90%; height: 50px;">신청하기</button>
+				<%} else if(loginUser != null  && loginUser.getSellerCertcheck()==1){ %> <!-- 판매자일때 -->
+					<button id="requestForm1" type="button" class="btn btn-warning" style="width: 90%; height: 50px;">신청하기</button>
+				<%} else if(loginUser != null  && loginUser.getSellerCertcheck()==0){ %> <!-- 소비자일때 -->
+					<form id="popUpList" method="post">
+						<input type="hidden" id="dealNo" name="dealNo" value=""> <!-- 거래번호는 시퀀스 -->
+						<input type="hidden" id="productNo" name="productNo" value="<%=product.getProductNo()%>"> <!-- 상품번호 -->
+						<input type="hidden" id="customerCode" name="customerCode" value="<%=loginUser.getMemberCode()%>"> <!-- 소비자코드 -->
+						<input type="hidden" id="sellerCode" name="sellerCode" value="<%=product.getMemberCode()%>"> <!-- 판매자코드 -->
+						<input type="hidden" id="dealPrice" name="dealPrice" value="<%=product.getProductItemPrice()%>"> <!-- 기본 거래금액 -->
+						<input type="hidden" id="dealOptionPrice" name="dealOptionPrice"> <!-- 기본 거래금액 -->
+						<button id="requestForm2" type="submit" class="btn btn-warning" data-toggle="modal" data-target="#askModal" style="width: 90%; height: 50px;">신청하기</button>
+					</form>
+				<%} else if(loginUser == null){ %> <!-- 비회원일때 -->
+					<button id="requestForm3" type="button" class="btn btn-warning" style="width: 90%; height: 50px;">신청하기</button>
+				<%} %>
 			</td>
 		</tr>
 		<tr>
@@ -179,7 +193,10 @@
 				</div>
 			</td>
 			<td align="center">
-				<button type="button" class="btn btn-outline-secondary" style="width:90%; height:50px;" onclick="location.href='/dsm/noticeResist.pr'">판매자 프로필 보러가기</button>
+			<form id="formList" method="post">
+				<button type="submit" id="goToProfile" class="btn btn-outline-secondary" style="width:90%; height:50px;">판매자 프로필 보러가기</button> <!-- onclick="location.href='/dsm/noticeResist.pr'" -->
+				<input type="hidden" name="memberCode" id="memberCode" value="<%=product.getMemberCode()%>"> <!-- 상품을 등록한 판매자의 memberCode -->
+			</form>
 			</td>
 		</tr>
 		<tr>
@@ -394,6 +411,7 @@
 	</script>
 	
 	<script>
+		/* 상품 가격 하단에 출력 */
 		$(function () {
 			$("#additionalOption").change(function () {
 				var totalPrice=0;
@@ -407,11 +425,62 @@
 					totalPrice = <%=pList.get(2).getPlusProductPrice()%> + <%= product.getProductItemPrice() %>
 					$("#totalPrice").text(totalPrice);
 				}else{
-					alert("해당 상품은 존재하지 않습니다.")
+					alert("해당 상품은 존재하지 않습니다.");
+					totalPrice = <%= product.getProductItemPrice() %>
+					$("#totalPrice").text(totalPrice);
+				}
+			});
+
+			/* 상품 신청 버튼 클릭 시 추가 항목 가격 합산하여 전송 */
+			$("#additionalOption").change(function () {
+				var totalPrice=0;
+				if($("#additionalOption").val() == "<%=pList.get(0).getPlusProductPrice()%>"){
+					totalPrice = (<%=pList.get(0).getPlusProductPrice()%> + <%= product.getProductItemPrice() %>)
+					$("#dealOptionPrice").val(totalPrice);
+				}else if($("#additionalOption").val() == "<%=pList.get(1).getPlusProductPrice()%>"){
+					totalPrice = (<%=pList.get(1).getPlusProductPrice()%> + <%= product.getProductItemPrice() %>)
+					$("#dealOptionPrice").val(totalPrice);
+				}else if($("#additionalOption").val() == "<%=pList.get(2).getPlusProductPrice()%>"){
+					totalPrice = (<%=pList.get(2).getPlusProductPrice()%> + <%= product.getProductItemPrice() %>)
+					$("#dealOptionPrice").val(totalPrice);
+				}else if($('#dealOptionPrice option:selected').val()==""){
+					$("#dealOptionPrice option:eq(0)").prop("selected", true);
+					totalPrice = <%= product.getProductItemPrice() %>
+					$("#dealOptionPrice").val(totalPrice);
+				}
+				var count=$('#dealOptionPrice option:selected').val(); 
+				if(count==0){
+					totalPrice = <%= product.getProductItemPrice() %>
+					$("#totalPrice").text(totalPrice);
 				}
 			});
 		});
 	</script>
+	
+	<script>
+		$("#goToProfile").click(function () {
+			$("#formList").attr("action", "<%=request.getContextPath()%>/noticeResist.pr");
+		});
+
+		/* 신청하기 버튼 */
+		$(function() {
+			$("#requestForm1").click(function() {
+				alert("판매자는 이용하실 수 없습니다.");
+			});
+			$("#requestForm3").click(function() {
+				alert("로그인이 필요한 서비스 입니다.");
+			});
+			$("#requestForm4").click(function() {
+				alert("본인 상품은 이용하실 수 없습니다.");
+			});
+
+			// 상품에 대한 정보 폼태그로 넘겨주기
+			$("#requestForm2").click(function() {
+				$("#popUpList").attr("action", "<%=request.getContextPath()%>/selectDealInfo.pr");
+			});
+		});
+	</script>
+	
 
 	<!-- Footer ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 <%@ include file="/views/common/footer.jsp" %>
