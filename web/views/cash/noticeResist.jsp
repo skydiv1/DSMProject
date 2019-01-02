@@ -1,5 +1,26 @@
+<%@page import="com.kh.w7.common.PageInfo"%>
+<%@page import="com.kh.w7.common.Attachment"%>
+<%@page import="com.kh.w7.product.model.vo.Product"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	Member member = (Member)request.getAttribute("member");
+	ArrayList<Product> pList = (ArrayList<Product>)request.getAttribute("pList");
+	ArrayList<Attachment> imgList = (ArrayList<Attachment>)request.getAttribute("imgList");
+
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	// 미리 값을 꺼내서 저장해서 사용 (매번 꺼내서 사용하는 불편함을 줄이기 위함)
+	int listCount = pi.getListCount(); // 전체 개수
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	
+	int memberCode = (int)request.getAttribute("memberCode");
+	
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head lang="en">
@@ -117,14 +138,11 @@ input::placeholder {
                      style="width: 150px; height: 150px;"></td>
                      
                   <td width="80%" style="border-bottom: 1px solid #EAEAEA;">
-                  <span style = "color : black;">DSM Seller</span></td>
+                  <span style = "color : black; font-size:20px;">'<%=member.getMemberId() %>'님의 페이지에 오신 것을 환영합니다.</span></td>
                </tr>
                <tr>
                   <td>
-                     <div style = "color : black;">
-				                        사진에 대한 필요성이 더욱 중요해진 멀티미디어 시대.<br>
-							어떻게 하면 고객이 원하는 이미지를 만들 것인가 고민하는 스튜디오입니다.
-                     </div>
+                     <div style = "color : black;">소개 : <%=member.getSellerIntroduction() %></div>
                   </td>
                </tr>
                <tr>
@@ -133,7 +151,7 @@ input::placeholder {
 					 </div>
 					 <div style = "display : inline-block;">&nbsp;&nbsp;</div>
                      <div style="background: lightgray; text-align: center; font-size: 1.3em; display : inline-block; width : 45%; height : 10%; vertical-align : center;border-radius : 3px;">총 작업수 : 
-				                        <div style="background: lightgray; text-align: center;  display : inline-block;"> 78</div>
+				                        <div style="background: lightgray; text-align: center;  display : inline-block;"><%=pList.size() %></div>
                      </div>
                   </td>
                </tr>
@@ -147,15 +165,14 @@ input::placeholder {
     <br><br>
 	<!--///////////////////////////////////판매자 프로필 끝///////////////////////////////////////////////////////////////////  -->
 	<div class="container" align="center" style="width: 60%">
-		<div style="font-size: 1.3em; font-weight: bold; text-align: left">Jamsil123님의
-			소개와 경력</div>
+		<div style="font-size: 1.3em; font-weight: bold; text-align: left">'<%=member.getMemberId() %>'님의 개인정보</div>
 		<table class="table">
 			<thead class="thead-dark">
 			</thead>
 			<tbody>
 				<tr>
 					<th class="tRow">자기소개</th>
-					<td>이 시대의 보정왕</td>
+					<td><%=member.getSellerIntroduction() %></td>
 				</tr>
 				<tr>
 					<th style = "vertical-align: middle;" class="tRow">자격증</th>
@@ -166,68 +183,72 @@ input::placeholder {
 				</tr>
 				<tr>
 					<th class="tRow">경력사항</th>
-					<td>서울시 주관 제1회 드론비행 대회 은상 수상</td>
+					<td><%=member.getSellerCareer() %></td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
 	</section>
+	
+	
 	<!--////////////////////////////베스트 만매자 시작///////////////////////////////////////////////////  -->
-
 	<section class="bg-light" id="portfolio" style = "padding: 50px">
 	<div class="container" align="center" style="width: 60%">
-		<div style="font-size: 1.3em; font-weight: bold; text-align: left">Jamsil123님의
-			서비스</div>
-		<div class="col-md-4 col-sm-6 portfolio-item"
-			style="display: inline-block; width: 33%">
+		<div style="font-size: 1.3em; font-weight: bold; text-align: left">'<%=member.getMemberId() %>'님의 전체 상품</div><br>
+		
+		<%for(int i=0; i<pList.size(); i++){ %>
+		<div name="imageList" class="col-md-4 col-sm-6 portfolio-item" style="display: inline-block; width: 33%; padding-top: 10px !important;">
 			<a class="portfolio-link" data-toggle="modal" href="#">
 				<div class="portfolio-hover">
 					<div class="portfolio-hover-content">
+						<input type="hidden" value="<%=pList.get(i).getProductNo()%>">
 						<i class="fas fa-plus fa-3x"></i>
 					</div>
-				</div> <img class="img-fluid" src="/dsm/img/portfolio/02-thumbnail.jpg"
+				</div> <img class="img-fluid" style="width:300px !important; height:200px !important;" src="/dsm/image_uploadFiles/<%=imgList.get(i).getChangeName()%>" 
 				alt="">
 			</a>
-			<div class="portfolio-caption">
-				<h4>드론 촬영</h4>
+			<div class="portfolio-caption" style="height:130px !important;" >
+				<h4><%=pList.get(i).getProductName() %></h4>
 			</div>
 		</div>
-		<div class="col-md-4 col-sm-6 portfolio-item"
-			style="display: inline-block; width: 33%">
-			<a class="portfolio-link" data-toggle="modal" href="#">
-				<div class="portfolio-hover">
-					<div class="portfolio-hover-content">
-						<i class="fas fa-plus fa-3x"></i>
-					</div>
-				</div> <img class="img-fluid" src="/dsm/img/portfolio/03-thumbnail.jpg"
-				alt="">
-			</a>
-			<div class="portfolio-caption">
-				<h4>영상 편집 전문</h4>
-			</div>
-		</div>
-		<div class="col-md-4 col-sm-6 portfolio-item"
-			style="display: inline-block; width: 33%">
-			<a class="portfolio-link" data-toggle="modal" href="#">
-				<div class="portfolio-hover">
-					<div class="portfolio-hover-content">
-						<i class="fas fa-plus fa-3x"></i>
-					</div>
-				</div> <img class="img-fluid" src="/dsm/img/portfolio/03-thumbnail.jpg"
-				alt="">
-			</a>
-			<div class="portfolio-caption">
-				<h4>웨딩 촬영, 편집</h4>
-			</div>
-		</div>
+		<%} %>
+	
+	<!-- 페이징 처리 시작 ----------------------------------------------------------------------------------------------------------->	
+	<div class="pagingArea" align="center" id="paging">
+	<div>
+		<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/noticeResist.pr?currentPage=1&memberCode=<%=memberCode%>'"><<</button>
+		
+		<% if(currentPage <= 1){ %>
+		<button class="btn btn-warning" disabled><</button>
+		<% }else{ %>
+		<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/noticeResist.pr?currentPage=<%=currentPage - 1%>&memberCode=<%=memberCode%>'"><</button>
+		<% } %>
+		
+		<% for(int p = startPage; p <= endPage; p++){ 
+				if(p == currentPage){
+		%>
+				<button class="btn btn-warning" disabled><%= p %></button>
+		<%      }else{ %>
+				<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/noticeResist.pr?currentPage=<%= p %>&memberCode=<%=memberCode%>'"><%= p %></button>
+		<%      } %>
+
+		<% } %>
+					
+		<% if(currentPage >= maxPage){ %>
+		<button class="btn btn-warning" disable>></button>
+		<% }else{ %>
+		<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/noticeResist.pr?currentPage=<%=currentPage + 1%>&memberCode=<%=memberCode%>'">></button>
+		<% } %>
+		
+		<button class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/noticeResist.pr?currentPage=<%=maxPage%>&memberCode=<%=memberCode%>'">>></button>
 	</div>
+	</div>
+	
 	</section>
+	<!-- 페이징 처리 끝 ---------------------------------------------------------------------------------------------------------->
+
+	
 	<!--////////////////////////////서비스 평가 시작///////////////////////////////////////////////////  -->
-
-
-
-
-
 	<section class="bg-light" id="portfolio" style = "padding: 50px">
 	<div class="container" style="width: 60%">
 		<div style="font-size: 1.3em; font-weight: bold; text-align: left;">Jamsil123님의
@@ -329,6 +350,19 @@ input::placeholder {
 
 	</div>
 	</section>
+	
+	<script>
+		$(function () {
+			$("[name=imageList]").click(function () {
+				var num = $(this).children().children().children().children().eq(0).val(); // eq(0).val(); //eq 0번째의 value값
+				console.log(num); // num 값 확인
+				
+				// num의 값이 num에 담겨 넘겨준다.
+				location.href = "<%=request.getContextPath()%>/selectOne.pr?num=" + num; 
+			});
+		});
+	</script>
+		
 	<%@ include file="../common/footer.jsp"%>
 
 	<!--//////////////////////////////////////////////////푸터시작/////////////////////////////////////////////////////////////////////////////////////  -->
