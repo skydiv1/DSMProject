@@ -40,10 +40,10 @@ public class SendIdpw extends HttpServlet {
 		String memberEmail = request.getParameter("memberEmail");
 		String memberId = (String) request.getAttribute("memberId");
 		
-		String memberPwd = (String) request.getAttribute("memberPwd");
+		String randomCode = (String) request.getAttribute("randomCode");
 		
 		
-		System.out.println("memberPwd : " + memberPwd);
+		System.out.println("memberPwd : " + randomCode);
 
 		
 		Properties prop = new Properties();// 정보를 담을 객체
@@ -74,7 +74,7 @@ public class SendIdpw extends HttpServlet {
             // 이메일 제목
             if("memberId" != null) {
             	msg.setSubject("요청하신 DSM 아이디입니다. ", "UTF-8");
-            }else if("memberPwd" != null) {
+            }else if("randomCode" != null) {
             	msg.setSubject("요청하신 DSM 임시비밀번호 입니다.", "UTF-8");
             }
             
@@ -82,9 +82,9 @@ public class SendIdpw extends HttpServlet {
             if("memberId" != null) {
             	 request.setAttribute("memberId", memberId);
                  msg.setText("아이디 : "+ memberId, "UTF-8");
-            }else if("pw" != null) {
-            	request.setAttribute("memberPwd", memberPwd);
-                msg.setText("임시 비밀번호 : "+ memberPwd, "UTF-8");
+            }else if("randomCode" != null) {
+            	request.setAttribute("memberPwd", randomCode);
+                msg.setText("임시 비밀번호 : "+ randomCode, "UTF-8");
             }
            
             // 이메일 헤더

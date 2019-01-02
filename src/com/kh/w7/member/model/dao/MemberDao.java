@@ -243,9 +243,31 @@ public class MemberDao {
 	    }
 
 	public int leaveMember(Connection con, int memberStatus) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+		Connection conn = null;
+        PreparedStatement pstmt = null;
+        
+        int result =0;
+        String query= prop.getProperty("leaveMember");
+ 
+        try {
+            
+            pstmt = conn.prepareStatement(query);
+ 
+            
+            pstmt.setInt(1, memberStatus);
+			
+           result= pstmt.executeUpdate();
+            
+                        
+        } catch (Exception e) {
+           e.printStackTrace();
+        } finally {
+        	  close(pstmt);
+				
+            }
+        
+		return result;
+    }
 
 	public String findid(Connection con, String memberName, String memberEmail) {
 		PreparedStatement pstmt = null;
@@ -275,9 +297,40 @@ public class MemberDao {
 
 		return memberId;
 	}
+
+	public int findpwd(Connection con, String memberName, String memberId, String memberEmail, String randomCode) {
+		PreparedStatement pstmt = null;
+		Member member=new Member();
+		int result = 0;
+		
+		String query = prop.getProperty("findPWD");
+		System.out.println(query);
+		
+		System.out.println(memberId);
+		System.out.println(memberName);
+		System.out.println(memberEmail);
 	
-
-
-
-
+		try {
+			pstmt=con.prepareStatement(query);
+			pstmt.setString(1, randomCode);
+			pstmt.setString(2, memberName);
+			pstmt.setString(3, memberId);
+			pstmt.setString(4, memberEmail);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println("dao result:"+result);
+		return result;
+	}
+	
+	
 }
+
+
+
+
