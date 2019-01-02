@@ -30,13 +30,13 @@ public class DealCompleteServlet extends HttpServlet {
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		
 		int loginCode = loginUser.getMemberCode();
-		
-		ArrayList<MyPage>appectlist = new MypageService().selectAcceptList(loginCode);
+//		
+//		ArrayList<MyPage>appectlist = new MypageService().selectAcceptList(loginCode);
 		
 				
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
-		new Gson().toJson(appectlist, response.getWriter());
+//		new Gson().toJson(appectlist, response.getWriter());
 
 	}
 
