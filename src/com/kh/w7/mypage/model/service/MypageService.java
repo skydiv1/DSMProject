@@ -95,6 +95,36 @@ public class MypageService {
 
 		return appectlist;
 	}
+	
+	//소비자 구매완료 목록 조회
+	public ArrayList<MyPage> selectDealList(int loginCode) {
+		Connection con  = getConnection(); 
+		
+		ArrayList<MyPage>deallist = MypageDao.selectDealList(con, loginCode);
+		
+		if(deallist != null) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+
+		return deallist;
+	}
+	public ArrayList<MyPage> selectWaitingList(int loginCode) {
+		Connection con  = getConnection(); 
+		
+		ArrayList<MyPage>waitlist = MypageDao.selectWaitingList(con, loginCode);
+		
+		if(waitlist != null) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+
+		return waitlist;
+	}
 
 	
 	
