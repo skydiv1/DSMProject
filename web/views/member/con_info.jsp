@@ -1,6 +1,7 @@
 <%@page import="com.kh.w7.member.model.dao.MemberDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<% String memberId = (String)request.getAttribute("memberId"); %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -132,13 +133,12 @@ form {
 				<td><div class="form-group">
 						<label for="inputId" class="col-sm-2 control-label">Id</label>
 
-
-					</div><td><%=Member.getMemberId()%></td>
-				
-
-
-
-						
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="memberId"
+								name="membeId" style="width: 550px" placeholder="<%=memberId%>"
+								readonly>
+						</div>
+					</div>
 					</div></td>
 
 			</tr>
@@ -180,7 +180,7 @@ form {
 						<label for="inputTel" class="col-sm-2 control-label">Phone</label>
 						<div class="col-sm-10">
 							<input type="Name" class="form-control" id="memberName"
-								name="memberName" style="width: 550px" placeholder="Name"> 
+								name="memberName" style="width: 550px" placeholder="Name">
 						</div>
 					</div></td>
 			</tr>
@@ -207,11 +207,11 @@ form {
 				<td style="padding-top: 14px;"><button type="submit"
 						class="btn btn-danger">인증번호 확인</button></td>
 			</tr>
-				
-			</table>
 
 		</table>
-		
+
+		</table>
+
 		<div align="center">
 			<a href="/web/index.jsp">
 				<button type="submit" class="btn btn-warning"
@@ -223,24 +223,23 @@ form {
 					style="width: 400px; height: 50px; font-size: 20px; border-radius: 6px;">
 					<div id="updateBtn" onclick="goMain();">취소하기
 				</button>
-			</a>
-			<a href="/web/index.jsp">
+			</a> <a href="/web/index.jsp">
 				<button type="button" class="btn btn-defualt"
 					style="width: 150px; height: 50px; font-size: 15px; border-radius: 6px;">
 					<div id="DeleteBtn" onclick="leaveMember();">탈퇴하기
 				</button>
 			</a>
 		</div>
-		</form>
-		<script>
+	</form>
+	<script>
 			function leaveMember() {
 
 			}
 		</script>
-		
-<br>
-		<%@ include file="/views/common/footer.jsp"%>
-		
-		
+
+	<br>
+	<%@ include file="/views/common/footer.jsp"%>
+
+
 </body>
 </html>

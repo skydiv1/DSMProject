@@ -180,7 +180,7 @@
 									class="btn btn-warning"
 									onclick="location.href = '/dsm/views/cash/refunds.jsp?memberCode=<%= loginUser.getMemberCode()%>'">캐시환급</button></a>
 						<%}%>
-							<a href="#"><button type="button" class="btn btn-light">내
+							<a href="GetIdinfo.me"><button type="button" class="btn btn-light">내
 									정보 보기</button></a> <a href="/dsm/logout.me"><button type="button"
 									class="btn btn-light">로그아웃</button></a> <!--         			<a href="#"><button type="button" class="btn btn-light">관리자페이지</button></a> -->
 							<button class="btn btn-light" style="cursor: default;">
