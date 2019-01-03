@@ -13,7 +13,8 @@
 
 <title>관리자 페이지</title>	
 
-<!-- Bootstrap Core CSS -->
+
+<!-- Bootstrap Core CSSaaa-->
 <link href="/dsm/views/admin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- MetisMenu CSS -->
