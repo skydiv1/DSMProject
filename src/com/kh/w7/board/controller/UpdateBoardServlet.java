@@ -32,19 +32,19 @@ public class UpdateBoardServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		int MemberCode = Integer.parseInt(request.getParameter("MemberCode"));
 		String title = request.getParameter("Boardtitle");
 		String context = request.getParameter("BoardContext");
+		int BoardNo = Integer.parseInt(request.getParameter("BoardNo"));
 
 		
-		System.out.println(MemberCode);
 		System.out.println(title);
 		System.out.println(context);
+		System.out.println(BoardNo);
 
 		Board b = new Board();
 		b.setBoardTitle(title);
 		b.setBoardContext(context);
-		b.setBoardNo(MemberCode);		
+		b.setBoardNo(BoardNo);		
 
 	
 		
@@ -52,8 +52,8 @@ public class UpdateBoardServlet extends HttpServlet {
 		
 		String page = "";
 		if(result > 0) {
-			page = "views/dsm/selectOne.bo?num="+MemberCode;
-			response.sendRedirect("/dsm/selectOne.bo?num=" + MemberCode);
+			page = "views/dsm/selectOne.bo?num="+BoardNo;
+			response.sendRedirect("/dsm/selectOne.bo?num=" + BoardNo);
 		}else {
 			request.setAttribute("msg", "수정안됨");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

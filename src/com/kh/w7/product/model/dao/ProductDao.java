@@ -533,11 +533,13 @@ public class ProductDao {
 				pstmt.setInt(4, num);
 				pstmt.setInt(5, fileList.get(i).getImgNo());
 
+				System.out.println("-----------------------------");
 				System.out.println("getOriginName() updateAttachment Dao 이미지(ORIGIN) : "+fileList.get(i).getOriginName());
 				System.out.println("getChangeName() updateAttachment Dao 이미지(CHANGE) : "+fileList.get(i).getChangeName());
-				System.out.println("getImgFilePath() updateAttachment Dao 이미지 : "+fileList.get(i).getImgFilePath());
+				//System.out.println("getImgFilePath() updateAttachment Dao 이미지 : "+fileList.get(i).getImgFilePath());
 				System.out.println("num updateAttachment Dao 이미지 : "+num);
 				System.out.println("getImgNo() updateAttachment Dao 이미지번호 : "+fileList.get(i).getImgNo());
+				System.out.println("-----------------------------");
 				
 				result += pstmt.executeUpdate(); // 누적 연산으로 합쳐준다
 				

@@ -8,9 +8,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
 import com.kh.w7.deal.model.service.DealService;
 import com.kh.w7.deal.model.vo.Deal;
+import com.kh.w7.member.model.vo.Member;
 
 /**
  * Servlet implementation class SelectOneProductServlet
@@ -32,32 +35,32 @@ public class SelectOneProductServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int memberCode = Integer.parseInt(request.getParameter("memberCode")); //2번 소비자가 구매한
 		
-		int productNo = Integer.parseInt(request.getParameter("productNo")); //6번 상품
+			
+			HttpSession session = request.getSession();
+		      Member loginUser = (Member)session.getAttribute("loginUser");
+		      
+		      int memberCode = loginUser.getMemberCode();
+	     
+	     
+		      int productno = Integer.parseInt(request.getParameter("productno")); //6번 상품
+		      
+		      System.out.println("memberCode : " + memberCode);
+		      System.out.println("productNo : " + productno);
+		      
+		      
+		      ArrayList<Deal> list = new ArrayList<Deal>();
+		      Deal d = new Deal();
 		
+		      list = new DealService().selectOneProduct(memberCode, productno);
 		
+				System.out.println("serveltList : "+list);
+				
+				response.setContentType("application/json");
+				response.setCharacterEncoding("UTF-8");
+				new Gson().toJson(list, response.getWriter());
+
 		
-		System.out.println("memberCode : " + memberCode);
-		System.out.println("productNo : " + productNo);
-		
-		
-		ArrayList<Deal> list = new ArrayList<Deal>();
-		Deal d = new Deal();
-		
-		list = new DealService().selectOneProduct(memberCode, productNo);
-		
-		System.out.println("serveltList : "+list);
-		
-		String page = "";
-		if(list != null) {
-			page = "views/cash/payment.jsp";
-			request.setAttribute("list", list);
-		}else {
-			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "거래창 불러오기 실패!");
-		}
-		request.getRequestDispatcher(page).forward(request, response);
 		
 		
 	}

@@ -415,6 +415,7 @@
 		$(function () {
 			$("#additionalOption").change(function () {
 				var totalPrice=0;
+				
 				if($("#additionalOption").val() == "<%=pList.get(0).getPlusProductPrice()%>"){
 					totalPrice = <%=pList.get(0).getPlusProductPrice()%> + <%= product.getProductItemPrice() %>
 					$("#totalPrice").text(totalPrice);
@@ -429,11 +430,39 @@
 					totalPrice = <%= product.getProductItemPrice() %>
 					$("#totalPrice").text(totalPrice);
 				}
+				
+				<%-- if(typeof("<%=pList.get(0).getPlusProductPrice()%>") !== 'undefined'){
+					console.log("1번수행")
+				}else if(typeof("<%=pList.get(1).getPlusProductPrice()%>") !== 'undefined'){
+					console.log("2번수행")
+				}else if(typeof("<%=pList.get(2).getPlusProductPrice()%>") !== 'undefined'){
+					console.log("3번수행")
+				} --%>
+				
+<%-- 				for(var k=0; k<<%=pList.size()%>; k++){
+					if($("#additionalOption").val() == "<%=pList.get(k).getPlusProductPrice()%>"){
+						totalPrice = <%=pList.get(k).getPlusProductPrice()%> + <%= product.getProductItemPrice() %>
+						$("#totalPrice").text(totalPrice);
+					}
+				} --%>
 			});
-
-			/* 상품 신청 버튼 클릭 시 추가 항목 가격 합산하여 전송 */
-			$("#additionalOption").change(function () {
-				var totalPrice=0;
+		});
+			
+				
+				
+				
+			<%-- $(function () {
+				/* 상품 신청 버튼 클릭 시 추가 항목 가격 합산하여 전송 */
+				$("#additionalOption").change(function () {
+					var totalPrice=0;
+					for(var i=0; i<<%=pList.size()%>; i++){
+						if($("#additionalOption").val() == "<%=pList.get(i).getPlusProductPrice()%>"){
+							totalPrice = (<%=pList.get(i).getPlusProductPrice()%> + <%= product.getProductItemPrice() %>)
+							$("#dealOptionPrice").val(totalPrice);
+						}
+					}
+				});
+			}); --%>
 				if($("#additionalOption").val() == "<%=pList.get(0).getPlusProductPrice()%>"){
 					totalPrice = (<%=pList.get(0).getPlusProductPrice()%> + <%= product.getProductItemPrice() %>)
 					$("#dealOptionPrice").val(totalPrice);
@@ -453,8 +482,6 @@
 					totalPrice = <%= product.getProductItemPrice() %>
 					$("#totalPrice").text(totalPrice);
 				}
-			});
-		});
 	</script>
 	
 	<script>

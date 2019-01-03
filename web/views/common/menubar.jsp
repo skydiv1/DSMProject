@@ -1,3 +1,4 @@
+
 <%@page import="com.kh.w7.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -87,7 +88,7 @@
 					
 					
 					<li class="nav-item"><a class="nav-link js-scroll-trigger"
-						href="/dsm/views/faq/FAQ.jsp"><b>고객센터</b></a></li>
+						href="/dsm/selectFaqList.faq"><b>고객센터</b></a></li>
 				</ul>
 			</div>
 		</div>
@@ -165,7 +166,7 @@
 								<label><%=loginUser.getMemberName()%>님 환영합니다.</label>
 							</h6>
 							<div>
-								잔여 캐시: <b id = "refundMoney">0</b>원
+								잔여 캐시: <b>100000</b>원
 							</div>
 						</td>
 					</tr>
@@ -180,56 +181,26 @@
 									class="btn btn-warning"
 									onclick="location.href = '/dsm/views/cash/refunds.jsp?memberCode=<%= loginUser.getMemberCode()%>'">캐시환급</button></a>
 						<%}%>
-              
-						<% if(loginUser != null&& loginUser.getMemberAdmin() == 1) {%>
-							<a href="/dsm/views/admin/pages/adminMain.jsp"><button type="button" class="btn btn-light">관리자 페이지로 이동</button></a>
-						<% }else{ %>
-          						<% if(loginUser != null&& loginUser.getMemberCategory() == 0) {%>
-                          <a href="GetIdinfo.me"><button type="button"
-                              class="btn btn-warning"
-                              onclick="location.href = '/dsm/views/member/con_info.jsp?memberCategory=<%= loginUser.getMemberCategory()%>'">개인정보수정</button></a>
-                        <%}else if(loginUser != null&& loginUser.getMemberCategory() == 1) {%>
-                        <a href="GetIdinfo.me"><button type="button"
-                              class="btn btn-warning"
-                              onclick="location.href = '/dsm/views/member/Sel_info.jsp?memberCategory=<%= loginUser.getMemberCategory()%>'">개인정보수정</button></a>
-                        <%}%>
-						<% } %>
-							
-									<a href="/dsm/logout.me"><button type="button" class="btn btn-light">로그아웃</button></a> <!--         			<a href="#"><button type="button" class="btn btn-light">관리자페이지</button></a> -->
-						<% if(loginUser != null&& loginUser.getMemberAdmin() == 1) {%>
-							
-						<% }else{ %>
-
+						<% if(loginUser != null&& loginUser.getMemberCategory() == 0) {%>
+							<a href="GetIdinfo.me"><button type="button"
+									class="btn btn-warning"
+									onclick="location.href = '/dsm/views/member/con_info.jsp?memberCategory=<%= loginUser.getMemberCategory()%>'">개인정보수정</button></a>
+						<%}else if(loginUser != null&& loginUser.getMemberCategory() == 1) {%>
+						<a href="GetIdinfo.me"><button type="button"
+									class="btn btn-warning"
+									onclick="location.href = '/dsm/views/member/Sel_info.jsp?memberCategory=<%= loginUser.getMemberCategory()%>'">개인정보수정</button></a>
+						<%}%>
+							<!-- <a href="GetIdinfo.me"><button type="button" class="btn btn-light">내
+									정보 수정</button></a> --> <a href="/dsm/logout.me"><button type="button"
+									class="btn btn-light">로그아웃</button></a> <!--         			<a href="#"><button type="button" class="btn btn-light">관리자페이지</button></a> -->
 							<button class="btn btn-light" style="cursor: default;">
 								신고횟수: <span>0</span>회
 							</button></td>
-						<% } %>
-							
 					</tr>
 				</table>
 			</div>
 		</div>
 	</header>
-	<script>
-	$(function(){
-		
-		$.ajax({
-			url : "/dsm/selectNowCashRefund",
-			data : {
-				memberCode : <%= loginUser.getMemberCode()%>
-			},
-			type : "post",
-			success : function(data){
-				//var tag = $('<div style = "display : inline; color : black; font-size : 0.8em; font-weight : bold;">원 입니다</div>');
-				$("#refundMoney").text(data);
-			},
-			error : function(data){
-				console.log(data);
-			}
-		});
-	});
-	</script>
-	
 	<%
 		}
 	%>
@@ -251,8 +222,7 @@
 
 	<!-- Custom scripts for this template -->
 	<script src="/dsm/js/agency.min.js"></script>
-	
-	
+
 
 </body>
 </html>

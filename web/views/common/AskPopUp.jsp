@@ -27,7 +27,8 @@
 					<textarea name="requestText" id="requestText" rows="15%" cols="38%" name="ask" style="resize: none;" placeholder="날짜와 시간을 포함하여 신청메세지를 입력하세요."></textarea>
 				</div>
 	        </div>
-	        <div class="modal-footer" style="align: center">          
+	        <div class="modal-footer" style="align: center">    
+        		<input type="hidden" id="productNum">      
 				<button type="reset" class="btn btn-secondary" style="width:200px" data-dismiss="modal">취소</button>
 				<button type="submit" id="submitForm" class="btn btn-warning" style="width: 200px">보내기</button>		
 	        </div>

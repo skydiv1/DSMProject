@@ -140,12 +140,22 @@ public class ProductService {
 
 
 	/* 상품 업데이트 - 이미지 */
-	public int updateThumbnail(Product product, ArrayList<Attachment> fileList, int num) {
+	public int updateThumbnail(Product product, ArrayList<Attachment> fileList, int num, Attachment at) {
 		Connection con = getConnection();
 		int result = 0;
 		
 		int result1= new ProductDao().updateThumbnailContent(con, product, num); // product 내용만 insert / 부모 테이블 먼저 insert 해야 한다.
 		
+		/* 이미지 업데이트 */
+		//ArrayList<Attachment> imgList = new ArrayList<Attachment>();
+		for(int i=0; i<fileList.size(); i++){
+			at = new Attachment();
+			fileList.get(i).getImgNo();
+			fileList.get(i).getChangeName();
+			fileList.get(i).getImgFilePath();
+			fileList.add(at);			
+		}
+		System.out.println("▶ service에서 이미지 리스트 값 확인 : "+fileList);
 		int result2 = new ProductDao().updateAttachment(con, fileList, num);
 		System.out.println("result2(updateThumbnail) 이미지 수정되는지 확인 : "+result2);
 		

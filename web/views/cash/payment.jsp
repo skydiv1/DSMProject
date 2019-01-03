@@ -2,10 +2,12 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%
+	<%-- <%
 		ArrayList<Deal> list = (ArrayList<Deal>)request.getAttribute("list");
 		int totalPrice = 0;
-	%>
+	%> --%>
+	
+	<%int productNo=Integer.parseInt(request.getParameter("productNo")); %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head lang="en">
@@ -55,8 +57,10 @@ table {
 
 	<!-- 고객코드, 상품코드로 어떤 상품을 가지고 올지 판단(CostomerMyPage에서 가지고옴)  -->
 
-
-	<section class="bg-light" id="portfolio">
+	<div>
+	<%=productNo %>
+	</div>
+	<%-- <section class="bg-light" id="portfolio">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12 text-center">
@@ -193,7 +197,7 @@ table {
 							console.log("실패!");
 						}
 					});
-					<%-- //location.href = "<%= request.getContextPath()%>/updateDealCash"; --%>
+					//location.href = "<%= request.getContextPath()%>/updateDealCash";
 					//인자로 전달해서 판매자, 소비자의 캐시가 업데이트 되도록하는 서블릿작성
 					
 				}else{
@@ -209,7 +213,7 @@ table {
 		});
 	</script>
 
-
+ --%>
 
 
 	<%@ include file="../common/footer.jsp"%>
