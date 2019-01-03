@@ -119,15 +119,15 @@
 							 <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                     <tr>
-                                        <th>회원번호</th>
-                                        <th>아이디</th>
-                                        <th>이름</th>
-                                        <th>이메일</th>
-                                        <th>번호</th>
-                                        <th>분류</th>
-                                        <th>상태</th>
-                                        <th>경고 횟수</th>
-                                        <th>상태관리</th>
+                                        <th>회원번호<br></th>
+                                        <th>아이디<br></th>
+                                        <th>이름<br></th>
+                                        <th>이메일<br></th>
+                                        <th>번호<br></th>
+                                        <th>분류<br></th>
+                                        <th>상태<br></th>
+                                        <th>경고 횟수<br></th>
+                                        <th>상태관리<br></th>
                                         <th>자격증<br>제출 여부</th>
                                         <th>자격증<br>이미지</th>
                                     </tr>
@@ -149,25 +149,25 @@
                                         <% } %>
                                         
                                         
-                                        <% if(list.get(i).getmemberStatus() == 0){%>
+                                        <% if(list.get(i).getMemberStatus() == 0){%>
                                         <td class="center">정상</td>
-                                        <% }else if(list.get(i).getmemberStatus() == 1){ %>
+                                        <% }else if(list.get(i).getMemberStatus() == 1){ %>
                                         <td class="center">탈퇴</td>
-                                        <% }else if(list.get(i).getmemberStatus() == 2){ %>
+                                        <% }else if(list.get(i).getMemberStatus() == 2){ %>
                                         <td class="center">블랙리스트</td>
                                         <% } %>
                                         
-                                        <td class="center"><div id = "warningCountDiv<%= list.get(i).getMemberCode() %>" style = "display : inline"><%= list.get(i).getblackCount() %></div>&nbsp;&nbsp;
-                                        <button style = "width : 20px ;background : lightgray; color : black" onclick = "plusMinusBtn('minus',<%= list.get(i).getMemberCode() %>)">-</button>
-                                        <button style = "width : 20px ;background : lightgray; color : black" onclick = "plusMinusBtn('plus',<%= list.get(i).getMemberCode() %>)">+</button></td>
+                                        <td class="center"><div id = "warningCountDiv<%= list.get(i).getMemberCode() %>" style = "display : inline"><%= list.get(i).getBlackCount() %></div>&nbsp;&nbsp;
+                                        <button style = "width : 30px ;background : lightgray; color : black" onclick = "plusMinusBtn('minus',<%= list.get(i).getMemberCode() %>)">-</button>
+                                        <button style = "width : 30px ;background : lightgray; color : black" onclick = "plusMinusBtn('plus',<%= list.get(i).getMemberCode() %>)">+</button></td>
                                         
                                         
-                                        <% if(list.get(i).getmemberStatus() == 0){%>
+                                        <% if(list.get(i).getMemberStatus() == 0){%>
                                         <td class="center"><button style = "background : lightgray; color : black" onclick = "location.href = '/dsm/memberLightOut?memberCode=<%= list.get(i).getMemberCode() %>'">탈퇴</button>
                                         <button style = "background : lightgray; color : black" onclick = "location.href = '/dsm/memberHeavyOut?memberCode=<%= list.get(i).getMemberCode() %>'">영구 탈퇴</button></td>
-                                        <% }else if(list.get(i).getmemberStatus() == 1){ %>
+                                        <% }else if(list.get(i).getMemberStatus() == 1){ %>
                                         <td class="center"><button style = "background : lightgray; color : black" onclick = "location.href = '/dsm/memberRestore?memberCode=<%= list.get(i).getMemberCode() %>'">복구</button></td>
-                                        <% }else if(list.get(i).getmemberStatus() == 2){ %>
+                                        <% }else if(list.get(i).getMemberStatus() == 2){ %>
 										<td class="center">&nbsp;</td>
                                         <% } %>
                                         
@@ -182,9 +182,9 @@
                                         <% } %>
                                         
                                         <% if(list.get(i).getMemberCategory() == 1){%>
-	                                        <% if(list.get(i).getsellerImgPath() != null) {%>
+	                                        <% if(list.get(i).getSellerImgPath() != null) {%>
 	                                        	<td class="center">
-	                                        	<a href="<%= list.get(i).getsellerImgPath()%>" onclick="window.open(this.href, '판매자 자격증 이미지', 'width = 300, height = 300');return false;" target="_blank">
+	                                        	<a href="<%= list.get(i).getSellerImgPath()%>" onclick="window.open(this.href, '판매자 자격증 이미지', 'width = 300, height = 300');return false;" target="_blank">
 	                                        	<button>이미지 확인</button>
 	                                        	</a></td>    	
 	                                        <% }else{ %>

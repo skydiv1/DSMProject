@@ -121,10 +121,10 @@ public class AdminDao {
 				m.setMemberEmail(rset.getString(4));
 				m.setMemberPhone(rset.getString(5));
 				m.setMemberCategory(rset.getInt(6));
-				m.setPrivatememberStatus(rset.getInt(7));
-				m.setblackCount(rset.getInt(8));
+				m.setMemberStatus(rset.getInt(7));
+				m.setBlackCount(rset.getInt(8));
 				m.setSellerCertcheck(rset.getInt(9));
-				m.setsellerImgPath(rset.getString(10));
+				m.setSellerImgPath(rset.getString(10));
 				
 				
 				list.add(m);
@@ -313,6 +313,7 @@ public class AdminDao {
 				b.setBoardTitle(rset.getString(2));
 				b.setMemberName(rset.getString(3));
 				b.setBoardDate(rset.getDate(4));
+				b.setBoardQnaAnswerYn(rset.getInt(5));
 				
 				
 				list.add(b);

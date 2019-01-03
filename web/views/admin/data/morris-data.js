@@ -1,10 +1,10 @@
 $(function() {
 
-    Morris.Area({
+	 Morris.Area({
         element: 'morris-area-chart',
         data: [{
             period: '2010 Q1',
-            iphone: 2666,
+            iphone: 26660,
             ipad: null,
             itouch: 2647
         }, {
@@ -60,7 +60,7 @@ $(function() {
         hideHover: 'auto',
         resize: true
     });
-
+    
     Morris.Donut({
         element: 'morris-donut-chart',
         data: [{
