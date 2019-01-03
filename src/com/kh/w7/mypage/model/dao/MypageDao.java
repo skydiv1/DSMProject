@@ -57,7 +57,7 @@ public class MypageDao {
 				m.setDealNo(rset.getInt("DEAL_NO"));
 				m.setMember_id(rset.getString("MEMBER_ID"));
 				m.setProductName(rset.getString("PRODUCT_NAME"));
-				m.setDealListaddMsg(rset.getString("DEALLIST_ADDMESSAGE"));
+				m.setDealListaddMsg1(rset.getString("DEALLIST_ADDMESSAGE1"));
 				
 				list.add(m);
 			}
@@ -155,7 +155,7 @@ public class MypageDao {
 				m.setDealNo(rset.getInt("DEAL_NO"));
 				m.setMember_id(rset.getString("MEMBER_ID"));
 				m.setProductName(rset.getString("PRODUCT_NAME"));
-				m.setDealListaddMsg(rset.getString("DEALLIST_ADDMESSAGE"));
+				m.setDealListaddMsg1(rset.getString("DEALLIST_ADDMESSAGE"));
 				
 				CancelList.add(m);
 			}
@@ -219,9 +219,10 @@ public class MypageDao {
 				MyPage m = new MyPage();
 				
 				m.setDealNo(rset.getInt("DEAL_NO"));
+				m.setProductNo(rset.getInt("PRODUCT_NO"));
 				m.setMember_id(rset.getString("MEMBER_ID"));
 				m.setProductName(rset.getString("PRODUCT_NAME"));
-				m.setDealListaddMsg(rset.getString("DEALLIST_ADDMESSAGE"));
+				m.setDealListaddMsg1(rset.getString("DEALLIST_ADDMESSAGE"));
 				
 				appectlist.add(m);
 			}
@@ -263,7 +264,7 @@ public class MypageDao {
 				m.setDealNo(rset.getInt("DEAL_NO"));
 				m.setMember_id(rset.getString("MEMBER_ID"));
 				m.setProductName(rset.getString("PRODUCT_NAME"));
-				m.setDealListaddMsg(rset.getString("DEALLIST_ADDMESSAGE"));
+				m.setDealListaddMsg1(rset.getString("DEALLIST_ADDMESSAGE"));
 				
 				deallist.add(m);
 			}
@@ -302,7 +303,7 @@ public class MypageDao {
 				m.setDealNo(rset.getInt("DEAL_NO"));
 				m.setMember_id(rset.getString("MEMBER_ID"));
 				m.setProductName(rset.getString("PRODUCT_NAME"));
-				m.setDealListaddMsg(rset.getString("DEALLIST_ADDMESSAGE"));
+				m.setDealListaddMsg1(rset.getString("DEALLIST_ADDMESSAGE"));
 				
 				waitlist.add(m);
 			}
@@ -315,6 +316,30 @@ public class MypageDao {
 		}
 		
 		return waitlist;
+	}
+
+
+	public int cancelUpdateseller(Connection con, int dealnum, String textContent) {
+		PreparedStatement pstmt = null;
+		int result =0;
+		
+		String query = prop.getProperty("cancelUpdateseller");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, textContent);
+			pstmt.setInt(2, dealnum);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+	
+		return result;
 	}
 
 

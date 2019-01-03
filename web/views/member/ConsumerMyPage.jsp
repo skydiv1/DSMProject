@@ -26,7 +26,7 @@
 <script type="text/javascript">
   function addBtnEvent() {
 
-	//취소 팝업에 있는 버튼 누를때
+	//취소 팝업에 있는 보내기 버튼 누를때
 	  $("#cancelBtn").click(function () {
 		var textContent = $("#textContent").val();//신청사유
 		var dealnum = $("#dealnum").val();
@@ -64,13 +64,28 @@
 	//수락 목록에서 결제 버튼 눌렀을때
 	 $("#dealBtn").click(function () {
 		 var dealnum = $(this).parent().parent().children().eq(1).text();
+		 var productno = $(this).parent().parent().children().eq(2).text();
+		 console.log("dealnum:"+dealnum);
+		 console.log("productno:"+productno);
 			$.ajax({
 				url:"${pageContext.request.contextPath}/selectOneProduct.de",
 				type : "get",
-				data : {dealnum:dealnum},
+				data : {dealnum:dealnum, productno:productno},
 				success : function (data) {
-					selectListAccept();
-					selectListdealcomplete();
+					
+						document.location.href ="/dsm/views/cash/payment.jsp?productNo="+data[0].productNo; 
+				 	
+			/* 		$.ajax({
+						url :"${pageContext.request.contextPath}/Pay.c",
+						type : "get",
+						
+						success : function (data) {
+							
+						}
+					});  */
+					 
+					
+					
 				}
 			});
 	});
@@ -123,7 +138,7 @@ function selectListAp(pg) {
 				apListHtml.push('	<td class="td1" style="display: none">' +data.aplist[i].dealNo + '</td>');
 				apListHtml.push('	<td class="td1">' +data.aplist[i].member_id + '</td>');
 				apListHtml.push('	<td class="td1">' +data.aplist[i].productName+ '</td>');
-				apListHtml.push('	<td class="td1">' +data.aplist[i].dealListaddMsg + '</td>');
+				apListHtml.push('	<td class="td1">' +data.aplist[i].dealListaddMsg1 + '</td>');
 				apListHtml.push('	 <td style="width: 30px"><button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#cencelModal" id="cBtn" >취소</button></td>');
 				apListHtml.push('</tr>');
 				
@@ -215,6 +230,7 @@ function selectListAp(pg) {
 					accListHtml.push('<tr>');
 					accListHtml.push('	<th scope="row">' + (i+1) + '</th>');
 					accListHtml.push('	<td class="td1" style="display: none">' +data[i].dealNo + '</td>');
+					accListHtml.push('	<td class="td1" style="display: none">' +data[i].productNo + '</td>');
 					accListHtml.push('	<td class="td1">' +data[i].member_id + '</td>');
 					accListHtml.push('	<td class="td1">' +data[i].productName+ '</td>');
 					accListHtml.push('	<td class="td1">' +data[i].dealListaddMsg + '</td>');
@@ -342,6 +358,7 @@ function selectListAp(pg) {
 			    <tr>
 			      <th scope="col">No</th>
 			      <th scope="col" class="td1" style="display: none">거래번호</th>
+			      <th scope="col" class="td1" style="display: none">제품번호</th>
 			      <th scope="col" class="td1">판매자ID</th>
 			      <th scope="col" class="td1">구매 상품명</th>
 			      <th scope="col" class="td1">신청 내용</th>
