@@ -175,8 +175,9 @@ public class UpdateProductServlet extends HttpServlet {
 			ArrayList<Attachment> fileList = new ArrayList<Attachment>();
 			
 			// 반복문을 통해 거꾸로 넘어온 파일들을 다시 역순으로 바꿔준다.
+			Attachment at = null;
 			for(int i=originFiles.size()-1; i>=0; i--) {
-				Attachment at = new Attachment();
+				at = new Attachment();
 				at.setProductNo(num);
 				at.setImgFilePath(filePath);
 				at.setImgNo(multiImgsArr[i]);
@@ -184,10 +185,12 @@ public class UpdateProductServlet extends HttpServlet {
 				at.setChangeName(multiChangeImgs[i]);
 				// 세션으로 작성자를 가져온다.
 				at.setMemberCode(Integer.parseInt(String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getMemberCode())));
-				
+								
 				fileList.add(at);
 			}			
-			int result1 = new ProductService().updateThumbnail(product, fileList, num);
+			System.out.println("fileList(servlet) : "+fileList);
+			
+			int result1 = new ProductService().updateThumbnail(product, fileList, num, at);
 		
 			if(result1>0 && result2>0) {				
 				response.sendRedirect("/dsm/selectOne.pr?num="+num); // 수정완료 후 해당 상품 상세 페이지를 보기 위해서는 num의 값을 넘겨줘야 한다. - detail.jsp로 가기 위해
