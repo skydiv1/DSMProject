@@ -18,16 +18,17 @@ public class MemberService {
 	public int insertMember(Member reqMember) {
 		Connection con = getConnection();
 		
-		int result= new MemberDao().insertMember(con, reqMember);
+		int result= new MemberDao().insertSel(con, reqMember);
+		int result2= new MemberDao().insertCon(con, reqMember);
 			
 		if(result>0) {
 			commit(con);
 		}else {
 			rollback(con);
 		}
-		close(con);	
-			
+		close(con);
 		
+
 		return result;
 	}
 	//아이디 중복검사

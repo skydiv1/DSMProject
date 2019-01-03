@@ -97,10 +97,10 @@ public class MemberDao {
 		return loginUser;
 	}
 
-	public int insertMember(Connection con, Member reqMember) {
+	public int insertSel(Connection con, Member reqMember) {
 		PreparedStatement pstmt = null;
 		int result=0;
-		String query = prop.getProperty("insertMember");
+		String query = prop.getProperty("insertSel");
 
 		try {
 			pstmt = con.prepareStatement(query);
@@ -111,6 +111,31 @@ public class MemberDao {
 			pstmt.setString(5, reqMember.getMemberPhone());
 			pstmt.setString(6, reqMember.getSellerIntroduction());
 			pstmt.setString(7, reqMember.getSellerCareer());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+	public int insertCon(Connection con, Member reqMember) {
+		PreparedStatement pstmt = null;
+		int result=0;
+		String query = prop.getProperty("insertCon");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, reqMember.getMemberId());
+			pstmt.setString(2, reqMember.getMemberName());
+			pstmt.setString(3, reqMember.getMemberEmail());
+			pstmt.setString(4, reqMember.getMemberPwd());
+			pstmt.setString(5, reqMember.getMemberPhone());
+			
 			
 			result = pstmt.executeUpdate();
 			

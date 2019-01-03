@@ -156,7 +156,7 @@ form {
 			<span> <input type="hidden" value="<%=getRandom()%>"
 				id="randomCode"> <input type="hidden"
 				value="DroneServiceMarket@gmail.com" id="from"> <input
-				type="hidden" value="DSM" id="adName">
+				type="hidden" value="DSM" id="hiddenName">
 			</span>
 
 			<tr>
@@ -240,26 +240,34 @@ form {
 	</form>
 	<script>
 		function updateCon(){
+			var memberId=$("#memberId").val();
 			var memberPwd=$("#memberPwd").val();
 			var memberPwd2=$("#memberPwd2").val();
+						
 			var memberPwdCheck = /[a-zA-Z0-9]{7,15}/g;
 			memberPwdResult = memberPwdCheck.test(memberPwd);
 			
-			
+			if (($("#memberPwd").val() == "")) {
+				alert("비밀번호를 입력하세요.");
+			}
+			console.log(memberId);
 			if(memberPwdResult){
-				/* alert("적합한 비밀번호"); */
+				//alert("정상");
 			}
 			
 			if(memberPwd == memberPwd2){
-				/* alert("비밀번호와 확인이 일치"); */
+				//alert("일치");
 				$("#join").submit();
-				join.action = "<%=request.getContextPath()%>/insertMember.me";
+				join.action = "<%=request.getContextPath()%>/updateMember.me";
 				<%-- location.href = "<%=request.getContextPath()%>/insertMember.me"; --%>
 				
 			}else{
-				alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.\n 비밀번호를 확인해주세요.");
+				alert("비밀번호가 일치하지 않습니다. 비밀번호를 다시 확인해주세요.");
 				return false;
 			}
+			
+				
+				
 		}
 		function leaveMember() {
 
@@ -289,8 +297,8 @@ form {
 			var memberEmail = $("#memberEmail").val();
 			var randomCode = $("#randomCode").val();
 			var from = $("#from").val();
-			memberName
-			var adName = $("#adName").val();
+			
+			var hiddenName = $("#hiddenName").val();
 
 			$.ajax({
 				url : "/dsm/SendEmail.me",
@@ -299,7 +307,7 @@ form {
 					memberEmail : memberEmail,
 					randomCode : randomCode,
 					from : from,
-					adName : adName
+					hiddenName : hiddenName
 				},
 				success : function(data) {
 					if (data == "YES") {

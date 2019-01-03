@@ -147,7 +147,7 @@ form {
 				<td><div class="form-group">
 						<label for="inputEmail" class="col-sm-2 control-label">Email</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="memberEmail"
+							<input type="email" class="form-control" id="memberEmail"
 								name="memberEmail" style="width: 550px"
 								placeholder="<%=memberEmail%>" >
 						</div>
@@ -164,7 +164,7 @@ form {
 			<span> <input type="hidden" value="<%=getRandom()%>"
 				id="randomCode"> <input type="hidden"
 				value="DroneServiceMarket@gmail.com" id="from"> <input
-				type="hidden" value="DSM" id="adName">
+				type="hidden" value="DSM" id="hiddenName">
 			</span>
 
 			<tr>
@@ -205,26 +205,32 @@ form {
 	</form>
 	<script>
 		function updateCon(){
+			var memberId=$("#memberId").val();
 			var memberPwd=$("#memberPwd").val();
 			var memberPwd2=$("#memberPwd2").val();
+						
 			var memberPwdCheck = /[a-zA-Z0-9]{7,15}/g;
 			memberPwdResult = memberPwdCheck.test(memberPwd);
 			
-			
+			if (($("#memberPwd").val() == "")) {
+				alert("비밀번호를 입력하세요.");
+			}
+			console.log(memberId);
 			if(memberPwdResult){
-				/* alert("적합한 비밀번호"); */
+				//alert("정상");
 			}
 			
 			if(memberPwd == memberPwd2){
-				/* alert("비밀번호와 확인이 일치"); */
-				$("#updateform").submit();
-				join.action = "<%=request.getContextPath()%>/insertMember.me";
+				//alert("일치");
+				$("#join").submit();
+				join.action = "<%=request.getContextPath()%>/updateMember.me";
 				<%-- location.href = "<%=request.getContextPath()%>/insertMember.me"; --%>
 				
 			}else{
-				alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.\n 비밀번호를 확인해주세요.");
+				alert("비밀번호가 일치하지 않습니다. 비밀번호를 다시 확인해주세요.");
 				return false;
-			}
+			}		
+				
 		}
 		function leaveMember() {
 
@@ -255,7 +261,7 @@ form {
 			var randomCode = $("#randomCode").val();
 			var from = $("#from").val();
 			memberName
-			var adName = $("#adName").val();
+			var hiddenName = $("#hiddenName").val();
 
 			$.ajax({
 				url : "/dsm/SendEmail.me",
@@ -264,7 +270,7 @@ form {
 					memberEmail : memberEmail,
 					randomCode : randomCode,
 					from : from,
-					adName : adName
+					hiddenName : hiddenName
 				},
 				success : function(data) {
 					if (data == "YES") {

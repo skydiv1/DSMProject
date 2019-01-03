@@ -28,10 +28,8 @@ public class LoginServlet extends HttpServlet {
 
 		String memberId = request.getParameter("memberId");
 		String memberPwd = request.getParameter("memberPwd");
-
-		System.out.println("memberId: " +memberId);
-		System.out.println("memberPwd: " +memberPwd);
-		
+		System.out.println(memberId);
+		System.out.println(memberPwd);
 		Member reqMember = new Member();
 		reqMember.setMemberId(memberId);
 		reqMember.setMemberPwd(memberPwd);
@@ -43,9 +41,9 @@ public class LoginServlet extends HttpServlet {
 		
 		if(loginUser != null) { // 로그인 성공 시
 			request.getSession().setAttribute("loginUser", loginUser);
-			System.out.println("11111");
+			
 			response.sendRedirect("index.jsp"); // index.jsp로 재요청
-			System.out.println("2");
+			
 			
 		}else {
 			request.setAttribute("msg", "로그인 실패");

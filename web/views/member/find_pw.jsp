@@ -125,8 +125,8 @@ p {
 				<tr>
 					<td>
 						<button type="button" class="btn btn-warning" id="findpwdBtn" onclick="pwdSearch();"
-							style="width: 500px; height: 50px; font-size: 20px; border-radius: 6px; margin-left: 5%; margin-left: 5%; color: gray;">이메일로
-							임시비밀번호 전송</button>
+							style="width: 500px; height: 50px; font-size: 20px; border-radius: 6px; margin-left: 5%; margin-left: 5%; 
+							color: gray;">이메일로 임시비밀번호 전송</button>
 							
 							<%! public static String getRandomPassword(){
 									char[] charSet

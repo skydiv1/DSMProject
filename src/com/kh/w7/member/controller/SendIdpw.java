@@ -43,7 +43,7 @@ public class SendIdpw extends HttpServlet {
 		String memberPwd = (String) request.getAttribute("memberPwd");
 		String randomCode=(String)request.getAttribute("randomCode");
 		
-		System.out.println("u");
+		
 
 		
 		Properties prop = new Properties();// 정보를 담을 객체
@@ -95,7 +95,7 @@ public class SendIdpw extends HttpServlet {
             //메일보내기   
             Transport.send(msg);
             
-            response.getWriter().print("YES");
+            response.getWriter().print("success");
             
 		} catch(Exception e){
 		response.getWriter().print("NO");

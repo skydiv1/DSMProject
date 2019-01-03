@@ -41,11 +41,7 @@ public class SendEmailServlet extends HttpServlet {
 		String memberEmail = request.getParameter("memberEmail");
 		String randomCode = request.getParameter("randomCode");
 		String from = request.getParameter("from");
-		String adName = request.getParameter("adName");
-		
-		System.out.println("memberEmail : " + memberEmail);
-		System.out.println("randomCode : " + randomCode);
-		System.out.println("from : " + from);
+		String hiddenName = request.getParameter("hiddenName");
 		
 		Properties prop = new Properties();// 정보를 담을 객체
 		prop.put("mail.smtp.user", "DroneServiceMarket@gmail.com");
@@ -57,11 +53,6 @@ public class SendEmailServlet extends HttpServlet {
 		prop.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 		prop.put("mail.smtp.socketFactory.fallback", "false");
 
-		/*p.put("mail.smtp.starttls.enable","true"); 
-		p.put("mail.smtp.host", "smtp.gmail.com"); 
-		p.put("mail.smtp.port", "587"); //25,587
-		p.put("mail.smtp.auth", "true"); */
-		
 		try{
 		    SMTPAuthenticator auth = new SMTPAuthenticator();
 		    Session session = Session.getDefaultInstance(prop, auth);
@@ -92,32 +83,7 @@ public class SendEmailServlet extends HttpServlet {
              
             //메일보내기
             javax.mail.Transport.send(msg);
-
-
-		 
-		    
-		    
-		    
-		    
-		   /* Address fromAddr = new InternetAddress(from);
-		    msg.setFrom(fromAddr); 
-		 
-		    Address toAddr = new InternetAddress(fullEmail);
-		    msg.addRecipient(Message.RecipientType.TO, toAddr); // 받는 사람
-		    */
-		    
-		    //msg.setFrom(new InternetAddress(mail_from));
-            //msg.addRecipient(Message.RecipientType.TO, toAddr);
-            /*msg.setSubject(title, "UTF-8");
-            msg.setContent(randomCode, "text/html; charset=UTF-8");
-            msg.setHeader("Content-type", "text/html; charset=UTF-8");
- */
-		    
-           //Transport.send(msg);
-       
-            System.out.println("보냄");
-            
-            response.getWriter().print("YES");
+           response.getWriter().print("success");
             
 		} catch(Exception e){
 		response.getWriter().print("NO");

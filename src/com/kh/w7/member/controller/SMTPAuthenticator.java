@@ -12,9 +12,9 @@ public class SMTPAuthenticator extends Authenticator{
     public SMTPAuthenticator() {
 
         String id="DroneServiceMarket";
-        String pw = "admin123!";
+        String pwd = "admin123!";
         
-        pa = new PasswordAuthentication(id, pw);
+        pa = new PasswordAuthentication(id, pwd);
 
     }
 

@@ -145,7 +145,7 @@ form {
 	}%>
 	<span> <input type="hidden" value="<%=getRandom()%>"id="randomCode">
 						 <input type="hidden" value="DroneServiceMarket@gmail.com" id="from"> 
-						<input type="hidden" value="DSM" id="adName">
+						<input type="hidden" value="DSM" id="hiddenName">
 					</span>
 
 			<tr>
@@ -212,37 +212,28 @@ form {
 	</form>
 		<script>
 		function insertCon(){
-			
-			
-			<%-- location.href = "<%=request.getContextPath()%>/insertMember.me"; --%>
 			var memberId=$("#memberId").val();
 			var memberPwd=$("#memberPwd").val();
-			var memberPwd2=$("#memberPwd2").val();
-			var memberEmail=$("#memberEmail").val();
-			var memberPhone =$("memberPhone").val();
+			var memberPwd2=$("#memberPwd2").val();			
 			var memberPwdCheck = /[a-zA-Z0-9]{7,15}/g;
-			var memberPhoneCheck=/^\d{8,15}$/;
 			memberPwdResult = memberPwdCheck.test(memberPwd);
-			//여기까지 동작
-			console.log(memberPwd);
-			console.log(memberPwd2);
-			console.log(memberPwdResult);
-			if (($("#memberId").val() == "")) {
-				alert("아이디를 입력해주세요.");
+			
+			if (($("#memberPwd").val() == "")) {
+				alert("비밀번호를 입력하세요.");
 			}
 			console.log(memberId);
 			if(memberPwdResult){
-				/* alert("적합한 비밀번호"); */
+				//alert("정상");
 			}
 			
 			if(memberPwd == memberPwd2){
-				/* alert("비밀번호와 확인이 일치"); */
+				//alert("일치");
 				$("#join").submit();
 				join.action = "<%=request.getContextPath()%>/insertMember.me";
 				<%-- location.href = "<%=request.getContextPath()%>/insertMember.me"; --%>
 				
 			}else{
-				alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.\n 비밀번호를 확인해주세요.");
+				alert("비밀번호가 일치하지 않습니다. 비밀번호를 다시 확인해주세요.");
 				return false;
 			}
 			
@@ -371,14 +362,14 @@ form {
 		var memberEmail=$("#memberEmail").val();
 		var randomCode = $("#randomCode").val();
 		var from = $("#from").val();memberName
-		var adName = $("#adName").val();
+		var hiddenName = $("#hiddenName").val();
 	
 		$.ajax({
 			url:"/dsm/SendEmail.me",
 			type:"post",
-			data:{memberEmail:memberEmail,randomCode:randomCode,from:from,adName:adName},
+			data:{memberEmail:memberEmail,randomCode:randomCode,from:from,hiddenName:hiddenName},
 			success:function(data){
-				if(data == "YES"){
+				if(data == "success"){
 					alert("메일이 발송되었습니다.");
 				}else{
 					alert("메일 발송을 실패하였습니다.");

@@ -41,7 +41,7 @@ public class FindIdServlet extends HttpServlet {
 
 			request.getRequestDispatcher("/SendIdpw.me").forward(request, response);
 
-			response.getWriter().print("YES");
+			response.getWriter().print("success");
 
 		} else {
 			response.getWriter().print("NO");
