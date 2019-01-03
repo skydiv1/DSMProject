@@ -15,14 +15,14 @@ import com.kh.w7.member.model.vo.Member;
  * Servlet implementation class InsertMemberServlet
  */
 /*@WebServlet("/insertMember.me")*/
-@WebServlet("/insertSel.me")
-public class InsertMemberServlet extends HttpServlet {
+@WebServlet("/insertCon.me")
+public class InsertConServlet2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertMemberServlet() {
+    public InsertConServlet2() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,16 +37,13 @@ public class InsertMemberServlet extends HttpServlet {
 		String memberName = request.getParameter("memberName");
 		String memberPhone = request.getParameter("memberPhone");
 		String memberEmail = request.getParameter("memberEmail");
-		String sellerIntroduction = request.getParameter("sellerIntroduction");
-		String sellerCareer = request.getParameter("sellerCareer");
-	
+		
 		System.out.println("memberId : " + memberId);
 		System.out.println("memberPwd: " + memberPwd);
 		System.out.println("memberName: " + memberName);
 		System.out.println("memberPhone: " + memberPhone);
 		System.out.println("memberEmail: " + memberEmail);
-		System.out.println("selleIntroduction: " + sellerIntroduction);
-		System.out.println("sellerCareer: " + sellerCareer);
+		
 		
 		
 		Member reqMember = new Member();
@@ -55,13 +52,12 @@ public class InsertMemberServlet extends HttpServlet {
 		reqMember.setMemberName(memberName);
 		reqMember.setMemberPhone(memberPhone);
 		reqMember.setMemberEmail(memberEmail);
-		reqMember.setSellerIntroduction(sellerIntroduction);
-		reqMember.setSellerCareer(sellerCareer);
+		
 		
 
 		
-		/*int result = new MemberService().insertMember(reqMember);*/
-		int result = new MemberService().insertSel(reqMember);
+		int result = new MemberService().insertCon(reqMember);
+		
 		
 		if(result>0) {
 			request.getSession().setAttribute("msg", "회원가입에 성공하셨습니다.");

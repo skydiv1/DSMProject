@@ -210,7 +210,7 @@ form {
 			if(memberPwd == memberPwd2){
 				//alert("일치");
 				$("#join").submit();
-				join.action = "<%=request.getContextPath()%>/insertMember.me";
+				join.action = "<%=request.getContextPath()%>/insertCon.me";
 				<%-- location.href = "<%=request.getContextPath()%>/insertMember.me"; --%>
 				
 			}else{
@@ -284,7 +284,7 @@ form {
 	function sendEmail(){
 		var memberEmail=$("#memberEmail").val();
 		var randomCode = $("#randomCode").val();
-		var from = $("#from").val();memberName
+		var from = $("#from").val();
 		var hiddenName = $("#hiddenName").val();
 	
 		$.ajax({
