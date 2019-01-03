@@ -181,6 +181,7 @@ public class InsertImageServlet extends HttpServlet {
 				
 				fileList.add(at);
 			}			
+			System.out.println("fileList(서블릿) : "+fileList);
 			//int result2 = new ProductService().insertThumbnail(product, fileList); // 이미지+추가 항목 result1에 합침
 
 			int result1 = new ProductService().insertPlusProduct(product, pList, fileList);

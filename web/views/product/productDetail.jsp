@@ -119,7 +119,7 @@
 <!-- 네비게이션 바 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	<section class="bg-light" id="portfolio">
 
-	<input type="hidden" name="productNo" id="productNo" value="<%=product.getProductNo()%>"> <!-- 상품 번호 sevlet으로 넘긴다. -->
+	<input type="hidden" name="productNum" id="productNum" value="<%=product.getProductNo()%>"> <!-- 상품 번호 sevlet으로 넘긴다. -->
 	
 	<table width="70%" style="margin-left: 17%;" border="0">
 		<tr>
@@ -166,15 +166,15 @@
 				<%} else if(loginUser != null  && loginUser.getSellerCertcheck()==1){ %> <!-- 판매자일때 -->
 					<button id="requestForm1" type="button" class="btn btn-warning" style="width: 90%; height: 50px;">신청하기</button>
 				<%} else if(loginUser != null  && loginUser.getSellerCertcheck()==0){ %> <!-- 소비자일때 -->
-					<form id="popUpList" method="post">
-						<input type="hidden" id="dealNo" name="dealNo" value=""> <!-- 거래번호는 시퀀스 -->
+<!-- 					<form id="popUpList" method="post"> -->
+						<%-- <input type="hidden" id="dealNo" name="dealNo" value=""> <!-- 거래번호는 시퀀스 -->
 						<input type="hidden" id="productNo" name="productNo" value="<%=product.getProductNo()%>"> <!-- 상품번호 -->
 						<input type="hidden" id="customerCode" name="customerCode" value="<%=loginUser.getMemberCode()%>"> <!-- 소비자코드 -->
 						<input type="hidden" id="sellerCode" name="sellerCode" value="<%=product.getMemberCode()%>"> <!-- 판매자코드 -->
 						<input type="hidden" id="dealPrice" name="dealPrice" value="<%=product.getProductItemPrice()%>"> <!-- 기본 거래금액 -->
-						<input type="hidden" id="dealOptionPrice" name="dealOptionPrice"> <!-- 기본 거래금액 -->
+						<input type="hidden" id="dealOptionPrice" name="dealOptionPrice"> <!-- 기본 거래금액 --> --%>
 						<button id="requestForm2" type="submit" class="btn btn-warning" data-toggle="modal" data-target="#askModal" style="width: 90%; height: 50px;">신청하기</button>
-					</form>
+<!-- 					</form> -->
 				<%} else if(loginUser == null){ %> <!-- 비회원일때 -->
 					<button id="requestForm3" type="button" class="btn btn-warning" style="width: 90%; height: 50px;">신청하기</button>
 				<%} %>
@@ -364,7 +364,7 @@
 				$.ajax({
 					url:"/dsm/reviewList.pr",
 					type:"get",
-					data:{productNo:$('#productNo').val()},
+					data:{productNum:$('#productNum').val()},
 					success: function (data) {
 						console.log(data);
 						
@@ -503,7 +503,14 @@
 
 			// 상품에 대한 정보 폼태그로 넘겨주기
 			$("#requestForm2").click(function() {
-				var productNum = $("#productNum").val("<%=product.getProductNo()%>");
+				var productNo = $("#productNo").val("<%=product.getProductNo()%>");
+				var customerCode = $("#customerCode").val("<%=loginUser.getMemberCode()%>");
+				var sellerCode = $("#sellerCode").val("<%=product.getMemberCode()%>");
+				var dealPrice = $("#dealPrice").val("<%=product.getProductItemPrice()%>");
+				alert(productNo.val()+", "+customerCode.val()+", "+sellerCode.val()+", "+dealPrice.val()); // 상품 코드를 팝업에 보내 저장
+<%-- 				var dealOptionPrice = $("#dealOptionPrice").val("<%=product.getProductNo()%>"); --%>
+				//console.log(dealOptionPrice.val()); // 상품 코드를 팝업에 보내 저장
+				
 <%-- 				 $("#popUpList").attr("action", "<%=request.getContextPath()%>/selectDealInfo.pr"); --%>
 			});
 		});

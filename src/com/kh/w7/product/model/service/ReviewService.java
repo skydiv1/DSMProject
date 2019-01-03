@@ -12,10 +12,10 @@ import com.kh.w7.product.model.vo.Review;
 public class ReviewService {
 
 	/* 리뷰 목록 페이지 조회 */
-	public ArrayList<Review> selectReviewList(String productNo) {
+	public ArrayList<Review> selectReviewList(String productNum) {
 		Connection con = getConnection();
 		
-		ArrayList<Review> reviewList = new ReviewDao().selectReviewList(con, productNo);
+		ArrayList<Review> reviewList = new ReviewDao().selectReviewList(con, productNum);
 		
 		close(con);	
 		

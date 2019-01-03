@@ -38,11 +38,10 @@ public class DealDao {
 			pstmt.setInt(2, deal.getCustomerCode());
 			pstmt.setInt(3, deal.getSellerCode());	
 			pstmt.setInt(4, deal.getMainProductPrice());	
-						
-			System.out.println("deal(DAO) : "+deal);
-			
+									
 			result = pstmt.executeUpdate();
-			System.out.println(result);
+			System.out.println("deal(DAO) : "+deal);
+			System.out.println("result(insertDeal(DAO)) : "+result);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();			

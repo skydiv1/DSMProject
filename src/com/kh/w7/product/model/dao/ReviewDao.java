@@ -29,23 +29,25 @@ public class ReviewDao {
 	}
 
 	/* 리뷰 목록 페이지 조회 */
-	public ArrayList<Review> selectReviewList(Connection con, String productNo) {
+	public ArrayList<Review> selectReviewList(Connection con, String productNum) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Review> reviewList = null;
 
 		// String query = prop.getProperty("selectList");
-		String query = "SELECT R.REVIEW_NO, R.PRODUCT_NO, R.MEMBER_CODE, M.MEMBER_ID, R.REVIEW_CONTEXT, R.REVIEW_DATE, R.REVIEW_GRADE, R.REVIEW_DELETEYN FROM REVIEW R INNER JOIN MEMBER M ON (R.MEMBER_CODE=M.MEMBER_CODE) WHERE PRODUCT_NO=?";
+		String query = prop.getProperty("selectListl");
+		//String query = "SELECT R.REVIEW_NO, R.PRODUCT_NO, R.MEMBER_CODE, M.MEMBER_ID, R.REVIEW_CONTEXT, R.REVIEW_DATE, R.REVIEW_GRADE, R.REVIEW_DELETEYN FROM REVIEW R INNER JOIN MEMBER M ON (R.MEMBER_CODE=M.MEMBER_CODE) WHERE PRODUCT_NO=?";
 		// TO_CHAR(R.REVIEW_DATE, 'YYYYMMDD HH24:MI:SS') AS REVIEW_DATE : IllegalArgumentException 오류발생
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, Integer.parseInt(productNo));
+			pstmt.setInt(1, Integer.parseInt(productNum));
 
 			rset = pstmt.executeQuery();
 			
 			reviewList = new ArrayList<Review>();
 
+			int i=0;
 			while (rset.next()) {
 				Review review = new Review();
 				review.setReviewNo(rset.getInt("REVIEW_NO"));
@@ -58,7 +60,10 @@ public class ReviewDao {
 				review.setMemberId(rset.getString("MEMBER_ID"));
 
 				reviewList.add(review);
+				i++;
+				System.out.println(i);
 			}
+			System.out.println("i는? "+i);
 			System.out.println("ReviewDao(selectList) :  "+reviewList);
 
 		} catch (SQLException e) {
