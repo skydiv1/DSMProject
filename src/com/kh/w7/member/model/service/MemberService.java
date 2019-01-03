@@ -86,26 +86,22 @@ Connection con = getConnection();
 		return memberId;
 	}
 
-	public int findpwd(String memberName, String memberId, String memberEmail, String randomCode) {
+	public int findpwd(String randomCode, String memberId, String memberEmail, String memberName) {
 		Connection con = getConnection();
 		
 		int findpwd = new MemberDao().findpwd(con, memberName, memberId, memberEmail, randomCode);
 		
-		/*if(findpwd>0) {
+		if(findpwd>0) {
 			commit(con);
 		}else {
 			rollback(con);
-		}*/
+		}
 		
 		close(con);
 		
 		System.out.println("service result:"+findpwd);
 		return findpwd;
 	}
-
-	
-	
-
 	
 
 }

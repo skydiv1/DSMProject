@@ -48,6 +48,12 @@ public class FindPwdServlet extends HttpServlet {
 		String memberEmail = request.getParameter("memberEmail");
 		String randomCode = request.getParameter("randomCode");
 		
+		
+		System.out.println(memberName);
+		System.out.println(memberId);
+		System.out.println(memberEmail);
+		System.out.println(randomCode);
+		
 		Properties p = new Properties();// 정보를 담을 객체
 		p.put("mail.smtp.user", "droneservicemarket@gmail.com");//본인 아이디
 		p.put("mail.smtp.host", "smtp.gmail.com"); 
@@ -87,9 +93,9 @@ public class FindPwdServlet extends HttpServlet {
              
             //DB에 있는 비밀번호 임시비밀번호로 변경하기
             int result = new MemberService().findpwd(randomCode, memberId, memberEmail, memberName);
-            System.out.println("이프 전까지되나여");
             if(result > 0) {
             	//메일보내기   
+            	System.out.println("이프 전까지되나여");
                 Transport.send(msg);
            
                 System.out.println("보냄");

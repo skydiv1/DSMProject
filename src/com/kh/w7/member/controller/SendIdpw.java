@@ -74,19 +74,20 @@ public class SendIdpw extends HttpServlet {
             // 이메일 제목
             if("memberId" != null) {
             	msg.setSubject("[DSM] 아이디 찾기", "UTF-8");
-            }else if("memberPwd" != null) {
-            	msg.setSubject("[DSM] 비밀번호 찾기", "UTF-8");
             }
-            
-            
+/*            	else if("memberPwd" != null) {
+            	msg.setSubject("[DSM] 비밀번호 찾기", "UTF-8");
+            }            
+*/            
             // 이메일 내용
             if("memberId" != null) {
             	 request.setAttribute("memberId", memberId);
                  msg.setText("아이디 : "+ memberId, "UTF-8");
-            }else if("memberPwd" != null) {
+            }
+            /*else if("memberPwd" != null) {
             	request.setAttribute("userPwd", memberPwd);
                 msg.setText("임시 비밀번호 : "+ memberPwd, "UTF-8");
-            }
+            }*/
            
             // 이메일 헤더
             msg.setHeader("content-Type", "text/html");

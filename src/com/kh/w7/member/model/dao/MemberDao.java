@@ -209,27 +209,39 @@ public class MemberDao {
 		  }
 		  return memberPwd;
 		 }*/
-	 public int updateMember(Connection con, Member reqMember){
+	 public int updateMember(Connection con,Member reqMember){
 	        
-	        Connection conn = null;
+	        
 	        PreparedStatement pstmt = null;
 	        
 	        int result =0;
 	        String query= prop.getProperty("updateMember");
+	        System.out.println("query : " + query);
 	 
 	        try {
 	            
-	            pstmt = conn.prepareStatement(query);
+	            pstmt = con.prepareStatement(query);
 	 
 	            
-				pstmt.setString(1, reqMember.getMemberName());
-				pstmt.setString(2, reqMember.getMemberEmail());
-				pstmt.setString(3, reqMember.getMemberPwd());
-				pstmt.setString(4, reqMember.getMemberPhone());
+				pstmt.setString(1, reqMember.getMemberPwd());
+				pstmt.setString(2, reqMember.getMemberName());
+				pstmt.setString(3, reqMember.getMemberPhone());
+				pstmt.setString(4, reqMember.getMemberEmail());
 				pstmt.setString(5, reqMember.getSellerIntroduction());
 				pstmt.setString(6, reqMember.getSellerCareer());
+				pstmt.setString(7, reqMember.getMemberId());
 				
-	           result= pstmt.executeUpdate();
+				
+				
+				System.out.println(reqMember.getMemberPwd());
+				System.out.println(reqMember.getMemberName());
+				System.out.println(reqMember.getMemberPhone());
+				System.out.println(reqMember.getMemberEmail());
+				System.out.println(reqMember.getSellerIntroduction());
+				System.out.println(reqMember.getSellerCareer());
+				System.out.println(reqMember.getMemberId());
+				
+				result = pstmt.executeUpdate();
 	            
 	                        
 	        } catch (Exception e) {
@@ -303,6 +315,8 @@ public class MemberDao {
 		int result = 0;
 		
 		String query = prop.getProperty("findPWD");
+		
+		System.out.println("query : " + query);
 	
 		try {
 			pstmt=con.prepareStatement(query);
@@ -316,6 +330,8 @@ public class MemberDao {
 			System.out.println(randomCode);*/
 			
 			result = pstmt.executeUpdate();
+			System.out.println(pstmt);
+			System.out.println("Dao result : " + result);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -325,6 +341,7 @@ public class MemberDao {
 
 		return result;
 	}
+
 	
 	
 }

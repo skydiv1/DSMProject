@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<% String memberId = (String)request.getAttribute("memberId"); %>
+<% String memberName = (String)request.getAttribute("memberName"); %>
+<% String memberPhone = (String)request.getAttribute("memberPhone"); %>
+<% String memberEmail = (String)request.getAttribute("memberEmail"); %>
+<% String sellerIntroduction = (String)request.getAttribute("sellerIntroduction"); %>
+<% String sellerCareer = (String)request.getAttribute("sellerCareer"); %>
+
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -21,6 +30,8 @@
 	integrity = "sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
 	crossorigin = "anonymous"
 </script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <title>JoinForm</title>
 <style>
 #link {
@@ -53,84 +64,30 @@ form {
 	margin-right: 15%
 }
 </style>
-<script language="javascript">
-   function validate() {
-       var re = /^[a-zA-Z0-9]{4,12}$/ // 아이디와 패스워드가 적합한지 검사할 정규식
-       var re2 = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-       // 이메일이 적합한지 검사할 정규식
 
-       var memberId = document.getElementById("memberId");
-       var memberPwd = document.getElementById("memberPwd");
-       var memberEmail = document.getElementById("memberEmail");
-       var num1 = document.getElementById("num1");
-       var num2 = document.getElementById("num2");
-
-       
-       // ------------ 이메일 까지 -----------
-
-       if(!check(re,memberId)) {
-           return false;
-       }
-
-       if(!check(re,memberPwd)) {
-           return false;
-       }
-
-       if(join.memberPwd.value != join.memberPwd2.value) {
-           alert("비밀번호가 다릅니다. 다시 확인해 주세요.");
-           join.memberPwd.value = "";
-           join.memberPwd.focus();
-           return false;
-       }
-
-       if(memberEmail.value=="") {
-           alert("이메일을 입력해 주세요");
-           memberEmail.focus();
-           return false;
-       }
-
-       if(!check(re2, memberEmail, "적합하지 않은 이메일 형식입니다.")) {
-           return false;
-       }
-
-       if(join.memberName.value=="") {
-           alert("이름을 입력해 주세요");
-           join.memberName.focus();
-           return false;
-       }
-
-       
-       alert("회원가입이 완료되었습니다.");
-   }
-
-   function check(re, what, message) {
-       if(re.test(what.value)) {
-           return true;
-       }
-       alert(message);
-       what.value = "";
-       what.focus();
-       //return false;
-   }
-</script>
 </head>
 <body>
-	<a href="/web/index.jsp" id="link">DSM</a>
+	<a href="/dsm/index.jsp" id="link">DSM</a>
 	<hr>
 	<h3 align="center">판매자 정보수정</h3>
 	<br>
 	<hr>
-	<form action="<%=request.getContextPath()%>/insertMember" method="post">
+	<form action="<%=request.getContextPath()%>/updateInfo.me" method="post">
 
 
 		<table align="center">
 			<tr>
 				<td><div class="form-group">
 						<label for="inputId" class="col-sm-2 control-label">Id</label>
+
 						<div class="col-sm-10">
-							<input type="Id" class="form-control" id="memberId"
-								style="width: 550px" placeholder="Id" readonly>
+							<input type="text" class="form-control" id="memberId"
+								name="membeId" style="width: 550px" placeholder="<%=memberId%>"
+								readonly>
 						</div>
+					</div>
+					</div></td>
+
 			</tr>
 			<tr>
 				<td>
@@ -138,7 +95,8 @@ form {
 						<label for="inputPassword3" class="col-sm-2 control-label">Password</label>
 						<div class="col-sm-10">
 							<input type="password" class="form-control" id="memberPwd"
-								name="memberPwd" style="width: 550px" placeholder="Password">
+								name="membePwd" style="width: 550px" placeholder="Password">
+								<font color="red">*7~15자 영문 대 소문자, 숫자를 사용하세요.</font>
 						</div>
 					</div>
 				</td>
@@ -160,7 +118,8 @@ form {
 						<label for="inputName" class="col-sm-2 control-label">Name</label>
 						<div class="col-sm-10">
 							<input type="Name" class="form-control" id="memberName"
-								name="memberName" style="width: 550px" placeholder="Name">
+								name="memberName" style="width: 550px"
+								placeholder="<%=memberName%>">
 						</div>
 					</div></td>
 			</tr>
@@ -168,14 +127,11 @@ form {
 			<tr>
 				<td><div class="form-group">
 						<label for="inputTel" class="col-sm-2 control-label">Phone</label>
-						<div class="col-sm-3">
-							<input type="text" class="form-control" id="memberPhone1"
-								name="memberPhone1" maxlength="3">- <input type="text"
-								class="form-control" id="memberPhone2" name="memberPhone2"
-								maxlength="4">- <input type="text" class="form-control"
-								id="memberPhone3" name="memberPhone3" maxlength="4">
 
-
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="memberPhone"
+								name="memberPhone" style="width: 550px; ime-mode:disabled;" placeholder="<%=memberPhone%>" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)'>
+							<font color="red"> *숫자만 입력하세요.</font>
 						</div>
 					</div></td>
 			</tr>
@@ -184,23 +140,37 @@ form {
 						<label for="inputEmail" class="col-sm-2 control-label">Email</label>
 						<div class="col-sm-10">
 							<input type="email" class="form-control" id="memberEmail"
-								name="memberEmail" style="width: 550px" placeholder="Email">
+								name="memberEmail" style="width: 550px"
+								placeholder="<%=memberEmail%>">
 						</div>
 					</div></td>
 				<td style="padding-top: 14px;">
-					<button type="submit" class="btn btn-warning">이메일 인증</button>
+					<button class="btn btn-warning" onclick="return sendEmail();">이메일인증</button>
 				</td>
 			</tr>
+			<%!public int getRandom() {
+		int random = 0;
+		random = (int) Math.floor((Math.random() * (99999 - 10000 + 1))) + 10000;
+		return random;
+	}%>
+			<span> <input type="hidden" value="<%=getRandom()%>"
+				id="randomCode"> <input type="hidden"
+				value="DroneServiceMarket@gmail.com" id="from"> <input
+				type="hidden" value="DSM" id="adName">
+			</span>
+
 			<tr>
 				<td><div class="form-group">
 						<label for="inputEConfirm" class="col-sm-2 control-label">인증번호</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" id="inputEconfirm"
-								style="width: 250px" placeholder="인증번호 입력">
+						<div class="col-sm-5">
+							<input type="text" class="form-control" id="code" style="width: 250px" placeholder="인증번호 입력">
+							
+
 						</div>
 					</div></td>
-				<td style="padding-top: 14px;"><button type="submit"
-						class="btn btn-danger">인증번호 확인</button></td>
+				<td style="padding-top: 14px;"><button class="btn btn-danger" onclick="return combtn();"
+						>인증번호 확인</button></td>
+						
 			</tr>
 
 			<tr>
@@ -215,7 +185,7 @@ form {
 			<tr>
 				<td><div class="form-group">
 						<label for="exampleInputTel">Intro</label>
-						<textarea class="form-control" rows="3" placeholder="자기소개를 입력하세요"
+						<textarea class="form-control" rows="3" placeholder="<%=sellerIntroduction%>"
 							id="sellerIntroduction" name="sellerIntroduction"></textarea>
 
 					</div></td>
@@ -241,8 +211,8 @@ form {
 
 			<tr>
 				<td><div class="form-group">
-						<label for="exampleInputcareea">Careea</label>
-						<textarea class="form-control" rows="3" placeholder="경력사항을 입력하세요"
+						<label for="exampleInputcareea">Career</label>
+						<textarea class="form-control" rows="3" placeholder="<%=sellerCareer%>"
 							id="sellerCareer" name="sellerCareer"></textarea>
 					</div></td>
 			</tr>
@@ -252,18 +222,118 @@ form {
 		</table>
 
 		<div align="center">
-			<a href="/web/index.jsp">
-				<button type="submit" class="btn btn-warning"
-					style="width: 400px; height: 50px; font-size: 20px; border-radius: 6px;"><div id="updateBtn" onclick="updateMember();">정보수정</div></button>
-			</a> <a href="/web/index.jsp">
+			<button class="btn btn-warning" 
+					style="width: 470px; height: 50px; font-size: 20px; border-radius: 6px;"
+					onclick="updateSel();">정보수정</button>
+			<!-- </a> <a href="/web/index.jsp"> -->
 				<button type="button" class="btn btn-cancle"
-					style="width: 400px; height: 50px; font-size: 20px; border-radius: 6px;"><div id="updateBtn" onclick="goMain();">취소하기</button>
-			</a>
-			<a href="/web/index.jsp">
-				<button type="submit" class="btn btn-defualt" 
-					style="width: 150px; height: 50px; font-size: 15px; border-radius: 6px;"><div id="DeleteBtn" onclick="DeleteMember();">탈퇴하기</button>
+					style="width: 470px; height: 50px; font-size: 20px; border-radius: 6px;">
+					<div id="joinBtn" onclick="goMain();">취소하기</div>
+				</button>
+			<!-- </a> <a href="/web/index.jsp"> -->
+				<button type="button" class="btn btn-defualt"
+					style="width: 150px; height: 50px; font-size: 15px; border-radius: 6px;">
+					<div id="DeleteBtn" onclick="leaveMember();">탈퇴하기
+				</button>
 			</a>
 		</div>
+	</form>
+	<script>
+		function updateCon(){
+			var memberPwd=$("#memberPwd").val();
+			var memberPwd2=$("#memberPwd2").val();
+			var memberPwdCheck = /[a-zA-Z0-9]{7,15}/g;
+			memberPwdResult = memberPwdCheck.test(memberPwd);
+			
+			
+			if(memberPwdResult){
+				/* alert("적합한 비밀번호"); */
+			}
+			
+			if(memberPwd == memberPwd2){
+				/* alert("비밀번호와 확인이 일치"); */
+				$("#join").submit();
+				join.action = "<%=request.getContextPath()%>/insertMember.me";
+				<%-- location.href = "<%=request.getContextPath()%>/insertMember.me"; --%>
+				
+			}else{
+				alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.\n 비밀번호를 확인해주세요.");
+				return false;
+			}
+		}
+		function leaveMember() {
+
+		}
+		function goMain() {
+			location.href="<%=request.getContextPath()%>/index.jsp";			
+		}	
+		
+		
+		function onlyNumber(event){
+			event = event || window.event;
+			var keyID = (event.which) ? event.which : event.keyCode;
+			if ( (keyID >= 48 && keyID <= 57) || (keyID >= 96 && keyID <= 105) || keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39 ) 
+				return;
+			else
+				return false;
+		}
+		function removeChar(event) {
+			event = event || window.event;
+			var keyID = (event.which) ? event.which : event.keyCode;
+			if ( keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39 ) 
+				return;
+			else
+				event.target.value = event.target.value.replace(/[^0-9]/g, "");
+		}
+		function sendEmail() {
+			var memberEmail = $("#memberEmail").val();
+			var randomCode = $("#randomCode").val();
+			var from = $("#from").val();
+			memberName
+			var adName = $("#adName").val();
+
+			$.ajax({
+				url : "/dsm/SendEmail.me",
+				type : "post",
+				data : {
+					memberEmail : memberEmail,
+					randomCode : randomCode,
+					from : from,
+					adName : adName
+				},
+				success : function(data) {
+					if (data == "YES") {
+						alert("메일이 발송되었습니다.");
+					} else {
+						alert("메일 발송을 실패하였습니다.");
+					}
+				},
+				error : function(data) {
+					console.log("이메일 통신에 실패");
+				}
+
+			});
+			return false;
+
+		}
+		function combtn(){
+			var randomCode = $("#randomCode").val();
+			
+			if($("#code").val() == randomCode){
+				alert("이메일 인증에 성공하였습니다.");
+				
+				
+			}else{
+				alert("이메일 인증에 실패하였습니다.");
+				
+				 
+			}
+			console.log($("#code").val()); 
+			console.log(randomCode); 
+			return false;
+		}
+		 
+	</script>
 		<br>
 		<%@ include file="/views/common/footer.jsp"%>
 </body>

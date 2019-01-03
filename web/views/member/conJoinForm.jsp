@@ -60,11 +60,14 @@ form {
 
 </head>
 <body>
-	<a href="/web/index.jsp" id="link">DSM</a>
-	<hr>
+	<a href="/dsm/index.jsp" id="link">DSM</a>
+	<!-- <hr> -->
 	<h3 align="center">소비자 가입 정보 입력</h3>
-	<br>
+	 <br>
 	<hr>
+	<hr>
+	<br>
+	
 	<form method="post" name="join" id="join"><!-- onsubmit="return validate();" -->
 
 
@@ -122,7 +125,7 @@ form {
 
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="memberPhone"
-								name="memberPhone" style="width: 550px" placeholder="Phone">
+								name="memberPhone" style="width: 550px; ime-mode:disabled;" placeholder="Phone" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)'>
 							<font color="red"> *숫자만 입력하세요.</font>
 						</div>
 					</div></td>
@@ -162,6 +165,7 @@ form {
 					</div></td>
 				<td style="padding-top: 14px;"><button class="btn btn-danger" onclick="return combtn();"
 						>인증번호 확인</button></td>
+						
 			</tr>
 
 
@@ -185,32 +189,6 @@ form {
 
 
 	<script>
-	/* 	function test(){
-			var memberId=$("#memberId").val();
-			var memberPwd=$("#memberPwd").val();
-			var memberPwd2=$("#memberPwd2").val();
-			
-			var memberPwdCheck = /[a-zA-Z0-9]{7,15}/g;
-			
-			memberPwdResult = memberPwdCheck.test(memberPwd);
-			
-
-			console.log(memberId);
-			if(memberPwdResult){
-				alert("적합한 비밀번호");
-			}
-			
-			if(memberPwd == memberPwd2){
-				alert("비밀번호와 확인이 일치");
-				//$("#join").submit();
-				
-			}else{
-				alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.\n 비밀번호를 확인해주세요.");
-				
-			}
-				alert("false리턴"); 
-		}
-	 */
 	
 		function insertCon(){
 			
@@ -219,25 +197,20 @@ form {
 			var memberId=$("#memberId").val();
 			var memberPwd=$("#memberPwd").val();
 			var memberPwd2=$("#memberPwd2").val();
-			var memberEmail=$("#memberEmail").val();
-			var memberPhone =$("memberPhone").val();
+			var memberEmail=$("#memberEmail").val();			
 			var memberPwdCheck = /[a-zA-Z0-9]{7,15}/g;
-			var memberPhoneCheck=/^\d{8,15}$/;
 			memberPwdResult = memberPwdCheck.test(memberPwd);
-			//여기까지 동작
-			console.log(memberPwd);
-			console.log(memberPwd2);
-			console.log(memberPwdResult);
-			if (($("#memberId").val() == "")) {
-				alert("아이디를 입력해주세요.");
+			
+			if (($("#memberPwd").val() == "")) {
+				alert("비밀번호를 입력해주세요.");
 			}
 			console.log(memberId);
 			if(memberPwdResult){
-				/* alert("적합한 비밀번호"); */
+				//alert("정상");
 			}
 			
 			if(memberPwd == memberPwd2){
-				/* alert("비밀번호와 확인이 일치"); */
+				//alert("일치");
 				$("#join").submit();
 				join.action = "<%=request.getContextPath()%>/insertMember.me";
 				<%-- location.href = "<%=request.getContextPath()%>/insertMember.me"; --%>
@@ -250,67 +223,9 @@ form {
 				
 				
 		}
-				  	
-				  	
-					
-					/* //비밀번호 확인 검사
-					//비밀번호와 비밀번호 확인 값이 일치
-					var memberPwd = document.getElementById("memberPwd").value;
-					var memberPwd2 = document.getElementById("memberPwd2").value;
-					if(memberPwd == memberPwd2 && memberPwd !=""){
-						alert("비밀번호 일치");				
-						//return true;		
-					}else{
-						alert("비밀번호 불일치");
-						document.getElementById("memberPwd").select();
-						return false;
-					}
-					
-					
-					//이름 검사
-					//2글자 이상, 한글만
-					var name = document.getElementById("memberName").value;
-
-				  	var regExp4 = /^[가-힣]{2,}$/;
-				  
-				  	if(regExp4.test(memberName)){
-						alert("이름 정상입력");			
-						//return true;					
-					}else{
-						alert("이름 잘못입력");	
-						document.getElementById("memberName").select();
-						return false;
-					}
-				  	//return true;
-				  	
-					
-					//전화번호 검사
-					//전화번호 앞자리는 2~3자리 숫자
-					//두번째자리는 3~4자리 숫자
-					//세번째 자리는 4자리 숫자
-					var memberPhone = document.getElementById("memberPhone").value;
-					
-
-				  	var regExp5 = /^\d{8,15}$/;
-				  	
-				  
-				  	if(regExp5.test(tel1)){
-						alert("전화번호 정상입력");				
-					}else{
-						alert("전화번호 잘못입력");	
-						document.getElementById("memberPhone").select();
-						return false;
-					}
-				  	return true;		  	
-				}	 */
-		    
-		
-		
-
-				
 			
-		
-		
+				  	
+
 		
 		function goMain() {
 			location.href="<%=request.getContextPath()%>/index.jsp";			
@@ -326,11 +241,11 @@ form {
 	function dupCheck(){
 		var memberId = $("#memberId").val();
 		console.log(memberId);
-		var re = /[a-zA-Z0-9]{4,12}/g; // 아이디와 패스워드가 적합한지 검사할 정규식
+		var re = /[a-z0-9]{4,12}/g; // 아이디와 패스워드가 적합한지 검사할 정규식
 		
 	
 		if(memberId==""){
-			alert("아이디를 입력해주세요")
+			alert("아이디를 입력해주세요.")
 		}else if(re.test(memberId)){
 			$.ajax({
 				url:"/dsm/idCheck.me",
@@ -340,7 +255,7 @@ form {
 					if(data == "success"){ // 서블릿에서 처리
 						alert("중복 된 아이디 입니다");
 					}else if(data == "fail"){
-						alert("사용가능한 아이디 입니다.");
+						alert("사용 가능 한 아이디 입니다.");
 					}
 				},
 				error: function (data) {
@@ -348,8 +263,24 @@ form {
 				}					
 			});
 		}else{
-			alert("부적절한 아이디입니다 영,숫자 혼합 7~15글자 이내로 입력하십시오");
+			alert("부적절한 아이디입니다. 영,숫자 혼합4~12글자 이내로 입력하십시오");
 		}
+	}
+	function onlyNumber(event){
+		event = event || window.event;
+		var keyID = (event.which) ? event.which : event.keyCode;
+		if ( (keyID >= 48 && keyID <= 57) || (keyID >= 96 && keyID <= 105) || keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39 ) 
+			return;
+		else
+			return false;
+	}
+	function removeChar(event) {
+		event = event || window.event;
+		var keyID = (event.which) ? event.which : event.keyCode;
+		if ( keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39 ) 
+			return;
+		else
+			event.target.value = event.target.value.replace(/[^0-9]/g, "");
 	}
 	
 	function sendEmail(){
@@ -364,13 +295,13 @@ form {
 			data:{memberEmail:memberEmail,randomCode:randomCode,from:from,adName:adName},
 			success:function(data){
 				if(data == "YES"){
-					alert("메일 발송");
+					alert("메일이 발송되었습니다.");
 				}else{
-					alert("메일 발송 실패");
+					alert("메일 발송을 실패하였습니다.");
 				}
 			},
 			error:function(data){
-				console.log("이메일 통신 실패");
+				console.log("이메일 통신에 실패");
 			}
 			
 		
@@ -397,11 +328,11 @@ form {
 		var randomCode = $("#randomCode").val();
 		
 		if($("#code").val() == randomCode){
-			alert("이메일 인증 성공");
+			alert("이메일 인증에 성공하였습니다.");
 			
 			
 		}else{
-			alert("이메일 인증 실패");
+			alert("이메일 인증에 실패하였습니다.");
 			
 			 
 		}
@@ -409,34 +340,9 @@ form {
 		console.log(randomCode); 
 		return false;
 	}
-	 function validate() {
-		 var re2 = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-		 
-		 if(email.value=="") {
-	           alert("이메일을 입력해 주세요");
-	           email.focus();
-	           return false;
-	       }
+	 
+	 
 
-	       if(!check(re2, email, "적합하지 않은 이메일 형식입니다.")) {
-	           return false;
-	       }
-
-	       if(join.name.value=="") {
-	           alert("이름을 입력해 주세요");
-	           join.name.focus();
-	           return false;
-	       }
-	 }
-
-	/* function memkReal() {
-		var combtn = document.getElementById("combtn");
-		combtn.type="submit";
-	}
-	function memkNull() {
-		var combtn = document.getElementById("combtn");
-		combtn.type="hidden";
-	} */
 	
 	</script>
 
