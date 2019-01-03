@@ -180,8 +180,17 @@
 									class="btn btn-warning"
 									onclick="location.href = '/dsm/views/cash/refunds.jsp?memberCode=<%= loginUser.getMemberCode()%>'">캐시환급</button></a>
 						<%}%>
-							<a href="GetIdinfo.me"><button type="button" class="btn btn-light">내
-									정보 보기</button></a> <a href="/dsm/logout.me"><button type="button"
+						<% if(loginUser != null&& loginUser.getMemberCategory() == 0) {%>
+							<a href="GetIdinfo.me"><button type="button"
+									class="btn btn-warning"
+									onclick="location.href = '/dsm/views/member/con_info.jsp?memberCategory=<%= loginUser.getMemberCategory()%>'">개인정보수정</button></a>
+						<%}else if(loginUser != null&& loginUser.getMemberCategory() == 1) {%>
+						<a href="GetIdinfo.me"><button type="button"
+									class="btn btn-warning"
+									onclick="location.href = '/dsm/views/member/Sel_info.jsp?memberCategory=<%= loginUser.getMemberCategory()%>'">개인정보수정</button></a>
+						<%}%>
+							<!-- <a href="GetIdinfo.me"><button type="button" class="btn btn-light">내
+									정보 수정</button></a> --> <a href="/dsm/logout.me"><button type="button"
 									class="btn btn-light">로그아웃</button></a> <!--         			<a href="#"><button type="button" class="btn btn-light">관리자페이지</button></a> -->
 							<button class="btn btn-light" style="cursor: default;">
 								신고횟수: <span>0</span>회
