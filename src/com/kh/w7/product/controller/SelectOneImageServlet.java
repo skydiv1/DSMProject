@@ -47,12 +47,12 @@ public class SelectOneImageServlet extends HttpServlet {
 		ArrayList<PlusProduct> pList = (ArrayList<PlusProduct>)hmap.get("plusProduct");
 		ArrayList<Attachment> fileList = (ArrayList<Attachment>)hmap.get("attachment");
 
-		System.out.println("1번이미지: "+fileList.get(0));
+		/*System.out.println("1번이미지: "+fileList.get(0));
 		System.out.println("2번이미지: "+fileList.get(1));
 		System.out.println("3번이미지: "+fileList.get(2));
 		System.out.println("4번이미지: "+fileList.get(3));
 		System.out.println("5번이미지: "+fileList.get(4));
-		System.out.println("6번이미지: "+fileList.get(5));
+		System.out.println("6번이미지: "+fileList.get(5));*/
 		/*System.out.println("1번 추가 목록: "+pList.get(0));
 		System.out.println("2번 추가 목록: "+pList.get(1));
 		System.out.println("3번 추가 목록: "+pList.get(2));*/

@@ -28,7 +28,11 @@
 				</div>
 	        </div>
 	        <div class="modal-footer" style="align: center">    
-        		<input type="hidden" id="productNum" name="productNum">      
+        		<input type="hidden" id="productNo" name="productNo"> <!-- 상품코드 -->
+				<input type="hidden" id="customerCode" name="customerCode"> <!-- 소비자코드 -->
+				<input type="hidden" id="sellerCode" name="sellerCode"> <!-- 판매자코드 -->
+				<input type="hidden" id="dealPrice" name="dealPrice"> <!-- 기본 거래금액 -->
+				<input type="hidden" id="dealOptionPrice" name="dealOptionPrice"> <!-- 기본 거래금액 --> --%>   
 				<button type="reset" class="btn btn-secondary" style="width:200px" data-dismiss="modal">취소</button>
 				<button type="submit" id="submitForm" class="btn btn-warning" style="width: 200px">보내기</button>		
 	        </div>
@@ -42,7 +46,7 @@
 	$(function () {
 		$("#submitForm").click(function () {
 			alert("신청이 정상적으로 완료되었습니다.");
-			$("#requestForm").attr("action", "<%=request.getContextPath()%>/selectDealInfo.pr");
+			$("#requestForm").attr("action", "<%=request.getContextPath()%>/insertDealInfo.pr");
 		});
 	});
 </script>

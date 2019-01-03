@@ -16,7 +16,7 @@ import com.kh.w7.product.model.service.DealService;
 /**
  * Servlet implementation class SelectDealInfoServlet
  */
-@WebServlet("/selectDealInfo.pr")
+@WebServlet("/insertDealInfo.pr")
 public class InsertDealInfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -32,25 +32,30 @@ public class InsertDealInfoServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int productNum = Integer.parseInt(request.getParameter("productNum"));
-		System.out.println("상품 번호(서블릿) : "+productNum);
+		int productNo = Integer.parseInt(request.getParameter("productNo"));
+		System.out.println("상품 번호(서블릿) : "+productNo);
+		int customerCode = Integer.parseInt(request.getParameter("customerCode"));
+		System.out.println("고객 번호(서블릿) : "+customerCode);
+		int sellerCode = Integer.parseInt(request.getParameter("sellerCode"));
+		System.out.println("판매자 번호(서블릿) : "+sellerCode);
+		int dealPrice = Integer.parseInt(request.getParameter("dealPrice"));
+		System.out.println("상품 가격(서블릿) : "+dealPrice);
+//		int dealOptionPrice = Integer.parseInt(request.getParameter("dealOptionPrice"));
+//		System.out.println("상품 번호(서블릿) : "+dealOptionPrice);
 		
 		Deal deal = new Deal();
-		deal.setProductNo(productNum);
+		deal.setProductNo(productNo);
+		deal.setCustomerCode(customerCode);
+		deal.setSellerCode(sellerCode);
+		deal.setMainProductPrice(dealPrice);
 		//deal.setSubProductPrice(dealOptionPrice);
-		System.out.println("deal : "+deal);
 		
 		int result = new DealService().insertDeal(deal);
+		System.out.println("deal : "+deal);
 		
 		String page = "";
 		if(result>0) {
-			PrintWriter out = response.getWriter();
-			out.println("<html><head></head>");
-			out.println("<body>");
-			out.println("</body></html>");
-			out.close();
-			
-			//page = "views/common/AskPopUp.jsp";
+			page = "views/member/ConsumerMyPage.jsp";
 		}else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "실패!");

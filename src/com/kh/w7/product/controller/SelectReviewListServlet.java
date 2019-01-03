@@ -36,12 +36,12 @@ public class SelectReviewListServlet extends HttpServlet {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 
-		String productNo = request.getParameter("productNo"); // jsp에서 상품 번호 받아온다.
-		System.out.println("productNo(리뷰 서블릿) : "+productNo);
+		String productNum = request.getParameter("productNum"); // jsp에서 상품 번호 받아온다.
+		System.out.println("productNo(리뷰 서블릿) : "+productNum);
 		/*Review review = new Review();
 		review.setProductNo(Integer.parseInt(productNo));*/
 		
-		ArrayList<Review> reviewList = new ReviewService().selectReviewList(productNo);
+		ArrayList<Review> reviewList = new ReviewService().selectReviewList(productNum);
 
 		if(reviewList != null) {
 			request.setAttribute("reviewList", reviewList);

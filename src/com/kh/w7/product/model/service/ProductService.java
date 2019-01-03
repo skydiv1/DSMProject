@@ -52,22 +52,29 @@ public class ProductService {
 		Connection con = getConnection();
 		int result = 0;
 
-		int nextNum = new ProductDao().selectNextval(con); // SEQ_PRODUCT 다음시퀀스 값 조회
+		/*int nextNum = new ProductDao().selectNextval(con); // SEQ_PRODUCT 다음시퀀스 값 조회
 		System.out.println("nextNum(다음시퀀스 조회) : "+nextNum);
 		int imgNo = new ProductDao().selectImgNextval(con); // SEQ_IMG 다음시퀀스 값 조회
-		System.out.println("nextNum(이미지테이블 다음시퀀스 조회) : "+imgNo);
+		System.out.println("nextNum(이미지테이블 다음시퀀스 조회) : "+imgNo);*/
 		
 		int result1= new ProductDao().insertThumbnailContent(con, product); // product 내용만 insert / 부모 테이블 먼저 insert 해야 한다.
 		System.out.println("result1  :  "+result1);
 		if(result1>0) {
 			int currNum = new ProductDao().selectCurrval(con); // 현재시퀀스 값 조회
-			System.out.println("(insertPlusProduct)현재시퀀시 값 조회: " + currNum);
+			System.out.println("(insertPlusProduct)현재시퀀시 값 조회: " + currNum); // SEQ_PRODUCT
 			
 			for(int i=0; i<pList.size(); i++) { // 게시물 하나에 값 최대 3개가 존재
 				pList.get(i).setProductNo(currNum); // product에서 시퀀스 값을 가져와서 1,2,3번에 해당 시퀀스 값을 넣어준다. / CURRVAL로 가져온 값
 				fileList.get(i).setProductNo(currNum); 	
-				fileList.get(i).setImgNo(imgNo); 
+				//fileList.get(i).setImgNo(imgNo); 
+			}		
+			System.out.println("pList.size() 서비스 : "+pList.size());
+			
+			for(int i=0; i<fileList.size(); i++) { 
+				//fileList.get(i).setProductNo(currNum); 	
+				//fileList.get(i).setImgNo(imgNo); 
 			}
+			System.out.println("fileList.size() 서비스 : "+fileList.size());
 		}
 
 		int result2 = new ProductDao().insertPlusProduct(con, pList);
