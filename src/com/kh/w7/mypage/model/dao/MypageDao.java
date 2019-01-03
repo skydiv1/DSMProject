@@ -130,7 +130,7 @@ public class MypageDao {
 	}
 
 	//취소 목록 조회
-	public static ArrayList<MyPage> selectCancelList(Connection con, int loginCode) {
+	public ArrayList<MyPage> selectCancelList(Connection con, int loginCode) {
 
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -155,7 +155,8 @@ public class MypageDao {
 				m.setDealNo(rset.getInt("DEAL_NO"));
 				m.setMember_id(rset.getString("MEMBER_ID"));
 				m.setProductName(rset.getString("PRODUCT_NAME"));
-				m.setDealListaddMsg1(rset.getString("DEALLIST_ADDMESSAGE"));
+				m.setDealListaddMsg1(rset.getString("DEALLIST_ADDMESSAGE1"));
+				m.setDealListaddMsg2(rset.getString("DEALLIST_ADDMESSAGE2"));
 				
 				CancelList.add(m);
 			}
@@ -196,7 +197,7 @@ public class MypageDao {
 	}
 
 	//수락목록 조회
-	public static ArrayList<MyPage> selectAcceptList(Connection con, int loginCode) {
+	public ArrayList<MyPage> selectAcceptList(Connection con, int loginCode) {
 
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -222,7 +223,8 @@ public class MypageDao {
 				m.setProductNo(rset.getInt("PRODUCT_NO"));
 				m.setMember_id(rset.getString("MEMBER_ID"));
 				m.setProductName(rset.getString("PRODUCT_NAME"));
-				m.setDealListaddMsg1(rset.getString("DEALLIST_ADDMESSAGE"));
+				m.setDealListaddMsg1(rset.getString("DEALLIST_ADDMESSAGE1"));
+				m.setDealListaddMsg2(rset.getString("DEALLIST_ADDMESSAGE2"));
 				
 				appectlist.add(m);
 			}
@@ -239,7 +241,7 @@ public class MypageDao {
 	}
 
 	//소비자 구매완료 목록 조회
-	public static ArrayList<MyPage> selectDealList(Connection con, int loginCode) {
+	public ArrayList<MyPage> selectDealList(Connection con, int loginCode) {
 
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -264,7 +266,8 @@ public class MypageDao {
 				m.setDealNo(rset.getInt("DEAL_NO"));
 				m.setMember_id(rset.getString("MEMBER_ID"));
 				m.setProductName(rset.getString("PRODUCT_NAME"));
-				m.setDealListaddMsg1(rset.getString("DEALLIST_ADDMESSAGE"));
+				m.setDealListaddMsg1(rset.getString("DEALLIST_ADDMESSAGE1"));
+				m.setDealListaddMsg2(rset.getString("DEALLIST_ADDMESSAGE2"));
 				
 				deallist.add(m);
 			}
@@ -279,7 +282,8 @@ public class MypageDao {
 	}
 
 
-	public static ArrayList<MyPage> selectWaitingList(Connection con, int loginCode) {
+	//판매자 대기자 목록
+	public ArrayList<MyPage> selectWaitingList(Connection con, int loginCode) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<MyPage> waitlist= null;
@@ -288,7 +292,6 @@ public class MypageDao {
 		
 		try {
 			pstmt=con.prepareStatement(query);
-			
 			
 			pstmt.setInt(1, loginCode);
 			
@@ -303,11 +306,11 @@ public class MypageDao {
 				m.setDealNo(rset.getInt("DEAL_NO"));
 				m.setMember_id(rset.getString("MEMBER_ID"));
 				m.setProductName(rset.getString("PRODUCT_NAME"));
-				m.setDealListaddMsg1(rset.getString("DEALLIST_ADDMESSAGE"));
+				m.setDealListaddMsg1(rset.getString("DEALLIST_ADDMESSAGE1"));
 				
 				waitlist.add(m);
 			}
-			System.out.println("list값dao:"+waitlist);
+			System.out.println("대기자목록 list dao:"+waitlist);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {

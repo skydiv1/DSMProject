@@ -70,7 +70,7 @@ function selectListWaiting(pg) {
 					waitListHtml.push('	<td class="td1" style="display: none">' +data[i].dealNo + '</td>');
 					waitListHtml.push('	<td class="td1">' +data[i].member_id + '</td>');
 					waitListHtml.push('	<td class="td1">' +data[i].productName+ '</td>');
-					waitListHtml.push('	<td class="td1">' +data[i].dealListaddMsg + '</td>');
+					waitListHtml.push('	<td>' +data[i].dealListaddMsg1 + '</td>');
 					waitListHtml.push('	<td style="width: 10px; padding-right: 0px"><button type="button" class="btn btn-warning"data-toggle="modal" data-target="#agreeModal" id="agreeBtn">수락하기</button></td>');
 					waitListHtml.push('	<td style="width: 5px"><button type="button" class="btn btn-secondary"data-toggle="modal" data-target="#cencelModal" id="cBtn">거절</button></td>');
 					waitListHtml.push('</tr>');
@@ -170,7 +170,7 @@ function selectListWaiting(pg) {
 			      <th scope="col" class="td1" style="display: none">거래번호</th>
 			      <th scope="col" class="td1">소비자ID</th>
 			      <th scope="col" class="td1">판매 상품명</th>
-			      <th scope="col" class="td1">추가신청 내용</th>
+			      <th scope="col">추가신청 내용</th>
 			      <th scope="col"></th>
 			      <th scope="col"></th>
 			    </tr>
