@@ -159,7 +159,8 @@
                                         <td class="center">지급완료</td>
                                         <% } %>
                                         <% if(list.get(i).getRefund_StatusYN() == 0) {%>
-                                        <td class="center" align = "center"><input type = "hidden" value = "<%= i%>"><button style = "background : lightgray; color : black" onclick = "location.href = '/dsm/updateRefundStatus?refundNo=<%= list.get(i).getRefund_no() %>'">지급완료</button></td>
+                                        <td class="center" align = "center"><button style = "background : lightgray; color : black" onclick = 
+                                        "location.href = '/dsm/updateRefundStatus?refundNo=<%= list.get(i).getRefund_no() %>'">지급완료</button></td>
                                         <% }else{ %>
                                         <td class="center"></td>
                                         <% } %>

@@ -37,7 +37,7 @@ public class SelectOneProductServlet extends HttpServlet {
 		
 		
 			
-			HttpSession session = request.getSession();
+			  HttpSession session = request.getSession();
 		      Member loginUser = (Member)session.getAttribute("loginUser");
 		      
 		      int memberCode = loginUser.getMemberCode();

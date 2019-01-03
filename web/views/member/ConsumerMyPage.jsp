@@ -72,8 +72,18 @@
 				type : "get",
 				data : {dealnum:dealnum, productno:productno},
 				success : function (data) {
-					
-						document.location.href ="/dsm/views/cash/payment.jsp?productNo="+data[0].productNo; 
+						var sizeOfArray = data.length;
+						if(sizeOfArray == 1){
+							document.location.href ="/dsm/views/cash/payment.jsp?dealnum="+dealnum+"&sizeOfArray="+ sizeOfArray+"&productNo="+data[0].productNo+"&imgFilePath="+data[0].imgFilePath+ "&productTitle="+data[0].productTitle + "&productContext=" + data[0].productContext + "&customerCode=" + data[0].customerCode + "&sellerCode=" + data[0].sellerCode + "&mainProductName=" + data[0].mainProductName + "&mainProductPrice=" + data[0].mainProductPrice + "&memberNowCash=" + data[0].memberNowCash + "&subProductName=" + data[0].subProductName + "&subProductPrice=" + data[0].subProductPrice; 
+
+						}else if(sizeOfArray == 2){
+							document.location.href ="/dsm/views/cash/payment.jsp?dealnum="+dealnum+"&sizeOfArray="+ sizeOfArray+"&productNo="+data[0].productNo+"&imgFilePath="+data[0].imgFilePath+ "&productTitle="+data[0].productTitle + "&productContext=" + data[0].productContext + "&customerCode=" + data[0].customerCode + "&sellerCode=" + data[0].sellerCode + "&mainProductName=" + data[0].mainProductName + "&mainProductPrice=" + data[0].mainProductPrice + "&memberNowCash=" + data[0].memberNowCash + "&subProductName=" + data[0].subProductName + "&subProductPrice=" + data[0].subProductPrice + "&subProductName2=" + data[1].subProductName + "&subProductPrice2=" + data[1].subProductPrice; 
+
+						}else if(sizeOfArray == 3){
+							document.location.href ="/dsm/views/cash/payment.jsp?dealnum="+dealnum+"&sizeOfArray="+ sizeOfArray+"&productNo="+data[0].productNo+"&imgFilePath="+data[0].imgFilePath+ "&productTitle="+data[0].productTitle + "&productContext=" + data[0].productContext + "&customerCode=" + data[0].customerCode + "&sellerCode=" + data[0].sellerCode + "&mainProductName=" + data[0].mainProductName + "&mainProductPrice=" + data[0].mainProductPrice + "&memberNowCash=" + data[0].memberNowCash + "&subProductName=" + data[0].subProductName + "&subProductPrice=" + data[0].subProductPrice + "&subProductName2=" + data[1].subProductName + "&subProductPrice2=" + data[1].subProductPrice + "&subProductName3=" + data[2].subProductName + "&subProductPrice3=" + data[2].subProductPrice; 
+
+						}
+						//document.location.href ="/dsm/views/cash/payment.jsp?productNo="+data[0].productNo+"&imgFilePath="+data[0].imgFilePath+ "&productTitle="+data[0].productTitle + "&productContext=" + data[0].productContext + "&customerCode=" + data[0].customerCode + "&sellerCode=" + data[0].sellerCode + "&mainProductName=" + data[0].mainProductName + "&mainProductPrice=" + data[0].mainProductPrice + "&memberNowCash=" + data[0].memberNowCash + "&subProductName=" + data[0].subProductName + "&subProductPrice=" + data[0].subProductPrice; 
 				 	
 			/* 		$.ajax({
 						url :"${pageContext.request.contextPath}/Pay.c",

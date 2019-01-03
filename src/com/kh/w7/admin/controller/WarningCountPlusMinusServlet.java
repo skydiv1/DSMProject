@@ -29,7 +29,7 @@ public class WarningCountPlusMinusServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		//plus, minus
 		String what = request.getParameter("what");
 		int memberCode = Integer.parseInt(request.getParameter("memberCode"));
 		
