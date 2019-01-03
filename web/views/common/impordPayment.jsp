@@ -29,8 +29,8 @@
 	    amount : chargeMoney,
 	    buyer_email : 'eksan@naver.com',
 	    buyer_code : memberCode,
-	    buyer_id : 'aaa',
-	    buyer_name : 'hongGD',
+	    buyer_id : 'minkyu',
+	    buyer_name : 'hwangMinkyu',
 	    buyer_tel : '010-1234-5678',
 	    buyer_addr : 'seoul gangnam',
 	    buyer_postcode : '123-456'
