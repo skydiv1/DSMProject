@@ -503,7 +503,8 @@
 
 			// 상품에 대한 정보 폼태그로 넘겨주기
 			$("#requestForm2").click(function() {
-				$("#popUpList").attr("action", "<%=request.getContextPath()%>/selectDealInfo.pr");
+				var productNum = $("#productNum").val("<%=product.getProductNo()%>");
+<%-- 				 $("#popUpList").attr("action", "<%=request.getContextPath()%>/selectDealInfo.pr"); --%>
 			});
 		});
 	</script>
