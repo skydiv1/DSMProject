@@ -94,7 +94,7 @@ p {
 		</div>
 
 
-		<form action="" method="GET">
+		<form action="" method="post">
 
 
 			<table width="60%" height="400px" style="padding-left: 230px;">
@@ -183,13 +183,13 @@ p {
 
 			$.ajax({
 				url:"/dsm/find_pwd.me",
-				type:"get",
+				type:"post",
 				data:{memberName:memberName, memberId:memberId, memberEmail:memberEmail,randomCode:randomCode},
 				success:function(data){
-					if(data=="YES"){
-						alert("이메일로 임시비밀번호 전송되었습니다.")
-					}else{
+					if(data=="FAIL"){
 						alert("이름, 아이디, 이메일을 다시 확인해주세요.")
+					}else{
+						alert("이메일로 임시비밀번호 전송되었습니다.")
 					}
 				}
 			});

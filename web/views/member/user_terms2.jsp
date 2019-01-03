@@ -63,12 +63,12 @@ a {
 
 </head>
 <body>
-	<a href="/web/index.jsp" id="link">DSM</a>
-	<hr>
+	<a href="/dsm/index.jsp" id="link">DSM</a>
+	<!-- <hr> -->
 	<h3 align="center">이용약관 및 개인정보 동의</h3>
 	<br>
-	<br>
-	<hr>
+	
+	 <hr> 
 <!-- 	<form method="post" id="form"> -->
 		<table align="center">
 			<tr>
@@ -462,7 +462,7 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
 	$(function () {
 		$("#chk1").click(function () {
 			 if(!($("#req1").prop('checked')) || !($("#req2").prop('checked'))){
-				alert("모두 체크하세요");
+				alert("모든 항목에 동의 해 주십시오.");
 			} else{
 				$("#joinCustomer").attr("href", "/dsm/views/member/conJoinForm.jsp")
 			}
@@ -472,7 +472,7 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
 	$(function () {
 		$("#chk2").click(function () {
 			 if(!($("#req1").prop('checked')) || !($("#req2").prop('checked'))){
-				alert("모두 체크하세요");
+				alert("모든 항목에 동의 해 주십시오.");
 			} else{
 				$("#joinSeller").attr("href", "/dsm/views/member/SelJoinForm.jsp")
 			}
