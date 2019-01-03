@@ -138,7 +138,7 @@ function selectListAp(pg) {
 				apListHtml.push('	<td class="td1" style="display: none">' +data.aplist[i].dealNo + '</td>');
 				apListHtml.push('	<td class="td1">' +data.aplist[i].member_id + '</td>');
 				apListHtml.push('	<td class="td1">' +data.aplist[i].productName+ '</td>');
-				apListHtml.push('	<td class="td1">' +data.aplist[i].dealListaddMsg1 + '</td>');
+				apListHtml.push('	<td>' +data.aplist[i].dealListaddMsg1 + '</td>');
 				apListHtml.push('	 <td style="width: 30px"><button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#cencelModal" id="cBtn" >취소</button></td>');
 				apListHtml.push('</tr>');
 				
@@ -197,7 +197,8 @@ function selectListAp(pg) {
 					apListHtml.push('	<td class="td1" style="display: none">' +data[i].dealNo + '</td>');
 					apListHtml.push('	<td class="td1">' +data[i].member_id + '</td>');
 					apListHtml.push('	<td class="td1">' +data[i].productName+ '</td>');
-					apListHtml.push('	<td class="td1">' +data[i].dealListaddMsg + '</td>');
+					apListHtml.push('	<td class="td1">' +data[i].dealListaddMsg1 + '</td>');
+					apListHtml.push('	<td>' +data[i].dealListaddMsg2 + '</td>');
 					apListHtml.push('	<td style="width: 10px"><button type="button" class="btn btn-secondary" id="cancelDelete">삭제</button></td>');
 					apListHtml.push('</tr>');
 					
@@ -233,7 +234,8 @@ function selectListAp(pg) {
 					accListHtml.push('	<td class="td1" style="display: none">' +data[i].productNo + '</td>');
 					accListHtml.push('	<td class="td1">' +data[i].member_id + '</td>');
 					accListHtml.push('	<td class="td1">' +data[i].productName+ '</td>');
-					accListHtml.push('	<td class="td1">' +data[i].dealListaddMsg + '</td>');
+					accListHtml.push('	<td class="td1">' +data[i].dealListaddMsg1 + '</td>');
+					accListHtml.push('	<td>' +data[i].dealListaddMsg2 + '</td>');
 					accListHtml.push('	<td style="width: 10px; padding-right: 0px"><button type="button" class="btn btn-warning" id="dealBtn">결제하기</button></td>');
 					accListHtml.push('	<td style="width: 5px"><button type="button" class="btn btn-secondary"data-toggle="modal" data-target="#cencelModal" id="cBtn">취소</button></td>');
 					accListHtml.push('</tr>');
@@ -269,7 +271,8 @@ function selectListAp(pg) {
 					dcListHtml.push('	<td class="td1" style="display: none">' +data[i].dealNo + '</td>');
 					dcListHtml.push('	<td class="td1">' +data[i].member_id + '</td>');
 					dcListHtml.push('	<td class="td1">' +data[i].productName+ '</td>');
-					dcListHtml.push('	<td class="td1">' +data[i].dealListaddMsg + '</td>');
+					dcListHtml.push('	<td class="td1">' +data[i].dealListaddMsg1 + '</td>');
+					dcListHtml.push('	<td>' +data[i].dealListaddMsg2 + '</td>');
 					dcListHtml.push('	<td style="width: 40px"><button type="button" class="btn btn-secondary" id="dealcomlete">구매확정</button></td>');
 					dcListHtml.push('	<td style="width: 40px"><button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#reviewModal" id="dealreview" style="display: none">구매평 작성</button></td>');
 					dcListHtml.push('</tr>');
@@ -324,7 +327,7 @@ function selectListAp(pg) {
 			      <th scope="col" class="td1" style="display: none">거래번호</th>
 			      <th scope="col" class="td1">판매자ID</th>
 			      <th scope="col" class="td1">구매상품명</th>
-			      <th scope="col" class="td1">신청 내용</th>
+			      <th scope="col" >신청 내용</th>
 			      <th scope="col"></th>
 			    </tr>
 			  </thead>
@@ -362,6 +365,7 @@ function selectListAp(pg) {
 			      <th scope="col" class="td1">판매자ID</th>
 			      <th scope="col" class="td1">구매 상품명</th>
 			      <th scope="col" class="td1">신청 내용</th>
+			      <th scope="col">수락 내용</th>
 			      <th scope="col"></th>
 			      <th scope="col"></th>
 			    </tr>
@@ -393,6 +397,7 @@ function selectListAp(pg) {
 			      <th scope="col" class="td1" style="display: none">거래번호</th>
 			      <th scope="col" class="td1">판매자ID</th>
 			      <th scope="col" class="td1">구매상품명</th>
+			      <th scope="col" class="td1" >신청 내용</th>
 			      <th scope="col" >취소 사유</th>
 			      <th scope="col"></th>
 			    </tr>
@@ -424,6 +429,7 @@ function selectListAp(pg) {
 			      <th scope="col" class="td1">판매자ID</th>
 			      <th scope="col" class="td1">구매 상품명</th>
 			      <th scope="col" class="td1">신청 내용</th>
+			      <th scope="col">수락 내용</th>
 			      <th scope="col">진행상황</th>
 			      <th scope="col"></th>
 			    </tr>

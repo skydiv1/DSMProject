@@ -53,7 +53,7 @@ public class MypageService {
 	public ArrayList<MyPage> selectCancelList(int loginCode) {
 		Connection con  = getConnection(); 
 		
-		ArrayList<MyPage>CancelList = MypageDao.selectCancelList(con, loginCode);
+		ArrayList<MyPage>CancelList = new MypageDao().selectCancelList(con, loginCode);
 		
 		if(CancelList != null) {
 			commit(con);
@@ -84,7 +84,7 @@ public class MypageService {
 	public ArrayList<MyPage> selectAcceptList(int loginCode) {
 		Connection con  = getConnection(); 
 		
-		ArrayList<MyPage>appectlist = MypageDao.selectAcceptList(con, loginCode);
+		ArrayList<MyPage>appectlist =new MypageDao().selectAcceptList(con, loginCode);
 		
 		if(appectlist != null) {
 			commit(con);
@@ -100,7 +100,7 @@ public class MypageService {
 	public ArrayList<MyPage> selectDealList(int loginCode) {
 		Connection con  = getConnection(); 
 		
-		ArrayList<MyPage>deallist = MypageDao.selectDealList(con, loginCode);
+		ArrayList<MyPage>deallist =new MypageDao().selectDealList(con, loginCode);
 		
 		if(deallist != null) {
 			commit(con);
@@ -114,8 +114,8 @@ public class MypageService {
 	public ArrayList<MyPage> selectWaitingList(int loginCode) {
 		Connection con  = getConnection(); 
 		
-		ArrayList<MyPage>waitlist = MypageDao.selectWaitingList(con, loginCode);
-		
+		ArrayList<MyPage>waitlist = new MypageDao().selectWaitingList(con, loginCode);
+		System.out.println("대기자목록 list service:"+waitlist);
 		if(waitlist != null) {
 			commit(con);
 		}else {

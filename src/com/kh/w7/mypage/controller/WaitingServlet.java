@@ -33,7 +33,7 @@ public class WaitingServlet extends HttpServlet {
 		int loginCode = loginUser.getMemberCode();
 		
 		ArrayList<MyPage>waitlist = new MypageService().selectWaitingList(loginCode);
-		
+		System.out.println("대기자목록 list servlet:"+waitlist);
 				
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
