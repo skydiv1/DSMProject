@@ -87,7 +87,7 @@
 					
 					
 					<li class="nav-item"><a class="nav-link js-scroll-trigger"
-						href="/dsm/views/faq/FAQ.jsp"><b>고객센터</b></a></li>
+						href="/dsm/selectFaqList.faq"><b>고객센터</b></a></li>
 				</ul>
 			</div>
 		</div>

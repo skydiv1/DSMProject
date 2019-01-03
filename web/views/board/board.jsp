@@ -1,7 +1,7 @@
 <%@page import="java.io.ObjectInputStream.GetField"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*, com.kh.w7.board.model.vo.*"%>
-<%@page import="com.kh.w7.common.*" %>
+<%@ page import="com.kh.w7.common.*" %>
  <%
 	ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");

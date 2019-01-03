@@ -1,4 +1,4 @@
-package com.kh.w7.qna.model.dao;
+package com.kh.w7.faq.model.dao;
 
 import static com.kh.w7.common.JDBCTemplate.close;
 import static com.kh.w7.common.JDBCTemplate.getConnection;
@@ -17,11 +17,11 @@ import com.kh.w7.board.model.dao.BoardDao;
 import com.kh.w7.board.model.vo.Board;
 import com.kh.w7.member.model.vo.Member;
 
-public class QnaDao {
+public class FaqDao {
 	private Properties prop = new Properties();
 	private static String selectSEQ = "SELECT SEQ_BOARD.NEXTVAL FROM DUAL";
 	
-	public QnaDao(){
+	public FaqDao(){
 		String fileName = BoardDao.class.getResource("/sql/board/board-query.properties").getPath();
 		
 		try {
@@ -39,7 +39,7 @@ public class QnaDao {
 		Statement stmt = null;
 		ResultSet rset = null;
 		ArrayList<Board> list = null;
-		String query = prop.getProperty("selectQnaList");
+		String query = prop.getProperty("selectFaqList");
 		Board b = new Board();		
 		Member m = new Member();
 		
@@ -86,7 +86,7 @@ public class QnaDao {
 		
 		
 		
-		String query = prop.getProperty("selectQnaList");
+		String query = prop.getProperty("selectFaqList");
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -248,7 +248,8 @@ public class QnaDao {
 		return boardNo;
 	}
 
-	
+
+
 	public Board selectOne(Connection con, String num) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -291,11 +292,11 @@ public class QnaDao {
 
 
 
-	public int updateQna(Connection con, Board b) {
+	public int updateFaq(Connection con, Board b) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
-		String query = prop.getProperty("updateQna");
+		String query = prop.getProperty("updateFaq");
 		
 		System.out.println(query);
 		
@@ -318,6 +319,7 @@ public class QnaDao {
 		
 		return result;
 	}
+
 	
 	
 	

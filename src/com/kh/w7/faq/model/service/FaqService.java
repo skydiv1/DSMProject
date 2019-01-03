@@ -1,43 +1,30 @@
-package com.kh.w7.board.model.service;
+package com.kh.w7.faq.model.service;
 
 import static com.kh.w7.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+
 import com.kh.w7.board.model.dao.BoardDao;
 import com.kh.w7.board.model.vo.Board;
-import com.kh.w7.common.Attachment;
+import com.kh.w7.faq.model.dao.FaqDao;
+import com.kh.w7.faq.model.service.*;
+import com.kh.w7.qna.model.dao.QnaDao;
 
-public class BoardService {
+public class FaqService {
 
 	public ArrayList<Board> selectList(){
 		Connection con = getConnection();		
-		ArrayList<Board> list = new BoardDao().selectList(con);				
+		ArrayList<Board> list = new FaqDao().selectList(con);				
 		close(con);		
 		return list;
-	}
-	
-	public int insertBoard(Board b) {
-		Connection con = getConnection();
-		
-		int result = new BoardDao().insertBoard(con, b);
-		
-		if(result>0) {
-			commit(con);
-		}else {
-			rollback(con);
-		}
-		
-		close(con);
-		return result;
-	
 	}
 	
 	public ArrayList<Board> selectList(int currentPage, int limit) {
 		Connection con = getConnection();
 		
 		ArrayList<Board> list 
-			= new BoardDao().selectList(con, currentPage, limit);
+			= new FaqDao().selectList(con, currentPage, limit);
 		
 		close(con);
 		
@@ -46,22 +33,20 @@ public class BoardService {
 
 	public int getListCount() {
 		Connection con = getConnection();
-		int listCount = new BoardDao().getListCount(con);
+		int listCount = new FaqDao().getListCount(con);
 		close(con);
 		return listCount;
 	}
 
-	
-
-	public Board selectOne(String boardNo) {
+	public Board selectOne(String num) {
 		Connection con = getConnection();
 		
-		Board b = new BoardDao().selectOne(con, boardNo);
+		Board b = new FaqDao().selectOne(con, num);
 		
 		int result = 0;
 		
 		if(b != null ) {
-			result = new BoardDao().updateCount(con, b.getBoardNo());
+			result = new FaqDao().updateCount(con, b.getBoardNo());
 			if(result >0)commit(con);
 			else rollback(con);
 		}
@@ -71,10 +56,10 @@ public class BoardService {
 		return b;
 	}
 
-	public int updateBoard(Board b) {
+	public int updateFaq(Board b) {
 		Connection con = getConnection();
 		
-		int result = new BoardDao().updateBoard(con, b);
+		int result = new FaqDao().updateFaq(con, b);
 		
 		if(result > 0) { 
 			commit(con);
@@ -86,8 +71,9 @@ public class BoardService {
 		
 		return result;
 	}
-
-
+	
+	
+	
 	
 	
 }
