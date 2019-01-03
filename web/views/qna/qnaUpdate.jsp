@@ -1,45 +1,76 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    pageEncoding="UTF-8" import="com.kh.w7.board.model.vo.*" import="com.kh.w7.reply.model.vo.*"%>
+<%
+	Board b = (Board)request.getAttribute("b");
+	Member m = (Member)request.getAttribute("m");
+	Reply r = (Reply)request.getAttribute("r");
+%>
+<!DOCTYPE html PUBLIC "-//W3C//DTDHTML4.01Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
- <!-- 네비게이션 바 -->
-	<%@ include file="../common/menubar.jsp"%>
-<!-- 네비게이션 바 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-<br><br>	
-			<div class="container">
-			
-			<form>
-			  <div class="form-group">
-			    <label ><h2>문의하기</h2></label>
-			    <input type="text" class="form-control"  placeholder="얼마전에 신청했는데요">
-			  </div>
-			  <hr>
-			  <div class="form-group">
-			  	<label ><h6>문의분류 : </h6></label>
-				<input type="radio" name="문의" value="문의" checked="checked">문의
-			    <input type="radio" name="신고" value="신고">신고
-			  </div>
-			  <hr>
-			  <div class="form-group">
-			    <label ><h6>문의 내용</h6></label>
-			    <textarea class="form-control" rows="15" id="comment" placeholder="내용">얼마전에 신청했었는데 이걸 어떻게 해야되나요?</textarea>
-			  </div>
-			</form>
-			<div style="margin:0px 0px 0px 850px; margin-right:10px; ">	
-			  <button type="submit" class="btn btn-default"  onclick="location.href='./qnaPosts.jsp'">수정완료</button>
-			  <button class="btn btn-default"  onclick="location.href='./qnaPosts.jsp'">취소</button>
-			  <button class="btn btn-default"  onclick="location.href='./QNA.jsp'">삭제</button>
-			 </div> 
-				<hr>
-			</div>	
-	</div>
-<!-- Footer -->
-		<%@ include file = "../common/footer.jsp" %>
-<!-- footer 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-</body>
-</html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+            <title>Insert title here</title>
+        </head>
+        <body>
+            <!-- 네비게이션 바 -->
+            <%@ include file="../common/menubar.jsp"%>
+            <!-- 네비게이션 바 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+            <br>
+                <br>
+                    <div class="container">
+                        <form>
+                            <div class="form-group">
+                                <label>
+                                    <h2>글 수정</h2>
+                                </label>
+                               <hr>
+						      <form action="<%= request.getContextPath() %>/updateFaq.faq" method="post">
+						      <thead>
+						        <div class="form-group">
+						            <label>
+						                <h3>제목 : &nbsp;</h3>
+						            </label>
+						            <h7><input type="text" style="width:300px" name="Boardtitle" placeholder="제목을 입력해 주세요" value="<%= b.getBoardTitle() %>"></h7>
+						            <input type="hidden" name="BoardNo" value="<%= b.getBoardNo() %>">
+						        </div>       
+						      </thead>
+						      <hr>
+						      <tr height="1" bgcolor="#dddddd">
+						          <td colspan="4" width="407"></td>
+						      </tr>
+						      <table>
+						          <tr>
+						              <td align="center" width="76">작성자 :
+						              </td>
+						             	<span>
+						                  <b>
+						                      <%=loginUser.getMemberName()%></b>
+						              </span>               
+						      </table>
+						     <hr>
+					        <div class="form-group">
+					            <label>
+					                <h6>문의 내용</h6>
+					            </label>
+					            <textarea cols="60" name="BoardContext" name="context" placeholder="내용을 입력해 주세요" rows="15" type="context"><%=b.getBoardContext()%></textarea>
+					        </div>  
+                             <div style="margin:0px 0px 0px 850px; margin-right:10px; ">
+                                 <button class="btn btn-default onclick=" complet()"="complet()"">확인</button>
+                                 <button class="btn btn-default onclick=" deleteBoard()"="deleteBoard()"">삭제하기</button>
+                             </div>
+                             <script>
+                                 $(function complet() {
+                                     $("#updateForm").attr("action", "<%=request.getContextPath()%>/updateQna.qna");
+                                 });
+                                 $(function deleteBoard() {
+                                     $("#updateForm").attr("action", "<%=request.getContextPath()%>/deleteQna.qna");
+                                 });
+                             </script>
+                         </div>
+                         <hr></div>
+                     </div>
+                     <!-- Footer -->
+                     <%@ include file = "../common/footer.jsp" %>
+                     <!-- footer 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+                 </body>
+             </html>

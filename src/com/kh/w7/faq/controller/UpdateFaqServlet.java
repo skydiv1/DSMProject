@@ -1,4 +1,4 @@
-package com.kh.w7.board.controller;
+package com.kh.w7.faq.controller;
 
 import java.io.IOException;
 import java.util.GregorianCalendar;
@@ -11,18 +11,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.w7.board.model.service.BoardService;
 import com.kh.w7.board.model.vo.Board;
+import com.kh.w7.faq.model.service.FaqService;
 
 /**
  * Servlet implementation class UpdateBoardServlet
  */
-@WebServlet("/updateBoard.bo")
-public class UpdateBoardServlet extends HttpServlet {
+@WebServlet("/updateFaq.faq")
+public class UpdateFaqServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateBoardServlet() {
+    public UpdateFaqServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,14 +33,14 @@ public class UpdateBoardServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		int BoardNo = Integer.parseInt(request.getParameter("BoardNo"));
 		String title = request.getParameter("Boardtitle");
 		String context = request.getParameter("BoardContext");
-		int BoardNo = Integer.parseInt(request.getParameter("BoardNo"));
 
 		
+		System.out.println(BoardNo);
 		System.out.println(title);
 		System.out.println(context);
-		System.out.println(BoardNo);
 
 		Board b = new Board();
 		b.setBoardTitle(title);
@@ -48,12 +49,12 @@ public class UpdateBoardServlet extends HttpServlet {
 
 	
 		
-		int result = new BoardService().updateBoard(b);
+		int result = new FaqService().updateFaq(b);
 		
 		String page = "";
 		if(result > 0) {
-			page = "views/dsm/selectOne.bo?num="+BoardNo;
-			response.sendRedirect("/dsm/selectOne.bo?num=" + BoardNo);
+			page = "views/dsm/selectOne.faq?num="+BoardNo;
+			response.sendRedirect("/dsm/selectOne.faq?num=" + BoardNo);
 		}else {
 			request.setAttribute("msg", "수정안됨");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
