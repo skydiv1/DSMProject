@@ -32,7 +32,7 @@
 </script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<title>JoinForm</title>
+<title>판매자 정보수정</title>
 <style>
 #link {
 	font-size: 60px;
@@ -72,7 +72,7 @@ form {
 	<h3 align="center">판매자 정보수정</h3>
 	<br>
 	<hr>
-	<form action="<%=request.getContextPath()%>/updateInfo.me" method="post">
+	<form action="<%=request.getContextPath()%>/updateInfo.me" method="post" id="updateForm">
 
 
 		<table align="center">
@@ -239,7 +239,7 @@ form {
 		</div>
 	</form>
 	<script>
-		function updateCon(){
+		function updateSel(){
 			var memberId=$("#memberId").val();
 			var memberPwd=$("#memberPwd").val();
 			var memberPwd2=$("#memberPwd2").val();
@@ -257,8 +257,8 @@ form {
 			
 			if(memberPwd == memberPwd2){
 				//alert("일치");
-				$("#join").submit();
-				join.action = "<%=request.getContextPath()%>/updateMember.me";
+				$("#updateForm").submit();
+				join.action = "<%=request.getContextPath()%>/updateInfo.me";
 				<%-- location.href = "<%=request.getContextPath()%>/insertMember.me"; --%>
 				
 			}else{
@@ -310,7 +310,7 @@ form {
 					hiddenName : hiddenName
 				},
 				success : function(data) {
-					if (data == "YES") {
+					if (data == "success") {
 						alert("메일이 발송되었습니다.");
 					} else {
 						alert("메일 발송을 실패하였습니다.");

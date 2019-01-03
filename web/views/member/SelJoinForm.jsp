@@ -201,7 +201,7 @@ form {
 			<!-- <a href="/web/index.jsp"> -->
 				<button class="btn btn-warning" 
 					style="width: 470px; height: 50px; font-size: 20px; border-radius: 6px;"
-					onclick="insertCon();">회원가입</button>
+					onclick="insertSel();">회원가입</button>
 			<!-- </a> <a href="/web/index.jsp"> -->
 				<button type="button" class="btn btn-cancle"
 					style="width: 470px; height: 50px; font-size: 20px; border-radius: 6px;">
@@ -211,7 +211,7 @@ form {
 		</div>
 	</form>
 		<script>
-		function insertCon(){
+		function insertSel(){
 			var memberId=$("#memberId").val();
 			var memberPwd=$("#memberPwd").val();
 			var memberPwd2=$("#memberPwd2").val();			
@@ -229,7 +229,7 @@ form {
 			if(memberPwd == memberPwd2){
 				//alert("일치");
 				$("#join").submit();
-				join.action = "<%=request.getContextPath()%>/insertMember.me";
+				join.action = "<%=request.getContextPath()%>/insertSel.me";
 				<%-- location.href = "<%=request.getContextPath()%>/insertMember.me"; --%>
 				
 			}else{

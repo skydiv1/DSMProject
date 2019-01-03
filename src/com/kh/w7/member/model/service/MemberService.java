@@ -15,11 +15,43 @@ public class MemberService {
 		return loginUser;
 	}
 
-	public int insertMember(Member reqMember) {
+	/*public int insertMember(Member reqMember) {
 		Connection con = getConnection();
 		
 		int result= new MemberDao().insertSel(con, reqMember);
 		int result2= new MemberDao().insertCon(con, reqMember);
+			
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+
+		return result;
+	}*/
+	public int insertSel(Member reqMember) {
+		Connection con = getConnection();
+		
+		int result= new MemberDao().insertSel(con, reqMember);
+		
+			
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+
+		return result;
+	}
+	public int insertCon(Member reqMember) {
+		Connection con = getConnection();
+		
+		
+		int result= new MemberDao().insertCon(con, reqMember);
 			
 		if(result>0) {
 			commit(con);

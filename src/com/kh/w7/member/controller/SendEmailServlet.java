@@ -43,7 +43,8 @@ public class SendEmailServlet extends HttpServlet {
 		String from = request.getParameter("from");
 		String hiddenName = request.getParameter("hiddenName");
 		
-		Properties prop = new Properties();// 정보를 담을 객체
+		//정보담을 객체
+		Properties prop = new Properties();
 		prop.put("mail.smtp.user", "DroneServiceMarket@gmail.com");
 		prop.put("mail.smtp.host", "smtp.gmail.com"); 
 		prop.put("mail.smtp.port", "465");
@@ -57,42 +58,39 @@ public class SendEmailServlet extends HttpServlet {
 		    SMTPAuthenticator auth = new SMTPAuthenticator();
 		    Session session = Session.getDefaultInstance(prop, auth);
 		    
-		    MimeMessage msg = new MimeMessage(session); // 메일의 내용을 담을 객체
+		    MimeMessage msg = new MimeMessage(session); //세션생성
 		    
 		   
 		    msg.setSentDate(new Date());
 		    InternetAddress froms = new InternetAddress("DroneServiceMarket@gmail.com");
              
-            // 이메일 발신자
-            msg.setFrom(froms);
             
-            // 이메일 수신자
+            msg.setFrom(froms);//발신인
+            
+            
             InternetAddress to = new InternetAddress(memberEmail);
-            msg.setRecipient(Message.RecipientType.TO, to);
+            msg.setRecipient(Message.RecipientType.TO, to);//수신인
              
-            // 이메일 제목
-            msg.setSubject("DSM 인증코드 발송입니다", "UTF-8");
+            
+            msg.setSubject("DSM 인증코드 발송입니다", "UTF-8");//제목
              
-            // 이메일 내용
-            request.setAttribute("randomCode", randomCode);
+            
+            request.setAttribute("randomCode", randomCode);//내용
             msg.setText(randomCode, "UTF-8");
        
              
-            // 이메일 헤더
-            msg.setHeader("content-Type", "text/html");
+            
+            msg.setHeader("content-Type", "text/html");//헤더
              
-            //메일보내기
-            javax.mail.Transport.send(msg);
+            
+            javax.mail.Transport.send(msg);//보내기
            response.getWriter().print("success");
             
 		} catch(Exception e){
 		response.getWriter().print("NO");
 		  e.printStackTrace();
 		}
-		
-		
-		
-		
+
 	}
 
 	/**

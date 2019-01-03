@@ -77,7 +77,7 @@ form {
 	<br>
 	<hr>
 	<hr>
-	<form action="<%=request.getContextPath()%>/updateInfo.me" method="post" id="updateform">
+	<form action="<%=request.getContextPath()%>/updateInfo.me" method="post" id="updateForm">
 		
 
 
@@ -90,8 +90,7 @@ form {
 
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="memberId"
-								name="memberId" style="width: 550px" placeholder="<%=memberId%>"
-								readonly>
+								name="memberId" style="width: 550px" value="<%=memberId%>" readonly>
 						</div>
 					</div>
 					</div></td>
@@ -127,7 +126,7 @@ form {
 						<div class="col-sm-10">
 							<input type="Name" class="form-control" id="memberName"
 								name="memberName" style="width: 550px"
-								placeholder="<%=memberName%>">
+								value="<%=memberName%>">
 						</div>
 					</div></td>
 			</tr>
@@ -138,7 +137,7 @@ form {
 
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="memberPhone"
-								name="memberPhone" style="width: 550px; ime-mode:disabled;" placeholder="<%=memberPhone%>" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)'>
+								name="memberPhone" style="width: 550px; ime-mode:disabled;" value="<%=memberPhone%>" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)'>
 							<font color="red"> *숫자만 입력하세요.</font>
 						</div>
 					</div></td>
@@ -149,7 +148,7 @@ form {
 						<div class="col-sm-10">
 							<input type="email" class="form-control" id="memberEmail"
 								name="memberEmail" style="width: 550px"
-								placeholder="<%=memberEmail%>" >
+								value="<%=memberEmail%>" >
 						</div>
 					</div></td>
 				<td style="padding-top: 14px;">
@@ -222,8 +221,8 @@ form {
 			
 			if(memberPwd == memberPwd2){
 				//alert("일치");
-				$("#join").submit();
-				join.action = "<%=request.getContextPath()%>/updateMember.me";
+				$("#updateForm").submit();
+				join.action = "<%=request.getContextPath()%>/updateInfo.me";
 				<%-- location.href = "<%=request.getContextPath()%>/insertMember.me"; --%>
 				
 			}else{
@@ -256,36 +255,31 @@ form {
 			else
 				event.target.value = event.target.value.replace(/[^0-9]/g, "");
 		}
-		function sendEmail() {
-			var memberEmail = $("#memberEmail").val();
+		function sendEmail(){
+			var memberEmail=$("#memberEmail").val();
 			var randomCode = $("#randomCode").val();
 			var from = $("#from").val();
-			memberName
 			var hiddenName = $("#hiddenName").val();
-
+		
 			$.ajax({
-				url : "/dsm/SendEmail.me",
-				type : "post",
-				data : {
-					memberEmail : memberEmail,
-					randomCode : randomCode,
-					from : from,
-					hiddenName : hiddenName
-				},
-				success : function(data) {
-					if (data == "YES") {
+				url:"/dsm/SendEmail.me",
+				type:"post",
+				data:{memberEmail:memberEmail,randomCode:randomCode,from:from,hiddenName:hiddenName},
+				success:function(data){
+					if(data == "success"){
 						alert("메일이 발송되었습니다.");
-					} else {
+					}else{
 						alert("메일 발송을 실패하였습니다.");
 					}
 				},
-				error : function(data) {
+				error:function(data){
 					console.log("이메일 통신에 실패");
 				}
-
+				
+			
 			});
 			return false;
-
+		
 		}
 		function combtn(){
 			var randomCode = $("#randomCode").val();
