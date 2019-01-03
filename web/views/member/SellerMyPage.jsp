@@ -25,8 +25,28 @@
 <script type="text/javascript">
 function addBtnEvent() {
 
-	//취소 팝업에 있는 버튼 누를때
-	  $("#cancelBtn").click(function () {});
+	//취소 팝업에 있는 보내기 버튼 누를때
+	  $("#cancelBtn").click(function () {
+		  var textContent = $("#textContent").val();//신청사유
+			var dealnum = $("#dealnum").val();
+			$.ajax({
+				url:"${pageContext.request.contextPath}/cancelupdate.seller",
+				type : "get",
+				data : {dealnum:dealnum, textContent:textContent},
+				success : function (data) {
+					selectListWaiting();
+				}
+			});
+	  });
+	  $("#agreeBtn").click(function () {
+		  
+	  });
+	 
+	  //대기자 목록에서 거절버튼 누를때
+	  $("#cBtn").click(function () {
+		  var no = $(this).parent().parent().children().eq(1).text();
+			$("#dealnum").val(no);
+	  });
 }
 
 

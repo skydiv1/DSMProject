@@ -125,6 +125,21 @@ public class MypageService {
 
 		return waitlist;
 	}
+	public int cancelUpdateseller(int dealnum, String textContent) {
+		Connection con = getConnection();
+		
+		int result = new MypageDao().cancelUpdateseller(con,dealnum,textContent );
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
 
 	
 	
