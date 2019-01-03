@@ -95,7 +95,6 @@ public class DealDao {
 			pstmt = con.prepareStatement(query);
 			//pstmt.setInt(1, 7); //기본키 제약조건때문에 이미 7번 dealNo의 진행 상황이 있으면 오류가 걸리면서 들어가지 않음
 			pstmt.setInt(1, dealNo);
-			pstmt.setString(2, "결제완료");
 			result = pstmt.executeUpdate();
 			
 			

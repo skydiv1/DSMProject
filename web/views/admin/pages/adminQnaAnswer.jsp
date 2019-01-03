@@ -1,5 +1,11 @@
+<%@page import="com.kh.w7.board.model.vo.Board"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+    
+    <%
+    	ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
+    %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -106,7 +112,7 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="panel panel-default">
-						<div class="panel-heading">QnA Tables</div>
+						<div class="panel-heading">QnA 답변</div>
 						<!-- /.panel-heading -->
 						<div class="panel-body">
 							 <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
@@ -120,28 +126,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <%-- <% for(int i = 0; i < list.size() ; i++){ %>
+                                <% for(int i = 0; i < list.size() ; i++){ %>
                                     <tr class="odd gradeX">
-                                        <td><%= list.get(i).getRefund_no() %></td>
-                                        <td><%= list.get(i).getMember_name() %></td>
-                                        <td><%= list.get(i).getRefund_bank() %></td>
-                                        <td class="center"><%= list.get(i).getRefund_account() %></td>
-                                        <td class="center"><%= list.get(i).getMember_birth() %></td>
-                                        <td class="center"><%= list.get(i).getRefund_money() %></td>
-                                        <td class="center"><%= list.get(i).getRefund_applyDate() %></td>
-                                        <% if(list.get(i).getRefund_StatusYN() == 0) {%>
-                                        <td class="center">미지급</td>
+                                        <td><%= list.get(i).getBoardNo() %></td>
+                                        <td><%= list.get(i).getBoardTitle() %></td>
+                                        <td><%= list.get(i).getMemberName() %></td>
+                                        <td class="center"><%= list.get(i).getBoardDate() %></td>
+                                        <% if(list.get(i).getBoardQnaAnswerYn() == 0){ %>
+                                        <td class="center"><button onclick = "location.href = 'views/qna/qnaPosts.jsp'">답변하기</button></td>
                                         <% }else{ %>
-                                        <td class="center">지급완료</td>
-                                        <% } %>
-                                        <% if(list.get(i).getRefund_StatusYN() == 0) {%>
-                                        <td class="center" align = "center"><button style = "background : lightgray; color : black">지급하기</button></td>
-                                        <% }else{ %>
-                                        <td class="center"></td>
+                                        <td class="center"><button>응답완료</button></td>
                                         <% } %>
                                     </tr>
                                 <%} %>
-                                     --%>
                                 </tbody>
                             </table>
 							<!-- /.table-responsive -->

@@ -46,9 +46,14 @@
 			  </div>
 			  <hr>
 			<div style="margin:0px 0px 0px 900px; margin-right:20px; ">	
-			  <button  class="btn btn-default"  onclick="location.href='./QNA.jsp'">목록</button>
-			  <button class="btn btn-default" onclick="location.href='./qnaUpdate.jsp'">수정</button>
-			  <button class="btn btn-default"  onclick="location.href='./QNA.jsp'">삭제</button>
+			<% if(loginUser !=null && loginUser.getMemberAdmin() == 1) {%>
+				<button class="btn btn-default"  onclick="location.href='./QNA.jsp'">돌아가기</button>
+			  	<button class="btn btn-default" onclick="location.href='./qnaUpdate.jsp'">적용</button>
+			<% }else{ %>
+			  	<button  class="btn btn-default"  onclick="location.href='./QNA.jsp'">목록</button>
+			  	<button class="btn btn-default" onclick="location.href='./qnaUpdate.jsp'">수정</button>
+			  	<button class="btn btn-default"  onclick="location.href='./QNA.jsp'">삭제</button>
+			<% } %>
 			 </div> 
 			<form action="" method="post" name="">
 			<font size="3" color="red">댓글 1</font>

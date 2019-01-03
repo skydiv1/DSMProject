@@ -87,8 +87,11 @@
 
 		<div id="page-wrapper">
 			<div class="row">
-				<div class="col-lg-12">
-					<h1 class="page-header">Dashboard</h1>
+			
+				<div  class="col-lg-12">
+					<h1 class="page-header">홈페이지 관리</h1>
+					<div align = "right">
+					<a href="#" style = "width : 200px;  margin : 10px;" class="btn btn-default btn-block">갱신하기</a></div>
 				</div>
 				<!-- /.col-lg-12 -->
 			</div>
@@ -104,7 +107,7 @@
 								</div>
 								<div class="col-xs-9 text-right">
 									<div class="huge">26</div>
-									<div>New Comments!</div>
+									<div>새 댓글 수!</div>
 								</div>
 							</div>
 						</div>
@@ -126,7 +129,7 @@
 								</div>
 								<div class="col-xs-9 text-right">
 									<div class="huge">12</div>
-									<div>New Tasks!</div>
+									<div>새 게시글 수!</div>
 								</div>
 							</div>
 						</div>
@@ -148,7 +151,7 @@
 								</div>
 								<div class="col-xs-9 text-right">
 									<div class="huge">124</div>
-									<div>New Orders!</div>
+									<div>새 거래 수!</div>
 								</div>
 							</div>
 						</div>
@@ -170,7 +173,7 @@
 								</div>
 								<div class="col-xs-9 text-right">
 									<div class="huge">13</div>
-									<div>Support Tickets!</div>
+									<div>새 회원 수!</div>
 								</div>
 							</div>
 						</div>
@@ -184,6 +187,10 @@
 					</div>
 				</div>
 			</div>
+			
+			
+			
+			
 			<!-- /.row -->
 			<div class="row">
 				<div class="col-lg-8">
@@ -214,6 +221,11 @@
 						<!-- /.panel-body -->
 					</div>
 					<!-- /.panel -->
+					
+					
+					
+					
+					
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<i class="fa fa-bar-chart-o fa-fw"></i> Bar Chart Example
@@ -314,6 +326,12 @@
 					</div>
 				</div>
 				<!-- /.col-lg-8 -->
+				
+				
+				
+				
+				
+				
 				<div class="col-lg-4">
 					<!-- /.panel -->
 					<div class="panel panel-default">
@@ -337,6 +355,13 @@
 
 	</div>
 	<!-- /#wrapper -->
+
+
+
+
+
+
+
 
 	<!-- jQuery -->
 	<script src="/dsm/views/admin/vendor/jquery/jquery.min.js"></script>

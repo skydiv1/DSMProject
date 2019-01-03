@@ -12,6 +12,7 @@ public class Board implements java.io.Serializable{
 	private int boardCount;
 	private int boardDelete;
 	private String memberName;
+	private int boardQnaAnswerYn;
 	
 	public int getBoardNo() {
 		return boardNo;
@@ -19,6 +20,14 @@ public class Board implements java.io.Serializable{
 	public void setBoardNo(int boardNo) {
 		this.boardNo = boardNo;
 	}
+	
+	public int getBoardQnaAnswerYn() {
+		return boardQnaAnswerYn;
+	}
+	public void setBoardQnaAnswerYn(int boardQnaAnswerYn) {
+		this.boardQnaAnswerYn = boardQnaAnswerYn;
+	}
+	
 	public int getMemberCode() {
 		return memberCode;
 	}
