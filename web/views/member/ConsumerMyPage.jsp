@@ -31,7 +31,7 @@
 
 	//취소 팝업에 있는 보내기 버튼 누를때
 	  $("#cancelBtn").click(function () {
-		var textContent = $("#textContent").val();//신청사유
+		var textContent = $("#textContent").val();//취소사유
 		var dealnum = $("#dealnum").val();
 		$.ajax({
 			url:"${pageContext.request.contextPath}/cancelupdate.consumer",
@@ -101,6 +101,16 @@
 		$("#reviewdealnum").val(no);
 		$("#dealcomlete").attr('disabled',true);
 		$("#dealreview").show();
+		
+		/* $.ajax({
+			url:"${pageContext.request.contextPath}/.consumer",
+			type : "get",
+			data : {dealnum:dealnum, textContent:textContent},
+			success : function (data) {
+				selectListAp();
+				selectListCencel();
+			
+		}); ----상태변경이 필요함 ㅅㅂ*/
 		
 	});
 	

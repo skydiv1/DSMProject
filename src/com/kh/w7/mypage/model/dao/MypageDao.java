@@ -386,6 +386,73 @@ public class MypageDao {
 		return progresslist;
 	}
 
+	//판매자 수락하기 버튼 누를때
+	public int AgreelUpdateseller(Connection con, int dealnum, String textContent) {
+		PreparedStatement pstmt = null;
+		int result =0;
+		
+		String query = prop.getProperty("AgreelUpdateseller");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, textContent);
+			pstmt.setInt(2, dealnum);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+	
+		return result;
+	}
+
+
+	public ArrayList<MyPage> selectSellerCancelList(Connection con, int loginCode) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<MyPage> sellerCancelList= null;
+		
+		String query = prop.getProperty("selectSellerCancelList");
+		
+		try {
+			pstmt=con.prepareStatement(query);
+			
+			
+			pstmt.setInt(1, loginCode);
+			
+			rset= pstmt.executeQuery();
+			
+			
+			sellerCancelList = new ArrayList<MyPage>();
+			
+			while(rset.next()) {
+				MyPage m = new MyPage();
+				
+				m.setDealNo(rset.getInt("DEAL_NO"));
+				m.setMember_id(rset.getString("MEMBER_ID"));
+				m.setProductName(rset.getString("PRODUCT_NAME"));
+				m.setDealListaddMsg1(rset.getString("DEALLIST_ADDMESSAGE1"));
+				m.setDealListaddMsg2(rset.getString("DEALLIST_ADDMESSAGE2"));
+				
+				sellerCancelList.add(m);
+			}
+			System.out.println("list값dao:"+sellerCancelList);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return sellerCancelList;
+	}
+
 
 	
 }
