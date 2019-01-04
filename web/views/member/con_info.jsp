@@ -114,7 +114,7 @@ form {
 						<label for="inputPassword3" class="col-sm-4 control-label">Confirm
 							Password</label>
 						<div class="col-sm-10">
-							<input type="password" class="form-control" id="memberpwd2"
+							<input type="password" class="form-control" id="memberPwd2"
 								name="memberPwd2" style="width: 550px" placeholder="Password">
 						</div>
 					</div>
@@ -217,10 +217,11 @@ form {
 			console.log(memberId);
 			if(memberPwdResult){
 				//alert("정상");
+				
 			}
 			
 			if(memberPwd == memberPwd2){
-				//alert("일치");
+				alert("회원 정보가 수정되었습니다.");
 				$("#updateForm").submit();
 				join.action = "<%=request.getContextPath()%>/updateInfo.me";
 				<%-- location.href = "<%=request.getContextPath()%>/insertMember.me"; --%>

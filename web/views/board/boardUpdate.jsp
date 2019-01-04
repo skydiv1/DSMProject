@@ -15,14 +15,14 @@
         <!-- 네비게이션 바 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
         <br><br>
         <div class="container">
-            <div class="form-group">
+             <%-- <form action="<%= request.getContextPath() %>/updateBoard.bo"  method="post"> --%>
+             <form id="updateForm" method="post">	
                 <caption>
                     <h1>게시글 수정</h1>
                 </caption>
-                <form action="<%= request.getContextPath() %>/updateBoard.bo" method="post">
                     <hr>
                     <thead>
-                        <div class="form-group">
+                        <div>
                             <label>
                                 <h3>제목 : &nbsp;</h3>
                             </label>
@@ -40,7 +40,6 @@
                                     <%=loginUser.getMemberName()%></b>
                             </span>
                         </h4>
-                        <%-- <input type="hidden" value="<%=loginUser.getMemberCode()%>" name="memberCode"> --%>
                     </td>
                     <hr>
                     <label>
@@ -48,29 +47,29 @@
                         </h3>
                     </label>
                     <hr>
-                    <div class="form-group">
+                    <div >
                         <textarea cols="60" name="BoardContext" name="context" placeholder="내용을 입력해 주세요" rows="15" type="context">
                             <%=b.getBoardContext()%></textarea>
                     </div>
+                    
                     <tr height="1" bgcolor="#dddddd">
                         <td colspan="4" width="407"></td>
-                    </tr>
+                    </tr>        
                     <hr>
                     <div style="margin:0px 0px 0px 870px; margin-right:10px; ">
-                        <button class="btn btn-default onclick=" complet()">확인</button>
-                        <button class="btn btn-default onclick=" deleteboard()">삭제하기</button>
+                        <button class="btn btn-default" onclick="complet()">확인</button>
+                        <button class="btn btn-default" onclick="deleteBoard()">삭제</button>  
                     </div>
-                    <script>
-                        $(function complet() {
-                            $("#updateForm").attr("action", "<%=request.getContextPath()%>/updateBoard.bo");
-                        });
-                        $(function deleteBoard() {
-                            $("#updateForm").attr("action", "<%=request.getContextPath()%>/deleteBoard.bo");
-                        });
-                    </script>
                     <hr>
-                </form>
-            </div>
+                <script>
+                function complet(){
+					$("#updateForm").attr("action", "<%=request.getContextPath()%>/updateBoard.bo");
+				}
+                function deleteBoard(){
+					$("#updateForm").attr("action", "<%=request.getContextPath()%>/deleteBoard.bo");
+				}
+                </script>
+             </form>
         </div>
         <br>
         <br>

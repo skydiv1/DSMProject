@@ -428,33 +428,35 @@ public class ProductDao {
 				member.setMemberId(rset.getString("MEMBER_ID"));
 				
 //				if(rset.last()) { // rset 이 마지막일때 실행
-					for(int i=0; i<columnCount; i=i+columnCount) {
+/*					for(int i=0; i<columnCount; i=i+columnCount) {
 						plusProduct = new PlusProduct();
 						plusProduct.setProductNo(rset.getInt("PRODUCT_NO"));
 						plusProduct.setPlusProductItem(rset.getString("PLUSPRODUCT_ITEM"));
 						plusProduct.setPlusProductPrice(rset.getInt("PLUSPRODUCT_PRICE"));
 						plist.add(plusProduct);	
-					}
+					}*/
 //				}
-				/*if(count==0) {
+				if(count==5) {
 					plusProduct = new PlusProduct();
 					plusProduct.setProductNo(rset.getInt("PRODUCT_NO"));
 					plusProduct.setPlusProductItem(rset.getString("PLUSPRODUCT_ITEM"));
 					plusProduct.setPlusProductPrice(rset.getInt("PLUSPRODUCT_PRICE"));
 					plist.add(plusProduct);	
-				}else if(count==6) {
+				}else if(count==11) {
 					plusProduct = new PlusProduct();
 					plusProduct.setProductNo(rset.getInt("PRODUCT_NO"));
 					plusProduct.setPlusProductItem(rset.getString("PLUSPRODUCT_ITEM"));
 					plusProduct.setPlusProductPrice(rset.getInt("PLUSPRODUCT_PRICE"));
 					plist.add(plusProduct);					
-				}else if(count==12) {
+				}else if(count==17) {
 					plusProduct = new PlusProduct();
 					plusProduct.setProductNo(rset.getInt("PRODUCT_NO"));
 					plusProduct.setPlusProductItem(rset.getString("PLUSPRODUCT_ITEM"));
 					plusProduct.setPlusProductPrice(rset.getInt("PLUSPRODUCT_PRICE"));
 					plist.add(plusProduct);					
-				}*/
+				}else {
+					System.out.println("count 안들어 가는.. "+count);
+				}
 				
 				at = new Attachment();
 				at.setImgNo(rset.getInt("IMG_NO"));
