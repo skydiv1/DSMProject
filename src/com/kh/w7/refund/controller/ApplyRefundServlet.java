@@ -39,14 +39,14 @@ public class ApplyRefundServlet extends HttpServlet {
 		String StrRefundMoney = request.getParameter("refundMoney");
 		
 		//숫자만 때오기
-		StrRefundMoney = StrRefundMoney.substring(0, StrRefundMoney.indexOf('원')-1);
+		StrRefundMoney = StrRefundMoney.substring(0, StrRefundMoney.indexOf('원'));
 		int refundMoney = Integer.parseInt(StrRefundMoney);
-		/*정상출력
+		
 		System.out.println("name : " + name);
 		System.out.println("birth : " + birth);
 		System.out.println("bank : " + bank);
 		System.out.println("account : " + account);
-		System.out.println("refundMoney : " + refundMoney);*/
+		System.out.println("refundMoney : " + refundMoney);
 		
 		Refund r = new Refund();
 		r.setMember_code(memberCode); //임시로 만든 신청 회원 코드

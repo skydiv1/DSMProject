@@ -11,6 +11,7 @@ import java.util.Properties;
 
 import static com.kh.w7.common.JDBCTemplate.*;
 
+import com.kh.w7.admin.model.vo.Admin;
 import com.kh.w7.board.model.vo.Board;
 import com.kh.w7.member.model.vo.Member;
 import com.kh.w7.pay.model.dao.PayDao;
@@ -333,6 +334,38 @@ public class AdminDao {
 		
 		
 		return list;
+	}
+
+	public Admin refreshPage(Connection con) {
+		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Admin ad = null;
+		
+		String query = prop.getProperty("refreshPage");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				ad = new Admin();
+				
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		
+		return ad;
 	}
 
 }

@@ -1,8 +1,11 @@
+<%@page import="com.kh.w7.deal.model.vo.Deal"%>
 <%@page import="com.kh.w7.mypage.model.vo.*"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%-- <%
+	ArrayList<Deal> result = new ArrayList<Deal>();
+%> --%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -62,7 +65,7 @@
 	});
 	
 	//수락 목록에서 결제 버튼 눌렀을때
-	 $("#dealBtn").click(function () {
+	 $("#dealBtn").click(function () { //두번째 버튼이 안눌림
 		 var dealnum = $(this).parent().parent().children().eq(1).text();
 		 var productno = $(this).parent().parent().children().eq(2).text();
 		 console.log("dealnum:"+dealnum);
@@ -72,17 +75,9 @@
 				type : "get",
 				data : {dealnum:dealnum, productno:productno},
 				success : function (data) {
-						var sizeOfArray = data.length;
-						if(sizeOfArray == 1){
-							document.location.href ="/dsm/views/cash/payment.jsp?dealnum="+dealnum+"&sizeOfArray="+ sizeOfArray+"&productNo="+data[0].productNo+"&imgFilePath="+data[0].imgFilePath+ "&productTitle="+data[0].productTitle + "&productContext=" + data[0].productContext + "&customerCode=" + data[0].customerCode + "&sellerCode=" + data[0].sellerCode + "&mainProductName=" + data[0].mainProductName + "&mainProductPrice=" + data[0].mainProductPrice + "&memberNowCash=" + data[0].memberNowCash + "&subProductName=" + data[0].subProductName + "&subProductPrice=" + data[0].subProductPrice; 
+						
+						document.location.href ="/dsm/views/cash/payment.jsp"; 
 
-						}else if(sizeOfArray == 2){
-							document.location.href ="/dsm/views/cash/payment.jsp?dealnum="+dealnum+"&sizeOfArray="+ sizeOfArray+"&productNo="+data[0].productNo+"&imgFilePath="+data[0].imgFilePath+ "&productTitle="+data[0].productTitle + "&productContext=" + data[0].productContext + "&customerCode=" + data[0].customerCode + "&sellerCode=" + data[0].sellerCode + "&mainProductName=" + data[0].mainProductName + "&mainProductPrice=" + data[0].mainProductPrice + "&memberNowCash=" + data[0].memberNowCash + "&subProductName=" + data[0].subProductName + "&subProductPrice=" + data[0].subProductPrice + "&subProductName2=" + data[1].subProductName + "&subProductPrice2=" + data[1].subProductPrice; 
-
-						}else if(sizeOfArray == 3){
-							document.location.href ="/dsm/views/cash/payment.jsp?dealnum="+dealnum+"&sizeOfArray="+ sizeOfArray+"&productNo="+data[0].productNo+"&imgFilePath="+data[0].imgFilePath+ "&productTitle="+data[0].productTitle + "&productContext=" + data[0].productContext + "&customerCode=" + data[0].customerCode + "&sellerCode=" + data[0].sellerCode + "&mainProductName=" + data[0].mainProductName + "&mainProductPrice=" + data[0].mainProductPrice + "&memberNowCash=" + data[0].memberNowCash + "&subProductName=" + data[0].subProductName + "&subProductPrice=" + data[0].subProductPrice + "&subProductName2=" + data[1].subProductName + "&subProductPrice2=" + data[1].subProductPrice + "&subProductName3=" + data[2].subProductName + "&subProductPrice3=" + data[2].subProductPrice; 
-
-						}
 						//document.location.href ="/dsm/views/cash/payment.jsp?productNo="+data[0].productNo+"&imgFilePath="+data[0].imgFilePath+ "&productTitle="+data[0].productTitle + "&productContext=" + data[0].productContext + "&customerCode=" + data[0].customerCode + "&sellerCode=" + data[0].sellerCode + "&mainProductName=" + data[0].mainProductName + "&mainProductPrice=" + data[0].mainProductPrice + "&memberNowCash=" + data[0].memberNowCash + "&subProductName=" + data[0].subProductName + "&subProductPrice=" + data[0].subProductPrice; 
 				 	
 			/* 		$.ajax({

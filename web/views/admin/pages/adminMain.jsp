@@ -92,7 +92,7 @@
 				<div  class="col-lg-12">
 					<h1 class="page-header">홈페이지 관리</h1>
 					<div align = "right">
-					<a href="#" style = "width : 200px;  margin : 10px;" class="btn btn-default btn-block">갱신하기</a></div>
+					<a href="#" style = "width : 200px;  margin : 10px;" class="btn btn-default btn-block" id = "refreshPage">갱신하기</a></div>
 				</div>
 				<!-- /.col-lg-12 -->
 			</div>
@@ -358,7 +358,13 @@
 	<!-- /#wrapper -->
 
 
-
+	<script>
+		$(function(){
+			$("#refreshPage").click(function(){
+				location.href = "/dsm/refreshPage";
+			});
+		});
+	</script>
 
 
 
@@ -376,7 +382,7 @@
 	<!-- Morris Charts JavaScript -->
 	<script src="/dsm/views/admin/vendor/raphael/raphael.min.js"></script>
 	<script src="/dsm/views/admin/vendor/morrisjs/morris.min.js"></script>
-	<script src="/dsm/views/admin/data/morris-data.js"></script>
+	<script src="/dsm/views/admin/data/morris-data.js?ver=1"></script>
 
 	<!-- Custom Theme JavaScript -->
 	<script src="/dsm/views/admin/dist/js/sb-admin-2.js"></script>

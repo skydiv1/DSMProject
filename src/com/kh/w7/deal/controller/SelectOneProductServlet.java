@@ -37,28 +37,30 @@ public class SelectOneProductServlet extends HttpServlet {
 		
 		
 			
-			  HttpSession session = request.getSession();
-		      Member loginUser = (Member)session.getAttribute("loginUser");
-		      
-		      int memberCode = loginUser.getMemberCode();
-	     
-	     
-		      int productno = Integer.parseInt(request.getParameter("productno")); //6번 상품
-		      
-		      System.out.println("memberCode : " + memberCode);
-		      System.out.println("productNo : " + productno);
-		      
-		      
-		      ArrayList<Deal> list = new ArrayList<Deal>();
-		      Deal d = new Deal();
-		
-		      list = new DealService().selectOneProduct(memberCode, productno);
-		
-				System.out.println("serveltList : "+list);
-				
-				response.setContentType("application/json");
-				response.setCharacterEncoding("UTF-8");
-				new Gson().toJson(list, response.getWriter());
+		  HttpSession session = request.getSession();
+	      Member loginUser = (Member)session.getAttribute("loginUser");
+	      
+	      int memberCode = loginUser.getMemberCode();
+     
+     
+	      int productno = Integer.parseInt(request.getParameter("productno")); //6번 상품
+	      
+	      System.out.println("memberCode : " + memberCode);
+	      System.out.println("productNo : " + productno);
+	      
+	      
+	      ArrayList<Deal> list = new ArrayList<Deal>();
+	      Deal d = new Deal();
+	
+	      list = new DealService().selectOneProduct(memberCode, productno);
+	      
+	      session.setAttribute("payList", list);
+	      
+	      System.out.println("serveltList : "+list);
+			
+	      response.setContentType("application/json");
+	      response.setCharacterEncoding("UTF-8");
+	      new Gson().toJson(list, response.getWriter());
 
 		
 		
