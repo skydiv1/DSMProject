@@ -73,6 +73,34 @@ public class FaqService {
 	}
 	
 	
+	public int deleteFaq(int BoardNo) {
+		Connection con = getConnection();
+		
+		int result = new FaqDao().deleteFaq(con, BoardNo);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		return result;		
+	}
+
+	public int insertFaq(Board b) {
+		Connection con = getConnection();
+		
+		int result = new FaqDao().insertFaq(con, b);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		return result;
+	}
 	
 	
 	

@@ -79,7 +79,6 @@
                                             <button class="btn btn-default" onclick="location.href='<%=request.getContextPath()%>/selectFaqList.faq'">목록</button>
                                             <% if(loginUser != null && loginUser.getMemberName().equals(b.getMemberName())){ %>
                                                 <button class="btn btn-default" onclick="location.href='<%=request.getContextPath()%>/selectFaq.faq?num=<%=b.getBoardNo()%>'">수정</button>
-                                                <button class="btn btn-default" onclick="location.href='./faq.jsp'">삭제</button>
                                             <% } %>
                                         </div>
                                         <form action="" method="post" name="">

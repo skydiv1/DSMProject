@@ -72,7 +72,34 @@ public class QnaService {
 		return result;
 	}
 	
-	
+	public int deleteQna(int BoardNo) {
+		Connection con = getConnection();
+		
+		int result = new QnaDao().deleteQna(con, BoardNo);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		return result;		
+	}
+
+	public int insertQna(Board b) {
+		Connection con = getConnection();
+		
+		int result = new QnaDao().insertQna(con, b);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		return result;
+	}
 	
 	
 	

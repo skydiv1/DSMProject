@@ -16,61 +16,63 @@
             <!-- 네비게이션 바 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
             <br>
                 <br>
-                    <% if(loginUser != null ){ %>
-                        <div class="outer">
-                            <form action="<%= request.getContextPath() %>/insert.bo" method="post">
-                                <div class="container">
-                                    <caption>
-                                        <h1>게시글 작성</h1>
-                                    </caption>
-                                    <hr>
-                                        <div class="form-group">
-                                            <label>
-                                                <h3>제목 : &nbsp;</h3>
-                                            </label>
-                                            <h7>
-                                                <input name="title" placeholder="제목을 입력해 주세요" type="text"></h7>
-                                            </div>
-                                            <hr>
-                                                <td>
-                                                    <h4>
-                                                        <label>작성자 : &nbsp;</label>
-                                                        <span>
-                                                            <b>
-                                                                <%=loginUser.getMemberName()%></b>
-                                                        </span>
-                                                    </h4>
-                                                </td>
-                                                <input type="hidden" value="<%=loginUser.getMemberCode()%>" name="memberCode">
-                                                    <hr>
-                                                        <td align="center" width="76">작성일 :
-                                                        </td>
-                                                        <hr>
-                                                            <label>
-                                                                <h3>내용
-                                                                </h3>
-                                                            </label>
-                                                            <hr>
-                                                                <div class="form-group">
-                                                                    <textarea cols="60" name="content" name="context" placeholder="내용을 입력해 주세요" rows="15" type="context"></textarea>
-                                                                </div>
-                                                                <hr>
-                                                                    <div style="margin:0px 0px 0px 900px; margin-right:10px; ">
-                                                                        <button type="reset">취소하기</button>
-                                                                        <button type="submit">등록하기</button>
-                                                                    </div>
-                                                                    <br>
-                                                                        <hr>
-                                                                            <br></form>
-                                                                        </div>
-                                                                    </div>
-                                                                    <% }else{
-		request.setAttribute("msg", "잘못된 경로로 접근하셨습니다.");
-		request.getRequestDispatcher("../common/errorPage.jsp").forward(request, response);
-		
-	} %>
-                                                                    <!-- Footer -->
-                                                                    <%@ include file = "../common/footer.jsp" %>
-                                                                    <!-- footer 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-                                                                </body>
-                                                            </html>
+ <% if(loginUser != null ){ %>
+<div class="outer">
+    <form id="updateForm" method="post">
+        <div class="container">
+            <caption>
+                <h1>게시글 작성</h1>
+            </caption>
+            <hr>
+                    <label>
+                        <h3>제목 : &nbsp;</h3>
+                    </label>
+                    <h7>
+                        <input name="title" placeholder="제목을 입력해 주세요" type="text"></h7>
+                    <hr>
+                        <td>
+                            <h4>
+                                <label>작성자 : &nbsp;</label>
+                                <span>
+                                    <b>
+                                        <%=loginUser.getMemberName()%></b>
+			        </span>
+			    </h4>
+			</td>
+			<input type="hidden" value="<%=loginUser.getMemberCode()%>" name="memberCode">			
+			    <hr>
+			        <label>
+			            <h3>내용
+			            </h3>
+			        </label>
+			        <hr>
+			                <textarea cols="60" name="context" name="context" placeholder="내용을 입력해 주세요" rows="15" type="context"></textarea>
+			            <hr>
+			                <div style="margin:0px 0px 0px 900px; margin-right:10px; ">
+							<button class="btn btn-default" onclick="complet()">확인</button>
+							<button class="btn btn-default" onclick="cancel()">취소</button>
+							</div>
+			<br>
+			    <hr>
+			        <br>
+			    </div>
+			     <script>
+                function complet(){
+					$("#updateForm").attr("action", "<%=request.getContextPath()%>/insert.bo");
+				}
+                function cancel(){
+					$("#updateForm").attr("action", "<%=request.getContextPath()%>/selectList.bo");
+				}
+                </script>
+				</form>
+				</div>
+				<% }else{
+				request.setAttribute("msg", "잘못된 경로로 접근하셨습니다.");
+				request.getRequestDispatcher("../common/errorPage.jsp").forward(request, response);																	
+				} %>
+				
+				<!-- Footer -->
+				<%@ include file = "../common/footer.jsp" %>
+				<!-- footer 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+				    </body>
+				</html>

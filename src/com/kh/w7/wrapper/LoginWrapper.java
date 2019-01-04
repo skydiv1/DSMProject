@@ -1,4 +1,4 @@
-package com.kh.w7.wrapper;
+/*package com.kh.w7.wrapper;
 
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
@@ -45,3 +45,4 @@ public class LoginWrapper extends HttpServletRequestWrapper{ // Request로 생�
 	}
 	
 }
+*/

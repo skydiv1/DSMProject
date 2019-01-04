@@ -18,7 +18,7 @@
             <br>
                 <br>
                     <div class="container">
-                        <form>
+                        <form id="updateForm" method="post">
                             <div class="form-group">
                                 <label>
                                     <h2>글 수정</h2>
@@ -55,18 +55,19 @@
 					            <textarea cols="60" name="BoardContext" name="context" placeholder="내용을 입력해 주세요" rows="15" type="context"><%=b.getBoardContext()%></textarea>
 					        </div>  
                              <div style="margin:0px 0px 0px 850px; margin-right:10px; ">
-                                 <button class="btn btn-default onclick=" complet()"="complet()"">확인</button>
-                                 <button class="btn btn-default onclick=" deleteBoard()"="deleteBoard()"">삭제하기</button>
+                                 <button class="btn btn-default" onclick="complet()">확인</button>
+                                <button class="btn btn-default" onclick="deleteQna()">삭제하기</button>
                              </div>
                              <script>
                                  $(function complet() {
                                      $("#updateForm").attr("action", "<%=request.getContextPath()%>/updateQna.qna");
                                  });
-                                 $(function deleteBoard() {
+                                 $(function deleteQna() {
                                      $("#updateForm").attr("action", "<%=request.getContextPath()%>/deleteQna.qna");
                                  });
                              </script>
                          </div>
+                         </form>
                          <hr></div>
                      </div>
                      <!-- Footer -->

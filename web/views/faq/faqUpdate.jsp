@@ -21,7 +21,7 @@
             <h2>글 수정</h2>
         </label>
         <hr>
-        <form action="<%= request.getContextPath() %>/updateFaq.faq" method="post">
+       <form id="updateForm" method="post">
         <thead>
           <div class="form-group">
               <label>
@@ -60,14 +60,14 @@
             <textarea cols="60" name="BoardContext" name="context" placeholder="내용을 입력해 주세요" rows="15" type="context"><%=b.getBoardContext()%></textarea>
         </div>
         <div style="margin:0px 0px 0px 900px; margin-right:20px; ">
-            <button class="btn btn-default onclick=" complet()">확인</button>
-            <button class="btn btn-default onclick=" deleteboard()">삭제하기</button>
+           <button class="btn btn-default" onclick="complet()">확인</button>
+            <button class="btn btn-default" onclick="deleteFaq()">삭제하기</button>
         </div>
         <script>
             $(function complet() {
                 $("#updateForm").attr("action", "<%=request.getContextPath()%>/updateFaq.faq");
             });
-            $(function deleteBoard() {
+            $(function deleteFaq() {
                 $("#updateForm").attr("action", "<%=request.getContextPath()%>/deleteFaq.faq");
             });
         </script>

@@ -11,6 +11,7 @@
 	<%@ include file="../common/menubar.jsp"%>
 <!-- 네비게이션 바 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 <br><br>	
+ <% if(loginUser != null ){ %>
 			<div class="container">
 			
 			<form>
@@ -18,6 +19,15 @@
 			    <label ><h2>문의하기</h2></label>
 			    <input type="text" class="form-control"  placeholder="제목">
 			  </div>
+			  <td>
+              <h4>
+              <label>작성자 : &nbsp;</label>
+              <span>
+                 <b><%=loginUser.getMemberName()%></b>
+	          </span>
+		    </h4>
+			</td>
+			  <input type="hidden" value="<%=loginUser.getMemberCode()%>" name="memberCode">
 			  <hr>
 			  <div class="form-group">
 			  	<label ><h6>문의분류 : </h6></label>
@@ -31,12 +41,24 @@
 			  </div>
 			</form>
 			<div style="margin:0px 0px 0px 980px; margin-right:10px; ">	
-			  <button class="btn btn-default"  onclick="location.href='./qnaPosts.jsp'">등록</button>
-			  <button class="btn btn-default"  onclick="location.href='./QNA.jsp'">취소</button>
-			 </div> 
+			  <button class="btn btn-default" onclick="complet()">확인</button>
+			  <button class="btn btn-default" onclick="cancel()">취소</button>
+			 </div>
+			  <script>
+                function complet(){
+					$("#updateForm").attr("action", "<%=request.getContextPath()%>/insert.faq");
+				}
+                function cancel(){
+					$("#updateForm").attr("action", "<%=request.getContextPath()%>/selectFaqList.faq");
+				}
+                </script>
+				</form> 
 				<hr>
 			</div>	
-	</div>
+			<% }else{
+				request.setAttribute("msg", "잘못된 경로로 접근하셨습니다.");
+				request.getRequestDispatcher("../common/errorPage.jsp").forward(request, response);																	
+				} %>
 <!-- Footer -->
 		<%@ include file = "../common/footer.jsp" %>
 <!-- footer 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
