@@ -111,6 +111,7 @@ public class MypageService {
 
 		return deallist;
 	}
+	//판매자 대기자 목록 조회
 	public ArrayList<MyPage> selectWaitingList(int loginCode) {
 		Connection con  = getConnection(); 
 		
@@ -125,6 +126,7 @@ public class MypageService {
 
 		return waitlist;
 	}
+	//판매자 거절할때
 	public int cancelUpdateseller(int dealnum, String textContent) {
 		Connection con = getConnection();
 		
@@ -139,6 +141,22 @@ public class MypageService {
 		close(con);
 		
 		return result;
+	}
+	//판매자 구매진행 목록
+	public ArrayList<MyPage> selectdealprogressList(int loginCode) {
+		
+		Connection con  = getConnection(); 
+		
+		ArrayList<MyPage>progresslist = new MypageDao().selectdealprogressList(con, loginCode);
+		System.out.println("구매진행상황 list service:"+progresslist);
+		if(progresslist != null) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+
+		return progresslist;
 	}
 
 	

@@ -321,7 +321,7 @@ public class MypageDao {
 		return waitlist;
 	}
 
-
+	//판매자 거절
 	public int cancelUpdateseller(Connection con, int dealnum, String textContent) {
 		PreparedStatement pstmt = null;
 		int result =0;
@@ -343,6 +343,47 @@ public class MypageDao {
 		
 	
 		return result;
+	}
+
+	//판매자 구매진행 목록
+	public ArrayList<MyPage> selectdealprogressList(Connection con, int loginCode) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<MyPage> progresslist= null;
+		
+		String query = prop.getProperty("selectdealprogressList");
+		
+		try {
+			pstmt=con.prepareStatement(query);
+			
+			pstmt.setInt(1, loginCode);
+			
+			rset= pstmt.executeQuery();
+			
+			
+			progresslist = new ArrayList<MyPage>();
+			
+			while(rset.next()) {
+				MyPage m = new MyPage();
+				
+				m.setDealNo(rset.getInt("DEAL_NO"));
+				m.setMember_id(rset.getString("MEMBER_ID"));
+				m.setProductName(rset.getString("PRODUCT_NAME"));
+				m.setDealListaddMsg1(rset.getString("DEALLIST_ADDMESSAGE1"));
+				m.setDealListaddMsg2(rset.getString("DEALLIST_ADDMESSAGE2"));
+				m.setDealListCategory(rset.getInt("DEALLIST_CATEGORY"));
+				
+				progresslist.add(m);
+			}
+			System.out.println("구매진행상황 list dao:"+progresslist);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return progresslist;
 	}
 
 
