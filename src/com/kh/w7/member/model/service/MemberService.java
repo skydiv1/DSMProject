@@ -7,84 +7,76 @@ import com.kh.w7.member.model.vo.Member;
 import static com.kh.w7.common.JDBCTemplate.*;
 
 public class MemberService {
-	
+
 	public Member loginCheck(Member reqMember) {
 		Connection con = getConnection();
-		Member loginUser = new MemberDao().logincheck(con,reqMember);
+		Member loginUser = new MemberDao().logincheck(con, reqMember);
 		close(con);
 		return loginUser;
 	}
 
-	/*public int insertMember(Member reqMember) {
-		Connection con = getConnection();
-		
-		int result= new MemberDao().insertSel(con, reqMember);
-		int result2= new MemberDao().insertCon(con, reqMember);
-			
-		if(result>0) {
-			commit(con);
-		}else {
-			rollback(con);
-		}
-		close(con);
-		
-
-		return result;
-	}*/
+	/*
+	 * public int insertMember(Member reqMember) { Connection con = getConnection();
+	 * 
+	 * int result= new MemberDao().insertSel(con, reqMember); int result2= new
+	 * MemberDao().insertCon(con, reqMember);
+	 * 
+	 * if(result>0) { commit(con); }else { rollback(con); } close(con);
+	 * 
+	 * 
+	 * return result; }
+	 */
 	public int insertSel(Member reqMember) {
 		Connection con = getConnection();
-		
-		int result= new MemberDao().insertSel(con, reqMember);
-		
-			
-		if(result>0) {
+
+		int result = new MemberDao().insertSel(con, reqMember);
+
+		if (result > 0) {
 			commit(con);
-		}else {
+		} else {
 			rollback(con);
 		}
 		close(con);
-		
 
 		return result;
 	}
+
 	public int insertCon(Member reqMember) {
 		Connection con = getConnection();
-		
-		
-		int result= new MemberDao().insertCon(con, reqMember);
-			
-		if(result>0) {
+
+		int result = new MemberDao().insertCon(con, reqMember);
+
+		if (result > 0) {
 			commit(con);
-		}else {
+		} else {
 			rollback(con);
 		}
 		close(con);
-		
 
 		return result;
 	}
-	//아이디 중복검사
+
+	// 아이디 중복검사
 	public int idCheck(String memberId) {
-		Connection con= getConnection();
-		int result = new MemberDao().idCheck(con,memberId);
+		Connection con = getConnection();
+		int result = new MemberDao().idCheck(con, memberId);
 		close(con);
 		return result;
-		
-		
+
 	}
+
 	public int updateMember(Member reqMember) {
 		Connection con = getConnection();
-		
-		int result= new MemberDao().updateMember(con, reqMember);
-			
-		if(result>0) {
+
+		int result = new MemberDao().updateMember(con, reqMember);
+
+		if (result > 0) {
 			commit(con);
-		}else {
+		} else {
 			rollback(con);
 		}
-		close(con);	
-			
-		
+		close(con);
+
 		return result;
 	}
 
@@ -92,28 +84,27 @@ public class MemberService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
-	
+
 	public int leaveMember(int memberStatus) {
 		Connection con = getConnection();
-		int result = new MemberDao().leaveMember(con,memberStatus);
-		
-		if(result>0) {
+		int result = new MemberDao().leaveMember(con, memberStatus);
+
+		if (result > 0) {
 			commit(con);
-		}else {
+		} else {
 			rollback(con);
 		}
 		close(con);
-		
-		return memberStatus;
-		
+
+		return result;
+
 	}
 
 	public String find(String memberName, String memberEmail) {
-Connection con = getConnection();
-		
+		Connection con = getConnection();
+
 		String memberId = new MemberDao().findid(con, memberName, memberEmail);
-		
+
 		close(con);
 
 		return memberId;
@@ -121,20 +112,19 @@ Connection con = getConnection();
 
 	public int findpwd(String randomCode, String memberId, String memberEmail, String memberName) {
 		Connection con = getConnection();
-		
+
 		int findpwd = new MemberDao().findpwd(con, memberName, memberId, memberEmail, randomCode);
-		
-		if(findpwd>0) {
+
+		if (findpwd > 0) {
 			commit(con);
-		}else {
+		} else {
 			rollback(con);
 		}
-		
+
 		close(con);
-		
-		System.out.println("service result:"+findpwd);
+
+		System.out.println("service result:" + findpwd);
 		return findpwd;
 	}
-	
 
 }

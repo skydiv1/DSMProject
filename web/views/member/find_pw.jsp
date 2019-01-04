@@ -175,6 +175,7 @@ p {
 		}); */
 			
 		function pwdSearch() {
+			/* var memberPwd=$("#randomCode").val(); */
 			var randomCode=$("#randomCode").val();
 			var memberName = $("#memberName").val();
 			var memberId = $("#memberId").val();

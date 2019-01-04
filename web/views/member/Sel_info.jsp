@@ -107,7 +107,7 @@ form {
 						<label for="inputPassword3" class="col-sm-4 control-label">Confirm
 							Password</label>
 						<div class="col-sm-10">
-							<input type="password" class="form-control" id="memberpwd2"
+							<input type="password" class="form-control" id="memberPwd2"
 								name="memberPwd2" style="width: 550px" placeholder="Password">
 						</div>
 					</div>
