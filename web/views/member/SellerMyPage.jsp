@@ -87,10 +87,50 @@ function selectListWaiting(pg) {
 			}
 		});
 	}
+//구매진행 목록 ajax(수락이(0)랑 결제완료(3)보여줌)
+function selectListDealprogress(pg) {
+		
+		$.ajax({
+			url : "${pageContext.request.contextPath}/selectList.progress",
+			type :"get",
+			success : function (data) {
+				
+				var progressListHtml = [];
+				var no =0;
+				console.log(typeof(data[0].dealListCategory));
+				for(var i=0; i<data.length; i++){
+					progressListHtml.push('<tr>');
+					progressListHtml.push('	<th scope="row">' + (i+1) + '</th>');
+					progressListHtml.push('	<td class="td1" style="display: none">' +data[i].dealNo + '</td>');
+					progressListHtml.push('	<td class="td1">' +data[i].member_id + '</td>');
+					progressListHtml.push('	<td class="td1">' +data[i].productName+ '</td>');
+					progressListHtml.push('	<td class="td1">' +data[i].dealListaddMsg1 + '</td>');
+					progressListHtml.push('	<td class="td1">' +data[i].dealListaddMsg2 + '</td>');
+					/* var ct = data[i].dealListCategory;
+					 if(ct==1){
+						progressListHtml.push('	<td>' + 구매진행중 +'</td>');
+					}else{
+						progressListHtml.push('	<td>' + 구매완료  +'</td>');	
+					} 
+					progressListHtml.push('</tr>'); */
+					
+				}
+				$("#dealprogressList").html("");//이전틀 지우고
+				$("#dealprogressList").append(progressListHtml.join(""));//""를 기준으로 배열에 담긴 데이터 꺼내오기
+				
+				
+				 addBtnEvent();//버튼 함수 불러오기
+				 
+				 
+				 
+			}
+		});
+	}
 	
 //마이페이지 실행시에 뷰페이지 만들고 데이터 뿌려주는 ajax 메인(함수 호출 여기서)
 	$(function () {
 		selectListWaiting(1);
+		selectListDealprogress(1);
 		
 }); 
 </script>
@@ -202,31 +242,12 @@ function selectListWaiting(pg) {
 				      <th scope="col" class="td1">소비자ID</th>
 				      <th scope="col" class="td1">판매 상품명</th>
 				      <th scope="col" class="td1">추가신청 내용</th>
+				      <th scope="col" class="td1">수락 내용</th>
 				      <th scope="col">진행상황</th>
 				    </tr>
 				  </thead>
-				  <tbody>
-				    <tr>
-				      <th scope="row">1</th>
-				      <td class="td1">Mark</td>
-				      <td class="td1">Otto</td>
-				      <td class="td1">@mdo</td>
-				      <td>@mdo</td>
-				    </tr>
-				    <tr>
-				      <th scope="row">2</th>
-				      <td class="td1">Mark</td>
-				      <td class="td1">Otto</td>
-				      <td class="td1">@mdo</td>
-				      <td>@mdo</td>
-				    </tr>
-				    <tr>
-				      <th scope="row">3</th>
-				      <td class="td1">Mark</td>
-				      <td class="td1">Otto</td>
-				      <td class="td1">@mdo</td>
-				      <td>@mdo</td>
-				    </tr>
+				  <tbody id="dealprogressList">
+				   <!-- ajax도는 부분 -->
 				  </tbody>
 				</table>
          </div>
