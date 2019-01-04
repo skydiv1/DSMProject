@@ -37,6 +37,8 @@ public class RefreshPageServlet extends HttpServlet {
 		Admin ad = new Admin();
 		ad = new AdminService().refreshPage();
 		
+		System.out.println(ad);
+		
 		String page = "";
 		
 		if(ad != null) {

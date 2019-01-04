@@ -195,9 +195,9 @@ public class AdminService {
 		Connection con  = getConnection();
 		
 		Admin ad = new Admin();
-		
+		int result = new AdminDao().procedureHomePage(con);
 		ad = new AdminDao().refreshPage(con);
-		
+		System.out.println("프로시저result : " + result);
 		if(ad != null) {
 			commit(con);
 		}else {

@@ -20,11 +20,11 @@
 <title>DSM(Drone Service Market)</title>
 
 <!-- Bootstrap core CSS -->
-<link href="/dsm/vendor/bootstrap/css/bootstrap.min.css"
+<link href="/dsm/vendor/bootstrap/css/bootstrap.min.css?after"
 	rel="stylesheet">
 
 <!-- Custom fonts for this template -->
-<link href="/dsm/vendor/fontawesome-free/css/all.min.css"
+<link href="/dsm/vendor/fontawesome-free/css/all.min.css?after"
 	rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
 	rel="stylesheet" type="text/css">
@@ -182,7 +182,7 @@
 									onclick="location.href = '/dsm/views/cash/refunds.jsp?memberCode=<%= loginUser.getMemberCode()%>'">캐시환급</button></a>
 						<%}%>
 						 <% if(loginUser != null&& loginUser.getMemberAdmin() == 1) {%>
-		                     <a href="/dsm/views/admin/pages/adminMain.jsp"><button type="button" class="btn btn-light">관리자 페이지로 이동</button></a>
+		                     <a href="/dsm/refreshPage"><button type="button" class="btn btn-light">관리자 페이지로 이동</button></a>
 		                  <% }else{ %>
 		                            <% if(loginUser != null&& loginUser.getMemberCategory() == 0) {%>
 		                          <a href="GetIdinfo.me"><button type="button"

@@ -56,7 +56,7 @@
 			style="margin-bottom: 0">
 			<div class="navbar-header">
 				<a class="navbar-brand"
-					href="/dsm/views/admin/pages/adminMain.jsp">包府磊
+					href="/dsm/refreshPage">包府磊
 					其捞瘤</a>
 			</div>
 			<!-- /.navbar-header -->
