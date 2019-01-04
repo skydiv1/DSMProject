@@ -1,6 +1,7 @@
 package com.kh.w7.admin.model.service;
 
 import com.kh.w7.admin.model.dao.AdminDao;
+import com.kh.w7.admin.model.vo.Admin;
 import com.kh.w7.board.model.vo.Board;
 import com.kh.w7.member.model.vo.Member;
 import com.kh.w7.refund.model.vo.Refund;
@@ -187,6 +188,25 @@ public class AdminService {
 		
 		
 		return list;
+	}
+
+	public Admin refreshPage() {
+		// TODO Auto-generated method stub
+		Connection con  = getConnection();
+		
+		Admin ad = new Admin();
+		
+		ad = new AdminDao().refreshPage(con);
+		
+		if(ad != null) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		
+		return ad;
 	}
 
 }

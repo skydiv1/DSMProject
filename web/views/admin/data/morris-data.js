@@ -1,61 +1,61 @@
 $(function() {
 
-	 Morris.Area({
+	Morris.Area({
         element: 'morris-area-chart',
         data: [{
-            period: '2010 Q1',
-            iphone: 26660,
-            ipad: null,
-            itouch: 2647
+            period: '2016 Q1',
+            Member: 102,
+            Product: 53,
+            Deal: 21
         }, {
-            period: '2010 Q2',
-            iphone: 2778,
-            ipad: 2294,
-            itouch: 2441
+            period: '2016 Q2',
+            Member: 215,
+            Product: 113,
+            Deal: 71
         }, {
-            period: '2010 Q3',
-            iphone: 4912,
-            ipad: 1969,
-            itouch: 2501
+            period: '2016 Q3',
+            Member: 395,
+            Product: 209,
+            Deal: 199
         }, {
-            period: '2010 Q4',
-            iphone: 3767,
-            ipad: 3597,
-            itouch: 5689
+            period: '2016 Q4',
+            Member: 891,
+            Product: 403,
+            Deal: 301
         }, {
-            period: '2011 Q1',
-            iphone: 6810,
-            ipad: 1914,
-            itouch: 2293
+            period: '2017 Q1',
+            Member: 1305,
+            Product: 553,
+            Deal: 396
         }, {
-            period: '2011 Q2',
-            iphone: 5670,
-            ipad: 4293,
-            itouch: 1881
+            period: '2017 Q2',
+            Member: 1984,
+            Product: 891,
+            Deal: 887
         }, {
-            period: '2011 Q3',
-            iphone: 4820,
-            ipad: 3795,
-            itouch: 1588
+            period: '2017 Q3',
+            Member: 1504,
+            Product: 525,
+            Deal: 656
         }, {
-            period: '2011 Q4',
-            iphone: 15073,
-            ipad: 5967,
-            itouch: 5175
+            period: '2017 Q4',
+            Member: 2525,
+            Product: 1784,
+            Deal: 1253
         }, {
-            period: '2012 Q1',
-            iphone: 10687,
-            ipad: 4460,
-            itouch: 2028
+            period: '2018 Q1',
+            Member: 3685,
+            Product: 1984,
+            Deal: 1654
         }, {
-            period: '2012 Q2',
-            iphone: 8432,
-            ipad: 5713,
-            itouch: 1791
+            period: '2018 Q2',
+            Member: 3001,
+            Product: 1895,
+            Deal: 1692
         }],
         xkey: 'period',
-        ykeys: ['iphone', 'ipad', 'itouch'],
-        labels: ['iPhone', 'iPad', 'iPod Touch'],
+        ykeys: ['Member', 'Product', 'Deal'],
+        labels: ['Member', 'Product', 'Deal'],
         pointSize: 2,
         hideHover: 'auto',
         resize: true
@@ -64,14 +64,14 @@ $(function() {
     Morris.Donut({
         element: 'morris-donut-chart',
         data: [{
-            label: "Download Sales",
-            value: 12
+            label: "Customer Member",
+            value: 1202
         }, {
-            label: "In-Store Sales",
-            value: 30
+            label: "Seller Member",
+            value: 305
         }, {
-            label: "Mail-Order Sales",
-            value: 20
+            label: "Administer Member",
+            value: 18
         }],
         resize: true
     });

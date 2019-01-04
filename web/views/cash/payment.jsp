@@ -2,58 +2,11 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%-- <%
-		ArrayList<Deal> list = (ArrayList<Deal>)request.getAttribute("list");
+	<%
+	 	ArrayList<Deal> list = (ArrayList<Deal>)session.getAttribute("payList");
 		int totalPrice = 0;
-	%> --%>
-	<% String subProductName;
-		int subProductPrice;
-		String subProductName2;
-		int subProductPrice2;
-		String subProductName3;
-		int subProductPrice3;
-		int totalPrice = 0;%>
-		
-	<% int dealnum = Integer.parseInt(request.getParameter("dealnum")); %>
-	<% int sizeOfArray = Integer.parseInt(request.getParameter("sizeOfArray")); %>
-	<% int productNo=Integer.parseInt(request.getParameter("productNo")); %>
-	<% String imgFilePath = request.getParameter("imgFilePath"); %>
-	<% String productTitle = request.getParameter("productTitle"); %>
-	<% String productContext = request.getParameter("productContext"); %>
-	<% int customerCode=Integer.parseInt(request.getParameter("customerCode")); %>
-	<% int sellerCode=Integer.parseInt(request.getParameter("sellerCode")); %>
-	<% String mainProductName = request.getParameter("mainProductName"); %>
-	<% int mainProductPrice=Integer.parseInt(request.getParameter("mainProductPrice")); %>
-	<% int memberNowCash=Integer.parseInt(request.getParameter("memberNowCash")); %>
-	<% if(sizeOfArray == 1) {%>
-	<!--사이즈가 1일경우 서브 상품이 null이면 공백넣기 -->
-	
-	<% subProductName = request.getParameter("subProductName"); %>
-	<% subProductPrice=Integer.parseInt(request.getParameter("subProductPrice")); %>
-	<% if(subProductName == null) {
-		subProductName = "";
-		subProductPrice = 0;
-	} %>
-	
-	
-	<% }else if(sizeOfArray == 2){ %>
-	
-	<% subProductName = request.getParameter("subProductName"); %>
-	<% subProductPrice=Integer.parseInt(request.getParameter("subProductPrice")); %>
-	<% subProductName2 = request.getParameter("subProductNam2e"); %>
-	<% subProductPrice2=Integer.parseInt(request.getParameter("subProductPrice2")); %>
-	
-	<% }else if(sizeOfArray == 3){ %>
-	
-	<% subProductName = request.getParameter("subProductName"); %>
-	<% subProductPrice=Integer.parseInt(request.getParameter("subProductPrice")); %>
-	<% subProductName2 = request.getParameter("subProductName2"); %>
-	<% subProductPrice2=Integer.parseInt(request.getParameter("subProductPrice2")); %>
-	<% subProductName3 = request.getParameter("subProductName3"); %>
-	<% subProductPrice3=Integer.parseInt(request.getParameter("subProductPrice3")); %>
-	
-	<% } %>
-	
+	%>
+	<!-- ArrayList<Deal> list = (ArrayList<Deal>)session.getAttribute("payList"); -->
 	
 	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -95,9 +48,7 @@ table {
 	width: 100%;
 }
 </style>
-<script>
-totalPrice= 0;
-</script>
+
 </head>
 <body>
 	<%@ include file="../common/menubar.jsp"%>
@@ -122,12 +73,12 @@ totalPrice= 0;
 		<div style="border: 1px solid black; padding: 30px;">
 			<table>
 				<tr>
-					<td width = "20%" rowspan="3"><img src="<%= imgFilePath %>" alt="판매자 상품 이미지"></td>
-					<td><h4><%= productTitle %></h4></td>
+					<td width = "20%" rowspan="3"><img src="<%= list.get(0).getImgFilePath() %>" alt="판매자 상품 이미지"></td>
+					<td><h4><%= list.get(0).getProductTitle() %></h4></td>
 					<td></td>
 				</tr>
 				<tr>
-					<td rowspan="2"><%= productContext %><br></td>
+					<td rowspan="2"><%= list.get(0).getProductContext() %><br></td>
 					<td></td>
 
 				</tr>
@@ -142,9 +93,9 @@ totalPrice= 0;
 					<td>가격</td>
 				</tr>
 				<tr>
-					<td><%= mainProductName%><!-- 기본항목 이름 --></td>
+					<td><%= list.get(0).getMainProductName()%><!-- 기본항목 이름 --></td>
 					<td></td>
-					<td><%= mainProductPrice%><!-- 기본항목 가격 --></td>
+					<td><%= list.get(0).getMainProductPrice()%><!-- 기본항목 가격 --></td>
 				</tr>
 				<tr style="background: lightgray;">
 					<td style="font-weight: bold;">추가항목</td>
@@ -152,62 +103,18 @@ totalPrice= 0;
 					<td>가격</td>
 				</tr>
 				<%
-				totalPrice = mainProductPrice; 
+				totalPrice = list.get(0).getMainProductPrice(); 
 				
-				if(sizeOfArray == 1){ %>
+				for(int i = 0; i < list.size() ; i++){ %>
 				<tr>
-					<td><%= subProductName%><!-- 추가항목 이름 --></td>
+					<td><%= list.get(i).getSubProductName()%><!-- 추가항목 이름 --></td>
 					<td>
 						<!-- 예상소요일 -->
 					</td>
-					<td><%= subProductPrice%><!-- 추가금액 --></td>
-				</tr>
-				
-				<% 
-				totalPrice += subProductPrice;
-				} else if(sizeOfArray == 2){%>
-				
-				<tr>
-					<td><%= subProductName%><!-- 추가항목 이름 --></td>
-					<td>
-						<!-- 예상소요일 -->
-					</td>
-					<td><%= subProductPrice%><!-- 추가금액 --></td>
-				</tr>
-				<tr>
-					<td><%= subProductName2%><!-- 추가항목 이름 --></td>
-					<td>
-						<!-- 예상소요일 -->
-					</td>
-					<td><%= subProductPrice2%><!-- 추가금액 --></td>
+					<td><%= list.get(i).getSubProductPrice() %><!-- 추가금액 --></td>
 				</tr>
 				<% 
-				totalPrice = totalPrice +  subProductPrice + subProductPrice2;
-				} else if(sizeOfArray == 3){ %>
-				
-				<tr>
-					<td><%= subProductName%><!-- 추가항목 이름 --></td>
-					<td>
-						<!-- 예상소요일 -->
-					</td>
-					<td><%= subProductPrice%><!-- 추가금액 --></td>
-				</tr>
-				<tr>
-					<td><%= subProductName2%><!-- 추가항목 이름 --></td>
-					<td>
-						<!-- 예상소요일 -->
-					</td>
-					<td><%= subProductPrice2%><!-- 추가금액 --></td>
-				</tr>
-				<tr>
-					<td><%= subProductName3%><!-- 추가항목 이름 --></td>
-					<td>
-						<!-- 예상소요일 -->
-					</td>
-					<td><%= subProductPrice3%><!-- 추가금액 --></td>
-				</tr>
-				<% 
-				totalPrice = totalPrice +  subProductPrice + subProductPrice2 + subProductPrice3;
+				totalPrice += list.get(i).getSubProductPrice();
 				} %>
 			</table>
 
@@ -232,7 +139,7 @@ totalPrice= 0;
 				</tr>
 				<tr>
 					<td style="text-align: left; color: gray; font-weight: bold;">나의
-						보유 캐시 : <%= memberNowCash%><!-- 보유캐시 들어가는부분 -->
+						보유 캐시 : <%= list.get(0).getMemberNowCash()%><!-- 보유캐시 들어가는부분 -->
 					</td>
 					<td></td>
 					<td></td>
@@ -261,27 +168,29 @@ totalPrice= 0;
 		$(function(){
 			/* 결제버튼 클릭시 금액 계산해서 돈 있으면 결제 진행, 부족하면 alert창 띄우면서 돌아가기  */
 			$("#dealButton").click(function(){
-				if(<%= totalPrice%> < <%= memberNowCash%>){
+				if(<%= totalPrice%> < <%= list.get(0).getMemberNowCash()%>){
 					//가진금액이 더 많음
 					console.log("가진금액이 더 많음");
 					//거래 내용이 진행되며 저장되는 서블릿으로 이동
 					/*필요한게 1.소비자 코드(해당 소비자 캐시 변경), 2. 거래번호(신청 상태인것을 진행상태로 변경), 3. 판매자코드(해당 판매자의 캐시 변경) , 4. 거래금액(거래금액만큼 맴버들의 캐시를 변화시킴) */
 					$.ajax({
 						url : "<%= request.getContextPath()%>/updateDealCash",
-						data : {customerCode : <%= customerCode%>,
-								sellerCode : <%= sellerCode%>,
-								dealNo : <%= dealnum%>,
+						data : {customerCode : <%= list.get(0).getCustomerCode()%>,
+								sellerCode : <%= list.get(0).getSellerCode()%>,
+								dealNo : <%= list.get(0).getDealNo()%>,
 								totalPrice : <%= totalPrice%>,
-								nowCash : <%= memberNowCash%>},
+								nowCash : <%= list.get(0).getMemberNowCash()%>},
 						type : "post",
 						success : function(data){
 							if(data > 0){
 								swal("결제가 성공했습니다!", "ok버튼 클릭시 메인페이지로 이동합니다", "success").then((value) =>{
 									if(value = "ok"){
+										
 										location.href = "/dsm/index.jsp";
 									}
 								});
 							}else{
+								
 								location.href = "/dsm/views/common/errorPage.jsp";
 							}
 						},
@@ -289,7 +198,7 @@ totalPrice= 0;
 							console.log("실패!");
 						}
 					});
-					//location.href = "<%= request.getContextPath()%>/updateDealCash";
+					<%-- //location.href = "<%= request.getContextPath()%>/updateDealCash"; --%>
 					//인자로 전달해서 판매자, 소비자의 캐시가 업데이트 되도록하는 서블릿작성
 					
 				}else{
@@ -297,13 +206,18 @@ totalPrice= 0;
 					console.log("결제하려는 금액이 더 많을때");
 					swal("캐시가 부족합니다!", "버튼을 눌러 충전을 해주세요", "error").then((value) =>{
 						if(value = "ok"){
-							location.href = "/dsm/views/cash/cacheCharge.jsp";
+							location.href = '/dsm/selectUser.pa?memberCode=' + <%= loginUser.getMemberCode()%>;
+							
+							
+							
 						}
 						});
 				}
 			});
 		});
 	</script>
+
+
 
 
 	<%@ include file="../common/footer.jsp"%>
