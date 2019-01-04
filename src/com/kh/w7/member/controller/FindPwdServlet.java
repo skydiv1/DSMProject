@@ -47,13 +47,14 @@ public class FindPwdServlet extends HttpServlet {
 		String memberId = request.getParameter("memberId");
 		String memberEmail = request.getParameter("memberEmail");
 		String randomCode = request.getParameter("randomCode");
+		/*String memberPwd = request.getParameter("memberPwd");*/
 		
 		
 		System.out.println(memberName);
 		System.out.println(memberId);
 		System.out.println(memberEmail);
 		System.out.println(randomCode);
-		
+		/*System.out.println(memberPwd);*/
 		Properties p = new Properties();// 정보를 담을 객체
 		p.put("mail.smtp.user", "droneservicemarket@gmail.com");//본인 아이디
 		p.put("mail.smtp.host", "smtp.gmail.com"); 

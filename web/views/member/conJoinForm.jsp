@@ -190,42 +190,37 @@ form {
 
 	<script>
 	
-		function insertCon(){
+	function insertCon(){
+		var memberId=$("#memberId").val();
+		var memberPwd=$("#memberPwd").val();
+		var memberPwd2=$("#memberPwd2").val();			
+		var memberPwdCheck = /[a-zA-Z0-9]{7,15}/g;
+		memberPwdResult = memberPwdCheck.test(memberPwd);
 		
-			var memberId=$("#memberId").val();
-			var memberPwd=$("#memberPwd").val();
-			var memberPwd2=$("#memberPwd2").val();
-						
-			var memberPwdCheck = /[a-zA-Z0-9]{7,15}/g;
-			memberPwdResult = memberPwdCheck.test(memberPwd);
-			
-			if (($("#memberPwd").val() == "")) {
-				alert("비밀번호를 입력하세요.");
-			}
-			console.log(memberId);
-			if(memberPwdResult){
-				//alert("정상");
-			}
-			
-			if(memberPwd == memberPwd2){
-				//alert("일치");
-				$("#join").submit();
-				join.action = "<%=request.getContextPath()%>/insertCon.me";
-				<%-- location.href = "<%=request.getContextPath()%>/insertMember.me"; --%>
-				
-			}else{
-				alert("비밀번호가 일치하지 않습니다. 비밀번호를 다시 확인해주세요.");
-				return false;
-			}
-			
-				
-				
+		if (($("#memberPwd").val() == "")) {
+			alert("비밀번호를 입력하세요.");
 		}
-			
-				  	
-
+		console.log(memberId);
+		if(memberPwdResult){
+			//alert("정상");
+		}
 		
-		function goMain() {
+		if(memberPwd == memberPwd2){
+			alert("가입이 완료되었습니다.");
+			$("#join").submit();
+			join.action = "<%=request.getContextPath()%>/insertCon.me";
+			<%-- location.href = "<%=request.getContextPath()%>/insertMember.me"; --%>
+			
+		}else{
+			alert("비밀번호가 일치하지 않습니다. 비밀번호를 다시 확인해주세요.");
+			return false;
+		}
+		
+			
+			
+	}
+
+	function goMain() {
 			location.href="<%=request.getContextPath()%>/index.jsp";			
 		}		
 
@@ -253,7 +248,7 @@ form {
 					if(data == "success"){ // 서블릿에서 처리
 						alert("중복 된 아이디 입니다");
 					}else if(data == "fail"){
-						alert("사용 가능 한 아이디 입니다.");
+						alert("사용이 가능한 아이디 입니다.");
 					}
 				},
 				error: function (data) {
