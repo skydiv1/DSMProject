@@ -32,7 +32,8 @@
 				<input type="hidden" id="customerCode" name="customerCode"> <!-- 소비자코드 -->
 				<input type="hidden" id="sellerCode" name="sellerCode"> <!-- 판매자코드 -->
 				<input type="hidden" id="dealPrice" name="dealPrice"> <!-- 기본 거래금액 -->
-				<input type="hidden" id="dealOptionPrice" name="dealOptionPrice"> <!-- 기본 거래금액 --> --%>   
+				<input type="hidden" id="dealOptionPrice" name="dealOptionPrice"> <!-- 기본 거래금액 --> 
+				<input type="hidden" id="totalPrice" name="totalPrice"> <!-- 전체 금액 -->
 				<button type="reset" class="btn btn-secondary" style="width:200px" data-dismiss="modal">취소</button>
 				<button type="submit" id="submitForm" class="btn btn-warning" style="width: 200px">보내기</button>		
 	        </div>

@@ -46,6 +46,9 @@ public class SelectProductServlet extends HttpServlet {
 		//PlusProduct plusProduct = (PlusProduct)hmap.get("plusProduct");
 		ArrayList<PlusProduct> pList = (ArrayList<PlusProduct>)hmap.get("plusProduct");
 		ArrayList<Attachment> fileList = (ArrayList<Attachment>)hmap.get("attachment");
+
+		System.out.println("pList (servlet) : "+pList);
+		System.out.println("fileList (servlet) : "+fileList);
 		
 		String page = "";
 		if(hmap != null) {

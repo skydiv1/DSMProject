@@ -34,8 +34,7 @@ public class ReviewDao {
 		ResultSet rset = null;
 		ArrayList<Review> reviewList = null;
 
-		// String query = prop.getProperty("selectList");
-		String query = prop.getProperty("selectListl");
+		String query = prop.getProperty("selectList");
 		//String query = "SELECT R.REVIEW_NO, R.PRODUCT_NO, R.MEMBER_CODE, M.MEMBER_ID, R.REVIEW_CONTEXT, R.REVIEW_DATE, R.REVIEW_GRADE, R.REVIEW_DELETEYN FROM REVIEW R INNER JOIN MEMBER M ON (R.MEMBER_CODE=M.MEMBER_CODE) WHERE PRODUCT_NO=?";
 		// TO_CHAR(R.REVIEW_DATE, 'YYYYMMDD HH24:MI:SS') AS REVIEW_DATE : IllegalArgumentException 오류발생
 		

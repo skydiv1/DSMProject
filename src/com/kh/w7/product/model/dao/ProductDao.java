@@ -398,21 +398,21 @@ public class ProductDao {
 		PlusProduct plusProduct = null;
 		ArrayList<Attachment> list = null;
 		ArrayList<PlusProduct> plist = null;
+
+		HashMap<String, Object> queryMap = new HashMap<String, Object>();
+		String query = prop.getProperty("selectImageOne"); // 이미지
+		String query2 = prop.getProperty("selectPlusProductOne"); // 추가상품
 		
-		String query = prop.getProperty("selectImageOne");
 		try {
+			// Attachment -----------------------------------------
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, num);
 		
 			rset = pstmt.executeQuery();
-			ResultSetMetaData rsmd = rset.getMetaData();
-			int columnCount = rsmd.getColumnCount();
-			System.out.println("columnCount(rset 개수) : " + columnCount);
-			list = new ArrayList<Attachment>(); // 초기화 
-			plist = new ArrayList<PlusProduct>(); 
 			
-			int count=0; // plusProduct: 3번까지만 들어가게 막아줘야 한다.
-			while(rset.next()) { // 꺼낼 때는 product 6개(덮어쓰기로 결과적으로 1개) attachment 6개
+			list = new ArrayList<Attachment>();
+			
+			while(rset.next()) { 
 				product = new Product();
 				product.setProductNo(rset.getInt("PRODUCT_NO"));
 				product.setMemberCode(rset.getInt("MEMBER_CODE"));
@@ -427,37 +427,6 @@ public class ProductDao {
 				member = new Member();
 				member.setMemberId(rset.getString("MEMBER_ID"));
 				
-//				if(rset.last()) { // rset 이 마지막일때 실행
-/*					for(int i=0; i<columnCount; i=i+columnCount) {
-						plusProduct = new PlusProduct();
-						plusProduct.setProductNo(rset.getInt("PRODUCT_NO"));
-						plusProduct.setPlusProductItem(rset.getString("PLUSPRODUCT_ITEM"));
-						plusProduct.setPlusProductPrice(rset.getInt("PLUSPRODUCT_PRICE"));
-						plist.add(plusProduct);	
-					}*/
-//				}
-				if(count==5) {
-					plusProduct = new PlusProduct();
-					plusProduct.setProductNo(rset.getInt("PRODUCT_NO"));
-					plusProduct.setPlusProductItem(rset.getString("PLUSPRODUCT_ITEM"));
-					plusProduct.setPlusProductPrice(rset.getInt("PLUSPRODUCT_PRICE"));
-					plist.add(plusProduct);	
-				}else if(count==11) {
-					plusProduct = new PlusProduct();
-					plusProduct.setProductNo(rset.getInt("PRODUCT_NO"));
-					plusProduct.setPlusProductItem(rset.getString("PLUSPRODUCT_ITEM"));
-					plusProduct.setPlusProductPrice(rset.getInt("PLUSPRODUCT_PRICE"));
-					plist.add(plusProduct);					
-				}else if(count==17) {
-					plusProduct = new PlusProduct();
-					plusProduct.setProductNo(rset.getInt("PRODUCT_NO"));
-					plusProduct.setPlusProductItem(rset.getString("PLUSPRODUCT_ITEM"));
-					plusProduct.setPlusProductPrice(rset.getInt("PLUSPRODUCT_PRICE"));
-					plist.add(plusProduct);					
-				}else {
-					System.out.println("count 안들어 가는.. "+count);
-				}
-				
 				at = new Attachment();
 				at.setImgNo(rset.getInt("IMG_NO"));
 				at.setOriginName(rset.getString("ORIGINNAME"));
@@ -468,13 +437,31 @@ public class ProductDao {
 				at.setImgLevel(rset.getInt("IMG_LEVEL"));
 				at.setImgFilePath(rset.getString("IMG_FILEPATH"));
 				at.setImgDelete(rset.getInt("IMG_DELETE"));
-
 				list.add(at);
-				
-				count++;
 			}
-			System.out.println("몇 번 카운트 됐는지 확인: "+count);	
+			System.out.println("DAO 이미지 리스트 : " + list);
+						
 			
+			// PlusProduct -----------------------------------------
+			pstmt = con.prepareStatement(query2);
+			pstmt.setInt(1, num);
+		
+			rset = pstmt.executeQuery();
+			
+			plist = new ArrayList<PlusProduct>(); 
+			
+			while(rset.next()) {
+				plusProduct = new PlusProduct();
+				plusProduct.setProductNo(rset.getInt("PRODUCT_NO"));
+				plusProduct.setPlusProductItem(rset.getString("PLUSPRODUCT_ITEM"));
+				plusProduct.setPlusProductPrice(rset.getInt("PLUSPRODUCT_PRICE"));
+				plist.add(plusProduct);	
+			}
+			System.out.println("DAO 추가상품 리스트 : " + plist);
+			
+			
+			
+			// hashMap에 담기 -----------------------------
 			hmap = new HashMap<String, Object>();
 			
 			hmap.put("product", product);
