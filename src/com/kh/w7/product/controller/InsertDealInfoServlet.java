@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.w7.deal.model.vo.Deal;
+import com.kh.w7.deal.model.vo.DealList;
 import com.kh.w7.product.model.service.DealService;
 
 /**
@@ -40,6 +41,10 @@ public class InsertDealInfoServlet extends HttpServlet {
 		System.out.println("판매자 번호(서블릿) : "+sellerCode);
 		int dealPrice = Integer.parseInt(request.getParameter("dealPrice"));
 		System.out.println("상품 가격(서블릿) : "+dealPrice);
+		String requestText = request.getParameter("requestText");
+		System.out.println("신청 내용(서블릿) : "+requestText);
+		int additionalOption = Integer.parseInt(request.getParameter("additionalOption"));
+		System.out.println("총 상품 가격(서블릿) : "+additionalOption);
 //		int dealOptionPrice = Integer.parseInt(request.getParameter("dealOptionPrice"));
 //		System.out.println("상품 번호(서블릿) : "+dealOptionPrice);
 		
@@ -49,9 +54,13 @@ public class InsertDealInfoServlet extends HttpServlet {
 		deal.setSellerCode(sellerCode);
 		deal.setMainProductPrice(dealPrice);
 		//deal.setSubProductPrice(dealOptionPrice);
+				
+		DealList dealList = new DealList();
+		dealList.setAddmessage1(requestText);
 		
-		int result = new DealService().insertDeal(deal);
-		System.out.println("deal : "+deal);
+		int result = new DealService().insertDeal(deal, dealList);
+		System.out.println("deal(서블릿) : "+deal);
+		System.out.println("dealList(서블릿) : "+dealList);
 		
 		String page = "";
 		if(result>0) {
