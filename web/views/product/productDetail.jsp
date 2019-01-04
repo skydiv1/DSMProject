@@ -149,7 +149,7 @@
 			<td>
 				<div align="left" class="dropdown"
 					style="padding-right: 10%; margin-left: 5%;">
-					<select class="btn btn-outline-secondary" id="additionalOption" >
+					<select class="btn btn-outline-secondary" id="additionalOption" name="additionalOption">
 						<option value="0" selected>추가옵션(선택)</option>
 						<% for(PlusProduct p : pList){ %>
 							<option value="<%=p.getPlusProductPrice()%>"><span><%=p.getPlusProductItem()%></span> : <span><%=p.getPlusProductPrice()%></span>원
@@ -446,42 +446,39 @@
 					}
 				} --%>
 			});
-		});
 			
-				
-				
-				
-			<%-- $(function () {
-				/* 상품 신청 버튼 클릭 시 추가 항목 가격 합산하여 전송 */
-				$("#additionalOption").change(function () {
-					var totalPrice=0;
-					for(var i=0; i<<%=pList.size()%>; i++){
-						if($("#additionalOption").val() == "<%=pList.get(i).getPlusProductPrice()%>"){
-							totalPrice = (<%=pList.get(i).getPlusProductPrice()%> + <%= product.getProductItemPrice() %>)
-							$("#dealOptionPrice").val(totalPrice);
-						}
+			
+			/* 상품 신청 버튼 클릭 시 추가 항목 가격 합산하여 전송 */
+			$("#additionalOption").change(function () {
+				var totalPrice=0;
+				<%-- for(var i=0; i<<%=pList.size()%>; i++){
+					if($("#additionalOption").val() == "<%=pList.get(i).getPlusProductPrice()%>"){
+						totalPrice = (<%=pList.get(i).getPlusProductPrice()%> + <%= product.getProductItemPrice() %>)
+						$("#dealOptionPrice").val(totalPrice);
 					}
-				});
-			}); --%>
+				} --%>
 				if($("#additionalOption").val() == "<%=pList.get(0).getPlusProductPrice()%>"){
 					totalPrice = (<%=pList.get(0).getPlusProductPrice()%> + <%= product.getProductItemPrice() %>)
-					$("#dealOptionPrice").val(totalPrice);
+					$("#additionalOption").val(totalPrice);
 				}else if($("#additionalOption").val() == "<%=pList.get(1).getPlusProductPrice()%>"){
 					totalPrice = (<%=pList.get(1).getPlusProductPrice()%> + <%= product.getProductItemPrice() %>)
-					$("#dealOptionPrice").val(totalPrice);
+					$("#additionalOption").val(totalPrice);
 				}else if($("#additionalOption").val() == "<%=pList.get(2).getPlusProductPrice()%>"){
 					totalPrice = (<%=pList.get(2).getPlusProductPrice()%> + <%= product.getProductItemPrice() %>)
-					$("#dealOptionPrice").val(totalPrice);
-				}else if($('#dealOptionPrice option:selected').val()==""){
-					$("#dealOptionPrice option:eq(0)").prop("selected", true);
+					$("#additionalOption").val(totalPrice);
+				}else if($('#additionalOption option:selected').val()==""){
+					$("#additionalOption option:eq(0)").prop("selected", true);
 					totalPrice = <%= product.getProductItemPrice() %>
-					$("#dealOptionPrice").val(totalPrice);
+					$("#additionalOption").val(totalPrice);
 				}
-				var count=$('#dealOptionPrice option:selected').val(); 
-				if(count==0){
-					totalPrice = <%= product.getProductItemPrice() %>
-					$("#totalPrice").text(totalPrice);
-				}
+			});
+			
+			var count=$('#additionalOption option:selected').val(); 
+			if(count==0){
+				totalPrice = <%= product.getProductItemPrice() %>
+				$("#totalPrice").text(totalPrice);
+			}
+		}); 
 	</script>
 	
 	<script>
@@ -489,8 +486,8 @@
 			$("#formList").attr("action", "<%=request.getContextPath()%>/noticeResist.pr");
 		});
 
-		/* 신청하기 버튼 */
 		$(function() {
+			/* 신청하기 버튼 */
 			$("#requestForm1").click(function() {
 				alert("판매자는 이용하실 수 없습니다.");
 			});
@@ -507,7 +504,7 @@
 				var customerCode = $("#customerCode").val("<%=loginUser.getMemberCode()%>");
 				var sellerCode = $("#sellerCode").val("<%=product.getMemberCode()%>");
 				var dealPrice = $("#dealPrice").val("<%=product.getProductItemPrice()%>");
-				alert(productNo.val()+", "+customerCode.val()+", "+sellerCode.val()+", "+dealPrice.val()); // 상품 코드를 팝업에 보내 저장
+				//alert(productNo.val()+", "+customerCode.val()+", "+sellerCode.val()+", "+dealPrice.val()); // 상품 코드를 팝업에 보내 저장
 <%-- 				var dealOptionPrice = $("#dealOptionPrice").val("<%=product.getProductNo()%>"); --%>
 				//console.log(dealOptionPrice.val()); // 상품 코드를 팝업에 보내 저장
 				
