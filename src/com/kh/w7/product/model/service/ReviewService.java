@@ -22,4 +22,14 @@ public class ReviewService {
 		return reviewList;
 	}
 
+	public ArrayList<Review> selectAllReviewList(int memberCode) {
+		Connection con = getConnection();
+		
+		ArrayList<Review> reviewList = new ReviewDao().selectAllReviewList(con, memberCode);
+		
+		close(con);	
+		
+		return reviewList;
+	}
+
 }

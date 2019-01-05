@@ -86,7 +86,8 @@ public class SelectListServlet extends HttpServlet {
 		String page = "";
 		if(list != null) { // 사용자에게 리스트를 넘겨줘야 함 request로 forward 해야한다.
 			request.setAttribute("list", list);
-			request.setAttribute("pi", pi);		
+			request.setAttribute("pi", pi);	
+			request.getSession().setAttribute("sessionList", list);
 			
 			page="views/product/productList.jsp";
 		}else {

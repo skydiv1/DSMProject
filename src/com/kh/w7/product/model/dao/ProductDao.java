@@ -514,6 +514,8 @@ public class ProductDao {
 		} finally {
 			close(pstmt);
 		}
+
+		// 화면이 넘어가지 않는 문제 (result는 1증가)
 		System.out.println("result(updateThumbnailContent) 업데이트 확인 : "+result);
 		return result;
 	}

@@ -74,4 +74,49 @@ public class ReviewDao {
 		return reviewList;
 	}
 
+	public ArrayList<Review> selectAllReviewList(Connection con, int memberCode) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Review> reviewList = null;
+
+		String query = prop.getProperty("selectList");
+		//String query = "SELECT R.REVIEW_NO, R.PRODUCT_NO, R.MEMBER_CODE, M.MEMBER_ID, R.REVIEW_CONTEXT, R.REVIEW_DATE, R.REVIEW_GRADE, R.REVIEW_DELETEYN FROM REVIEW R INNER JOIN MEMBER M ON (R.MEMBER_CODE=M.MEMBER_CODE) WHERE PRODUCT_NO=?";
+		// TO_CHAR(R.REVIEW_DATE, 'YYYYMMDD HH24:MI:SS') AS REVIEW_DATE : IllegalArgumentException 오류발생
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, memberCode);
+
+			rset = pstmt.executeQuery();
+			
+			reviewList = new ArrayList<Review>();
+
+			int i=0;
+			while (rset.next()) {
+				Review review = new Review();
+				review.setReviewNo(rset.getInt("REVIEW_NO"));
+				review.setProductNo(rset.getInt("PRODUCT_NO"));
+				review.setMemberCode(rset.getInt("MEMBER_CODE"));
+				review.setReviewContext(rset.getString("REVIEW_CONTEXT"));
+				review.setReviewDate(rset.getDate("REVIEW_DATE"));
+				review.setReviewGrade(rset.getInt("REVIEW_GRADE"));
+				review.setReviewDeleteYN(rset.getInt("REVIEW_DELETEYN"));
+				review.setMemberId(rset.getString("MEMBER_ID"));
+
+				reviewList.add(review);
+				i++;
+				System.out.println(i);
+			}
+			System.out.println("i는? "+i);
+			System.out.println("ReviewDao(selectList) :  "+reviewList);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return reviewList;
+	}
+
 }

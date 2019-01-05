@@ -148,21 +148,24 @@ public class ProductService {
 
 	/* 상품 업데이트 - 이미지 */
 	public int updateThumbnail(Product product, ArrayList<Attachment> fileList, int num, Attachment at) {
+		System.out.println("서비스로 넘어오는지 확인!!!");
 		Connection con = getConnection();
 		int result = 0;
 		
 		int result1= new ProductDao().updateThumbnailContent(con, product, num); // product 내용만 insert / 부모 테이블 먼저 insert 해야 한다.
-		
+		System.out.println("result1 서비스 : "+result1);
 		/* 이미지 업데이트 */
 		//ArrayList<Attachment> imgList = new ArrayList<Attachment>();
-		for(int i=0; i<fileList.size(); i++){
+		System.out.println("updateThumbnail(서비스) for문 전");
+		for(int i=fileList.size()-1; i>=0; i--){
 			at = new Attachment();
 			fileList.get(i).getImgNo();
 			fileList.get(i).getChangeName();
 			fileList.get(i).getImgFilePath();
 			fileList.add(at);	
-			//System.out.println("(서비스)이미지 업데이트 몇 번 반복 되는지.. "+i);
+			System.out.println("(서비스)이미지 업데이트 몇 번 반복 되는지.. "+i);
 		}
+		System.out.println("updateThumbnail(서비스) for문 후");
 		System.out.println("fileList.size(서비스) : "+fileList.size());
 		System.out.println("▶ service에서 이미지 리스트 값 확인 : "+fileList);
 		int result2 = new ProductDao().updateAttachment(con, fileList, num);
@@ -187,9 +190,9 @@ public class ProductService {
 		Connection con = getConnection();
 		int result = 0;
 
-		int result1= new ProductDao().updateThumbnailContent(con, product,num); // product 내용만 insert / 부모 테이블 먼저 insert 해야 한다.
+		//int result1= new ProductDao().updateThumbnailContent(con, product,num); // product 내용만 insert / 부모 테이블 먼저 insert 해야 한다.
 
-		System.out.println("result1  :  "+result1);
+		//System.out.println("result1  :  "+result1);
 
 		int result2 =0;
 		//String item[]= new String[pList.size()];
@@ -203,7 +206,7 @@ public class ProductService {
 		System.out.println("pList: "+pList);
 		
 		// 트랜젝션 처리
-		if(result1>0 && result2>0) { // 둘 다 양수여야 리턴할 수 있음
+		if( result2>0) { // 둘 다 양수여야 리턴할 수 있음
 			commit(con);
 			result = 1; // 대표값으로 바꿔준다. (2,3, ... 어떤 값이 올지 모른다.) 
 		}else {

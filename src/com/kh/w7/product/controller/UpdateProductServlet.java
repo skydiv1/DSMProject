@@ -119,19 +119,22 @@ public class UpdateProductServlet extends HttpServlet {
 			String[] multiAdditionalPrice = multiRequest.getParameterValues("additionalPrice");
 			String[] multiFixedItem = multiRequest.getParameterValues("fixedItem");
 			String[] multiFixedPrice = multiRequest.getParameterValues("fixedPrice");
-			for(int i=0; i<multiAdditionalPrice.length; i++) {
+			
+	/*		for(int i=0; i<multiAdditionalPrice.length; i++) {
 				System.out.println("JSP multiAdditionalItem[i] : " + multiAdditionalItem[i]);
 				System.out.println("JSP multiAdditionalPrice[i] : " + multiAdditionalPrice[i]);
 				System.out.println("JSP multiFixedItem[i] : " + multiFixedItem[i]);
 				System.out.println("JSP multiFixedPrice[i] : " + multiFixedPrice[i]);
 				System.out.println("(서블릿)추가항목 값 jsp에서 가져오기: 몇 번 반복 되는지.. "+i);
-			}
+			}*/
 			
 			int[] additionalPriceArr = new int[multiAdditionalPrice.length];
 			int[] fixedPriceArr = new int[multiFixedPrice.length];
+			//System.out.println("서블릿 길이확인 : "+multiFixedPrice[0].toString().trim());
+			//System.out.println("서블릿 길이확인 : "+multiFixedPrice[1].toString().trim());
 			for(int i=0; i<multiAdditionalPrice.length; i++) {
 				additionalPriceArr[i] = Integer.parseInt(multiAdditionalPrice[i]);
-				fixedPriceArr[i] = Integer.parseInt(multiFixedPrice[i]);
+				//fixedPriceArr[i] = Integer.parseInt(multiFixedPrice[i].toString().trim());
 				System.out.println("(서블릿)additionalPriceArr: 몇 번 반복 되는지.. "+i);
 			}
 			
@@ -189,12 +192,14 @@ public class UpdateProductServlet extends HttpServlet {
 			}
 						
 			int result2 = new ProductService().updatePlusProduct(product, pList, num, fixedpList);
-						
+			
+			System.out.println("result2(서블릿) : "+result2);
 			// Attachment 객체 생성하여 ArrayList 객체 생성
 			ArrayList<Attachment> fileList = new ArrayList<Attachment>();
 			
 			// 반복문을 통해 거꾸로 넘어온 파일들을 다시 역순으로 바꿔준다.
 			Attachment at = null;
+			System.out.println("for문 시작 전");
 			for(int i=originFiles.size()-1; i>=0; i--) {
 				at = new Attachment();
 				at.setProductNo(num);
@@ -204,9 +209,11 @@ public class UpdateProductServlet extends HttpServlet {
 				at.setChangeName(multiChangeImgs[i]);
 				// 세션으로 작성자를 가져온다.
 				at.setMemberCode(Integer.parseInt(String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getMemberCode())));
-								
+
+				System.out.println("for문 시작 중" + i);
 				fileList.add(at);
 			}			
+			System.out.println("for문 시작 전");
 			System.out.println("fileList(servlet) : "+fileList);
 			
 			int result1 = new ProductService().updateThumbnail(product, fileList, num, at);

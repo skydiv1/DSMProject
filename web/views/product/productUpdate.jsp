@@ -389,6 +389,7 @@ input[type="number"]::-webkit-inner-spin-button{
 						+'</div>'
 						+'</div>'
 						+'<input name="additionalItem" type="text" class="form-control" aria-label="Text input with radio button">'
+						+'<input name="fixedItem" type="hidden">'
 						+'</div>'
 						+'</td>'
 						+'<td width="50%">'
@@ -396,7 +397,8 @@ input[type="number"]::-webkit-inner-spin-button{
 						+'<div class="input-group-prepend">'
 						+'<span class="input-group-text">￦</span>'
 						+'</div>'
-						+'<input name="additionalPrice" type="number" class="form-control" aria-label="Amount (to the nearest dollar)" onkeydown="javascript: return event.keyCode == 69 ? false : true">'
+						+'<input name="additionalPrice" type="number" class="form-control" aria-label="Amount (to the nearest dollar)"  onkeydown="javascript: return event.keyCode == 69 ? false : true">'
+						+'<input name="fixedPrice" type="hidden">'
 						+'<div class="input-group-append">'
 						+'<span class="input-group-text">.00</span>'
 						+'</div>'
@@ -405,6 +407,7 @@ input[type="number"]::-webkit-inner-spin-button{
 						+'</tr>');
 		    		cnt++;
     				console.log("cnt: "+cnt);
+    				
 				}else if(cnt>=3){
 					alert("추가 항목은 최대 세 개까지 등록이 가능합니다.");
 					cnt=3;

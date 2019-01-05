@@ -6,6 +6,8 @@
 	//ArrayList<Product> list = (ArrayList<Product>)request.getAttribute("list");
 	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>)request.getAttribute("list");
 
+// 	ArrayList<HashMap<String, Object>> sessionList = (ArrayList<HashMap<String, Object>>)session.getAttribute("sessionList");
+	
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	// 미리 값을 꺼내서 저장해서 사용 (매번 꺼내서 사용하는 불편함을 줄이기 위함)
 	int listCount = pi.getListCount(); // 전체 개수
