@@ -25,34 +25,49 @@
 <script type="text/javascript">
 function addBtnEvent() {
 
+	   //대기자 목록에서 거절하기버튼 누를때
+	  $("#cBtn").click(function () {
+		  var no = $(this).parent().parent().children().eq(1).text();
+			$("#dealnum").val(no);
+			
+	  });
+	 
+	
 	//취소 팝업에 있는 보내기 버튼 누를때
 	  $("#cancelBtn").click(function () {
-		  var textContent = $("#textContent").val();//신청사유
+		  var textContent = $("#textContent").val();//신청취소사유
 			var dealnum = $("#dealnum").val();
+		  
+			console.log("textContent:"+textContent);
+			console.log("dealnum:"+dealnum);
 			$.ajax({
 				url:"${pageContext.request.contextPath}/cancelupdate.seller",
 				type : "get",
 				data : {dealnum:dealnum, textContent:textContent},
 				success : function (data) {
 					selectListWaiting();
-					//취소목록
+					 selectListCencelseller();
 				}
 			});
 	  });
-	  //대기자 목록에서 거절하기버튼 누를때
-	  $("#cBtn").click(function () {
-		  var no = $(this).parent().parent().children().eq(1).text();
-			$("#dealnum").val(no);
-	  });
 	 
+	  //대기자 목록에서 수락하기버튼 누를때
+	  $("#agBtn").click(function () {
+		  var no = $(this).parent().parent().children().eq(1).text();
+			$("#agreedealnum").val(no);
+	  });
+	  
+	  
 	  //수락 팝업에 있는 보내기 버튼 누를때
 	    $("#agreeBtn").click(function () {
-		var textContent = $("#textContent").val();//수락 추가사유
-		var dealnum = $("#dealnum").val();
+		var agreeMsg = $("#agreeMsg").val();//수락 추가사유
+		var agreedealnum = $("#agreedealnum").val();
+		console.log("agreeMsg:"+agreeMsg);
+		console.log("agreedealnum:"+agreedealnum);
 		$.ajax({
 			url:"${pageContext.request.contextPath}/agree.seller",
 			type : "get",
-			data : {dealnum:dealnum, textContent:textContent},
+			data : {agreedealnum:agreedealnum, agreeMsg:agreeMsg},
 			success : function (data) {
 				selectListWaiting();
 				selectListDealprogress();
@@ -61,17 +76,51 @@ function addBtnEvent() {
 		});
 	}); 
 	  
-	  //대기자 목록에서 수락하기버튼 누를때
-	  $("#agBtn").click(function () {
-		  var no = $(this).parent().parent().children().eq(1).text();
-			$("#dealnum").val(no);
-	  });
+	
+	  
+	  //판매글 목록에서 게시글 수정하기 버튼 누를때
+	  $("#productModify").click(function () {
+		  
+		  var num = $(this).parent().parent().children().eq(1).text();//제품번호
+		  location.href="<%=request.getContextPath()%>/selectProduct.pr?num="+num;
+	});
 }
 
 
 
 
-
+//내가쓴 판매글 목록 ajax
+function selectListProduct(pg) {
+		
+		$.ajax({
+			url : "${pageContext.request.contextPath}/selectList.sellerProduct",
+			type :"get",
+			success : function (data) {
+				
+				var productListHtml = [];
+				var no =0;
+				for(var i=0; i<data.length; i++){
+					productListHtml.push('<tr>');
+					productListHtml.push('	<th scope="row">' + (i+1) + '</th>');
+					productListHtml.push('	<td class="td1" style="display: none">' +data[i].productNo + '</td>');
+					productListHtml.push('	<td class="td1">' +data[i].productName + '</td>');
+					productListHtml.push('	<td>' +data[i].productContext+ '</td>');
+					productListHtml.push('	<td style="width: 20px"><button type="button" class="btn btn-secondary" id="productModify">게시글 수정하기</button></td>');
+					productListHtml.push('</tr>');
+					
+				    
+				}
+				$("#productboard").html("");//이전틀 지우고
+				$("#productboard").append(productListHtml.join(""));//""를 기준으로 배열에 담긴 데이터 꺼내오기
+				
+				
+				 addBtnEvent();//버튼 함수 불러오기
+				 
+				 
+				 
+			}
+		});
+	}
 
 //대기자 목록 ajax
 function selectListWaiting(pg) {
@@ -82,7 +131,7 @@ function selectListWaiting(pg) {
 			success : function (data) {
 				
 				var waitListHtml = [];
-				var no =0;
+				
 				for(var i=0; i<data.length; i++){
 					waitListHtml.push('<tr>');
 					waitListHtml.push('	<th scope="row">' + (i+1) + '</th>');
@@ -138,7 +187,7 @@ function selectListDealprogress(pg) {
 				$("#dealprogressList").append(progressListHtml.join(""));//""를 기준으로 배열에 담긴 데이터 꺼내오기
 				
 				
-				 addBtnEvent();//버튼 함수 불러오기
+				
 				 
 				 
 				 
@@ -184,12 +233,93 @@ function selectListCencelseller(pg) {
 		});
 	}	
 	
+//판매완료 목록 ajax
+function selectListEndseller(pg) {
+		
+	$.ajax({
+		url : "${pageContext.request.contextPath}/selectList.endSeller",
+		type :"get",
+		success : function (data) {
+			
+			var endListHtml = [];
+			var no =0;
+			console.log(typeof(data[0].dealListCategory));
+			for(var i=0; i<data.length; i++){
+				endListHtml.push('<tr>');
+				endListHtml.push('	<th scope="row">' + (i+1) + '</th>');
+				endListHtml.push('	<td class="td1">' +data[i].member_id + '</td>');
+				endListHtml.push('	<td class="td1">' +data[i].productName+ '</td>');
+				endListHtml.push('	<td class="td1">' +data[i].dealListaddMsg1 + '</td>');
+			
+				 if(data[i].dealListCategory==3){
+					 endListHtml.push('	<td>' + "구매확정 전" +'</td>');
+				}else{
+					endListHtml.push('	<td>' + "구매확정 완료 " +'</td>');	
+				} 
+				 endListHtml.push('</tr>'); 
+				
+				
+			}
+			$("#endDealList").html("");//이전틀 지우고
+			$("#endDealList").append(endListHtml.join(""));//""를 기준으로 배열에 담긴 데이터 꺼내오기
+			
+			
+			
+				 
+				 
+				 
+			}
+		});
+	}	
+	
+	
+//환급 목록 ajax
+function selectListCash(pg) {
+		
+		$.ajax({
+			url : "${pageContext.request.contextPath}/selectList.SellerCash",
+			type :"get",
+			success : function (data) {
+				console.log(data);
+				
+				var cashListHtml = [];
+				var no =0;
+				for(var i=0; i<data.length; i++){
+					cashListHtml.push('<tr>');
+					cashListHtml.push('	<th scope="row">' + (i+1) + '</th>');
+					cashListHtml.push('	<td class="td1">' +data[i].refund_applyDate + '</td>');
+					cashListHtml.push('	<td class="td1">' +data[i].refund_bank+ '</td>');
+					cashListHtml.push('	<td class="td1">' +data[i].refund_account + '</td>');
+					cashListHtml.push('	<td class="td1">' +data[i].refund_money + '</td>');
+					 
+					if(data[i].refund_StatusYN==0){
+						cashListHtml.push('	<td>' + "환급 진행 중" +'</td>');
+					}else{
+						cashListHtml.push('	<td>' + "환급 완료 " +'</td>');	
+					} 
+					cashListHtml.push('</tr>'); 
+					 
+					
+				    
+				}
+				$("#CashList").html("");//이전틀 지우고
+				$("#CashList").append(cashListHtml.join(""));//""를 기준으로 배열에 담긴 데이터 꺼내오기
+				
+				 
+				 
+			}
+		}); 
+}
+
+		
 //마이페이지 실행시에 뷰페이지 만들고 데이터 뿌려주는 ajax 메인(함수 호출 여기서)
 	$(function () {
+		selectListProduct(1);
 		selectListWaiting(1);
 		selectListDealprogress(1);
 		selectListCencelseller(1);
-		
+		selectListEndseller(1);
+		selectListCash(1);
 }); 
 </script>
 </head>
@@ -215,30 +345,14 @@ function selectListCencelseller(pg) {
 			  <thead>
 			    <tr>
 			      <th scope="col">No</th>
+			      <th scope="col" class="td1" style="display: none">판매글번호</th>
 			      <th scope="col" class="td1">게시글 제목</th>
 			      <th scope="col" >게시글 내용</th>
 			      <th scope="col"></th>
 			    </tr>
 			  </thead>
-			  <tbody>
-			    <tr>
-			      <th scope="row">1</th>
-			      <td class="td1">Mark</td>
-			      <td>Otto</td>
-			      <td style="width: 20px"><button type="button" class="btn btn-secondary">게시글 수정하기</button></td>
-			    </tr>
-			    <tr>
-			      <th scope="row">2</th>
-			      <td class="td1">Jacob</td>
-			      <td>Thornton</td>
-			      <td style="width: 20px"><button type="button" class="btn btn-secondary">게시글 수정하기</button></td>
-			    </tr>
-			    <tr>
-			      <th scope="row">2</th>
-			      <td class="td1">Jacob</td>
-			      <td>Thornton</td>
-			      <td style="width: 20px"><button type="button" class="btn btn-secondary">게시글 수정하기</button></td>
-			    </tr>
+			  <tbody id="productboard">
+			  <!-- ajax도는 부분 -->
 			  </tbody>
 			</table>
 
@@ -369,28 +483,8 @@ function selectListCencelseller(pg) {
 			      <th scope="col">진행상황</th>
 			    </tr>
 			  </thead>
-			  <tbody>
-			    <tr>
-			      <th scope="row">1</th>
-			      <td class="td1">Mark</td>
-			      <td class="td1">Otto</td>
-			      <td class="td1">@mdo</td>
-			      <td>@mdo</td>
-			    </tr>
-			    <tr>
-			      <th scope="row">2</th>
-			      <td class="td1">Mark</td>
-			      <td class="td1">Otto</td>
-			      <td class="td1">@mdo</td>
-			      <td>@mdo</td>
-			    </tr>
-			    <tr>
-			      <th scope="row">3</th>
-			      <td class="td1">Mark</td>
-			      <td class="td1">Otto</td>
-			      <td class="td1">@mdo</td>
-			      <td>@mdo</td>
-			    </tr>
+			  <tbody id="endDealList">
+			 <!-- ajax도는 부분 -->
 			  </tbody>
 			</table>
          </div>
@@ -416,38 +510,15 @@ function selectListCencelseller(pg) {
 			  <thead>
 			    <tr>
 			      <th scope="col">No</th>
-			      <th scope="col" class="td1">환급 날짜</th>
+			      <th scope="col" class="td1">환급 신청 날짜</th>
 			      <th scope="col" class="td1">환급 은행</th>
 			      <th scope="col" class="td1">환급 계좌</th>
 			      <th scope="col" class="td1">환급 금액</th>
 			      <th scope="col">진행상황</th>
 			    </tr>
 			  </thead>
-			  <tbody>
-			    <tr>
-			      <th scope="row">1</th>
-			      <td class="td1">Mark</td>
-			      <td class="td1">Mark</td>
-			      <td class="td1">Mark</td>
-			      <td class="td1">Mark</td>
-			      <td>Mark</td>
-			    </tr>
-			    <tr>
-			      <th scope="row">2</th>
-			      <td class="td1">Mark</td>
-			      <td class="td1">Mark</td>
-			      <td class="td1">Mark</td>
-			      <td class="td1">Mark</td>
-			      <td>Mark</td>
-			    </tr>
-			    <tr>
-			      <th scope="row">3</th>
-			      <td class="td1">Mark</td>
-			      <td class="td1">Mark</td>
-			      <td class="td1">Mark</td>
-			      <td class="td1">Mark</td>
-			      <td>Mark</td>
-			    </tr>
+			  <tbody id="CashList">
+			    <!--ajax도는 부분 -->
 			  </tbody>
 			</table>
          </div>
