@@ -1,4 +1,4 @@
-package com.kh.w7.board.controller;
+/*package com.kh.w7.board.controller;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -17,40 +17,40 @@ import com.kh.w7.board.model.service.BoardService;
 import com.kh.w7.board.model.vo.Board;
 import com.kh.w7.member.model.vo.Member;
 
-/**
+*//**
  * Servlet implementation class InsertBoardServlet
- */
+ *//*
 @WebServlet("/insert.bo")
 public class InsertBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
+    *//**
      * @see HttpServlet#HttpServlet()
-     */
+     *//*
     public InsertBoardServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-	/**
+	*//**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	 *//*
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 	
-		/*int bno = Integer.parseInt(request.getParameter("bno"));*/
+		int bno = Integer.parseInt(request.getParameter("bno"));
 		String title = request.getParameter("title");
 		String context = request.getParameter("context");
 		String membercode = request.getParameter("memberCode");
-		/*String writer = request.getParameter("writer");*/
+		String writer = request.getParameter("writer");
 		
 
-		/*java.sql.Date day = null;*/
+		java.sql.Date day = null;
 		
 		
 		
 		Board b = new Board();
-		/*b.setBoardNo(bno);*/
+		b.setBoardNo(bno);
 		b.setMemberCode(Integer.parseInt(String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getMemberCode())));
 		b.setBoardTitle(title);
 		b.setBoardContext(context);
@@ -67,7 +67,7 @@ public class InsertBoardServlet extends HttpServlet {
 	
 		if(result>0) {
 			page = "/dsm/selectList.bo";
-			/*response.sendRedirect(request.getContextPath()+"/selectList.bo");*/
+			response.sendRedirect(request.getContextPath()+"/selectList.bo");
 			response.sendRedirect(page);
 			
 		}else {
@@ -76,9 +76,9 @@ public class InsertBoardServlet extends HttpServlet {
 		}
 	}
 
-	/**
+	*//**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	 *//*
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
@@ -92,3 +92,4 @@ public class InsertBoardServlet extends HttpServlet {
 
 
 
+*/

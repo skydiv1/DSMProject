@@ -2,6 +2,7 @@ package com.kh.w7.admin.model.service;
 
 import com.kh.w7.admin.model.dao.AdminDao;
 import com.kh.w7.admin.model.vo.Admin;
+import com.kh.w7.admin.model.vo.Cash;
 import com.kh.w7.board.model.vo.Board;
 import com.kh.w7.member.model.vo.Member;
 import com.kh.w7.refund.model.vo.Refund;
@@ -207,6 +208,26 @@ public class AdminService {
 		
 		
 		return ad;
+	}
+
+	public ArrayList<Cash> cashConvertExcel() {
+		// TODO Auto-generated method stub
+		Connection con = getConnection();
+		
+		ArrayList<Cash> list = new ArrayList<Cash>();
+		
+		list = new AdminDao().cashConvertExcel(con);
+		
+		if(list != null) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		
+		return list;
 	}
 
 }

@@ -1,3 +1,4 @@
+
 package com.kh.w7.qna.controller;
 
 import java.io.IOException;
@@ -86,6 +87,7 @@ public class InsertQnaServlet extends HttpServlet {
 	}
 
 }
+
 
 
 
