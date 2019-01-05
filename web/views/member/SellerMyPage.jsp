@@ -35,15 +35,34 @@ function addBtnEvent() {
 				data : {dealnum:dealnum, textContent:textContent},
 				success : function (data) {
 					selectListWaiting();
+					//취소목록
 				}
 			});
 	  });
-	  $("#agreeBtn").click(function () {
-		  
+	  //대기자 목록에서 거절하기버튼 누를때
+	  $("#cBtn").click(function () {
+		  var no = $(this).parent().parent().children().eq(1).text();
+			$("#dealnum").val(no);
 	  });
 	 
-	  //대기자 목록에서 거절버튼 누를때
-	  $("#cBtn").click(function () {
+	  //수락 팝업에 있는 보내기 버튼 누를때
+	    $("#agreeBtn").click(function () {
+		var textContent = $("#textContent").val();//수락 추가사유
+		var dealnum = $("#dealnum").val();
+		$.ajax({
+			url:"${pageContext.request.contextPath}/agree.seller",
+			type : "get",
+			data : {dealnum:dealnum, textContent:textContent},
+			success : function (data) {
+				selectListWaiting();
+				selectListDealprogress();
+				
+			}
+		});
+	}); 
+	  
+	  //대기자 목록에서 수락하기버튼 누를때
+	  $("#agBtn").click(function () {
 		  var no = $(this).parent().parent().children().eq(1).text();
 			$("#dealnum").val(no);
 	  });
@@ -71,7 +90,7 @@ function selectListWaiting(pg) {
 					waitListHtml.push('	<td class="td1">' +data[i].member_id + '</td>');
 					waitListHtml.push('	<td class="td1">' +data[i].productName+ '</td>');
 					waitListHtml.push('	<td>' +data[i].dealListaddMsg1 + '</td>');
-					waitListHtml.push('	<td style="width: 10px; padding-right: 0px"><button type="button" class="btn btn-warning"data-toggle="modal" data-target="#agreeModal" id="agreeBtn">수락하기</button></td>');
+					waitListHtml.push('	<td style="width: 10px; padding-right: 0px"><button type="button" class="btn btn-warning"data-toggle="modal" data-target="#agreeModal" id="agBtn">수락하기</button></td>');
 					waitListHtml.push('	<td style="width: 5px"><button type="button" class="btn btn-secondary"data-toggle="modal" data-target="#cencelModal" id="cBtn">거절</button></td>');
 					waitListHtml.push('</tr>');
 					
@@ -106,13 +125,13 @@ function selectListDealprogress(pg) {
 					progressListHtml.push('	<td class="td1">' +data[i].productName+ '</td>');
 					progressListHtml.push('	<td class="td1">' +data[i].dealListaddMsg1 + '</td>');
 					progressListHtml.push('	<td class="td1">' +data[i].dealListaddMsg2 + '</td>');
-					/* var ct = data[i].dealListCategory;
-					 if(ct==1){
-						progressListHtml.push('	<td>' + 구매진행중 +'</td>');
+				
+					 if(data[i].dealListCategory==1){
+						progressListHtml.push('	<td>' + "구매 진행 중" +'</td>');
 					}else{
-						progressListHtml.push('	<td>' + 구매완료  +'</td>');	
+						progressListHtml.push('	<td>' + "구매 완료 " +'</td>');	
 					} 
-					progressListHtml.push('</tr>'); */
+					progressListHtml.push('</tr>'); 
 					
 				}
 				$("#dealprogressList").html("");//이전틀 지우고
@@ -127,10 +146,49 @@ function selectListDealprogress(pg) {
 		});
 	}
 	
+//취소 목록 ajax
+function selectListCencelseller(pg) {
+		
+		$.ajax({
+			url : "${pageContext.request.contextPath}/selectList.SellerCan",
+			type :"get",
+			success : function (data) {
+				console.log(data);
+				
+				var scListHtml = [];
+				var no =0;
+				for(var i=0; i<data.length; i++){
+					scListHtml.push('<tr>');
+					scListHtml.push('	<th scope="row">' + (i+1) + '</th>');
+					scListHtml.push('	<td class="td1" style="display: none">' +data[i].dealNo + '</td>');
+					scListHtml.push('	<td class="td1">' +data[i].member_id + '</td>');
+					scListHtml.push('	<td class="td1">' +data[i].productName+ '</td>');
+					scListHtml.push('	<td class="td1">' +data[i].dealListaddMsg1 + '</td>');
+					scListHtml.push('	<td>' +data[i].dealListaddMsg2 + '</td>');
+					scListHtml.push('	<td style="width: 10px"><button type="button" class="btn btn-secondary" id="cancelDelete">삭제</button></td>');
+					scListHtml.push('</tr>');
+					
+					
+				}
+				$("#cancelSellerList").html("");//이전틀 지우고
+				$("#cancelSellerList").append(scListHtml.join(""));//""를 기준으로 배열에 담긴 데이터 꺼내오기
+				
+				
+					 
+				
+				 addBtnEvent();//버튼 함수 불러오기
+				 
+				 
+				 
+			}
+		});
+	}	
+	
 //마이페이지 실행시에 뷰페이지 만들고 데이터 뿌려주는 ajax 메인(함수 호출 여기서)
 	$(function () {
 		selectListWaiting(1);
 		selectListDealprogress(1);
+		selectListCencelseller(1);
 		
 }); 
 </script>
@@ -239,6 +297,7 @@ function selectListDealprogress(pg) {
 				  <thead>
 				    <tr>
 				     <th scope="col">No</th>
+				     <th scope="col" class="td1" style="display: none">거래번호</th>
 				      <th scope="col" class="td1">소비자ID</th>
 				      <th scope="col" class="td1">판매 상품명</th>
 				      <th scope="col" class="td1">추가신청 내용</th>
@@ -270,35 +329,16 @@ function selectListDealprogress(pg) {
 			  <thead>
 			    <tr>
 			      <th scope="col">No</th>
-			      <th scope="col" class="td1">소비자ID</th>
-			      <th scope="col" class="td1">판매상품명</th>
+			      <th scope="col" class="td1" style="display: none">거래번호</th>
+			      <th scope="col" class="td1">판매자ID</th>
+			      <th scope="col" class="td1">구매상품명</th>
+			      <th scope="col" class="td1" >신청 내용</th>
 			      <th scope="col" >취소 사유</th>
 			      <th scope="col"></th>
 			    </tr>
 			  </thead>
-			  <tbody>
-			    <tr>
-			      <th scope="row">1</th>
-			      <td class="td1">Mark</td>
-			      <td class="td1">Mark</td>
-			      <td>@mdo</td>
-			      <td style="width: 10px"><button type="button" class="btn btn-secondary">삭제</button></td>
-			    </tr>
-			    
-			    <tr>
-			      <th scope="row">2</th>
-			      <td class="td1">Mark</td>
-			      <td class="td1">Mark</td>
-			      <td>@mdo</td>
-			      <td style="width: 10px"><button type="button" class="btn btn-secondary">삭제</button></td>
-			    </tr>
-			    <tr>
-			      <th scope="row">3</th>
-			      <td class="td1">Mark</td>
-			      <td class="td1">Mark</td>
-			      <td>@mdo</td>
-			      <td style="width: 10px"><button type="button" class="btn btn-secondary">삭제</button></td>
-			    </tr>
+			  <tbody id="cancelSellerList">
+			    <!-- ajax도는 부분 -->
 			  </tbody>
 			</table>
          </div>
@@ -307,7 +347,7 @@ function selectListDealprogress(pg) {
 
       </div>
    </section>
-   <!-- 판매완료 목록 -->
+   <!-- 판매완료 목록(구매확정 후꺼) -->
    <section class="bg-light" id="portfolio">
       <div class="container">
          <div class="row">

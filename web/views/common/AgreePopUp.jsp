@@ -29,9 +29,9 @@
 		</div>
         </div>
         <div class="modal-footer" style="align: center">
-          
+          		<input type="text" style="display: none" id="dealnum">
 				<button type="button" class="btn btn-secondary" style="width:200px" data-dismiss="modal">취소</button>
-				<button type="button" class="btn btn-warning" style="width: 200px">보내기</button>
+				<button type="button" class="btn btn-warning" style="width: 200px" id="agreeBtn">보내기</button>
 		
         </div>
       </div>

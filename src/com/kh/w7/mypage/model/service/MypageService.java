@@ -158,6 +158,38 @@ public class MypageService {
 
 		return progresslist;
 	}
+	
+	//판매자 수락하기 버튼 누를때
+	public int AgreelUpdateseller(int dealnum, String textContent) {
+		Connection con = getConnection();
+		
+		int result = new MypageDao().AgreelUpdateseller(con,dealnum,textContent );
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+
+	}
+	//판매자 취소목록 조회
+	public ArrayList<MyPage> selectSellerCancelList(int loginCode) {
+		Connection con  = getConnection(); 
+		
+		ArrayList<MyPage>sellerCancelList = new MypageDao().selectSellerCancelList(con, loginCode);
+		
+		if(sellerCancelList != null) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		return sellerCancelList;
+	}
 
 	
 	
