@@ -52,6 +52,16 @@ $(function() {
             Member: 3001,
             Product: 1895,
             Deal: 1692
+        },{
+            period: '2018 Q3',
+            Member: 2809,
+            Product: 1795,
+            Deal: 1392
+        },{
+            period: '2018 Q4',
+            Member: 3301,
+            Product: 2095,
+            Deal: 1992
         }],
         xkey: 'period',
         ykeys: ['Member', 'Product', 'Deal'],
@@ -62,19 +72,9 @@ $(function() {
     });
     
     Morris.Donut({
-        element: 'morris-donut-chart',
-        data: [{
-            label: "Customer Member",
-            value: 1202
-        }, {
-            label: "Seller Member",
-            value: 305
-        }, {
-            label: "Administer Member",
-            value: 18
-        }],
-        resize: true
+        
     });
+
 
     Morris.Bar({
         element: 'morris-bar-chart',

@@ -92,6 +92,7 @@ table {
 
 						</tr>
 						<tr>
+							<td style = "color : gray; ">결제금액의 70%가 캐시로 환전됩니다!</td>
 							<td colspan="2" align="right"><button type="button"
 									class="btn btn-secondary" id="calcBtn">계산하기</button></td>
 						</tr>
@@ -231,7 +232,7 @@ table {
 				<tr>
 					<td colspan="2"
 						style="text-align: left; font-size: 1.3em; font-weight: bold;">총
-						결제 캐시</td>
+						결제 금액</td>
 					<!-- (+,-)누른걸로 충전 캐시 판단  -->
 					<td></td>
 				</tr>
@@ -286,9 +287,9 @@ table {
 				data : {chargeMoney : chargeMoney},
 				type : "post",
 				success : function(data){
-					$("#tdChargeCashMoney").text(data);
+					$("#tdChargeCashMoney").text(data*(0.7));
 					$("#tdResultMoney").text(data);
-					$("#afterChargeCash").text(<%= nowCash%> + data); //50000원 부분을 db에서 현재 내가 보유하고 있는 캐시를 뽑아와서 넣기
+					$("#afterChargeCash").text(<%= nowCash%> + (data*(0.7))); //50000원 부분을 db에서 현재 내가 보유하고 있는 캐시를 뽑아와서 넣기
 					//$("#afterChargeCash").text(Number($("#afterChargeCash").text()) + data);
 					//$("#tdResultMoney").text(data+haveMoney);
 				},
