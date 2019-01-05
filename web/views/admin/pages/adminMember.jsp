@@ -16,7 +16,7 @@
 <meta name="author" content="">
 
 <title>Admin_Member_Page</title>
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!-- Bootstrap Core CSS -->
 <link href="/dsm/views/admin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
