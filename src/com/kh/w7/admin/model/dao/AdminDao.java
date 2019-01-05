@@ -13,6 +13,7 @@ import java.util.Properties;
 import static com.kh.w7.common.JDBCTemplate.*;
 
 import com.kh.w7.admin.model.vo.Admin;
+import com.kh.w7.admin.model.vo.Cash;
 import com.kh.w7.board.model.vo.Board;
 import com.kh.w7.member.model.vo.Member;
 import com.kh.w7.pay.model.dao.PayDao;
@@ -402,6 +403,50 @@ public class AdminDao {
 		
 		
 		return result;
+	}
+
+	public ArrayList<Cash> cashConvertExcel(Connection con) {
+		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Cash c = null;
+		ArrayList<Cash> list = new ArrayList<Cash>();
+		
+		String query = prop.getProperty("cashConvertExcel");
+		try {
+			pstmt = con.prepareStatement(query);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				c = new Cash();
+				c.setMemberCashCode(rset.getInt(1));
+				c.setMemberCode(rset.getInt(2));
+				c.setMemberId(rset.getString(3));
+				c.setMemberCashNowCash(rset.getInt(4));
+				c.setMemberCashCategory(rset.getInt(5));
+				c.setDealNo(rset.getInt(6));
+				c.setDealMoney(rset.getInt(7));
+				c.setPayNo(rset.getInt(8));
+				c.setPayMoney(rset.getInt(9));
+				c.setRefundNo(rset.getInt(10));
+				c.setRefundMoney(rset.getInt(11));
+				
+				
+				
+				list.add(c);
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return list;
 	}
 
 }
