@@ -15,9 +15,11 @@ import com.kh.w7.common.Attachment;
 import com.kh.w7.common.PageInfo;
 import com.kh.w7.member.model.vo.Member;
 import com.kh.w7.product.model.service.ProductService;
+import com.kh.w7.product.model.service.ReviewService;
 import com.kh.w7.product.model.service.SellerProfileService;
 import com.kh.w7.product.model.vo.PlusProduct;
 import com.kh.w7.product.model.vo.Product;
+import com.kh.w7.product.model.vo.Review;
 
 /**
  * Servlet implementation class NoticeResistServlet
@@ -89,6 +91,8 @@ public class NoticeResistServlet extends HttpServlet {
 		
 		ArrayList<Product> pList = (ArrayList<Product>)hmap.get("product");
 		ArrayList<Attachment> imgList = (ArrayList<Attachment>)hmap.get("attachment");
+
+		ArrayList<Review> reviewList = new ReviewService().selectAllReviewList(memberCode);
 		
 		Member member = (Member)hmap.get("member");
 		System.out.println("member 서블릿 : "+member);

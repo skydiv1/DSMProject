@@ -251,8 +251,7 @@ input::placeholder {
 	<!--////////////////////////////서비스 평가 시작///////////////////////////////////////////////////  -->
 	<section class="bg-light" id="portfolio" style = "padding: 50px">
 	<div class="container" style="width: 60%">
-		<div style="font-size: 1.3em; font-weight: bold; text-align: left;">Jamsil123님의
-			서비스 평가</div>
+		<div style="font-size: 1.3em; font-weight: bold; text-align: left;">'<%=member.getMemberId() %>'님의 서비스 평가</div>
 			<div style="background: lightgray; text-align: center; font-size: 1.7em;">★★★★☆(4.0)
 			</div>
 

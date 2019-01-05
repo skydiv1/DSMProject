@@ -44,14 +44,14 @@
 <!-- include libraries(jQuery, bootstrap) -->
 <!-- <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script> 
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 
 include summernote css/js
-<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.js"></script>
+<link href="./dist/summernote.css" rel="stylesheet">
+<script src="./dist/summernote.js"></script>
 
 include summernote-ko-KR
-<script src="lang/summernote-ko-KR.js"></script> -->
+<script src="./dist/lang/summernote-ko-KR.js"></script> -->
 
 <style>
 #contentImgArea1, #contentImgArea2, #contentImgArea3, #contentImgArea4,
@@ -207,7 +207,7 @@ input[type="number"]::-webkit-inner-spin-button{
 			<textarea name="content" class="form-control z-depth-1" style="resize: none;"
 				id="exampleFormControlTextarea6" rows="20"
 				placeholder="서비스 설명을 적어주세요"></textarea>
-<!-- 			<textarea name="content" id="content" class="summernote" rows="20" cols="" style="resize:none;"></textarea> -->
+<!-- 			<div name="content" id="content" class="summernote"></div> -->
 		</div>
 		<br><br><br>
 		
@@ -277,6 +277,7 @@ input[type="number"]::-webkit-inner-spin-button{
 	} %>
 	
 	<script>
+	
 		$(function () {
 			var cnt = 1;
 			var name = 1;
@@ -426,7 +427,7 @@ input[type="number"]::-webkit-inner-spin-button{
 		}
 		
 		/* summerNote */
-	    /* $(function() {
+	     /* $(function() {
 	        $('.summernote').summernote({
 	          height: 300,          // 기본 높이값
 	          minHeight: null,      // 최소 높이값(null은 제한 없음)
@@ -434,7 +435,7 @@ input[type="number"]::-webkit-inner-spin-button{
 	          focus: true,          // 페이지가 열릴때 포커스를 지정함
 	          lang: 'ko-KR'         // 한국어 지정(기본값은 en-US)
 	        });
-	      }); */
+	      });  */
 	</script>
 	<script>
 		function alertEvent() {

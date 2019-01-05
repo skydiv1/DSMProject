@@ -193,7 +193,7 @@
 							<input id="rating3" type="radio" name="rating" value="3" disabled> <label for="rating3">3</label> 
 							<input id="rating2" type="radio" name="rating" value="2" disabled> <label for="rating2">2</label> 
 							<input id="rating1" type="radio" name="rating" value="1" disabled> <label for="rating1">1</label>
-					</span> (<span><span>30</span>개의 평가</span>)
+					</span> (<span><span id="reviewCnt"></span>개의 평가</span>)
 				</div>
 			</td>
 			<td align="center">
@@ -297,7 +297,7 @@
 						<input id="rating3_1" type="radio" name="rating1" value="3" disabled><label for="rating3_1">3</label> 
 						<input id="rating2_1" type="radio" name="rating1" value="2" disabled><label for="rating2_1">2</label>
 						<input id="rating1_1" type="radio" name="rating1" value="1" disabled><label for="rating1_1">1</label>
-					</span><span style="margin-left: 3%;">30 </span>개의 평가
+					</span><span id="reviewCnt2" style="margin-left: 3%;"> </span>개의 평가
 				</div>
 				<br>
 
@@ -374,8 +374,9 @@
 						
 						$select = $("#reviewResult");
 						$select.find("table").remove();
-
-						$select.append('<table style="width: 600px;">');
+						$("#reviewResult").empty(); // 안의 내용을 비워준다.
+						$select.append('<table id="reviewTable" style="width: 600px;">');
+						var reviewCnt=0; // 리뷰 개수를 담는 변수
 						
 						for(var i in data){
 							var reviewDate = decodeURIComponent(data[i].reviewDate);
@@ -385,7 +386,7 @@
 							
 							$select.append(
 									'<tr>'
-									+'<td rowspan="2"><img class="mx-auto rounded-circle" src="/dsm/img/team/1.jpg" alt="" style="width: 90px; height: 90px;"></td>'
+									+'<td rowspan="2"><img class="mx-auto rounded-circle" src="/dsm/img/team/3.jpg" alt="" style="width: 90px; height: 90px;"></td>'
 									+'<td width="80%" style="border-bottom: 1px solid #EAEAEA;">'
 									+'<span style="margin-left: 20px;">'+reviewDate+'</span>'
 									+'<span class="rating" style="margin-left: 20px;">'
@@ -406,12 +407,17 @@
 									+'<hr></td>'
 									+'</tr>'				
 							);
+							reviewCnt++; // 리뷰의 개수를 세기 위한 변수
 						}
 						$select.append('</table>');
+
+						$("#reviewCnt").text(reviewCnt);
+						$("#reviewCnt2").text(reviewCnt);
 					}					
 				});
 			});
 		});
+
 	</script>
 	
 	<!-- 서블릿->jsp->javaScript 에서 값을 사용하기 위해 -->

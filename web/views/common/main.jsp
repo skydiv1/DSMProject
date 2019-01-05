@@ -1,5 +1,27 @@
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	ArrayList<HashMap<String, Object>> sessionList = (ArrayList<HashMap<String, Object>>)session.getAttribute("sessionList");
+	
+	/* Cookie ck = null;
+	for(int i=0; i<sessionList.size(); i++){ 
+		HashMap<String, Object> hmap = sessionList.get(i);
+		String pNo = (String) hmap.get("productNo");
+		String changeName = (String) hmap.get("changeName");
+		String productName = (String) hmap.get("productName");
+		String productItemPrice = (String) hmap.get("productItemPrice");		
+		ck = new Cookie("pNo", pNo); 
+		ck = new Cookie("changeName", changeName); 
+		ck = new Cookie("productName", productName); 
+		ck = new Cookie("productItemPrice", productItemPrice); 
+		response.addCookie(ck);
+	}
+	
+	Cookie[] cks = request.getCookies(); */
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -116,7 +138,7 @@
 	<!-- 최근 본 상품 -->
 	<section class="bg-light" id="portfolio">
 		<div class="container">
-			<div class="row">
+			<div class="row">	
 				<div class="col-lg-12 text-center">
 					<h2 class="section-heading text-uppercase">최근 본 상품</h2>
 					<h3 class="section-subheading text-muted">
@@ -124,7 +146,7 @@
 					</h3>
 				</div>
 			</div>
-			<div class="row">
+			<div class="row">		
 				<div class="col-md-4 col-sm-6 portfolio-item">
 					<a class="portfolio-link" data-toggle="modal" href="#"
 						id="product1"> <!-- 링크 스크립트에서 처리 -->
@@ -136,8 +158,8 @@
 						alt="">
 					</a>
 					<div class="portfolio-caption">
-						<h4>상품 1의 제목</h4>
-						<p class="text-muted">IDIllustration</p>
+					<h4>상품 1의 제목</h4>
+						<p class="text-muted">IDGraphic Design123</p>
 					</div>
 				</div>
 				<div class="col-md-4 col-sm-6 portfolio-item">
