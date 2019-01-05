@@ -48,8 +48,7 @@
                     </label>
                     <hr>
                     <div >
-                        <textarea cols="60" name="BoardContext" name="context" placeholder="내용을 입력해 주세요" rows="15" type="context">
-                            <%=b.getBoardContext()%></textarea>
+                        <textarea cols="60" name="BoardContext" name="context" placeholder="내용을 입력해 주세요" rows="15" type="context"><%=b.getBoardContext()%></textarea>
                     </div>
                     
                     <tr height="1" bgcolor="#dddddd">

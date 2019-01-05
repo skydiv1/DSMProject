@@ -319,7 +319,56 @@ public class QnaDao {
 		return result;
 	}
 	
-	
+	public int deleteQna(Connection con, int BoardNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteQna");			
+		System.out.println(query);
+		
+		try{
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, BoardNo);
+			
+			result = pstmt.executeUpdate(); 
+			
+			System.out.println(result);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
+
+	public int insertQna(Connection con, Board insertBoard) {
+		 PreparedStatement pstmt = null;
+	        int result = 0;
+	        String query = prop.getProperty("insertQna");
+	        System.out.println(query);
+	        try {
+	            pstmt = con.prepareStatement(query);
+	            pstmt.setInt(1, insertBoard.getMemberCode());
+	            pstmt.setString(2, insertBoard.getBoardTitle());
+	            pstmt.setString(3, insertBoard.getBoardContext());
+	            System.out.println(insertBoard);
+	            result = pstmt.executeUpdate();
+	            System.out.println(result);
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	            try {
+	                pstmt = con.prepareStatement(selectSEQ);
+	            } catch (SQLException e1) {
+	                // TODO Auto-generated catch block
+	                e1.printStackTrace();
+	            }
+	        } finally {
+	            close(pstmt);
+	        }
+	        return result;
+	}
 	
 	
 	

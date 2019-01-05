@@ -1,4 +1,4 @@
-package com.kh.w7.board.controller;
+package com.kh.w7.faq.controller;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -15,19 +15,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.w7.board.model.service.BoardService;
 import com.kh.w7.board.model.vo.Board;
+import com.kh.w7.faq.model.service.FaqService;
 import com.kh.w7.member.model.vo.Member;
 
 /**
  * Servlet implementation class InsertBoardServlet
  */
-@WebServlet("/insert.bo")
-public class InsertBoardServlet extends HttpServlet {
+@WebServlet("/insert.faq")
+public class InsertFaqServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertBoardServlet() {
+    public InsertFaqServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -56,7 +57,7 @@ public class InsertBoardServlet extends HttpServlet {
 		b.setBoardContext(context);
 
 		
-		int result = new BoardService().insertBoard(b);
+		int result = new FaqService().insertFaq(b);
 		
 		System.out.println(membercode);
 		System.out.println(title);
@@ -66,7 +67,7 @@ public class InsertBoardServlet extends HttpServlet {
 		String page="";
 	
 		if(result>0) {
-			page = "/dsm/selectList.bo";
+			page = "/dsm/selectFaqList.faq";
 			/*response.sendRedirect(request.getContextPath()+"/selectList.bo");*/
 			response.sendRedirect(page);
 			
