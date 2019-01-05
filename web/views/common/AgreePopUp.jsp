@@ -25,13 +25,13 @@
         </div>
         <div class="modal-body">
          <div align="center">
-			<textarea rows="10%" cols="30%" name="agree" style="resize: none;" >날짜와 시간을 확인하시고 여부를 꼭 입력해주세요</textarea>
+			<textarea rows="10%" cols="30%" name="agree" style="resize: none;" placeholder="날짜와 시간을 확인하시고 여부를 꼭 입력해주세요" id="agreeMsg"></textarea>
 		</div>
         </div>
         <div class="modal-footer" style="align: center">
-          		<input type="text" style="display: none" id="dealnum">
+          		<input type="text" style="display: none" id="agreedealnum">
 				<button type="button" class="btn btn-secondary" style="width:200px" data-dismiss="modal">취소</button>
-				<button type="button" class="btn btn-warning" style="width: 200px" id="agreeBtn">보내기</button>
+				<button type="button" class="btn btn-warning" style="width: 200px" data-dismiss="modal" id="agreeBtn">보내기</button>
 		
         </div>
       </div>

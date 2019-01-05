@@ -5,6 +5,9 @@ import java.util.ArrayList;
 
 import com.kh.w7.mypage.model.dao.MypageDao;
 import com.kh.w7.mypage.model.vo.MyPage;
+import com.kh.w7.product.model.vo.Product;
+import com.kh.w7.refund.model.vo.Refund;
+
 import static com.kh.w7.common.JDBCTemplate.*;
 
 public class MypageService {
@@ -130,7 +133,7 @@ public class MypageService {
 	public int cancelUpdateseller(int dealnum, String textContent) {
 		Connection con = getConnection();
 		
-		int result = new MypageDao().cancelUpdateseller(con,dealnum,textContent );
+		int result = new MypageDao().cancelUpdateseller(con,dealnum,textContent);
 		
 		if(result>0) {
 			commit(con);
@@ -189,6 +192,67 @@ public class MypageService {
 		}
 		close(con);
 		return sellerCancelList;
+	}
+	
+	//판매자 판매글 목록
+	public ArrayList<Product> selectProductList(int loginCode) {
+		Connection con  = getConnection(); 
+		
+		ArrayList<Product>productlist = new MypageDao().selectProductList(con, loginCode);
+		
+		if(productlist != null) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		return productlist;
+	}
+	//소비자 구매확정버튼
+	public int completeUpdate(int dealnum) {
+		Connection con = getConnection();
+		
+		int result = new MypageDao().completeUpdate(con,dealnum);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+	//판매자 판매완료 목록
+	public ArrayList<MyPage> selectendDealList(int loginCode) {
+		Connection con  = getConnection(); 
+		
+		ArrayList<MyPage>endlist = new MypageDao().selectendDealList(con, loginCode);
+		System.out.println("판매완료값service:"+endlist);
+		if(endlist != null) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		return endlist;
+	}
+	//판매자 환급목록
+	public ArrayList<Refund> selectCashList(int loginCode) {
+		
+		Connection con  = getConnection(); 
+		
+		ArrayList<Refund>cashlist = new MypageDao().selectCashList(con, loginCode);
+
+		if(cashlist != null) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return cashlist;
 	}
 
 	

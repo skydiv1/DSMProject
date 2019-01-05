@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.w7.mypage.model.vo.MyPage;
+import com.kh.w7.product.model.vo.Product;
+import com.kh.w7.refund.model.vo.Refund;
 
 public class MypageDao {
 	private static Properties prop = new Properties();
@@ -268,6 +270,7 @@ public class MypageDao {
 				m.setProductName(rset.getString("PRODUCT_NAME"));
 				m.setDealListaddMsg1(rset.getString("DEALLIST_ADDMESSAGE1"));
 				m.setDealListaddMsg2(rset.getString("DEALLIST_ADDMESSAGE2"));
+				m.setDealListCategory(rset.getInt("DEALLIST_CATEGORY"));
 				
 				deallist.add(m);
 			}
@@ -410,7 +413,7 @@ public class MypageDao {
 		return result;
 	}
 
-
+	//판매자 취소목록 조회
 	public ArrayList<MyPage> selectSellerCancelList(Connection con, int loginCode) {
 
 		PreparedStatement pstmt = null;
@@ -451,6 +454,149 @@ public class MypageDao {
 		
 		
 		return sellerCancelList;
+	}
+
+	//판매자 판매글 보기
+	public ArrayList<Product> selectProductList(Connection con, int loginCode) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Product> productlist= null;
+		
+		String query = prop.getProperty("selectProductList");
+		
+		try {
+			pstmt=con.prepareStatement(query);
+			
+			
+			pstmt.setInt(1, loginCode);
+			
+			rset= pstmt.executeQuery();
+			
+			
+			productlist = new ArrayList<Product>();
+			
+			while(rset.next()) {
+				Product p = new Product();
+				
+				p.setProductNo(rset.getInt("PRODUCT_NO"));
+				p.setProductName(rset.getString("PRODUCT_NAME"));
+				p.setProductContext(rset.getString("PRODUCT_CONTEXT"));
+				
+				productlist.add(p);
+			}
+			System.out.println("list값dao:"+productlist);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return productlist;
+	}
+
+	//소비자 구매확정 버튼
+	public int completeUpdate(Connection con, int dealnum) {
+		PreparedStatement pstmt = null;
+		int result =0;
+		
+		String query = prop.getProperty("completeUpdate");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, dealnum);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+	
+		return result;
+	}
+
+	//판매자 판매완료 목록
+	public ArrayList<MyPage> selectendDealList(Connection con, int loginCode) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<MyPage> endlist= null;
+		
+		String query = prop.getProperty("selectendDealList");
+		
+		try {
+			pstmt=con.prepareStatement(query);
+			
+			
+			pstmt.setInt(1, loginCode);
+			
+			rset= pstmt.executeQuery();
+			
+			
+			endlist = new ArrayList<MyPage>();
+			
+			while(rset.next()) {
+				MyPage m = new MyPage();
+				
+				m.setMember_id(rset.getString("MEMBER_ID"));
+				m.setProductName(rset.getString("PRODUCT_NAME"));
+				m.setDealListaddMsg1(rset.getString("DEALLIST_ADDMESSAGE1"));
+				m.setDealListCategory(rset.getInt("DEALLIST_CATEGORY"));
+				endlist.add(m);
+			}
+			System.out.println("판매완료값dao:"+endlist);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return endlist;
+	}
+
+	//판매자 환급목록
+	public ArrayList<Refund> selectCashList(Connection con, int loginCode) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Refund> cashlist= null;
+		
+		String query = prop.getProperty("selectCashList");
+		
+		try {
+			pstmt=con.prepareStatement(query);
+			
+			
+			pstmt.setInt(1, loginCode);
+			
+			rset= pstmt.executeQuery();
+			
+			
+			cashlist = new ArrayList<Refund>();
+			
+			while(rset.next()) {
+				Refund r = new Refund();
+				
+				r.setRefund_applyDate(rset.getDate("REFUND_DATE"));
+				r.setRefund_bank(rset.getString("REFUND_BANK"));
+				r.setRefund_account(rset.getString("REFUND_ACCOUNT"));
+				r.setRefund_money(rset.getInt("REFUND_MONEY"));
+				r.setRefund_StatusYN(rset.getInt("REFUNDLIST_YN"));
+				
+				
+				cashlist.add(r);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		return cashlist;
 	}
 
 
