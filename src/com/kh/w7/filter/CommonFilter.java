@@ -1,4 +1,4 @@
-package com.kh.w7.filter;
+/*package com.kh.w7.filter;
 
 import java.io.IOException;
 import javax.servlet.Filter;
@@ -32,3 +32,4 @@ public class CommonFilter implements Filter {
 	}
 
 }
+*/

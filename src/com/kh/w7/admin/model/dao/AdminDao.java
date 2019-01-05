@@ -2,6 +2,7 @@ package com.kh.w7.admin.model.dao;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -342,16 +343,26 @@ public class AdminDao {
 		ResultSet rset = null;
 		Admin ad = null;
 		
+		
 		String query = prop.getProperty("refreshPage");
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
 				ad = new Admin();
 				
+				ad.setCustomerCount(rset.getInt(1));
+				ad.setSellerCount(rset.getInt(2));
+				ad.setMoneyPlus(rset.getInt(3));
+				ad.setMoneyMinus(rset.getInt(4));
+				ad.setMoneyDeal(rset.getInt(5));
+				ad.setTax(rset.getInt(6));
+				ad.setDealCount(rset.getInt(7));
+				ad.setProductCount(rset.getInt(8));
+				ad.setBoardCount(rset.getInt(9));
+				ad.setMemberCount(rset.getInt(10));
 				
 			}
 			
@@ -366,6 +377,31 @@ public class AdminDao {
 		
 		
 		return ad;
+	}
+
+	public int procedureHomePage(Connection con) {
+		// TODO Auto-generated method stub
+		CallableStatement cstmt = null;
+		
+		int result = 0;
+		
+		String procedureQuery = prop.getProperty("procedureHomePage");
+		
+		try {
+			cstmt = con.prepareCall("{call homepage_procedure}");
+			cstmt.execute();
+
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(cstmt);
+		}
+		
+		
+		
+		return result;
 	}
 
 }

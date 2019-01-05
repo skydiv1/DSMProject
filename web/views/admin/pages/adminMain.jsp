@@ -1,5 +1,11 @@
+<%@page import="com.kh.w7.admin.model.vo.Admin"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
+
+<%
+	Admin ad = (Admin)request.getAttribute("ad");
+%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
@@ -47,7 +53,7 @@
 		<nav class="navbar navbar-default navbar-static-top" role="navigation"
 			style="margin-bottom: 0">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="/dsm/views/admin/pages/adminMain.jsp">관리자 페이지</a>
+			<a class="navbar-brand" href="/dsm/refreshPage">관리자 페이지</a>
 		</div>
 		<!-- /.navbar-header -->
 
@@ -88,11 +94,10 @@
 
 		<div id="page-wrapper">
 			<div class="row">
-			
 				<div  class="col-lg-12">
 					<h1 class="page-header">홈페이지 관리</h1>
 					<div align = "right">
-					<a href="#" style = "width : 200px;  margin : 10px;" class="btn btn-default btn-block" id = "refreshPage">갱신하기</a></div>
+					<!-- <button style = "width : 200px;  margin : 10px;" class="btn btn-default btn-block" onclick="location.href = '/dsm/refreshPage'">갱신하기</button> --></div>
 				</div>
 				<!-- /.col-lg-12 -->
 			</div>
@@ -100,15 +105,19 @@
 			<div class="row">
 				<div class="col-lg-3 col-md-6">
 				
-					<div class="panel panel-primary">
+					<div class="panel panel-primary"> <!-- 표 색깔 정하는 부분 -->
 						<div class="panel-heading">
 							<div class="row">
 								<div class="col-xs-3">
-									<i class="fa fa-comments fa-5x"></i>
+									<i class="fa fa-bank fa-5x"></i>
 								</div>
 								<div class="col-xs-9 text-right">
-									<div class="huge">26</div>
-									<div>새 댓글 수!</div>
+									<div class="huge"><%= ad.getMoneyPlus() %></div>
+									<div >총 결제금액!</div>
+									<div class="huge"><%= ad.getMoneyMinus() %></div>
+									<div>총 환급금액!</div>
+									<div class="huge"><%= ad.getMoneyDeal() %></div>
+									<div>총 거래 금액!</div>
 								</div>
 							</div>
 						</div>
@@ -121,16 +130,38 @@
 						</a>
 					</div>
 				</div>
-				<div class="col-lg-3 col-md-6">
-					<div class="panel panel-green">
-						<div class="panel-heading">
-							<div class="row">
+				<div class="col-lg-3 col-md-6" >
+					<div class="panel panel-info" >
+						<div class="panel-heading" >
+							<div class="row" >
 								<div class="col-xs-3">
-									<i class="fa fa-tasks fa-5x"></i>
+									<i class="fa fa-shopping-cart fa-5x"></i>
 								</div>
 								<div class="col-xs-9 text-right">
-									<div class="huge">12</div>
-									<div>새 게시글 수!</div>
+									<div class="huge"><%= ad.getProductCount()%></div>
+									<div>총 상품 수!</div>
+								</div>
+							</div>
+						</div>
+						<a href="#">
+							<div class="panel-footer">
+								<span class="pull-left">View Details</span> <span
+									class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+								<div class="clearfix"></div>
+							</div>
+						</a>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6" >
+					<div class="panel panel-warning" >
+						<div class="panel-heading" >
+							<div class="row" >
+								<div class="col-xs-3">
+									<i class="fa fa-pencil fa-5x"></i>
+								</div>
+								<div class="col-xs-9 text-right">
+									<div class="huge"><%= ad.getBoardCount()%></div>
+									<div>총 게시글 수!</div>
 								</div>
 							</div>
 						</div>
@@ -148,11 +179,11 @@
 						<div class="panel-heading">
 							<div class="row">
 								<div class="col-xs-3">
-									<i class="fa fa-shopping-cart fa-5x"></i>
+									<i class="fa fa-credit-card fa-5x"></i>
 								</div>
 								<div class="col-xs-9 text-right">
-									<div class="huge">124</div>
-									<div>새 거래 수!</div>
+									<div class="huge"><%= ad.getDealCount() %></div>
+									<div>총 결제 수!</div>
 								</div>
 							</div>
 						</div>
@@ -170,11 +201,33 @@
 						<div class="panel-heading">
 							<div class="row">
 								<div class="col-xs-3">
-									<i class="fa fa-support fa-5x"></i>
+									<i class="fa fa-user fa-5x"></i>
 								</div>
 								<div class="col-xs-9 text-right">
-									<div class="huge">13</div>
-									<div>새 회원 수!</div>
+									<div class="huge"><%= ad.getMemberCount() %></div>
+									<div>총 회원 수!</div>
+								</div>
+							</div>
+						</div>
+						<a href="#">
+							<div class="panel-footer">
+								<span class="pull-left">View Details</span> <span
+									class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+								<div class="clearfix"></div>
+							</div>
+						</a>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="panel panel-green">
+						<div class="panel-heading">
+							<div class="row">
+								<div class="col-xs-3">
+									<i class="fa fa-credit-card fa-5x"></i>
+								</div>
+								<div class="col-xs-9 text-right">
+									<div class="huge"><%= ad.getTax() %></div>
+									<div>총 취득 세금!</div>
 								</div>
 							</div>
 						</div>
@@ -358,13 +411,7 @@
 	<!-- /#wrapper -->
 
 
-	<script>
-		$(function(){
-			$("#refreshPage").click(function(){
-				location.href = "/dsm/refreshPage";
-			});
-		});
-	</script>
+
 
 
 
