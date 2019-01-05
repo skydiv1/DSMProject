@@ -43,8 +43,8 @@ public class InsertDealInfoServlet extends HttpServlet {
 		System.out.println("상품 가격(서블릿) : "+dealPrice);
 		String requestText = request.getParameter("requestText");
 		System.out.println("신청 내용(서블릿) : "+requestText);
-		int additionalOption = Integer.parseInt(request.getParameter("additionalOption"));
-		System.out.println("총 상품 가격(서블릿) : "+additionalOption);
+		int totalPrice = Integer.parseInt(request.getParameter("totalPrice"));
+		System.out.println("총 상품 가격(서블릿) : "+totalPrice);
 //		int dealOptionPrice = Integer.parseInt(request.getParameter("dealOptionPrice"));
 //		System.out.println("상품 번호(서블릿) : "+dealOptionPrice);
 		
@@ -52,7 +52,7 @@ public class InsertDealInfoServlet extends HttpServlet {
 		deal.setProductNo(productNo);
 		deal.setCustomerCode(customerCode);
 		deal.setSellerCode(sellerCode);
-		deal.setMainProductPrice(dealPrice);
+		deal.setMainProductPrice(totalPrice); // 기본금액 + 추가금액
 		//deal.setSubProductPrice(dealOptionPrice);
 				
 		DealList dealList = new DealList();

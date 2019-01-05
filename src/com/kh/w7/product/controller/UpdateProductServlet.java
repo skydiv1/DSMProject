@@ -100,9 +100,18 @@ public class UpdateProductServlet extends HttpServlet {
 			int[] multiImgsArr = new int[multiImgsNo.length];
 			for(int i=0; i<multiImgsArr.length; i++) {
 				multiImgsArr[i] = Integer.parseInt(multiImgsNo[i]);
+				
+				if(originFiles.get(i) != null) { // 널 값이 아닐 때만 대입해준다.
+					multiOriginImgs[i] = originFiles.get(i); // 새로 들어온 이미지를 넣어준다.
+				}
+				if(saveFiles.get(i) != null) {
+					multiChangeImgs[i] = saveFiles.get(i);
+				}
+				
 				System.out.println("multiImgsArr[i] : "+ multiImgsArr[i]);
 				System.out.println("multiOriginImgs[i] : "+ multiOriginImgs[i]);
 				System.out.println("multiChangeImgs[i] : "+ multiChangeImgs[i]);
+				System.out.println("(서블릿)multiImgsArr 몇 번 반복 되는지.. "+i);
 			}
 					
 			/* 추가항목 값 jsp에서 가져오기 */
@@ -110,12 +119,20 @@ public class UpdateProductServlet extends HttpServlet {
 			String[] multiAdditionalPrice = multiRequest.getParameterValues("additionalPrice");
 			String[] multiFixedItem = multiRequest.getParameterValues("fixedItem");
 			String[] multiFixedPrice = multiRequest.getParameterValues("fixedPrice");
+			for(int i=0; i<multiAdditionalPrice.length; i++) {
+				System.out.println("JSP multiAdditionalItem[i] : " + multiAdditionalItem[i]);
+				System.out.println("JSP multiAdditionalPrice[i] : " + multiAdditionalPrice[i]);
+				System.out.println("JSP multiFixedItem[i] : " + multiFixedItem[i]);
+				System.out.println("JSP multiFixedPrice[i] : " + multiFixedPrice[i]);
+				System.out.println("(서블릿)추가항목 값 jsp에서 가져오기: 몇 번 반복 되는지.. "+i);
+			}
 			
 			int[] additionalPriceArr = new int[multiAdditionalPrice.length];
 			int[] fixedPriceArr = new int[multiFixedPrice.length];
 			for(int i=0; i<multiAdditionalPrice.length; i++) {
 				additionalPriceArr[i] = Integer.parseInt(multiAdditionalPrice[i]);
 				fixedPriceArr[i] = Integer.parseInt(multiFixedPrice[i]);
+				System.out.println("(서블릿)additionalPriceArr: 몇 번 반복 되는지.. "+i);
 			}
 			
 			String multiContent = multiRequest.getParameter("content");
@@ -151,6 +168,7 @@ public class UpdateProductServlet extends HttpServlet {
 				System.out.println("(UpdateProduct서블릿) additionalPriceArr[i] : "+additionalPriceArr[i]);
 				pList.add(pp);		
 				System.out.println("(updateProduct)서블릿 : "+pList);
+				System.out.println("(서블릿)PlusProduct: 몇 번 반복 되는지.. "+i);
 			}
 			
 			/* 배열에 담아서 가져와야 한다. (고정값!!) */
@@ -167,6 +185,7 @@ public class UpdateProductServlet extends HttpServlet {
 				System.out.println("(UpdateProduct (고정값!!)서블릿) fixedPriceArr[i] : "+fixedPriceArr[i]);
 				fixedpList.add(ppFixed);		
 				System.out.println("(updateProduct (고정값!!)서블릿) : "+fixedpList);
+				System.out.println("(서블릿)PlusProduct - fixedpList: 몇 번 반복 되는지.. "+i);
 			}
 						
 			int result2 = new ProductService().updatePlusProduct(product, pList, num, fixedpList);

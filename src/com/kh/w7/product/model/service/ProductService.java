@@ -160,8 +160,10 @@ public class ProductService {
 			fileList.get(i).getImgNo();
 			fileList.get(i).getChangeName();
 			fileList.get(i).getImgFilePath();
-			fileList.add(at);			
+			fileList.add(at);	
+			//System.out.println("(서비스)이미지 업데이트 몇 번 반복 되는지.. "+i);
 		}
+		System.out.println("fileList.size(서비스) : "+fileList.size());
 		System.out.println("▶ service에서 이미지 리스트 값 확인 : "+fileList);
 		int result2 = new ProductDao().updateAttachment(con, fileList, num);
 		System.out.println("result2(updateThumbnail) 이미지 수정되는지 확인 : "+result2);

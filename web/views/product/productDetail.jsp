@@ -18,6 +18,10 @@
 	Attachment detailImg6 = fileList.get(5);	 
 	
 	ArrayList<PlusProduct> pList = (ArrayList<PlusProduct>)request.getAttribute("pList");
+	int[] ppList=new int[pList.size()];
+	for(int i=0; i<pList.size(); i++){
+		ppList[i] = pList.get(i).getPlusProductPrice();
+	}
 	
 	ArrayList<Review> reviewList = (ArrayList<Review>)request.getAttribute("reviewList");
 	
@@ -151,8 +155,8 @@
 					style="padding-right: 10%; margin-left: 5%;">
 					<select class="btn btn-outline-secondary" id="additionalOption" name="additionalOption">
 						<option value="0" selected>추가옵션(선택)</option>
-						<% for(PlusProduct p : pList){ %>
-							<option value="<%=p.getPlusProductPrice()%>"><span><%=p.getPlusProductItem()%></span> : <span><%=p.getPlusProductPrice()%></span>원
+						<% for(int i=0; i<pList.size(); i++){ %>
+							<option value="<%=pList.get(i).getPlusProductPrice()%>"><span><%=pList.get(i).getPlusProductItem()%></span> : <span><%=pList.get(i).getPlusProductPrice()%></span>원
 							</option>						
 						<% } %>
 					</select>
@@ -167,12 +171,12 @@
 					<button id="requestForm1" type="button" class="btn btn-warning" style="width: 90%; height: 50px;">신청하기</button>
 				<%} else if(loginUser != null  && loginUser.getSellerCertcheck()==0){ %> <!-- 소비자일때 -->
 <!-- 					<form id="popUpList" method="post"> -->
-						<%-- <input type="hidden" id="dealNo" name="dealNo" value=""> <!-- 거래번호는 시퀀스 -->
-						<input type="hidden" id="productNo" name="productNo" value="<%=product.getProductNo()%>"> <!-- 상품번호 -->
-						<input type="hidden" id="customerCode" name="customerCode" value="<%=loginUser.getMemberCode()%>"> <!-- 소비자코드 -->
-						<input type="hidden" id="sellerCode" name="sellerCode" value="<%=product.getMemberCode()%>"> <!-- 판매자코드 -->
-						<input type="hidden" id="dealPrice" name="dealPrice" value="<%=product.getProductItemPrice()%>"> <!-- 기본 거래금액 -->
-						<input type="hidden" id="dealOptionPrice" name="dealOptionPrice"> <!-- 기본 거래금액 --> --%>
+<!-- 						<input type="hidden" id="dealNo" name="dealNo" value=""> 거래번호는 시퀀스 -->
+<%-- 						<input type="hidden" id="productNo" name="productNo" value="<%=product.getProductNo()%>"> <!-- 상품번호 --> --%>
+<%-- 						<input type="hidden" id="customerCode" name="customerCode" value="<%=loginUser.getMemberCode()%>"> <!-- 소비자코드 --> --%>
+<%-- 						<input type="hidden" id="sellerCode" name="sellerCode" value="<%=product.getMemberCode()%>"> <!-- 판매자코드 --> --%>
+<%-- 						<input type="hidden" id="dealPrice" name="dealPrice" value="<%=product.getProductItemPrice()%>"> <!-- 기본 거래금액 --> --%>
+<!-- 						<input type="hidden" id="dealOptionPrice" name="dealOptionPrice"> 기본 거래금액 -->
 						<button id="requestForm2" type="submit" class="btn btn-warning" data-toggle="modal" data-target="#askModal" style="width: 90%; height: 50px;">신청하기</button>
 <!-- 					</form> -->
 				<%} else if(loginUser == null){ %> <!-- 비회원일때 -->
@@ -204,7 +208,7 @@
 			</td>
 			<td width="50%">
 				<div style="font-size: 15px; font: bold; margin-left: 5%; margin-top: 5%;">
-					<b>전체 금액</b> : <span id="totalPrice" style="font-size: 20px; margin-left: 60%;"><%= product.getProductItemPrice() %></span>원
+					<b>전체 금액</b> : <span id="totalPrice1" style="font-size: 20px; margin-left: 60%;"><%= product.getProductItemPrice() %></span>원
 				</div>
 			</td>
 		</tr>
@@ -410,78 +414,37 @@
 		});
 	</script>
 	
+	<!-- 서블릿->jsp->javaScript 에서 값을 사용하기 위해 -->
+	<% for(int i=0; i<pList.size(); i++){ %>
+		<input type="hidden" name="pListVal" value="<%= pList.get(i).getPlusProductPrice() %>">
+	<% } %>
+		<input type="hidden" id="originPrice" value="<%= product.getProductItemPrice() %>">
+	<!-- ------------------------------------------------- -->
+	
 	<script>
-		/* 상품 가격 하단에 출력 */
+		/* 상품 가격 하단에 출력 */		
 		$(function () {
+			addPrice=0;
+			originPrice=0;
 			$("#additionalOption").change(function () {
-				var totalPrice=0;
-				
-				if($("#additionalOption").val() == "<%=pList.get(0).getPlusProductPrice()%>"){
-					totalPrice = <%=pList.get(0).getPlusProductPrice()%> + <%= product.getProductItemPrice() %>
-					$("#totalPrice").text(totalPrice);
-				}else if($("#additionalOption").val() == "<%=pList.get(1).getPlusProductPrice()%>"){
-					totalPrice = <%=pList.get(1).getPlusProductPrice()%> + <%= product.getProductItemPrice() %>
-					$("#totalPrice").text(totalPrice);
-				}else if($("#additionalOption").val() == "<%=pList.get(2).getPlusProductPrice()%>"){
-					totalPrice = <%=pList.get(2).getPlusProductPrice()%> + <%= product.getProductItemPrice() %>
-					$("#totalPrice").text(totalPrice);
-				}else{
-					alert("해당 상품은 존재하지 않습니다.");
-					totalPrice = <%= product.getProductItemPrice() %>
-					$("#totalPrice").text(totalPrice);
-				}
-				
-				<%-- if(typeof("<%=pList.get(0).getPlusProductPrice()%>") !== 'undefined'){
-					console.log("1번수행")
-				}else if(typeof("<%=pList.get(1).getPlusProductPrice()%>") !== 'undefined'){
-					console.log("2번수행")
-				}else if(typeof("<%=pList.get(2).getPlusProductPrice()%>") !== 'undefined'){
-					console.log("3번수행")
-				} --%>
-				
-<%-- 				for(var k=0; k<<%=pList.size()%>; k++){
-					if($("#additionalOption").val() == "<%=pList.get(k).getPlusProductPrice()%>"){
-						totalPrice = <%=pList.get(k).getPlusProductPrice()%> + <%= product.getProductItemPrice() %>
-						$("#totalPrice").text(totalPrice);
-					}
-				} --%>
+				addPrice = parseInt($("option:selected").val()); // String -> int
+				originPrice = parseInt($("#originPrice").val());
+				$("#totalPrice1").text((addPrice + originPrice));
+
+				// 상품에 대한 정보 폼태그로 넘겨주기
+				$("#requestForm2").click(function() {
+					var productNo = $("#productNo").val("<%=product.getProductNo()%>");
+					var customerCode = $("#customerCode").val("<%=loginUser.getMemberCode()%>");
+					var sellerCode = $("#sellerCode").val("<%=product.getMemberCode()%>");
+					var dealPrice = $("#dealPrice").val("<%=product.getProductItemPrice()%>");
+					var totalPrice = $("#totalPrice").val(addPrice+originPrice);
+				});
 			});
-			
-			
-			/* 상품 신청 버튼 클릭 시 추가 항목 가격 합산하여 전송 */
-			$("#additionalOption").change(function () {
-				var totalPrice=0;
-				<%-- for(var i=0; i<<%=pList.size()%>; i++){
-					if($("#additionalOption").val() == "<%=pList.get(i).getPlusProductPrice()%>"){
-						totalPrice = (<%=pList.get(i).getPlusProductPrice()%> + <%= product.getProductItemPrice() %>)
-						$("#dealOptionPrice").val(totalPrice);
-					}
-				} --%>
-				if($("#additionalOption").val() == "<%=pList.get(0).getPlusProductPrice()%>"){
-					totalPrice = (<%=pList.get(0).getPlusProductPrice()%> + <%= product.getProductItemPrice() %>)
-					$("#additionalOption").val(totalPrice);
-				}else if($("#additionalOption").val() == "<%=pList.get(1).getPlusProductPrice()%>"){
-					totalPrice = (<%=pList.get(1).getPlusProductPrice()%> + <%= product.getProductItemPrice() %>)
-					$("#additionalOption").val(totalPrice);
-				}else if($("#additionalOption").val() == "<%=pList.get(2).getPlusProductPrice()%>"){
-					totalPrice = (<%=pList.get(2).getPlusProductPrice()%> + <%= product.getProductItemPrice() %>)
-					$("#additionalOption").val(totalPrice);
-				}else if($('#additionalOption option:selected').val()==""){
-					$("#additionalOption option:eq(0)").prop("selected", true);
-					totalPrice = <%= product.getProductItemPrice() %>
-					$("#additionalOption").val(totalPrice);
-				}
-			});
-			
-			var count=$('#additionalOption option:selected').val(); 
-			if(count==0){
-				totalPrice = <%= product.getProductItemPrice() %>
-				$("#totalPrice").text(totalPrice);
-			}
-		}); 
+		});
 	</script>
 	
 	<script>
+		/* 판매자 페이지로 */
 		$("#goToProfile").click(function () {
 			$("#formList").attr("action", "<%=request.getContextPath()%>/noticeResist.pr");
 		});
@@ -496,19 +459,6 @@
 			});
 			$("#requestForm4").click(function() {
 				alert("본인 상품은 이용하실 수 없습니다.");
-			});
-
-			// 상품에 대한 정보 폼태그로 넘겨주기
-			$("#requestForm2").click(function() {
-				var productNo = $("#productNo").val("<%=product.getProductNo()%>");
-				var customerCode = $("#customerCode").val("<%=loginUser.getMemberCode()%>");
-				var sellerCode = $("#sellerCode").val("<%=product.getMemberCode()%>");
-				var dealPrice = $("#dealPrice").val("<%=product.getProductItemPrice()%>");
-				//alert(productNo.val()+", "+customerCode.val()+", "+sellerCode.val()+", "+dealPrice.val()); // 상품 코드를 팝업에 보내 저장
-<%-- 				var dealOptionPrice = $("#dealOptionPrice").val("<%=product.getProductNo()%>"); --%>
-				//console.log(dealOptionPrice.val()); // 상품 코드를 팝업에 보내 저장
-				
-<%-- 				 $("#popUpList").attr("action", "<%=request.getContextPath()%>/selectDealInfo.pr"); --%>
 			});
 		});
 	</script>
