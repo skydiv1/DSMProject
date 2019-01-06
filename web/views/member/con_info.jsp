@@ -233,7 +233,7 @@ form {
 				
 		}
 		function leaveMember() {
-
+			var memberStatus=$("#memberStatus").val();
 		}
 		function goMain() {
 			location.href="<%=request.getContextPath()%>/index.jsp";			
