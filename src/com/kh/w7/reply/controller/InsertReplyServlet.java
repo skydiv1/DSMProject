@@ -10,16 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.kh.w7.board.model.service.BoardService;
-import com.kh.w7.board.model.vo.Board;
-import com.kh.w7.reply.*;
 import com.kh.w7.reply.model.service.ReplyService;
 import com.kh.w7.reply.model.vo.Reply;
 
 /**
  * Servlet implementation class InsertReplyServlet
  */
-@WebServlet("/insertReply.ro")
+@WebServlet("/insertReply.re")
 public class InsertReplyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -36,18 +33,18 @@ public class InsertReplyServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		int BoardNo = Integer.parseInt(request.getParameter("BoardCode"));
+		int BoardNo = Integer.parseInt(request.getParameter("BoardNo"));
 		int MemberCode = Integer.parseInt(request.getParameter("MemberCode"));
-		String context = request.getParameter("BoardContext");
+		String Context = request.getParameter("Context");
 		
 		System.out.println(BoardNo);
 		System.out.println(MemberCode);
-		System.out.println(context);
+		System.out.println(Context);
 		
 		Reply r = new Reply();
 		r.setBoardNo(BoardNo);
 		r.setMemberCode(MemberCode);
-		r.setReplyContext(context);		
+		r.setReplyContext(Context);		
 		
 		ArrayList<Reply> replyList = new ReplyService().insertReply(r);
 		
