@@ -1,8 +1,10 @@
 package com.kh.w7.member.model.service;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import com.kh.w7.member.model.dao.MemberDao;
+import com.kh.w7.member.model.vo.Img;
 import com.kh.w7.member.model.vo.Member;
 import static com.kh.w7.common.JDBCTemplate.*;
 
@@ -125,6 +127,33 @@ public class MemberService {
 
 		System.out.println("service result:" + findpwd);
 		return findpwd;
+	}
+
+	
+	public int findmemberCode(String memberId) {
+		Connection con = getConnection();
+		
+		int memberCode = new MemberDao().findmemberCode(con,memberId);
+		
+		close(con);
+		
+		return memberCode;
+	}
+	
+
+	public int insertImg(ArrayList<Img> fileList) {
+		Connection con = getConnection();
+		
+		int result = new MemberDao().insertImg(con, fileList);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
 	}
 
 }
