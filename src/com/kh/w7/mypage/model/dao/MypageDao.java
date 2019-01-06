@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.w7.mypage.model.vo.MyPage;
@@ -597,6 +598,44 @@ public class MypageDao {
 			close(rset);
 		}
 		return cashlist;
+	}
+
+	//리뷰 정보 불러오기
+	public ArrayList<HashMap<String, Object>> reviewSeller(Connection con, int dealnum) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> reviewlist= null;
+		
+		String query = prop.getProperty("reviewSeller");
+		
+		try {
+			pstmt=con.prepareStatement(query);
+			
+			
+			pstmt.setInt(1, dealnum);
+			
+			rset= pstmt.executeQuery();
+			
+			
+			reviewlist = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				HashMap<String, Object> p = new HashMap<>();
+				
+				p.put("thumnailImg", 	rset.getString("CHANGENAME"));
+				p.put("productName",	rset.getString("PRODUCT_NAME"));
+				p.put("productContent",	rset.getString("PRODUCT_CONTEXT"));
+				
+				
+				reviewlist.add(p);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		return reviewlist;
 	}
 
 

@@ -1,28 +1,23 @@
-package com.kh.w7.admin.controller;
+package com.kh.w7.member.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.w7.admin.model.service.AdminService;
-import com.kh.w7.member.model.vo.Member;
-
 /**
- * Servlet implementation class SelectAllMemberServlet
+ * Servlet implementation class LeaveMemberServlet
  */
-@WebServlet("/selectAllMember")
-public class SelectAllMemberServlet extends HttpServlet {
+@WebServlet("/leaveMember.me")
+public class LeaveMemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectAllMemberServlet() {
+    public LeaveMemberServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,21 +26,8 @@ public class SelectAllMemberServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		Member m = new Member();
-		ArrayList<Member> list = new ArrayList<Member>();
-		
-		list = new AdminService().selectAllMember();
-		
-		String page = "";
-		if(list !=null) {
-			page = "views/admin/pages/adminMember.jsp";
-			request.setAttribute("list", list);
-		}else {
-			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "전체 회원 조회 실패!");
-		}
-		request.getRequestDispatcher(page).forward(request, response);
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
