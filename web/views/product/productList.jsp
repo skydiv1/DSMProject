@@ -88,7 +88,7 @@
 <!-- 		'<span id="searchResult"></span>' (으)로 검색된 결과는 <span id="searchResultCount"></span>건 입니다. -->
 	</div>
 	<div align="right" class="dropdown" style="padding-right: 19%;">
-		<select class="btn btn-secondary">
+		<select class="btn btn-secondary" id="category">
 			<option value="category" selected>카테고리</option>
 			<option value="shooting">촬영</option>
 			<option value="education">교육</option>
@@ -172,7 +172,17 @@
 		$("#inputGroup-sizing-lg").click(function () {
 			$("#formList").attr("action", "<%=request.getContextPath()%>/searchList.pr");
 		});
-
+	</script>
+	
+	<!-- 세션 스토리지 -->
+	<script>
+		$(function () {
+			localStorage.test = '123';
+			localStorage.setItem('test', '123');
+			
+			localStorage.getItem('test');
+			
+		});
 	</script>
 
 	<!-- Footer ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->

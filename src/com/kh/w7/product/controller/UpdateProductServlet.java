@@ -199,7 +199,6 @@ public class UpdateProductServlet extends HttpServlet {
 			
 			// 반복문을 통해 거꾸로 넘어온 파일들을 다시 역순으로 바꿔준다.
 			Attachment at = null;
-			System.out.println("for문 시작 전");
 			for(int i=originFiles.size()-1; i>=0; i--) {
 				at = new Attachment();
 				at.setProductNo(num);
@@ -209,11 +208,9 @@ public class UpdateProductServlet extends HttpServlet {
 				at.setChangeName(multiChangeImgs[i]);
 				// 세션으로 작성자를 가져온다.
 				at.setMemberCode(Integer.parseInt(String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getMemberCode())));
-
-				System.out.println("for문 시작 중" + i);
+				
 				fileList.add(at);
 			}			
-			System.out.println("for문 시작 전");
 			System.out.println("fileList(servlet) : "+fileList);
 			
 			int result1 = new ProductService().updateThumbnail(product, fileList, num, at);

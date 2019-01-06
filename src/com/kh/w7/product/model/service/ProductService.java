@@ -1,15 +1,19 @@
 package com.kh.w7.product.model.service;
 
+import static com.kh.w7.common.JDBCTemplate.close;
+import static com.kh.w7.common.JDBCTemplate.commit;
+import static com.kh.w7.common.JDBCTemplate.getConnection;
+import static com.kh.w7.common.JDBCTemplate.rollback;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.kh.w7.common.Attachment;
 import com.kh.w7.product.model.dao.ProductDao;
+import com.kh.w7.product.model.dao.SellerProfileDao;
 import com.kh.w7.product.model.vo.PlusProduct;
 import com.kh.w7.product.model.vo.Product;
-
-import static com.kh.w7.common.JDBCTemplate.*;
 
 public class ProductService {
 
@@ -279,6 +283,7 @@ public class ProductService {
 
 		return listCount;
 	}
+
 
 
 

@@ -369,6 +369,7 @@ public class MemberDao {
 		return result;
 	}
 
+
 	public int insertImg(Connection con, ArrayList<Img> fileList) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -427,6 +428,7 @@ public class MemberDao {
 
 		return memberCode;
 	}
+
 	
 	
 }

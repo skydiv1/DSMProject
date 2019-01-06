@@ -1,3 +1,4 @@
+<%@page import="com.kh.w7.product.model.vo.Review"%>
 <%@page import="com.kh.w7.common.PageInfo"%>
 <%@page import="com.kh.w7.common.Attachment"%>
 <%@page import="com.kh.w7.product.model.vo.Product"%>
@@ -19,6 +20,8 @@
 	int endPage = pi.getEndPage();
 	
 	int memberCode = (int)request.getAttribute("memberCode");
+
+	ArrayList<Review> reviewList = (ArrayList<Review>)request.getAttribute("reviewList");
 	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -127,7 +130,7 @@ input::placeholder {
 <section class="bg-light" id="portfolio" style = "padding: 50px">
 
 
-<div style="background : #fec810; width:58%; height:250px; margin-top: 0px; margin-left:21%; background-position:center;">
+<div style="background : #323232; width:58%; height:250px; margin-top: 0px; margin-left:21%; background-position:center;">
 	<div class="container">
 		<div class="intro-text" style="padding-top: 35px;">
 			
@@ -138,21 +141,19 @@ input::placeholder {
                      style="width: 150px; height: 150px;"></td>
                      
                   <td width="80%" style="border-bottom: 1px solid #EAEAEA;">
-                  <span style = "color : black; font-size:20px;">'<%=member.getMemberId() %>'님의 페이지에 오신 것을 환영합니다.</span></td>
+                  <span style = "color : white; font-size:20px;">'<%=member.getMemberId() %>'님의 페이지에 오신 것을 환영합니다.</span></td>
                </tr>
                <tr>
                   <td>
-                     <div style = "color : black;">소개 : <%=member.getSellerIntroduction() %></div>
+                     <div style = "color : white;">소개 : <%=member.getSellerIntroduction() %></div>
                   </td>
                </tr>
                <tr>
                   <td>
-	                 <div style="background: lightgray; text-align: center; font-size: 1.3em; display : inline-block; width : 45%; height : 10%; vertical-align : center; border-radius : 3px;">★★★★☆(4.0)
-					 </div>
-					 <div style = "display : inline-block;">&nbsp;&nbsp;</div>
-                     <div style="background: lightgray; text-align: center; font-size: 1.3em; display : inline-block; width : 45%; height : 10%; vertical-align : center;border-radius : 3px;">총 작업수 : 
-				                        <div style="background: lightgray; text-align: center;  display : inline-block;"><%=pList.size() %></div>
-                     </div>
+<!-- 	                 <div style="background: lightgray; text-align: center; font-size: 1.3em; display : inline-block; width : 45%; height : 10%; vertical-align : center; border-radius : 3px;">★★★★☆(4.0)</div> -->
+<!-- 					 <div style = "display : inline-block;">&nbsp;&nbsp;</div> -->
+                     <button class="btn btn-light" disabled='disabled' style="text-align: center center; font-size: 1.3em; display : inline-block; width : 45%; height : 10%; vertical-align : center;border-radius : 3px;"><%=listCount %>개의 상품
+                     </button>
                   </td>
                </tr>
             </table>
@@ -251,101 +252,34 @@ input::placeholder {
 	<!--////////////////////////////서비스 평가 시작///////////////////////////////////////////////////  -->
 	<section class="bg-light" id="portfolio" style = "padding: 50px">
 	<div class="container" style="width: 60%">
-		<div style="font-size: 1.3em; font-weight: bold; text-align: left;">'<%=member.getMemberId() %>'님의 서비스 평가</div>
-			<div style="background: lightgray; text-align: center; font-size: 1.7em;">★★★★☆(4.0)
+		<div style="font-size: 1.3em; font-weight: bold; text-align: left;">'<%=member.getMemberId() %>'님의 상품을 이용한 <%=reviewList.size() %>개의 소비자 평가</div>
+			<div style="background: lightgray; text-align: center; font-size: 1.7em;">&nbsp;
 			</div>
 
-         
-<table style="width: 600px;">
+         	<% for(int i=0; i<reviewList.size(); i++){ %>
+			<table style="width: 600px;">
                <tr>
-                  <td rowspan="2"><img class="mx-auto rounded-circle"
-                     src="/dsm/img/customerProfile1.jpg" alt=""
-                     style="width: 90px; height: 90px;"></td>
-                  <td width="80%" style="border-bottom: 1px solid #EAEAEA;"><span>18.12.07
-                        14:02</span> <span class="rating" style="margin-left: 15px;"> <input
-                        id="rating5_2" type="radio" name="rating2" value="5" checked>
-                        <label for="rating5_2">5</label> <input id="rating4_2"
-                        type="radio" name="rating2" value="4"> <label
-                        for="rating4_2">4</label> <input id="rating3_2" type="radio"
-                        name="rating2" value="3"> <label for="rating3_2">3</label>
-                        <input id="rating2_2" type="radio" name="rating2" value="2">
-                        <label for="rating2_2">2</label> <input id="rating1_2"
-                        type="radio" name="rating2" value="1"> <label
-                        for="rating1_2">1</label>
-                  </span></td>
+                  <td rowspan="2">
+                  	<img class="mx-auto rounded-circle" src="/dsm/img/customerProfile1.jpg" alt="" style="width: 90px; height: 90px;">
+                  </td>
+                  <td width="80%" style="border-bottom: 1px solid #EAEAEA;">
+                  	<span><%=reviewList.get(i).getReviewDate() %></span> <span class="rating" style="margin-left: 15px;"> 
+	                  	<input id="rating5_2" type="radio" name="rating2" value="5" checked><label for="rating5_2">5</label> 
+	                  	<input id="rating4_2" type="radio" name="rating2" value="4"> <label for="rating4_2">4</label> 
+	                  	<input id="rating3_2" type="radio" name="rating2" value="3"> <label for="rating3_2">3</label>
+	                    <input id="rating2_2" type="radio" name="rating2" value="2"> <label for="rating2_2">2</label> 
+	                    <input id="rating1_2" type="radio" name="rating2" value="1"> <label for="rating1_2">1</label>
+                  	</span>
+                  </td>
                </tr>
                <tr>
                   <td>
-                     <div>
-                        <b>kki***</b>
-                     </div>
-                     <div>저번에 이용했는데 이번에 또 이용해요 ㅎㅎ</div>
+                     <div><b><%=reviewList.get(i).getMemberId() %></b></div>
+                     <div><%=reviewList.get(i).getReviewContext() %></div>
                   </td>
                </tr>
             </table>
-            
-            
-            
-<table style="width: 600px;">
-               <tr>
-                  <td rowspan="2"><img class="mx-auto rounded-circle"
-                     src="/dsm/img/customerProfile2.jpg" alt=""
-                     style="width: 90px; height: 90px;"></td>
-                  <td width="80%" style="border-bottom: 1px solid #EAEAEA;"><span>18.12.07
-                        14:02</span> <span class="rating" style="margin-left: 15px;"> <input
-                        id="rating5_2" type="radio" name="rating2" value="5" checked>
-                        <label for="rating5_2">5</label> <input id="rating4_2"
-                        type="radio" name="rating2" value="4"> <label
-                        for="rating4_2">4</label> <input id="rating3_2" type="radio"
-                        name="rating2" value="3"> <label for="rating3_2">3</label>
-                        <input id="rating2_2" type="radio" name="rating2" value="2">
-                        <label for="rating2_2">2</label> <input id="rating1_2"
-                        type="radio" name="rating2" value="1"> <label
-                        for="rating1_2">1</label>
-                  </span></td>
-               </tr>
-               <tr>
-                  <td>
-                     <div>
-                        <b>doq***</b>
-                     </div>
-                     <div>친절하게 잘 해주네요!</div>
-                  </td>
-               </tr>
-            </table>
-            
-		<table style="width: 600px;">
-               <tr>
-                  <td rowspan="2"><img class="mx-auto rounded-circle"
-                     src="/dsm/img/customerProfile3.jpg" alt=""
-                     style="width: 90px; height: 90px;"></td>
-                  <td width="80%" style="border-bottom: 1px solid #EAEAEA;"><span>18.12.07
-                        14:02</span> <span class="rating" style="margin-left: 15px;"> <input
-                        id="rating5_2" type="radio" name="rating2" value="5" checked>
-                        <label for="rating5_2">5</label> <input id="rating4_2"
-                        type="radio" name="rating2" value="4"> <label
-                        for="rating4_2">4</label> <input id="rating3_2" type="radio"
-                        name="rating2" value="3"> <label for="rating3_2">3</label>
-                        <input id="rating2_2" type="radio" name="rating2" value="2">
-                        <label for="rating2_2">2</label> <input id="rating1_2"
-                        type="radio" name="rating2" value="1"> <label
-                        for="rating1_2">1</label>
-                  </span></td>
-               </tr>
-               <tr>
-                  <td>
-                     <div>
-                        <b>kqn***</b>
-                     </div>
-                     <div>감사합니다~~~</div>
-                  </td>
-               </tr>
-            </table>
-            
-            
-            
-		
-			
+            <%} %>
 
 	</div>
 	</section>
