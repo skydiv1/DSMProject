@@ -2,6 +2,7 @@ package com.kh.w7.mypage.model.service;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.w7.mypage.model.dao.MypageDao;
 import com.kh.w7.mypage.model.vo.MyPage;
@@ -253,6 +254,20 @@ public class MypageService {
 		close(con);
 		
 		return cashlist;
+	}
+	//리뷰정보 불러오기
+	public ArrayList<HashMap<String, Object>> reviewSeller(int dealnum) {
+		Connection con  = getConnection(); 
+		
+		ArrayList<HashMap<String, Object>>reviewlist = new MypageDao().reviewSeller(con, dealnum);
+
+		if(reviewlist != null) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		return reviewlist;
 	}
 
 	

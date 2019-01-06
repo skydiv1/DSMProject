@@ -131,12 +131,11 @@
           <div class="container">
 			  <div class="row">
 			    <div class="col">
-			    <img src="/dsm/img/product/abc.jpg" class="img-thumbnail">
+			    <img src="" class="img-thumbnail" id="reviewthumnail">
 			    </div>
 			    <div class="col">
-			    han419120<br>
-					뭘 불러와야 될 것 같은데 뭔지 모르겠다.<br>
-					상품에 대한 정보 불러오기
+			    	<div id="reviewproName"></div><br>
+					<div id="reviewproConten"></div><br>
 			    </div>
 			  </div>
 			</div>
@@ -160,7 +159,7 @@
 					    <input type="radio" name="star-input" id="p9" value="9"><label for="p9">9</label>
 					    <input type="radio" name="star-input" id="p10" value="10"><label for="p10">10</label>
 					  </span>
-					  <!-- <output for="star-input"><b>0</b>점</output> -->
+					  <output for="star-input" id="starPoint" style="display: none">0</output>
 					</span>
 					<br>
 				</div>

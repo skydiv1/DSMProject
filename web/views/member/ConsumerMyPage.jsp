@@ -39,13 +39,13 @@
 			type : "get",
 			data : {dealnum:dealnum, textContent:textContent},
 			success : function (data) {
-				selectListAp();
+				selectListAp(1);
 				selectListCencel();
 			}
 		});
 	}); 
 	//목록에서 취소버튼 누를때
-	 $("#cBtn").click(function () {
+	 $(".cBtn").click(function () {
 			var no = $(this).parent().parent().children().eq(1).text();
 			$("#dealnum").val(no);
 			console.log("no:"+no);
@@ -66,7 +66,7 @@
 	}); */
 	
 	//수락 목록에서 결제 버튼 눌렀을때
-	 $("#dealBtn").click(function () { //두번째 버튼이 안눌림
+	 $(".dealBtn").click(function () { //두번째 버튼이 안눌림
 		 var dealnum = $(this).parent().parent().children().eq(1).text();
 		 var productno = $(this).parent().parent().children().eq(2).text();
 		 console.log("dealnum:"+dealnum);
@@ -97,7 +97,7 @@
 	});
 	
 	//구매완료 목록에서 구매확정 버튼 눌렀을때
-	$("#dealcomlete").click(function () {
+	$(".dealcomlete").click(function () {
 		var no = $(this).parent().parent().children().eq(1).text();
 
 		 $.ajax({
@@ -112,18 +112,22 @@
 	});
 	
 	//구매완료 목록에서 구매평작성 누를때
-	/* $("#dealreview").click(function () {
-		var no = $(this).parent().parent().children().eq(1).text();
-		var dealnum = $("#reviewdealnum").val(no);
+	 $(".dealreview").click(function () {
+		var dealnum = $(this).parent().parent().children().eq(1).text();
+		$("#reviewdealnum").val(dealnum);
 		$.ajax({
-			url:"${pageContext.request.contextPath}/cancelupdate.consumer",
+			url:"${pageContext.request.contextPath}/review.seller",
 			type : "get",
 			data : {dealnum:dealnum},
 			success : function (data) {
-				selectListdealcomplete();
+				$("#reviewthumnail").attr("src", "${pageContext.request.contextPath}/image_uploadFiles/"+data[0].thumnailImg);
+				$("#reviewproName").text(data[0].productName);
+				$("#reviewproConten").text(data[0].productContent);
+				
+				
 			}
 		});
-	});  구매평 어케함 */
+	});  
   }
 		
 	
@@ -151,7 +155,7 @@ function selectListAp(pg) {
 				apListHtml.push('	<td class="td1">' +data.aplist[i].member_id + '</td>');
 				apListHtml.push('	<td class="td1">' +data.aplist[i].productName+ '</td>');
 				apListHtml.push('	<td>' +data.aplist[i].dealListaddMsg1 + '</td>');
-				apListHtml.push('	 <td style="width: 30px"><button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#cencelModal" id="cBtn">취소</button></td>');
+				apListHtml.push('	 <td style="width: 30px"><button type="button" class="btn btn-secondary cBtn" data-toggle="modal" data-target="#cencelModal">취소</button></td>');
 				apListHtml.push('</tr>');
 				
 				
@@ -165,7 +169,7 @@ function selectListAp(pg) {
 			if(pg <=1){
 				apPageHtml.push('<button disabled><</button>');
 			}else{
-				apPageHtml.push('<button onclick="selectListAp(' + pg-1 + ')"><</button>');
+				apPageHtml.push('<button onclick="selectListAp(' + (pg-1) + ')"><</button>');
 			}
 			for(var p = data.startPage; p<= data.endPage; p++) {
 				if(p == pg){
@@ -177,7 +181,7 @@ function selectListAp(pg) {
 			if(pg >= data.maxPage){ 
 				apPageHtml.push('<button disabled>></button>');
 			}else{
-				apPageHtml.push('<button onclick="selectListAp('+pg+1+')">></button>');
+				apPageHtml.push('<button onclick="selectListAp('+(pg+1)+')">></button>');
 			}
 				apPageHtml.push('<button onclick="selectListAp('+data.maxPage +')">>></button>');
 			
@@ -248,8 +252,8 @@ function selectListAp(pg) {
 					accListHtml.push('	<td class="td1">' +data[i].productName+ '</td>');
 					accListHtml.push('	<td class="td1">' +data[i].dealListaddMsg1 + '</td>');
 					accListHtml.push('	<td>' +data[i].dealListaddMsg2 + '</td>');
-					accListHtml.push('	<td style="width: 10px; padding-right: 0px"><button type="button" class="btn btn-warning" id="dealBtn">결제하기</button></td>');
-					accListHtml.push('	<td style="width: 5px"><button type="button" class="btn btn-secondary"data-toggle="modal" data-target="#cencelModal" id="cBtn">취소</button></td>');
+					accListHtml.push('	<td style="width: 10px; padding-right: 0px"><button type="button" class="btn btn-warning dealBtn">결제하기</button></td>');
+					accListHtml.push('	<td style="width: 5px"><button type="button" class="btn btn-secondary cBtn"data-toggle="modal" data-target="#cencelModal">취소</button></td>');
 					accListHtml.push('</tr>');
 					
 					
@@ -286,11 +290,11 @@ function selectListAp(pg) {
 					dcListHtml.push('	<td class="td1">' +data[i].dealListaddMsg1 + '</td>');
 					dcListHtml.push('	<td>' +data[i].dealListaddMsg2 + '</td>');
 					if(data[i].dealListCategory==3){
-					dcListHtml.push('	<td style="width: 40px"><button type="button" class="btn btn-secondary" id="dealcomlete">구매확정</button></td>');
-					dcListHtml.push('	<td style="width: 40px"><button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#reviewModal" id="dealreview" style="display: none">구매평 작성</button></td>');
+					dcListHtml.push('	<td style="width: 40px"><button type="button" class="btn btn-secondary dealcomlete">구매확정</button></td>');
+					dcListHtml.push('	<td style="width: 40px"><button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#reviewModal" style="display: none">구매평 작성</button></td>');
 					}else{
-					dcListHtml.push('	<td style="width: 40px"><button type="button" class="btn btn-secondary" id="dealcomlete" disabled>구매확정</button></td>');
-					dcListHtml.push('	<td style="width: 40px"><button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#reviewModal" id="dealreview">구매평 작성</button></td>');
+					dcListHtml.push('	<td style="width: 40px"><button type="button" class="btn btn-secondary dealcomlete" disabled>구매확정</button></td>');
+					dcListHtml.push('	<td style="width: 40px"><button type="button" class="btn btn-secondary dealreview" data-toggle="modal" data-target="#reviewModal" >구매평 작성</button></td>');
 					}
 					dcListHtml.push('</tr>');
 					
