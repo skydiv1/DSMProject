@@ -143,7 +143,7 @@
 								</div>
 							</div>
 						</div>
-						<a href="#">
+						<a href="/dsm/productConvert">
 							<div class="panel-footer">
 								<span class="pull-left">View Details</span> <span
 									class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -165,7 +165,7 @@
 								</div>
 							</div>
 						</div>
-						<a href="#">
+						<a href="/dsm/boardConvertExcel">
 							<div class="panel-footer">
 								<span class="pull-left">View Details</span> <span
 									class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -187,7 +187,7 @@
 								</div>
 							</div>
 						</div>
-						<a href="#">
+						<a href="/dsm/cashConvertExcel">
 							<div class="panel-footer">
 								<span class="pull-left">View Details</span> <span
 									class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -209,7 +209,7 @@
 								</div>
 							</div>
 						</div>
-						<a href="#">
+						<a href="/dsm/memberConvertExcel">
 							<div class="panel-footer">
 								<span class="pull-left">View Details</span> <span
 									class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -227,11 +227,11 @@
 								</div>
 								<div class="col-xs-9 text-right">
 									<div class="huge"><%= ad.getTax() %></div>
-									<div>ÃÑ Ãëµæ ¼¼±Ý!</div>
+									<div>ÃÑ Ãëµæ ¼ö¼ö·á!</div>
 								</div>
 							</div>
 						</div>
-						<a href="#">
+						<a href="/dsm/cashConvertExcel">
 							<div class="panel-footer">
 								<span class="pull-left">View Details</span> <span
 									class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>

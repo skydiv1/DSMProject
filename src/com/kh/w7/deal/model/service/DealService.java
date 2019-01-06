@@ -29,10 +29,6 @@ public class DealService {
 		int resultC = resultB + new DealDao().updateSellerCash(con, sellerCode, dealNo, totalPrice, nowCash);
 		
 		int result = resultC;
-		System.out.println("resultA : " + resultA);
-		System.out.println("resultB : " + resultB);
-		System.out.println("resultC : " + resultC);
-		System.out.println("result : " + result);
 		
 		if(result > 0) {
 			commit(con);

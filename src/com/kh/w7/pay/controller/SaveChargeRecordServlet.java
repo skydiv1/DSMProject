@@ -39,7 +39,7 @@ public class SaveChargeRecordServlet extends HttpServlet {
 		System.out.println("buyer_code : " + buyer_code);
 		//System.out.println("buyer_name : " + buyer_name);
 		System.out.println("amount : " + amount);
-		
+		amount = (int) ((int)amount*0.7);
 		Pay p = new Pay();
 		p.setMember_code(buyer_code);
 		p.setPay_price(amount);
