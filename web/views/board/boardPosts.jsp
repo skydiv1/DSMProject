@@ -42,7 +42,6 @@
      <hr>
      	<textarea class="form-control" readonly rows="10"  id="comment" ><%= b.getBoardContext() %></textarea>    	  
    	<hr>
-     <div class="form-group">  
 			<div style="margin:0px 0px 0px 800px; margin-right:10px; ">	
 			   <%-- <% if(loginUser != null && loginUser.getMemberCode() == b.getMemberCode()){ %> --%>
 			  <a href="<%=request.getContextPath()%>/selectList.bo" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">목록으로</a>			  
@@ -50,48 +49,65 @@
 			  <a href="<%=request.getContextPath()%>/selectBoard.bo?num=<%=b.getBoardNo()%>"class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">수정</a>			  	
 			   <% } %>
 			 </div> 
-				<hr>
-			<br><br>
-					
-	<%-- 		<div>
-			<div class="w7-border w7-padding">댓글</div>
-			<div class="w7-border w7-padding">
-				<c:if test="${ loginUser = null }">
-					<textarea rows="5" cols="50" class="w7-input w7-border newLogin" readonly>로그인 후 댓글 달기</textarea>
-				</c:if>
-				<c:if test="${ loginUser != null }">
-					<i class="fa fa-user w3-padding-16"></i> ${ content.id }
-					<form>
-						<input type="hidden" name="no" id="no" value="${ content.board_no }"> 
-						<input type="hidden" name="id" id="id" value="${ id }">
-						<textarea rows="5" cols="50" class="w3-input w3-border" placeholder="댓글 작성" name="reply_content" id="reply_content"></textarea>
-						<input type="button" class="w3-button w3-border" id="reply_btn" value="댓글 등록">
-					</form>
-				</c:if>
+			 <hr>   	
+			<div class="replyArea">
+				<div class="replyWriterArea">
+				<table align="center">
+					<tr>
+						<td><textarea rows="3" cols="80" id="replyContext"></textarea></td>
+						<td><button class="btn btn-secondary btn-lg active" id="addReply">댓글 등록</button></td>
+					</tr>
+				</table>
+				</div>
+			<div id="replySelectArea">
+				<table id="replySelectTable" border="1" align="center"></table>
 			</div>
-			<div>
-				<div class="w3-border w3-padding">댓글목록(<i class="fa fa-commenting-o"></i> <span class="reply_count"></span>)</div>
-				<div id="replyList"></div>
-			</div>
-		</div> --%>
+		</div>
 	</div>
-			
-			
-			
-			
-			
-			
-			
-			
-		</div>			
-			
-	
-		<br>
-		<br><br>
-		<br>
-		<hr>
-		<br>
-		<br>
+	<script>
+		$(function(){
+			$("#addReply").click(function(){
+				var BoardNo = <%= r.getBoardNo() %>;
+				var MemberCode = <%= loginUser.getMemberCode() %>;
+				var context = $("#replyContext").val();
+				
+				$.ajax({
+					url:"/dsm/insertReply.re",
+					data:{ BoardNo:BoardNo, MemberCode:MemberCode, Context:Context},
+					type:"post",
+					success:function(data){
+						console.log(data);
+							
+						var $replySelectTable = $("#replySelectTable");
+						$replySelectTable.html('');
+						
+						for(var key in data){
+							var $tr = $("<tr>");
+							var $MemberCodeTd = $("<td>").text(data[key].memberCode).css("width","100px");
+							var $ContextTd = $("<td>").text(data[key].replyContext).css("width","400px");
+							var $ReplyDateTd = $("<td>").text(data[key].replyDate).css("width", "200px");
+							
+							$tr.append($MemberCodeTd);
+							$tr.append($ContextTd);
+							$tr.append($ReplyDateTd);
+							$replySelectTable.append($tr);
+						}
+						
+						
+					},
+					error:function(){
+						console.log(실패);
+					}
+				});
+			});
+		});
+	</script>
+	<br><br>
+	<br>
+	<br>
+	<br>
+	<br>
+				
 <!-- Footer -->
 		<%@ include file = "../common/footer.jsp" %>
 <!-- footer 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->

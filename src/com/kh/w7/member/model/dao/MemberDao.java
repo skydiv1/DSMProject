@@ -9,10 +9,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import javax.activation.DataSource;
 
+import com.kh.w7.member.model.vo.Img;
 import com.kh.w7.member.model.vo.Member;
 import static com.kh.w7.common.JDBCTemplate.*;
 
@@ -367,6 +369,64 @@ public class MemberDao {
 		return result;
 	}
 
+	public int insertImg(Connection con, ArrayList<Img> fileList) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertImg");
+		
+		try {
+			for(int i = 0; i < fileList.size(); i++) {
+				pstmt = con.prepareStatement(query);
+				
+				pstmt.setString(2, "Y");
+				pstmt.setString(3, fileList.get(i).getOriginname());
+				pstmt.setString(4, fileList.get(i).getChangename());
+				pstmt.setString(1, fileList.get(i).getSellercert_name());
+				pstmt.setInt(6, fileList.get(i).getMember_code());
+				pstmt.setString(5, fileList.get(i).getImg_filepath());
+				
+				
+				result += pstmt.executeUpdate();
+	
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+	
+
+	public int findmemberCode(Connection con, String memberId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int memberCode=0;
+		
+		String query = prop.getProperty("findmemberCode");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, memberId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				memberCode = rset.getInt("MEMBER_CODE");
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return memberCode;
+	}
 	
 	
 }

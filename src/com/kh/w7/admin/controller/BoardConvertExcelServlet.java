@@ -1,4 +1,4 @@
-package com.kh.w7.reply.controller;
+package com.kh.w7.admin.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,21 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.kh.w7.reply.model.service.ReplyService;
-import com.kh.w7.reply.model.vo.Reply;
+import com.kh.w7.admin.model.service.AdminService;
+import com.kh.w7.admin.model.vo.ProductExcel;
+import com.kh.w7.board.model.vo.Board;
 
 /**
- * Servlet implementation class InsertReplyServlet
+ * Servlet implementation class BoardConvertExcelServlet
  */
-@WebServlet("/insertReply.re")
-public class InsertReplyServlet extends HttpServlet {
+@WebServlet("/boardConvertExcel")
+public class BoardConvertExcelServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertReplyServlet() {
+    public BoardConvertExcelServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,24 +32,24 @@ public class InsertReplyServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		int BoardNo = Integer.parseInt(request.getParameter("BoardNo"));
-		int MemberCode = Integer.parseInt(request.getParameter("MemberCode"));
-		String Context = request.getParameter("Context");
 		
-		System.out.println(BoardNo);
-		System.out.println(MemberCode);
-		System.out.println(Context);
+		ArrayList<Board> list = new ArrayList<Board>();
+		list = new AdminService().BoardConvertExcel();
 		
-		Reply r = new Reply();
-		r.setBoardNo(BoardNo);
-		r.setMemberCode(MemberCode);
-		r.setReplyContext(Context);		
+		String page = "";
+		if(list != null) {
+			page = "views/admin/pages/ConvertedBoardExcel.jsp";
+			request.setAttribute("list", list);
+		}else {
+			page = "views/common/errorPage.jsp";
+			request.setAttribute("msg", "게시판 테이블 엑셀 전환 실패!");
+		}
+		request.getRequestDispatcher(page).forward(request, response);
 		
-		ArrayList<Reply> replyList = new ReplyService().insertReply(r);
 		
-		response.setContentType("application/json");
-		new Gson().toJson(replyList, response.getWriter());		
+		
+		
+		
 	}
 
 	/**
