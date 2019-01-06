@@ -26,7 +26,7 @@
 function addBtnEvent() {
 
 	   //대기자 목록에서 거절하기버튼 누를때
-	  $("#cBtn").click(function () {
+	  $(".cBtn").click(function () {
 		  var no = $(this).parent().parent().children().eq(1).text();
 			$("#dealnum").val(no);
 			
@@ -52,7 +52,7 @@ function addBtnEvent() {
 	  });
 	 
 	  //대기자 목록에서 수락하기버튼 누를때
-	  $("#agBtn").click(function () {
+	  $(".agBtn").click(function () {
 		  var no = $(this).parent().parent().children().eq(1).text();
 			$("#agreedealnum").val(no);
 	  });
@@ -79,7 +79,7 @@ function addBtnEvent() {
 	
 	  
 	  //판매글 목록에서 게시글 수정하기 버튼 누를때
-	  $("#productModify").click(function () {
+	  $(".productModify").click(function () {
 		  
 		  var num = $(this).parent().parent().children().eq(1).text();//제품번호
 		  location.href="<%=request.getContextPath()%>/selectProduct.pr?num="+num;
@@ -105,7 +105,7 @@ function selectListProduct(pg) {
 					productListHtml.push('	<td class="td1" style="display: none">' +data[i].productNo + '</td>');
 					productListHtml.push('	<td class="td1">' +data[i].productName + '</td>');
 					productListHtml.push('	<td>' +data[i].productContext+ '</td>');
-					productListHtml.push('	<td style="width: 20px"><button type="button" class="btn btn-secondary" id="productModify">게시글 수정하기</button></td>');
+					productListHtml.push('	<td style="width: 20px"><button type="button" class="btn btn-secondary productModify">게시글 수정하기</button></td>');
 					productListHtml.push('</tr>');
 					
 				    
@@ -139,8 +139,8 @@ function selectListWaiting(pg) {
 					waitListHtml.push('	<td class="td1">' +data[i].member_id + '</td>');
 					waitListHtml.push('	<td class="td1">' +data[i].productName+ '</td>');
 					waitListHtml.push('	<td>' +data[i].dealListaddMsg1 + '</td>');
-					waitListHtml.push('	<td style="width: 10px; padding-right: 0px"><button type="button" class="btn btn-warning"data-toggle="modal" data-target="#agreeModal" id="agBtn">수락하기</button></td>');
-					waitListHtml.push('	<td style="width: 5px"><button type="button" class="btn btn-secondary"data-toggle="modal" data-target="#cencelModal" id="cBtn">거절</button></td>');
+					waitListHtml.push('	<td style="width: 10px; padding-right: 0px"><button type="button" class="btn btn-warning agBtn"data-toggle="modal" data-target="#agreeModal">수락하기</button></td>');
+					waitListHtml.push('	<td style="width: 5px"><button type="button" class="btn btn-secondary cBtn" data-toggle="modal" data-target="#cencelModal">거절</button></td>');
 					waitListHtml.push('</tr>');
 					
 				}
@@ -214,7 +214,7 @@ function selectListCencelseller(pg) {
 					scListHtml.push('	<td class="td1">' +data[i].productName+ '</td>');
 					scListHtml.push('	<td class="td1">' +data[i].dealListaddMsg1 + '</td>');
 					scListHtml.push('	<td>' +data[i].dealListaddMsg2 + '</td>');
-					scListHtml.push('	<td style="width: 10px"><button type="button" class="btn btn-secondary" id="cancelDelete">삭제</button></td>');
+					scListHtml.push('	<td style="width: 10px"><button type="button" class="btn btn-secondary cancelDelete">삭제</button></td>');
 					scListHtml.push('</tr>');
 					
 					
