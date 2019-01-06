@@ -25,6 +25,8 @@ public class ReplyDao {
 	private Properties prop = new Properties();
 	private static String selectSEQ = "SELECT SEQ_BOARD.NEXTVAL FROM DUAL";
 	
+	
+	
 	public ReplyDao() {
 		String fileName = ReplyDao.class.getResource("/sql/board/board-query.properties").getPath();
 		
@@ -49,6 +51,9 @@ public class ReplyDao {
 			pstmt.setInt(2, r.getMemberCode());
 			pstmt.setString(3, r.getReplyContext());
 			
+			System.out.println(r.getBoardNo());
+			System.out.println(r.getMemberCode());
+			System.out.println(r.getReplyContext());
 			result = pstmt.executeUpdate();
 			
 			
@@ -62,7 +67,7 @@ public class ReplyDao {
 		return result;
 	}
 
-	public ArrayList<Reply> selectReplyList(Connection con, int boardNo) {
+	public ArrayList<Reply> selectReplyList(Connection con, int boardNo ) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Reply> list = null;
