@@ -3,6 +3,7 @@ package com.kh.w7.admin.model.service;
 import com.kh.w7.admin.model.dao.AdminDao;
 import com.kh.w7.admin.model.vo.Admin;
 import com.kh.w7.admin.model.vo.Cash;
+import com.kh.w7.admin.model.vo.ProductExcel;
 import com.kh.w7.board.model.vo.Board;
 import com.kh.w7.member.model.vo.Member;
 import com.kh.w7.refund.model.vo.Refund;
@@ -217,6 +218,64 @@ public class AdminService {
 		ArrayList<Cash> list = new ArrayList<Cash>();
 		
 		list = new AdminDao().cashConvertExcel(con);
+		
+		if(list != null) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		
+		return list;
+	}
+
+	public ArrayList<ProductExcel> ProductConvertExcel() {
+		
+		Connection con = getConnection();
+		
+		ArrayList<ProductExcel> list = new ArrayList<ProductExcel>();
+		
+		list = new AdminDao().ProductConvertExcel(con);
+		
+		if(list != null) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		
+		return list;
+	}
+
+	public ArrayList<Member> MemberConvertExcel() {
+		Connection con = getConnection();
+		
+		ArrayList<Member> list = new ArrayList<Member>();
+		
+		list = new AdminDao().MemberConvertExcel(con);
+		
+		if(list != null) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		
+		return list;
+	}
+
+	public ArrayList<Board> BoardConvertExcel() {
+		Connection con = getConnection();
+		
+		ArrayList<Board> list = new ArrayList<Board>();
+		
+		list = new AdminDao().BoardConvertExcel(con);
 		
 		if(list != null) {
 			commit(con);

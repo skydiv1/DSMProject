@@ -14,6 +14,7 @@ import static com.kh.w7.common.JDBCTemplate.*;
 
 import com.kh.w7.admin.model.vo.Admin;
 import com.kh.w7.admin.model.vo.Cash;
+import com.kh.w7.admin.model.vo.ProductExcel;
 import com.kh.w7.board.model.vo.Board;
 import com.kh.w7.member.model.vo.Member;
 import com.kh.w7.pay.model.dao.PayDao;
@@ -447,6 +448,150 @@ public class AdminDao {
 		}
 		
 		return list;
+	}
+
+	public ArrayList<ProductExcel> ProductConvertExcel(Connection con) {
+		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ProductExcel pe = null;
+		ArrayList<ProductExcel> list = new ArrayList<ProductExcel>();
+		
+		String query = prop.getProperty("ProductConvertExcel");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				pe = new ProductExcel();
+				
+				pe.setProductNo(rset.getInt(1));
+				pe.setMemberCode(rset.getInt(2));
+				pe.setMemberId(rset.getString(3));
+				pe.setMemberName(rset.getString(4));
+				pe.setProductName(rset.getString(5));
+				//pe.setProductCategory(rset.getInt(6)); //여기부분 문제
+				pe.setProductContext(rset.getString(6));
+				pe.setProductItem(rset.getString(7));
+				pe.setProductPrice(rset.getInt(8));
+				pe.setPlusproductItem(rset.getString(9));
+				pe.setPlusproductPrice(rset.getInt(10));
+				pe.setProductRegisterDate(rset.getDate(11));
+				pe.setProductDeleteYN(rset.getInt(12));
+				
+				
+				list.add(pe);
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return list;
+	}
+
+	public ArrayList<Member> MemberConvertExcel(Connection con) {
+		// TODO Auto-generated method stub
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			Member m = null;
+			ArrayList<Member> list = new ArrayList<Member>();
+			
+			String query = prop.getProperty("MemberConvertExcel");
+			
+			try {
+				pstmt = con.prepareStatement(query);
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					m = new Member();
+					
+					m.setMemberCode(rset.getInt(1));
+					m.setMemberId(rset.getString(2));
+					m.setMemberName(rset.getString(3));
+					m.setMemberEmail(rset.getString(4));
+					m.setMemberPhone(rset.getString(5));
+					m.setMemberCategory(rset.getInt(6));
+					m.setSellerIntroduction(rset.getString(7));
+					m.setSellerGrade(rset.getInt(8));
+					m.setMemberStatus(rset.getInt(9));
+					m.setSellerBank(rset.getString(10));
+					m.setSellerAccount(rset.getString(11));
+					m.setSellerCareer(rset.getString(12));
+					m.setSellerCertcheck(rset.getInt(13));
+					m.setSellerImgPath(rset.getString(14));
+					m.setBlackCount(rset.getInt(15));
+					
+
+					list.add(m);
+				}
+				
+				
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+				close(rset);
+			}
+			
+			
+			return list;
+	}
+
+	public ArrayList<Board> BoardConvertExcel(Connection con) {
+		// TODO Auto-generated method stub
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			Board b = null;
+			ArrayList<Board> list = new ArrayList<Board>();
+			
+			String query = prop.getProperty("BoardConvertExcel");
+			
+			try {
+				pstmt = con.prepareStatement(query);
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					b = new Board();
+					b.setBoardNo(rset.getInt(1));
+					b.setMemberCode(rset.getInt(2));
+					b.setMemberName(rset.getString(3));
+					b.setBoardTitle(rset.getString(4));
+					b.setBoardContext(rset.getString(5));
+					b.setBoardDate(rset.getDate(6));
+					b.setBoardCategory(rset.getInt(7));
+					b.setBoardCount(rset.getInt(8));
+					b.setBoardDelete(rset.getInt(9));
+					b.setBoardQnaAnswerYn(rset.getInt(10));
+					
+					
+					
+					
+					list.add(b);
+				}
+				
+				
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+				close(rset);
+			}
+			
+			
+			return list;
 	}
 
 }

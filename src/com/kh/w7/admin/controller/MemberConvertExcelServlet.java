@@ -10,19 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.w7.admin.model.service.AdminService;
+import com.kh.w7.admin.model.vo.ProductExcel;
 import com.kh.w7.member.model.vo.Member;
 
 /**
- * Servlet implementation class SelectAllMemberServlet
+ * Servlet implementation class MemberConvertExcelServlet
  */
-@WebServlet("/selectAllMember")
-public class SelectAllMemberServlet extends HttpServlet {
+@WebServlet("/memberConvertExcel")
+public class MemberConvertExcelServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectAllMemberServlet() {
+    public MemberConvertExcelServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,20 +33,23 @@ public class SelectAllMemberServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		Member m = new Member();
-		ArrayList<Member> list = new ArrayList<Member>();
 		
-		list = new AdminService().selectAllMember();
+		ArrayList<Member> list = new ArrayList<Member>();
+		list = new AdminService().MemberConvertExcel();
 		
 		String page = "";
-		if(list !=null) {
-			page = "views/admin/pages/adminMember.jsp";
+		if(list != null) {
+			page = "views/admin/pages/ConvertedMemberExcel.jsp";
 			request.setAttribute("list", list);
 		}else {
 			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "전체 회원 조회 실패!");
+			request.setAttribute("msg", "회원 테이블 엑셀 전환 실패!");
 		}
 		request.getRequestDispatcher(page).forward(request, response);
+		
+		
+		
+		
 	}
 
 	/**
