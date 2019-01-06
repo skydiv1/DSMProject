@@ -458,8 +458,7 @@ public class ProductDao {
 				plist.add(plusProduct);	
 			}
 			System.out.println("DAO 추가상품 리스트 : " + plist);
-			
-			
+						
 			
 			// hashMap에 담기 -----------------------------
 			hmap = new HashMap<String, Object>();

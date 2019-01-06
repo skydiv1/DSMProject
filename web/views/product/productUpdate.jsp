@@ -110,7 +110,7 @@ input[type="number"]::-webkit-inner-spin-button{
 	<!-- 네비게이션 바 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	<% if(loginUser != null && loginUser.getMemberId().equals(member.getMemberId()) ){ %> <!-- 조건 추가 (작성자와 로그인 유저가 일치했을 경우 처리..) -->
 	<section class="bg-light" id="portfolio" style="">
-	<h2 style="margin-top: -80px; padding-left: 10%;">상품 등록</h2>
+	<h2 style="margin-top: -80px; padding-left: 10%;">상품 수정</h2>
 	<br>
 	<form id="updateForm" action="" onsubmit="return check()" method="post" enctype="multipart/form-data"> <!-- enctype="multipart/form-data":파일을 넘길때 -->
 		

@@ -43,7 +43,6 @@ public class SelectOneImageServlet extends HttpServlet {
 		System.out.println(hmap);
 		Product product= (Product)hmap.get("product"); // Dao에서 값을 받아온 후 깨내준다.
 		Member member = (Member)hmap.get("member");
-		//PlusProduct plusProduct = (PlusProduct)hmap.get("plusProduct");
 		ArrayList<PlusProduct> pList = (ArrayList<PlusProduct>)hmap.get("plusProduct");
 		ArrayList<Attachment> fileList = (ArrayList<Attachment>)hmap.get("attachment");
 

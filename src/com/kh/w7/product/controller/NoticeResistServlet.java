@@ -59,9 +59,13 @@ public class NoticeResistServlet extends HttpServlet {
 		//limit = 10; // 한 페이지에 1번~10번까지 보여준다.
 		limit = 6; // 한 페이지에 1번~6번까지만 보여준다.
 		
-		ProductService ps = new ProductService();
-		// 전체 게시글 수 조회
-		int listCount = ps.getListCount();
+		int memberCode = Integer.parseInt(request.getParameter("memberCode"));
+		System.out.println("memberCode(판매자 번호) : "+memberCode);
+		
+		SellerProfileService sps = new SellerProfileService();
+		// 해당 판매자 전체 게시글 수 조회
+		int listCount = sps.getListCount(memberCode);
+		System.out.println("listCount 확인 (서블릿)"+listCount);
 		
 		// 총 페이지 수 계산
 		// ex. 목록 수가 123개면 페이지 수는 13페이지가 필요하다.
@@ -83,9 +87,6 @@ public class NoticeResistServlet extends HttpServlet {
 		// 객체로 만들어서 사용
 		PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 		// -------------------------------------------------------------------------------------------------------
-				
-		int memberCode = Integer.parseInt(request.getParameter("memberCode"));
-		System.out.println("memberCode(판매자 번호) : "+memberCode);
 
 		HashMap<String, Object> hmap = new SellerProfileService().selectSellerList(memberCode, currentPage, limit);
 		
@@ -104,6 +105,7 @@ public class NoticeResistServlet extends HttpServlet {
 			request.setAttribute("member", member);	
 			request.setAttribute("pi", pi);		
 			request.setAttribute("memberCode", memberCode);		
+			request.setAttribute("reviewList", reviewList);		
 			page = "views/cash/noticeResist.jsp";
 		}else {
 			page = "views/common/errorPage.jsp";

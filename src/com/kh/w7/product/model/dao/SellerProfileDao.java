@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
@@ -107,6 +108,109 @@ public class SellerProfileDao {
 			close(rset);
 		}
 		return hmap;
+	}
+
+	
+	/* 트겅 판매자의 게시물 수 */
+	public int getListCount(Connection con, int memberCode) {
+		PreparedStatement pstmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("listCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);		
+			pstmt.setInt(1, memberCode);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		System.out.println("listCount(특정 판매자 게시물 총 개수) : "+listCount);
+		return listCount;
+	}
+
+	
+	/* 베스트 판매자 */
+	public Member findBestSeller(Connection con) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member bestSeller = null;
+
+		String query = prop.getProperty("bestSellerSelect");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+
+				bestSeller = new Member();
+				bestSeller.setMemberCode(rset.getInt("MEMBER_CODE"));
+				bestSeller.setMemberId(rset.getString("MEMBER_ID"));
+				bestSeller.setMemberPwd(rset.getString("MEMBER_PWD"));
+				bestSeller.setMemberName(rset.getString("MEMBER_NAME"));
+				bestSeller.setMemberPhone(rset.getString("MEMBER_PHONE"));
+				bestSeller.setMemberEmail(rset.getString("MEMBER_EMAIL"));
+				bestSeller.setMemberCategory(rset.getInt("MEMBER_CATEGORY"));
+				bestSeller.setSellerIntroduction(rset.getString("SELLER_INTRODUCTION"));
+				bestSeller.setSellerGrade(rset.getInt("SELLER_GRADE"));
+				bestSeller.setMemberAdmin(rset.getInt("MEMBER_ADMIN"));
+				bestSeller.setMemberStatus(rset.getInt("MEMBER_STATUS"));
+				bestSeller.setSellerAccountName(rset.getString("SELLER_ACCOUNTNAME"));
+				bestSeller.setSellerBank(rset.getString("SELLER_BANK"));
+				bestSeller.setSellerAccount(rset.getString("SELLER_ACCOUNT"));
+				bestSeller.setSellerCareer(rset.getString("SELLER_CAREER"));
+				bestSeller.setSellerCertcheck(rset.getInt("SELLER_CERTCHECK"));			
+
+			}
+			System.out.println("bestSeller(확인): " + bestSeller);
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return bestSeller;
+	}
+
+	
+	/* 특정 판매자의 리뷰 개수 */
+	public int selectReviewCount(Connection con) {
+		Statement stmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("listCount");
+		
+		try {
+			stmt = con.createStatement();			
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		System.out.println("listCount(특정 판매자의 리뷰 개수DAO) : "+listCount);
+		return listCount;
 	}
 
 }
