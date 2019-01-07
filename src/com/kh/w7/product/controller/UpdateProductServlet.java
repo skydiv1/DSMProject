@@ -86,6 +86,16 @@ public class UpdateProductServlet extends HttpServlet {
 				System.out.println("originalFileName name: "+multiRequest.getOriginalFileName(name)); // 다운로드.jpg
 			}
 			
+			// 역순으로 담아 순서를 맞춰준다.
+			ArrayList<String> saveFilesArr = new ArrayList<String>();
+			ArrayList<String> originFilesArr = new ArrayList<String>();
+			for(int i=saveFiles.size()-1; i>=0; i--) {
+				saveFilesArr.add(saveFiles.get(i));
+				originFilesArr.add(originFiles.get(i));
+			}
+			System.out.println(saveFilesArr);
+			System.out.println(originFilesArr);
+			
 			/* name으로 준 값들을 java에서 servlet으로 가져온다. */
 			//String membercode = "";
 			String multiTile = multiRequest.getParameter("title"); // title: 키값
@@ -101,11 +111,11 @@ public class UpdateProductServlet extends HttpServlet {
 			for(int i=0; i<multiImgsArr.length; i++) {
 				multiImgsArr[i] = Integer.parseInt(multiImgsNo[i]);
 				
-				if(originFiles.get(i) != null) { // 널 값이 아닐 때만 대입해준다.
-					multiOriginImgs[i] = originFiles.get(i); // 새로 들어온 이미지를 넣어준다.
+				if(originFilesArr.get(i) != null) { // 널 값이 아닐 때만 대입해준다.
+					multiOriginImgs[i] = originFilesArr.get(i); // 새로 들어온 이미지를 넣어준다.
 				}
-				if(saveFiles.get(i) != null) {
-					multiChangeImgs[i] = saveFiles.get(i);
+				if(saveFilesArr.get(i) != null) {
+					multiChangeImgs[i] = saveFilesArr.get(i);
 				}
 				
 				System.out.println("multiImgsArr[i] : "+ multiImgsArr[i]);
@@ -119,15 +129,7 @@ public class UpdateProductServlet extends HttpServlet {
 			String[] multiAdditionalPrice = multiRequest.getParameterValues("additionalPrice");
 			String[] multiFixedItem = multiRequest.getParameterValues("fixedItem");
 			String[] multiFixedPrice = multiRequest.getParameterValues("fixedPrice");
-			
-	/*		for(int i=0; i<multiAdditionalPrice.length; i++) {
-				System.out.println("JSP multiAdditionalItem[i] : " + multiAdditionalItem[i]);
-				System.out.println("JSP multiAdditionalPrice[i] : " + multiAdditionalPrice[i]);
-				System.out.println("JSP multiFixedItem[i] : " + multiFixedItem[i]);
-				System.out.println("JSP multiFixedPrice[i] : " + multiFixedPrice[i]);
-				System.out.println("(서블릿)추가항목 값 jsp에서 가져오기: 몇 번 반복 되는지.. "+i);
-			}*/
-			
+
 			int[] additionalPriceArr = new int[multiAdditionalPrice.length];
 			int[] fixedPriceArr = new int[multiFixedPrice.length];
 			//System.out.println("서블릿 길이확인 : "+multiFixedPrice[0].toString().trim());

@@ -14,7 +14,9 @@ import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.w7.common.Attachment;
+import com.kh.w7.deal.model.vo.Deal;
 import com.kh.w7.member.model.vo.Member;
+import com.kh.w7.product.model.vo.PlusProduct;
 import com.kh.w7.product.model.vo.Product;
 
 public class SellerProfileDao {
@@ -111,7 +113,43 @@ public class SellerProfileDao {
 	}
 
 	
-	/* 트겅 판매자의 게시물 수 */
+	/* 베스트 판매자 */
+	public ArrayList<HashMap<String, Object>> selectBestSeller(Connection con) {
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectBestSeller"); 
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>(); // 맴버 객체 대신 hashmap 사용 / Object: 다형성,autoBoxing 처리
+
+				hmap.put("memberCode", rset.getInt("MEMBER_CODE"));
+				hmap.put("memberId", rset.getString("MEMBER_ID"));
+				hmap.put("dealPrice", rset.getInt("DEAL_PRICE"));		
+				
+				list.add(hmap);
+			}	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}		
+		
+		System.out.println("list확인: "+list);		
+		return list;
+	}
+
+	
+	/* 특정 판매자의 게시물 수 */
 	public int getListCount(Connection con, int memberCode) {
 		PreparedStatement pstmt = null;
 		int listCount = 0;
@@ -137,79 +175,6 @@ public class SellerProfileDao {
 		}
 		
 		System.out.println("listCount(특정 판매자 게시물 총 개수) : "+listCount);
-		return listCount;
-	}
-
-	
-	/* 베스트 판매자 */
-	public Member findBestSeller(Connection con) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		Member bestSeller = null;
-
-		String query = prop.getProperty("bestSellerSelect");
-
-		try {
-			pstmt = con.prepareStatement(query);
-			rset = pstmt.executeQuery();
-
-			if (rset.next()) {
-
-				bestSeller = new Member();
-				bestSeller.setMemberCode(rset.getInt("MEMBER_CODE"));
-				bestSeller.setMemberId(rset.getString("MEMBER_ID"));
-				bestSeller.setMemberPwd(rset.getString("MEMBER_PWD"));
-				bestSeller.setMemberName(rset.getString("MEMBER_NAME"));
-				bestSeller.setMemberPhone(rset.getString("MEMBER_PHONE"));
-				bestSeller.setMemberEmail(rset.getString("MEMBER_EMAIL"));
-				bestSeller.setMemberCategory(rset.getInt("MEMBER_CATEGORY"));
-				bestSeller.setSellerIntroduction(rset.getString("SELLER_INTRODUCTION"));
-				bestSeller.setSellerGrade(rset.getInt("SELLER_GRADE"));
-				bestSeller.setMemberAdmin(rset.getInt("MEMBER_ADMIN"));
-				bestSeller.setMemberStatus(rset.getInt("MEMBER_STATUS"));
-				bestSeller.setSellerAccountName(rset.getString("SELLER_ACCOUNTNAME"));
-				bestSeller.setSellerBank(rset.getString("SELLER_BANK"));
-				bestSeller.setSellerAccount(rset.getString("SELLER_ACCOUNT"));
-				bestSeller.setSellerCareer(rset.getString("SELLER_CAREER"));
-				bestSeller.setSellerCertcheck(rset.getInt("SELLER_CERTCHECK"));			
-
-			}
-			System.out.println("bestSeller(확인): " + bestSeller);
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-			close(rset);
-		}
-		return bestSeller;
-	}
-
-	
-	/* 특정 판매자의 리뷰 개수 */
-	public int selectReviewCount(Connection con) {
-		Statement stmt = null;
-		int listCount = 0;
-		ResultSet rset = null;
-		
-		String query = prop.getProperty("listCount");
-		
-		try {
-			stmt = con.createStatement();			
-			rset = stmt.executeQuery(query);
-			
-			if(rset.next()) {
-				listCount = rset.getInt(1);				
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(stmt);
-			close(rset);
-		}
-		
-		System.out.println("listCount(특정 판매자의 리뷰 개수DAO) : "+listCount);
 		return listCount;
 	}
 

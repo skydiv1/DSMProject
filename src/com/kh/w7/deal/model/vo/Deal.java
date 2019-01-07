@@ -10,7 +10,7 @@ public class Deal implements java.io.Serializable{
 	private int customerCode;			// 소비자코드 (CUSTOMER_CODE)
 	private int sellerCode;					// 판매자코드 (SELLER_CODE)
 	private String mainProductName;
-	private int mainProductPrice;		// 거래금액 (DEAL_PRICE) - 임시로 사용
+	private int mainProductPrice;		// 거래금액 (DEAL_PRICE)
 	private String subProductName;
 	private int subProductPrice;
 	private int memberNowCash;

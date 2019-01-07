@@ -22,6 +22,8 @@ public class ReviewService {
 		return reviewList;
 	}
 
+	
+	/* 해당 판매자의 모든 리뷰 */
 	public ArrayList<Review> selectAllReviewList(int memberCode) {
 		Connection con = getConnection();
 		
@@ -31,5 +33,7 @@ public class ReviewService {
 		
 		return reviewList;
 	}
+
+
 
 }

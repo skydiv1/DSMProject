@@ -4,6 +4,10 @@
 	pageEncoding="UTF-8"%>
 <%
 	ArrayList<HashMap<String, Object>> sessionList = (ArrayList<HashMap<String, Object>>)session.getAttribute("sessionList");
+
+	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>)request.getAttribute("list");
+	
+	System.out.println("list(jsp) : "+list);
 	
 	/* Cookie ck = null;
 	for(int i=0; i<sessionList.size(); i++){ 
@@ -46,90 +50,25 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-4 col-sm-6 portfolio-item">
+			<% for(int i=0; i<list.size(); i++){ 
+				HashMap<String, Object> hmap = list.get(i);	
+			%>
+				<div name="imageList" class="col-md-4 col-sm-6 portfolio-item">
 					<a class="portfolio-link" data-toggle="modal" href="#">
 						<div class="portfolio-hover">
 							<div class="portfolio-hover-content">
+								<input type="hidden" name="memberCode" value="<%=hmap.get("memberCode")%>">
 								<i class="fas fa-plus fa-3x"></i>
 							</div>
-						</div> <img class="img-fluid" src="img/portfolio/01-thumbnail.jpg"
+						</div> <img class="img-fluid" src="img/portfolio/bestSeller.jpg"
 						alt="">
 					</a>
 					<div class="portfolio-caption">
-						<h4>랭킹 1</h4>
-						<p class="text-muted">IDIllustration</p>
+						<h4><%=hmap.get("memberId") %></h4>
+						<p class="text-muted">랭킹&nbsp;&nbsp;<%=(i+1) %>위</p>
 					</div>
 				</div>
-				<div class="col-md-4 col-sm-6 portfolio-item">
-					<a class="portfolio-link" data-toggle="modal" href="#">
-						<div class="portfolio-hover">
-							<div class="portfolio-hover-content">
-								<i class="fas fa-plus fa-3x"></i>
-							</div>
-						</div> <img class="img-fluid" src="img/portfolio/02-thumbnail.jpg"
-						alt="">
-					</a>
-					<div class="portfolio-caption">
-						<h4>랭킹 2</h4>
-						<p class="text-muted">IDGraphic Design</p>
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-6 portfolio-item">
-					<a class="portfolio-link" data-toggle="modal" href="#">
-						<div class="portfolio-hover">
-							<div class="portfolio-hover-content">
-								<i class="fas fa-plus fa-3x"></i>
-							</div>
-						</div> <img class="img-fluid" src="img/portfolio/03-thumbnail.jpg"
-						alt="">
-					</a>
-					<div class="portfolio-caption">
-						<h4>랭킹 3</h4>
-						<p class="text-muted">IDIdentity</p>
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-6 portfolio-item">
-					<a class="portfolio-link" data-toggle="modal" href="#">
-						<div class="portfolio-hover">
-							<div class="portfolio-hover-content">
-								<i class="fas fa-plus fa-3x"></i>
-							</div>
-						</div> <img class="img-fluid" src="img/portfolio/04-thumbnail.jpg"
-						alt="">
-					</a>
-					<div class="portfolio-caption">
-						<h4>랭킹 4</h4>
-						<p class="text-muted">IDBranding</p>
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-6 portfolio-item">
-					<a class="portfolio-link" data-toggle="modal" href="#">
-						<div class="portfolio-hover">
-							<div class="portfolio-hover-content">
-								<i class="fas fa-plus fa-3x"></i>
-							</div>
-						</div> <img class="img-fluid" src="img/portfolio/05-thumbnail.jpg"
-						alt="">
-					</a>
-					<div class="portfolio-caption">
-						<h4>랭킹 5</h4>
-						<p class="text-muted">IDWebsite Design</p>
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-6 portfolio-item">
-					<a class="portfolio-link" data-toggle="modal" href="#">
-						<div class="portfolio-hover">
-							<div class="portfolio-hover-content">
-								<i class="fas fa-plus fa-3x"></i>
-							</div>
-						</div> <img class="img-fluid" src="img/portfolio/06-thumbnail.jpg"
-						alt="">
-					</a>
-					<div class="portfolio-caption">
-						<h4>랭킹 6</h4>
-						<p class="text-muted">IDPhotography</p>
-					</div>
-				</div>
+				<%} %>				
 			</div>
 		</div>
 	</section>
@@ -226,10 +165,19 @@
 
 	<!-- 스크립트 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	<script>
-		$(function() {
-			$("#product1").click(function name() { // 최근 본 상품 1로 이동
-				location.href = "views/product/productDetail.jsp";
+		$(function () {
+			$("[name=imageList]").click(function () {
+				var memberCode = $(this).children().children().children().children().eq(0).val(); // eq(0).val(); //eq 0번째의 value값
+
+				location.href = "<%=request.getContextPath()%>/noticeResist.pr?memberCode=" + memberCode; 
 			});
+			
+			/* 세션 스토리지 */
+			var pNo1 = sessionStorage.getItem("productNo1");
+			//alert(pNo1);
+			var pNo2 = sessionStorage.getItem("productNo2");
+			//alert(pNo2);
+			
 		});
 	</script>
 	

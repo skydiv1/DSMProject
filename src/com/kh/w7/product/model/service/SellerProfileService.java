@@ -27,7 +27,21 @@ public class SellerProfileService {
 		return hmap;
 	}
 
-	
+
+	/* 베스트 판매자 */
+	public ArrayList<HashMap<String, Object>> selectBestSeller() {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = new SellerProfileDao().selectBestSeller(con);
+		
+		close(con);
+		
+		System.out.println("list(service)확인: "+list);
+		
+		return list;
+	}
+
+
 	/* 해당 판매자 전체 게시글 수 조회 */
 	public int getListCount(int memberCode) {
 		Connection con = getConnection();
@@ -37,22 +51,5 @@ public class SellerProfileService {
 		return listCount;
 	}
 
-
-	/* 베스트 판매자 */
-	public Member findBestSeller() {
-		Connection con = getConnection();
-		Member bestSeller = new SellerProfileDao().findBestSeller(con);
-		close(con);
-		return bestSeller;
-	}
-
-
-	/* 특정 판매자의 리뷰 개수 */
-	public int selectReviewList() {
-		Connection con = getConnection();		
-		int reviewCount = new SellerProfileDao().selectReviewCount(con);		
-		close(con);	
-		return reviewCount;
-	}
 
 }
