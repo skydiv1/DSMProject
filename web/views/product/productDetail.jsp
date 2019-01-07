@@ -133,11 +133,11 @@
 			<td>
 				<div style="font-size: 15px; margin-left: 5%;">작성자 : <span id="memberId" name="memberId"><%=member.getMemberId() %></span></div><hr>	
 			</td>
-		</tr>
 		<tr>
+		</tr>
 			<td rowspan="4">
-				<img class="img-fluid" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg1.getChangeName()%>" alt="" style="box-shadow: 0px 0px 10px #000; width:530px; height:420px;">
 			</td>
+				<img class="img-fluid" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg1.getChangeName()%>" alt="" style="box-shadow: 0px 0px 10px #000; width:530px; height:420px;">
 			<td>
 				<div style="font-size: 20px; font: bold; margin-left: 5%; margin-bottom: 5%;"><%=product.getProductName() %></div><hr> <!-- 상품 제목 -->
 			</td>

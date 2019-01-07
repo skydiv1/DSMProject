@@ -23,14 +23,14 @@
                                 <label>
                                     <h2>글 수정</h2>
                                 </label>
+                               </div> 
                                <hr>
-						      <form action="<%= request.getContextPath() %>/updateFaq.faq" method="post">
 						      <thead>
 						        <div class="form-group">
 						            <label>
 						                <h3>제목 : &nbsp;</h3>
 						            </label>
-						            <h7><input type="text" style="width:300px" name="Boardtitle" placeholder="제목을 입력해 주세요" value="<%= b.getBoardTitle() %>"></h7>
+						            <input type="text" style="width:300px" name="Boardtitle" placeholder="제목을 입력해 주세요" value="<%= b.getBoardTitle() %>">
 						            <input type="hidden" name="BoardNo" value="<%= b.getBoardNo() %>">
 						        </div>       
 						      </thead>
@@ -66,10 +66,9 @@
                                      $("#updateForm").attr("action", "<%=request.getContextPath()%>/deleteQna.qna");
                                  });
                              </script>
-                         </div>
                          </form>
+                         </div>
                          <hr></div>
-                     </div>
                      <!-- Footer -->
                      <%@ include file = "../common/footer.jsp" %>
                      <!-- footer 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->

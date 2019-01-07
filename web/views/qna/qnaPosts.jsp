@@ -65,15 +65,12 @@
                                     </div>
                                 </form>
                                
-                      <% if(loginUser !=null && loginUser.getMemberAdmin() == 1) {%>
-				<button class="btn btn-default"  onclick="location.href='./QNA.jsp'">돌아가기</button>
-			  	<button class="btn btn-default" onclick="location.href='./qnaUpdate.jsp'">적용</button>
-			<% }else{ %>
+				
+                      <% if(loginUser !=null && loginUser.getMemberCategory() == 2) {%>
+			  	<button class="btn btn-default" onclick="location.href='views/qna/qnaUpdate.jsp'">수정</button>
+				<% } %>
                        <button class="btn btn-default" onclick="location.href='<%=request.getContextPath()%>/selectQnaList.qna'" style="margin:0px 0px 0px 1000px;" type="submit">목록으로</button>
-                                <% if(loginUser != null && loginUser.getMemberName().equals(b.getMemberName())){ %>
-                                    <button class="btn btn-default" onclick="location.href='<%=request.getContextPath()%>/selectQna.qna?num=<%=b.getBoardNo()%>'">수정</button>
-                                <% } %>
-			<% } %>
+                              
                       
                             </div>
                         </div>

@@ -50,7 +50,7 @@
 			   <% } %>
 			 </div> 
 			 <hr>   	
-			<div class="replyArea">
+			<%-- <div class="replyArea">
 				<div class="replyWriterArea">
 				<table align="center">
 					<tr>
@@ -101,7 +101,7 @@
 				});
 			});
 		});
-	</script>
+	</script> --%>
 	<br><br>
 	<br>
 	<br>

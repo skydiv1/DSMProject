@@ -43,7 +43,7 @@
 			            </h3>
 			        </label>
 			        <hr>
-			                <textarea cols="60" name="context" name="context" placeholder="내용을 입력해 주세요" rows="15" type="context"></textarea>
+			                <textarea cols="60" name="context" placeholder="내용을 입력해 주세요" rows="15" type="context"></textarea>
 			            <hr>
 			                <div style="margin:0px 0px 0px 900px; margin-right:10px; ">
 							<button class="btn btn-default" onclick="complet()">확인</button>

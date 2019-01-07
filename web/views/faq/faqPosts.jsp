@@ -81,7 +81,7 @@
                                                 <button class="btn btn-default" onclick="location.href='<%=request.getContextPath()%>/selectFaq.faq?num=<%=b.getBoardNo()%>'">수정</button>
                                             <% } %>
                                         </div>
-                                        <form action="" method="post" name="">
+                                       <!--  <form action="" method="post" name="">
                                             <font size="3" color="red">댓글 1</font>
                                             <br>
                                                 <br>
@@ -105,7 +105,7 @@
                                                                 </div>
                                                             </td>
                                                         </tr>
-                                                    </table>
+                                                    </table> -->
                                                     <hr>
                                                         <br>
                                                             <br></div>
