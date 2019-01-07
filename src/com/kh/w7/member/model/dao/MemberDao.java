@@ -281,7 +281,7 @@ public class MemberDao {
 			return result;
 	    }
 
-	public int leaveMember(Connection con, int memberStatus) {
+	public int leaveMember(Connection con, int memberCode) {
 		Connection conn = null;
         PreparedStatement pstmt = null;
         
@@ -293,7 +293,7 @@ public class MemberDao {
             pstmt = conn.prepareStatement(query);
  
             
-            pstmt.setInt(1, memberStatus);
+            pstmt.setInt(1, memberCode);
 			
            result= pstmt.executeUpdate();
             

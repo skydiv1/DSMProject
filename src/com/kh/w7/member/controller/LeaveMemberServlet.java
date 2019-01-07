@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.w7.member.model.service.MemberService;
+import com.kh.w7.member.model.vo.Member;
+
 /**
  * Servlet implementation class LeaveMemberServlet
  */
@@ -26,10 +29,23 @@ public class LeaveMemberServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+		request.setCharacterEncoding("utf-8");
+		int memberCode = Integer.parseInt(request.getParameter("memberCode"));
 
+		System.out.println("memberCode: " + memberCode);
+
+		int result = new MemberService().leaveMember(memberCode);
+
+		if (result > 0) {
+			request.getSession().setAttribute("msg", "탈퇴에 성공하셨습니다.");
+
+			response.sendRedirect("index.jsp");
+		} else {// 다 했을때 팝업시도
+			request.setAttribute("msg", "정보수정 실패!");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
+
+	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
