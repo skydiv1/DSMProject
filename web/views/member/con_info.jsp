@@ -233,7 +233,11 @@ form {
 				
 		}
 		function leaveMember() {
-			var memberStatus=$("#memberStatus").val();
+			var memberCode=$("#memberCode").val();
+			if(){
+				alert("탈퇴처리가 완료되었습니다.")
+				join.action = "<%=request.getContextPath()%>/leavemember.me";
+			}
 		}
 		function goMain() {
 			location.href="<%=request.getContextPath()%>/index.jsp";			

@@ -14,6 +14,7 @@ public class Deal implements java.io.Serializable{
 	private String subProductName;
 	private int subProductPrice;
 	private int memberNowCash;
+	private String changedImgName;
 
 	public Deal() {
 		
@@ -53,6 +54,14 @@ public class Deal implements java.io.Serializable{
 		this.productNo = productNo;
 	}
 
+	public String getChangedImgName() {
+		return changedImgName;
+	}
+
+	public void setChangedImgName(String changedImgName) {
+		this.changedImgName = changedImgName;
+	}
+	
 	public String getImgFilePath() {
 		return imgFilePath;
 	}

@@ -4,6 +4,10 @@
 	Board b = (Board)request.getAttribute("b");
 	Member m = (Member)request.getAttribute("m");
 	Reply r = (Reply)request.getAttribute("r");
+	
+	System.out.println("board : " + b);
+	System.out.println("member : " + m);
+	System.out.println("reply : " + r);
 %> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -50,11 +54,12 @@
 			   <% } %>
 			 </div> 
 			 <hr>   	
-			<%-- <div class="replyArea">
+	</div>
+			<div class="replyArea">
 				<div class="replyWriterArea">
-				<table align="center">
+				<table>
 					<tr>
-						<td><textarea rows="3" cols="80" id="replyContext"></textarea></td>
+						<td><textarea rows="3" cols="50" id="replyContext"></textarea></td>
 						<td><button class="btn btn-secondary btn-lg active" id="addReply">댓글 등록</button></td>
 					</tr>
 				</table>
@@ -63,17 +68,22 @@
 				<table id="replySelectTable" border="1" align="center"></table>
 			</div>
 		</div>
-	</div>
 	<script>
 		$(function(){
 			$("#addReply").click(function(){
-				var BoardNo = <%= r.getBoardNo() %>;
-				var MemberCode = <%= loginUser.getMemberCode() %>;
-				var context = $("#replyContext").val();
+				var boardNo = <%= r.getBoardNo() %>;
+				var memberCode = <%= loginUser.getMemberCode() %>;
+				var replyContext = $("#replyContext").val();
 				
+				console.log(boardNo);
+				console.log(memberCode);
+				console.log(replyContext);
+				
+				jQuery.ajaxSettings.traditional = true;
+
 				$.ajax({
 					url:"/dsm/insertReply.re",
-					data:{ BoardNo:BoardNo, MemberCode:MemberCode, Context:Context},
+					data:{ boardNo:boardNo, memberCode:memberCode, replyContext:replyContext},
 					type:"post",
 					success:function(data){
 						console.log(data);
@@ -83,13 +93,13 @@
 						
 						for(var key in data){
 							var $tr = $("<tr>");
-							var $MemberCodeTd = $("<td>").text(data[key].memberCode).css("width","100px");
-							var $ContextTd = $("<td>").text(data[key].replyContext).css("width","400px");
-							var $ReplyDateTd = $("<td>").text(data[key].replyDate).css("width", "200px");
+							var $memberCodeTd = $("<td>").text(data[key].memberCode).css("width","50px");
+							var $replyContextTd = $("<td>").text(data[key].replyContext).css("width","200px");
+							var $replyDateTd = $("<td>").text(data[key].replyDate).css("width", "100px");
 							
-							$tr.append($MemberCodeTd);
-							$tr.append($ContextTd);
-							$tr.append($ReplyDateTd);
+							$tr.append($memberCodeTd);
+							$tr.append($contextTd);
+							$tr.append($replyDateTd);
 							$replySelectTable.append($tr);
 						}
 						
@@ -98,10 +108,10 @@
 					error:function(){
 						console.log(실패);
 					}
-				});
+				}); 
 			});
 		});
-	</script> --%>
+	</script>
 	<br><br>
 	<br>
 	<br>
@@ -113,3 +123,5 @@
 <!-- footer 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 </body>
 </html>
+
+

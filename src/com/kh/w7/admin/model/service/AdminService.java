@@ -289,4 +289,54 @@ public class AdminService {
 		return list;
 	}
 
+	public ArrayList<Board> selectAllFaq() {
+		// TODO Auto-generated method stub
+		Connection con = getConnection();
+		
+		ArrayList<Board> list = new ArrayList<Board>();
+		list = new AdminDao().selectAllFaq(con);
+		
+		if(list != null) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return list;
+	}
+
+	public int deleteAdminFaq(int boardNo) {
+		// TODO Auto-generated method stub
+		Connection con = getConnection();
+		int result = 0;
+		result = new AdminDao().deleteAdminFaq(con, boardNo);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+
+		return result;
+	}
+
+	public int restoreAdminFaq(int boardNo) {
+		// TODO Auto-generated method stub
+		Connection con = getConnection();
+		int result = 0;
+		result = new AdminDao().restoreAdminFaq(con, boardNo);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
+	}
+
 }
