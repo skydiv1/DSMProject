@@ -28,15 +28,15 @@
 <!-- 네비게이션 바 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 		<div class="container">
 			<div id="faq" data-obj-id="FAQ" data-obj-type="element" data-text-editable="true" style="position: relative;width:100px; float:left; margin:10px;";  width: 128px; height: 44px;>
-                <a href="/dsm/selectFaqList.faq"><div style="font-size: 18px; color: rgb(0, 0, 0); text-align: center; line-height: 2.5em; background-color: rgb(255, 255, 255); border-width: 1px 1px 0px; border-style: solid; border-color: rgb(51, 51, 51); font-weight: bold;">FAQ</div>
+                <a href="/dsm/selectFaqList.faq"><div style="font-size: 18px; color: rgb(0, 0, 0); text-align: center; line-height: 2.5em; background-color: rgb(255, 255, 255); border-width: 1px 1px 0px; border-style: solid; border-color: rgb(51, 51, 51); font-weight: bold;">Q&amp;A</div>
                 </a>
             </div>
             <div id="qna" data-obj-id="QNA" data-obj-type="element" data-text-editable="true" style="position: relative;width:100px; float:left; margin:10px;" width: 136px; height: 44px;>
-                <a href="/dsm/selectQnaList.qna"><div style="font-size: 18px; color: rgb(255, 255, 255); text-align: center; line-height: 2.5em; background-color: rgb(127, 127, 127); border-width: 1px 1px 0px; border-style: solid; border-color: rgb(51, 51, 51); font-weight: normal;">Q&amp;A</div>
+                <a href="/dsm/selectQnaList.qna"><div style="font-size: 18px; color: rgb(255, 255, 255); text-align: center; line-height: 2.5em; background-color: rgb(127, 127, 127); border-width: 1px 1px 0px; border-style: solid; border-color: rgb(51, 51, 51); font-weight: normal;">FAQ</div>
                 </a>
             </div>
-            <% if(loginUser != null && loginUser.getMemberName() == "관리자 " ){ %> 
-            <div><a href="qnaWrite.jsp" class="btn btn-primary" style="position: relative; margin:10px 10px 10px 10px; float:right; width: 136px; height: 44px; ">글 작성</a></div>
+            <% if(loginUser != null && loginUser.getMemberCategory() == 2 ){ %> 
+            <div><a href="views/qna/qnaWrite.jsp" class="btn btn-primary" style="position: relative; margin:10px 10px 10px 10px; float:right; width: 136px; height: 44px; ">글 작성</a></div>
 			<% } %> 
 		<div>
 		 	<table id="listArea" class="table table-striped" style="text-align:center; border:1px; solid #dddddd">

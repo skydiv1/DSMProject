@@ -44,19 +44,12 @@ public class InsertFaqServlet extends HttpServlet {
 		String context = request.getParameter("context");
 		String membercode = request.getParameter("memberCode");
 		/*String writer = request.getParameter("writer");*/
-		
-
 		/*java.sql.Date day = null;*/
-		
-		
-		
 		Board b = new Board();
 		/*b.setBoardNo(bno);*/
 		b.setMemberCode(Integer.parseInt(String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getMemberCode())));
 		b.setBoardTitle(title);
 		b.setBoardContext(context);
-
-		
 		int result = new FaqService().insertFaq(b);
 		
 		System.out.println(membercode);

@@ -29,17 +29,17 @@
 			data-text-editable="true"
 			style="position: relative; width: 100px; float: left; margin: 10px;";  width: 128px; height: 44px;">
 			<a href="/dsm/selectFaqList.faq"><div
-					style="font-size: 18px; color: rgb(255, 255, 255); text-align: center; line-height: 2.5em; background-color: rgb(127, 127, 127); border-width: 1px 1px 0px; border-style: solid; border-color: rgb(51, 51, 51); font-weight: normal;">FAQ</div>
+					style="font-size: 18px; color: rgb(255, 255, 255); text-align: center; line-height: 2.5em; background-color: rgb(127, 127, 127); border-width: 1px 1px 0px; border-style: solid; border-color: rgb(51, 51, 51); font-weight: normal;">Q&amp;A</div>
 			</a>
 		</div>
 		<div  data-obj-id="QNA" data-obj-type="element"
 			data-text-editable="true"
 			style="position: relative; width: 100px; float: left; margin: 10px;"width: 136px; height: 44px;">
 			<a href="/dsm/selectQnaList.qna"><div
-					style="font-size: 18px; color: rgb(0, 0, 0); text-align: center; line-height: 2.5em; background-color: rgb(255, 255, 255); border-width: 1px 1px 0px; border-style: solid; border-color: rgb(51, 51, 51); font-weight: bold;">Q&amp;A</div>
+					style="font-size: 18px; color: rgb(0, 0, 0); text-align: center; line-height: 2.5em; background-color: rgb(255, 255, 255); border-width: 1px 1px 0px; border-style: solid; border-color: rgb(51, 51, 51); font-weight: bold;">FAQ</div>
 			</a>
 		</div>
-		<div><a href="qnaWrite.jsp" class="btn btn-primary" style="position: relative; margin:10px 10px 10px 10px; float:right; width: 136px; height: 44px; ">문의하기</a></div>
+		<div><a href="views/faq/faqWrite.jsp" class="btn btn-primary" style="position: relative; margin:10px 10px 10px 10px; float:right; width: 136px; height: 44px; ">문의하기</a></div>
 		<div>
 			<table id="listArea" class="table table-striped"
 				style="text-align: center; border: 1px;">
@@ -113,7 +113,7 @@
 				});
 			});
 			</script>
-			  <div class="input-group-prepend" id="searchText" style="margin:0px 0px 0px 800px">
+			 <!--  <div class="input-group-prepend" id="searchText" style="margin:0px 0px 0px 800px">
 			    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">문의</button>
 			    <input type ="text"  placeholder="검색어 입력">
 			    <button>검색</button>
@@ -121,7 +121,7 @@
 			      <a class="dropdown-item" href="#">문의</a>
 			      <a class="dropdown-item" href="#">신고</a>    
 			    </div>
-			  </div>
+			  </div> -->
 		</div>
 		<br>
 		<br>

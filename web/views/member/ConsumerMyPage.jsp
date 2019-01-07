@@ -40,7 +40,9 @@
 			data : {dealnum:dealnum, textContent:textContent},
 			success : function (data) {
 				selectListAp(1);
+				selectListAccept();
 				selectListCencel();
+				
 			}
 		});
 	}); 

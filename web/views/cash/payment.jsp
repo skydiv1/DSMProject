@@ -73,7 +73,8 @@ table {
 		<div style="border: 1px solid black; padding: 30px;">
 			<table>
 				<tr>
-					<td width = "20%" rowspan="3"><img src="<%= list.get(0).getImgFilePath() %>" alt="판매자 상품 이미지"></td>
+					<%-- <td width = "20%" rowspan="3"><img src="<%= list.get(0).getImgFilePath() %>" alt="판매자 상품 이미지"></td> --%>
+					<td width = "20%" rowspan="3"><img src="/dsm/img/wedding.jpg" alt="판매자 상품 이미지"></td>
 					<td><h4><%= list.get(0).getProductTitle() %></h4></td>
 					<td></td>
 				</tr>
@@ -105,17 +106,17 @@ table {
 				<%
 				totalPrice = list.get(0).getMainProductPrice(); 
 				
-				for(int i = 0; i < list.size() ; i++){ %>
+				/* for(int i = 0; i < list.size() ; i++){ */ %>
 				<tr>
-					<td><%= list.get(i).getSubProductName()%><!-- 추가항목 이름 --></td>
+					<td><%= list.get(0).getSubProductName()%><!-- 추가항목 이름 --></td>
 					<td>
 						<!-- 예상소요일 -->
 					</td>
-					<td><%= list.get(i).getSubProductPrice() %><!-- 추가금액 --></td>
+					<td><%= list.get(0).getSubProductPrice() %><!-- 추가금액 --></td>
 				</tr>
 				<% 
-				totalPrice += list.get(i).getSubProductPrice();
-				} %>
+				totalPrice += list.get(0).getSubProductPrice();
+				/* } */ %>
 			</table>
 
 		</div>

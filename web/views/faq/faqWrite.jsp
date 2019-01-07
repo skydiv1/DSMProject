@@ -14,10 +14,10 @@
  <% if(loginUser != null ){ %>
 			<div class="container">
 			
-			<form>
+			<form id="updateForm" method="post">
 			  <div class="form-group">
 			    <label ><h2>문의하기</h2></label>
-			    <input type="text" class="form-control"  placeholder="제목">
+			    <input type="text" name="title" class="form-control"  placeholder="제목">
 			  </div>
 			  <td>
               <h4>
@@ -37,13 +37,13 @@
 			  <hr>
 			  <div class="form-group">
 			    <label ><h6>문의 내용</h6></label>
-			    <textarea class="form-control" rows="15" id="comment" placeholder="내용"></textarea>
+			    <textarea class="form-control" name="context" rows="15" id="context" placeholder="내용"></textarea>
 			  </div>
-			</form>
 			<div style="margin:0px 0px 0px 980px; margin-right:10px; ">	
 			  <button class="btn btn-default" onclick="complet()">확인</button>
 			  <button class="btn btn-default" onclick="cancel()">취소</button>
 			 </div>
+				</form> 
 			  <script>
                 function complet(){
 					$("#updateForm").attr("action", "<%=request.getContextPath()%>/insert.faq");
@@ -52,7 +52,6 @@
 					$("#updateForm").attr("action", "<%=request.getContextPath()%>/selectFaqList.faq");
 				}
                 </script>
-				</form> 
 				<hr>
 			</div>	
 			<% }else{
