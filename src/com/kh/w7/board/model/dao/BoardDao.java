@@ -22,6 +22,7 @@ import oracle.net.aso.b;
 public class BoardDao {
     private Properties prop = new Properties();
     private static String selectSEQ = "SELECT SEQ_BOARD.NEXTVAL FROM DUAL";
+    
     public BoardDao() {
         String fileName = BoardDao
             .class
