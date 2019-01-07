@@ -73,8 +73,9 @@ table {
 		<div style="border: 1px solid black; padding: 30px;">
 			<table>
 				<tr>
+					<!--	(괄호)request.getContextPath()(괄호)/image_uploadFiles/(괄호)detailImg1.getChangeName()(괄호)  -->
 					<%-- <td width = "20%" rowspan="3"><img src="<%= list.get(0).getImgFilePath() %>" alt="판매자 상품 이미지"></td> --%>
-					<td width = "20%" rowspan="3"><img src="/dsm/img/wedding.jpg" alt="판매자 상품 이미지"></td>
+					<td width = "20%" rowspan="3"><img src="<%= request.getContextPath() %>/image_uploadFiles/<%= list.get(0).getChangedImgName() %>" alt="판매자 상품 이미지" width = "300px"></td>
 					<td><h4><%= list.get(0).getProductTitle() %></h4></td>
 					<td></td>
 				</tr>
@@ -106,17 +107,17 @@ table {
 				<%
 				totalPrice = list.get(0).getMainProductPrice(); 
 				
-				/* for(int i = 0; i < list.size() ; i++){ */ %>
+				for(int i = 0; i < list.size() ; i++){ %>
 				<tr>
-					<td><%= list.get(0).getSubProductName()%><!-- 추가항목 이름 --></td>
+					<td><%= list.get(i).getSubProductName()%><!-- 추가항목 이름 --></td>
 					<td>
 						<!-- 예상소요일 -->
 					</td>
-					<td><%= list.get(0).getSubProductPrice() %><!-- 추가금액 --></td>
+					<td><%= list.get(i).getSubProductPrice() %><!-- 추가금액 --></td>
 				</tr>
 				<% 
-				totalPrice += list.get(0).getSubProductPrice();
-				/* } */ %>
+				totalPrice += list.get(i).getSubProductPrice();
+				} %>
 			</table>
 
 		</div>

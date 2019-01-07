@@ -594,4 +594,86 @@ public class AdminDao {
 			return list;
 	}
 
+	public ArrayList<Board> selectAllFaq(Connection con) {
+		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Board b = null;
+		ArrayList<Board> list = new ArrayList<Board>();
+		
+		String query = prop.getProperty("selectAllFaq");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				b = new Board();
+				
+				b.setBoardNo(rset.getInt(1));
+				b.setBoardTitle(rset.getString(2));
+				b.setMemberName(rset.getString(3));
+				b.setBoardDate(rset.getDate(4));
+				b.setBoardDelete(rset.getInt(5));
+				
+				list.add(b);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return list;
+	}
+
+	public int deleteAdminFaq(Connection con, int boardNo) {
+		// TODO Auto-generated method stub
+
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("deleteAdminFaq");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, boardNo);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+
+		return result;
+	}
+
+	public int restoreAdminFaq(Connection con, int boardNo) {
+		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("restoreAdminFaq");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, boardNo);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
 }

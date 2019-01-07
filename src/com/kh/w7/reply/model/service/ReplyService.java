@@ -11,16 +11,24 @@ import com.kh.w7.reply.model.dao.ReplyDao;
 import com.kh.w7.reply.model.vo.Reply;
 
 public class ReplyService {
-
-	public ArrayList<Reply> insertReply(Reply r) {
+	
+	public ArrayList<Reply> selectReplyList(){
 		Connection con = getConnection();
-		ArrayList<Reply> replyList = null;
+		ArrayList<Reply> list = new ReplyDao().selectReplyList(con);
+		close(con);
+		return list;
+		
+	}
+
+	public Reply insertReply(Reply r) {
+		Connection con = getConnection();
+		Reply replyList = null;
 		
 		int result = new ReplyDao().insertReply(con, r);
 		
 		if(result > 0) {
 			commit(con);
-			replyList = new ReplyDao().selectReplyList(con,r.getBoardNo());
+			/*replyList = new ReplyDao().selectReplyList(con,r.getBoardNo());*/
 		}else {
 			rollback(con);
 		}
@@ -30,7 +38,7 @@ public class ReplyService {
 		return replyList;
 	}
 	
-	
+
 	
 
 	

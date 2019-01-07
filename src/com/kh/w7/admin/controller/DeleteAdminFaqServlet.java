@@ -1,29 +1,25 @@
-package com.kh.w7.reply.controller;
+package com.kh.w7.admin.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.kh.w7.reply.model.service.ReplyService;
-import com.kh.w7.reply.model.vo.Reply;
+import com.kh.w7.admin.model.service.AdminService;
 
 /**
- * Servlet implementation class InsertReplyServlet
+ * Servlet implementation class DeleteAdminFaqServlet
  */
-@WebServlet("/insertReply.re")
-public class InsertReplyServlet extends HttpServlet {
+@WebServlet("/deleteAdminFaq")
+public class DeleteAdminFaqServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertReplyServlet() {
+    public DeleteAdminFaqServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,24 +28,23 @@ public class InsertReplyServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
+		
 		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
-		int memberCode = Integer.parseInt(request.getParameter("memberCode"));
-		String replyContext = request.getParameter("replyContext");
 		
-		System.out.println(boardNo);
-		System.out.println(memberCode);
-		System.out.println(replyContext);
+		int result = new AdminService().deleteAdminFaq(boardNo);
 		
-		Reply r = new Reply();
-		r.setBoardNo(boardNo);
-		r.setMemberCode(memberCode);
-		r.setReplyContext(replyContext);		
 		
-		Reply replyList = new ReplyService().insertReply(r);
 		
-		response.setContentType("application/json");
-		new Gson().toJson(replyList, response.getWriter());		
+		String page = "";
+		if(result>0) {
+			page = "/dsm/selectAllFaq";
+			response.sendRedirect(page);
+		}else {
+			page = "views/common/errorPage.jsp";
+			request.setAttribute("msg", "Faq삭제 실패!");
+			request.getRequestDispatcher(page).forward(request, response);
+		}
+		
 	}
 
 	/**

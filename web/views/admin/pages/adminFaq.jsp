@@ -2,10 +2,9 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-    
-    <%
-    	ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
-    %>
+<%
+	ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -122,20 +121,26 @@
                                         <th>제목</th>
                                         <th>작성자</th>
                                         <th>작성일</th>
-                                        <th>답변 여부</th>
+                                        <th>삭제 여부</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <% for(int i = 0; i < list.size() ; i++){ %>
+									<% for(int i = 0; i < list.size() ; i++){ %>
                                     <tr class="odd gradeX">
                                         <td><%= list.get(i).getBoardNo() %></td>
                                         <td><%= list.get(i).getBoardTitle() %></td>
                                         <td><%= list.get(i).getMemberName() %></td>
                                         <td class="center"><%= list.get(i).getBoardDate() %></td>
-                                        <% if(list.get(i).getBoardQnaAnswerYn() == 0){ %>
-                                        <td class="center"><button onclick = "location.href = 'views/qna/qnaPosts.jsp'">답변하기</button></td>
+                                        <% if(list.get(i).getBoardDelete() == 0){ %>
+                                        <td class="center">등록</td>
                                         <% }else{ %>
-                                        <td class="center"><button>응답완료</button></td>
+                                        <td class="center">미 등록</td>
+                                        <% } %>
+                                        <% if(list.get(i).getBoardDelete() == 0){ %>
+                                        <td class="center"><button style = "color : red" onclick = "location.href = '/dsm/deleteAdminFaq?boardNo=<%=list.get(i).getBoardNo()%>'">삭제</button></td>
+                                        <% }else{ %>
+                                        <td class="center"><button onclick = "location.href = '/dsm/restoreAdminFaq?boardNo=<%=list.get(i).getBoardNo()%>'">복구</button></td>
                                         <% } %>
                                     </tr>
                                 <%} %>
@@ -147,6 +152,9 @@
 						<!-- /.panel-body -->
 					</div>
 					<!-- /.panel -->
+					<div align = "right">
+                    <button style = "background : lightgray; color : black; width : 100px; height : 40px; margin-right : 20px;" onclick = "#">작성하기</button>
+                    </div>
 				</div>
 				<!-- /.col-lg-12 -->
 			</div>

@@ -1,4 +1,4 @@
-package com.kh.w7.board.controller;
+package com.kh.w7.reply.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,23 +11,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.w7.board.model.service.BoardService;
-import com.kh.w7.board.model.vo.Board;
-import com.kh.w7.member.model.service.MemberService;
-import com.kh.w7.member.model.vo.Member;
+import com.kh.w7.common.PageInfo;
 import com.kh.w7.reply.model.service.ReplyService;
-import com.kh.w7.reply.model.vo.Reply;
+import com.kh.w7.reply.model.vo.*;
+
+
 
 /**
- * Servlet implementation class SelectOneBoardServlet
+ * Servlet implementation class SelectReplyServlet
  */
-@WebServlet("/selectOne.bo")
-public class SelectOneBoardServlet extends HttpServlet {
+@WebServlet("/selectReplyList.re")
+public class SelectReplyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectOneBoardServlet() {
+    public SelectReplyServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,20 +35,18 @@ public class SelectOneBoardServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String num = request.getParameter("num");
+		protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			
+		ReplyService rs = new ReplyService();
 		
-		System.out.println(num);
+		ArrayList<Reply> list = ReplyService().selectReplyList();
 		
-		Board b = new BoardService().selectOne(num);
-		Member m = new MemberService().loginCheck(loginuser);
-		ArrayList<Reply> r = new ReplyService().selectReplyList();		
+		System.out.println(list);
+		
 		
 		String page = "";
-		
-		if(b != null) {
-			page = "views/board/boardPosts.jsp";
-			request.setAttribute("b", b);
+		if(list != null) {
+			
 		}else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "실패!");
@@ -56,9 +54,6 @@ public class SelectOneBoardServlet extends HttpServlet {
 		
 		RequestDispatcher view = request.getRequestDispatcher(page);
 		view.forward(request, response);
-		
-		
-		
 		
 	}
 

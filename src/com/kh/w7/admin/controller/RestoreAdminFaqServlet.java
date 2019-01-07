@@ -1,33 +1,25 @@
-package com.kh.w7.board.controller;
+package com.kh.w7.admin.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.w7.board.model.service.BoardService;
-import com.kh.w7.board.model.vo.Board;
-import com.kh.w7.member.model.service.MemberService;
-import com.kh.w7.member.model.vo.Member;
-import com.kh.w7.reply.model.service.ReplyService;
-import com.kh.w7.reply.model.vo.Reply;
+import com.kh.w7.admin.model.service.AdminService;
 
 /**
- * Servlet implementation class SelectOneBoardServlet
+ * Servlet implementation class RestoreAdminFaqServlet
  */
-@WebServlet("/selectOne.bo")
-public class SelectOneBoardServlet extends HttpServlet {
+@WebServlet("/restoreAdminFaq")
+public class RestoreAdminFaqServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectOneBoardServlet() {
+    public RestoreAdminFaqServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,27 +28,20 @@ public class SelectOneBoardServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String num = request.getParameter("num");
 		
-		System.out.println(num);
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
 		
-		Board b = new BoardService().selectOne(num);
-		Member m = new MemberService().loginCheck(loginuser);
-		ArrayList<Reply> r = new ReplyService().selectReplyList();		
+		int result = new AdminService().restoreAdminFaq(boardNo);
 		
 		String page = "";
-		
-		if(b != null) {
-			page = "views/board/boardPosts.jsp";
-			request.setAttribute("b", b);
+		if(result>0) {
+			page = "/dsm/selectAllFaq";
+			response.sendRedirect(page);
 		}else {
 			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "실패!");
+			request.setAttribute("msg", "Faq복구 실패!");
+			request.getRequestDispatcher(page).forward(request, response);
 		}
-		
-		RequestDispatcher view = request.getRequestDispatcher(page);
-		view.forward(request, response);
-		
 		
 		
 		

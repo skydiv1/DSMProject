@@ -1,33 +1,28 @@
-package com.kh.w7.board.controller;
+package com.kh.w7.admin.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.w7.board.model.service.BoardService;
+import com.kh.w7.admin.model.service.AdminService;
 import com.kh.w7.board.model.vo.Board;
-import com.kh.w7.member.model.service.MemberService;
-import com.kh.w7.member.model.vo.Member;
-import com.kh.w7.reply.model.service.ReplyService;
-import com.kh.w7.reply.model.vo.Reply;
 
 /**
- * Servlet implementation class SelectOneBoardServlet
+ * Servlet implementation class SelectAllFaqServlet
  */
-@WebServlet("/selectOne.bo")
-public class SelectOneBoardServlet extends HttpServlet {
+@WebServlet("/selectAllFaq")
+public class SelectAllFaqServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectOneBoardServlet() {
+    public SelectAllFaqServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,29 +31,25 @@ public class SelectOneBoardServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String num = request.getParameter("num");
 		
-		System.out.println(num);
 		
-		Board b = new BoardService().selectOne(num);
-		Member m = new MemberService().loginCheck(loginuser);
-		ArrayList<Reply> r = new ReplyService().selectReplyList();		
 		
-		String page = "";
+		System.out.println("FAQ 서블릿 동작");
 		
-		if(b != null) {
-			page = "views/board/boardPosts.jsp";
-			request.setAttribute("b", b);
+		ArrayList<Board> list = new ArrayList<Board>();
+		
+		list = new AdminService().selectAllFaq();
+		
+		
+		String page = ""; 
+		if(list != null) {
+			page = "views/admin/pages/adminFaq.jsp";
+			request.setAttribute("list", list);
 		}else {
 			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "실패!");
+			request.setAttribute("msg", "Faq조회 실패!");
 		}
-		
-		RequestDispatcher view = request.getRequestDispatcher(page);
-		view.forward(request, response);
-		
-		
-		
+		request.getRequestDispatcher(page).forward(request, response);
 		
 	}
 
