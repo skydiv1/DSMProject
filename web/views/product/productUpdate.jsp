@@ -256,6 +256,7 @@ input[type="number"]::-webkit-inner-spin-button{
 		
 		<!-- 이미지 값의 기본키를 저장해서 서블릿으로 보내주기 위해  -->
 		<% for(int i=0; i<fileList.size(); i++){ %>
+<%-- 			<input type="hidden" name="imgsNo" value="<%=fileList.get(i).getImgNo()%>"> --%>
 			<input type="hidden" name="imgsNo" value="<%=fileList.get(i).getImgNo()%>">
 			<input type="hidden" name="changeImgs" value="<%=fileList.get(i).getChangeName()%>">
 			<input type="hidden" name="originImgs" value="<%=fileList.get(i).getOriginName()%>">

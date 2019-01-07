@@ -7,6 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%@ include file="/views/common/main.jsp" %>
+	<%-- <%@ include file="/views/common/main.jsp" %> --%>
+	<%
+		request.getRequestDispatcher("/selectBestSeller.pr").forward(request, response);
+	%>
+	
+	
 </body>
 </html>

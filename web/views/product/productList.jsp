@@ -173,17 +173,6 @@
 			$("#formList").attr("action", "<%=request.getContextPath()%>/searchList.pr");
 		});
 	</script>
-	
-	<!-- 세션 스토리지 -->
-	<script>
-		$(function () {
-			localStorage.test = '123';
-			localStorage.setItem('test', '123');
-			
-			localStorage.getItem('test');
-			
-		});
-	</script>
 
 	<!-- Footer ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	<%@ include file="/views/common/footer.jsp"%>

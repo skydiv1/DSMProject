@@ -102,52 +102,6 @@ public class ProductDao {
 
 
 	/* 상품 목록 페이지 조회(페이징처리) */
-	/*public ArrayList<Product> selectList(Connection con, int currentPage, int limit) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		ArrayList<Product> list = null;
-		
-		String query = prop.getProperty("selectList");
-		
-		try {
-			pstmt = con.prepareStatement(query);
-			
-			int startRow = (currentPage - 1) * limit + 1; // 조회할 때 시작할 행 번호
-			int endRow = startRow + limit - 1;
-			
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
-			
-			rset = pstmt.executeQuery();
-			
-			list = new ArrayList<Product>();
-			
-			while(rset.next()) {
-				Product product = new Product();
-				
-				product.setProductNo(rset.getInt("PRODUCT_NO"));
-				product.setMemberCode(rset.getInt("MEMBER_CODE"));
-				product.setProductName(rset.getString("PRODUCT_NAME"));
-				product.setProductCategory(rset.getString("PRODUCT_CATEGORY"));
-				product.setProductItem(rset.getString("PRODUCT_ITEM"));
-				product.setProductItemPrice(rset.getInt("PRODUCT_ITEMPRICE"));
-				product.setProductContext(rset.getString("PRODUCT_CONTEXT"));
-				product.setRegisterDate(rset.getDate("PRODUCT_REGISTERDATE"));
-				product.setDeleteYN(rset.getInt("PRODUCT_DELETEYN"));
-
-				list.add(product); // product를 담는다.
-			}
-			System.out.println("list에 값이 들어오는지.. :"+list);
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-			close(rset);
-		}
-		
-		return list;
-	}*/
 	public ArrayList<HashMap<String, Object>> selecImagetList(Connection con, int currentPage, int limit) {
 		PreparedStatement pstmt = null;
 		ArrayList<HashMap<String, Object>> list = null;

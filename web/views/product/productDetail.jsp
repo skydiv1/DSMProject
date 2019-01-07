@@ -136,8 +136,8 @@
 		<tr>
 		</tr>
 			<td rowspan="4">
-			</td>
 				<img class="img-fluid" src="<%=request.getContextPath()%>/image_uploadFiles/<%=detailImg1.getChangeName()%>" alt="" style="box-shadow: 0px 0px 10px #000; width:530px; height:420px;">
+			</td>
 			<td>
 				<div style="font-size: 20px; font: bold; margin-left: 5%; margin-bottom: 5%;"><%=product.getProductName() %></div><hr> <!-- 상품 제목 -->
 			</td>
@@ -458,6 +458,15 @@
 		});
 	</script>
 	
+	<!-- 세션 스토리지 -->
+	<script>
+		$(function () {
+				var pNo1 = sessionStorage.setItem("productNo1", <%=product.getProductNo()%>);
+				var pNo2 = sessionStorage.setItem("productNo2", <%=product.getProductNo()%>);
+			
+			
+		});
+	</script>
 
 	<!-- Footer ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 <%@ include file="/views/common/footer.jsp" %>

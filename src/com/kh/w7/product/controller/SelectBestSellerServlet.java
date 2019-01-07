@@ -2,6 +2,7 @@ package com.kh.w7.product.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,8 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.kh.w7.member.model.vo.Member;
+import com.kh.w7.product.model.service.ProductService;
 import com.kh.w7.product.model.service.ReviewService;
 import com.kh.w7.product.model.service.SellerProfileService;
+import com.kh.w7.product.model.vo.PlusProduct;
 import com.kh.w7.product.model.vo.Review;
 
 /**
@@ -36,14 +39,12 @@ public class SelectBestSellerServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		Member bestSeller = new SellerProfileService().findBestSeller();
-		
-		int reviewCount = new SellerProfileService().selectReviewList();
+		ArrayList<HashMap<String, Object>> list = new SellerProfileService().selectBestSeller();
 
-		if(bestSeller != null && reviewCount>0) {
-			request.setAttribute("bestSeller", bestSeller);		
-			request.setAttribute("reviewList", reviewCount);	
-			response.sendRedirect("index.jsp");
+		if(list != null) {
+			request.setAttribute("list", list);		
+			request.getRequestDispatcher("views/common/main.jsp").forward(request, response);			
+			
 		}else {
 			request.setAttribute("msg", "베스트 판매자 검색 실패");			
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);			
