@@ -33,10 +33,7 @@
                         <td>
                             <h4>
                                 <label>작성자 : &nbsp;</label>
-                                <span>
-                                    <b>
-                                        <%=loginUser.getMemberName()%></b>
-			        </span>
+                                <span><b><%=loginUser.getMemberName()%></b></span>
 			    </h4>
 			</td>
 			<input type="hidden" value="<%=loginUser.getMemberCode()%>" name="memberCode">			

@@ -33,20 +33,20 @@ public class InsertReplyServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		int BoardNo = Integer.parseInt(request.getParameter("BoardNo"));
-		int MemberCode = Integer.parseInt(request.getParameter("MemberCode"));
-		String Context = request.getParameter("Context");
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+		int memberCode = Integer.parseInt(request.getParameter("memberCode"));
+		String replyContext = request.getParameter("replyContext");
 		
-		System.out.println(BoardNo);
-		System.out.println(MemberCode);
-		System.out.println(Context);
+		System.out.println(boardNo);
+		System.out.println(memberCode);
+		System.out.println(replyContext);
 		
 		Reply r = new Reply();
-		r.setBoardNo(BoardNo);
-		r.setMemberCode(MemberCode);
-		r.setReplyContext(Context);		
+		r.setBoardNo(boardNo);
+		r.setMemberCode(memberCode);
+		r.setReplyContext(replyContext);		
 		
-		ArrayList<Reply> replyList = new ReplyService().insertReply(r);
+		Reply replyList = new ReplyService().insertReply(r);
 		
 		response.setContentType("application/json");
 		new Gson().toJson(replyList, response.getWriter());		
