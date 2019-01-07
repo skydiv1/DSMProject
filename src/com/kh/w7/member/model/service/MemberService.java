@@ -87,9 +87,9 @@ public class MemberService {
 		return 0;
 	}
 
-	public int leaveMember(int memberStatus) {
+	public int leaveMember(int memberCode) {
 		Connection con = getConnection();
-		int result = new MemberDao().leaveMember(con, memberStatus);
+		int result = new MemberDao().leaveMember(con, memberCode);
 
 		if (result > 0) {
 			commit(con);
