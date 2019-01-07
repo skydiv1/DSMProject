@@ -10,13 +10,13 @@ import com.kh.w7.deal.model.vo.Deal;
 
 public class DealService {
 
-	public ArrayList<Deal> selectOneProduct(int memberCode, int productNo) {
+	public ArrayList<Deal> selectOneProduct(int memberCode, int productNo, int dealnum) {
 		// TODO Auto-generated method stub
 		Connection con = getConnection();
 		ArrayList<Deal> list = new ArrayList<Deal>();
 		Deal d = new Deal();
 		
-		list = new DealDao().selectOneProduct(con, memberCode, productNo);
+		list = new DealDao().selectOneProduct(con, memberCode, productNo, dealnum);
 		//System.out.println("serviceList : "+list);
 		return list;
 	}
