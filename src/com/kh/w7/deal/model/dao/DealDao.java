@@ -29,7 +29,7 @@ public class DealDao {
 	}
 	
 	
-	public ArrayList<Deal> selectOneProduct(Connection con, int memberCode, int productNo) {
+	public ArrayList<Deal> selectOneProduct(Connection con, int memberCode, int productNo, int dealnum) {
 		// TODO Auto-generated method stub
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -42,9 +42,12 @@ public class DealDao {
 			pstmt = con.prepareStatement(query);
 			/*pstmt.setInt(1, memberCode);
 			pstmt.setInt(2, productNo);*/
-			pstmt.setInt(1, memberCode);
+			pstmt.setInt(1, productNo);
 			pstmt.setInt(2, memberCode);
-			pstmt.setInt(3, productNo);
+			pstmt.setInt(3, memberCode);
+			pstmt.setInt(4, productNo);
+			pstmt.setInt(5, memberCode);
+			pstmt.setInt(6, productNo);
 			
 			rset = pstmt.executeQuery(); //여기서 오류 발생
 			
@@ -53,7 +56,8 @@ public class DealDao {
 				d = new Deal();
 
 				//쿼리문 select모양에 맞게 뽑아오기
-				d.setDealNo(rset.getInt(1));
+				//d.setDealNo(rset.getInt(1));
+				d.setDealNo(dealnum);
 				d.setProductNo(rset.getInt(2));
 				d.setImgFilePath(rset.getString(3));
 				d.setProductTitle(rset.getString(4));
@@ -65,6 +69,7 @@ public class DealDao {
 				d.setSubProductName(rset.getString(10));
 				d.setSubProductPrice(rset.getInt(11));
 				d.setMemberNowCash(rset.getInt(12));
+				d.setChangedImgName(rset.getString(13));
 				
 				list.add(d);
 			}

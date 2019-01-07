@@ -43,16 +43,19 @@ public class SelectOneProductServlet extends HttpServlet {
 	      int memberCode = loginUser.getMemberCode();
      
      
-	      int productno = Integer.parseInt(request.getParameter("productno")); //6번 상품
+	      int productno = Integer.parseInt(request.getParameter("productno"));
+	      int dealnum = Integer.parseInt(request.getParameter("dealnum"));
 	      
 	      System.out.println("memberCode : " + memberCode);
 	      System.out.println("productNo : " + productno);
+	      System.out.println("dealnum : " + dealnum);
 	      
+	     
 	      
 	      ArrayList<Deal> list = new ArrayList<Deal>();
 	      Deal d = new Deal();
 	
-	      list = new DealService().selectOneProduct(memberCode, productno);
+	      list = new DealService().selectOneProduct(memberCode, productno, dealnum);
 	      
 	      session.setAttribute("payList", list);
 	      

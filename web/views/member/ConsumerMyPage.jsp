@@ -27,6 +27,10 @@
  
 </style>
 <script type="text/javascript">
+	$(function(){
+		console.log("dealnum:"+dealnum);
+	});
+		
   function addBtnEvent() {
 
 	//취소 팝업에 있는 보내기 버튼 누를때
