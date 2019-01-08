@@ -89,8 +89,10 @@ public class MemberService {
 
 	public int leaveMember(int memberCode) {
 		Connection con = getConnection();
+		System.out.println("service입니다");
 		int result = new MemberDao().leaveMember(con, memberCode);
 
+		System.out.println("service result: "+result);
 		if (result > 0) {
 			commit(con);
 		} else {
