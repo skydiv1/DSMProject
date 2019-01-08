@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.kh.w7.board.model.vo.*"%>
-<%
+<%-- <%
 	Board b = (Board)request.getAttribute("b");
 	Member m = (Member)request.getAttribute("m");
-%>
+%> --%>
 <!DOCTYPE html PUBLIC "-//W3C//DTDHTML4.01Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>

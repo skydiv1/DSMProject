@@ -31,7 +31,7 @@ public class GetIdinfo extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Member member=(Member)request.getSession().getAttribute("loginUser");
-		
+		int memberCode = member.getMemberCode();
 		String memberId = member.getMemberId();
 		String memberName = member.getMemberName();
 		String memberPhone = member.getMemberPhone();
@@ -46,13 +46,13 @@ public class GetIdinfo extends HttpServlet {
 		}else if(memberCategory==1) {
 			page="views/member/Sel_info.jsp";
 		}
+		request.setAttribute("memberCode", memberCode);
 		request.setAttribute("memberId", memberId);
 		request.setAttribute("memberName", memberName);
 		request.setAttribute("memberPhone", memberPhone);
 		request.setAttribute("memberEmail", memberEmail);
 		request.setAttribute("sellerIntroduction", sellerIntroduction);
 		request.setAttribute("sellerCareer", sellerCareer);
-		
 		
 		RequestDispatcher view= request.getRequestDispatcher(page);
 		view.forward(request, response);

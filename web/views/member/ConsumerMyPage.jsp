@@ -58,18 +58,18 @@
 		
 		});
    
-	/* //취소 목록에서 삭제 버튼 눌렀을때
-	 $("#cancelDelete").click(function () {
+	 //취소 목록에서 삭제 버튼 눌렀을때
+	 $(".cancelDelete").click(function () {
 		 var dealnum = $(this).parent().parent().children().eq(1).text();
 			$.ajax({
-				url:"${pageContext.request.contextPath}/cancelupdate.consumer",
+				url:"${pageContext.request.contextPath}/canceldelete.consumer",
 				type : "get",
 				data : {dealnum:dealnum},
 				success : function (data) {
 					selectListCencel();
 				}
 			});
-	}); */
+	}); 
 	
 	//수락 목록에서 결제 버튼 눌렀을때
 	 $(".dealBtn").click(function () { //두번째 버튼이 안눌림
@@ -85,19 +85,6 @@
 						
 						document.location.href ="/dsm/views/cash/payment.jsp"; 
 
-						//document.location.href ="/dsm/views/cash/payment.jsp?productNo="+data[0].productNo+"&imgFilePath="+data[0].imgFilePath+ "&productTitle="+data[0].productTitle + "&productContext=" + data[0].productContext + "&customerCode=" + data[0].customerCode + "&sellerCode=" + data[0].sellerCode + "&mainProductName=" + data[0].mainProductName + "&mainProductPrice=" + data[0].mainProductPrice + "&memberNowCash=" + data[0].memberNowCash + "&subProductName=" + data[0].subProductName + "&subProductPrice=" + data[0].subProductPrice; 
-				 	
-			/* 		$.ajax({
-						url :"${pageContext.request.contextPath}/Pay.c",
-						type : "get",
-						
-						success : function (data) {
-							
-						}
-					});  */
-					 
-					
-					
 				}
 			});
 	});
@@ -120,7 +107,9 @@
 	//구매완료 목록에서 구매평작성 누를때
 	 $(".dealreview").click(function () {
 		var dealnum = $(this).parent().parent().children().eq(1).text();
+		var productNo = $(this).parent().parent().children().eq(2).text();
 		$("#reviewdealnum").val(dealnum);
+		$("#reviewProductNo").val(productNo);
 		$.ajax({
 			url:"${pageContext.request.contextPath}/review.seller",
 			type : "get",
@@ -133,11 +122,45 @@
 				
 			}
 		});
-	});  
+	}); 
+	
+	
+	//구매평 작성 팝업 에서 보내기 클릭할때 (별점과 구매평 DB에 저장)
+	$("#reviewRegist").click(function () {
+		var rstar = $("#starPoint").val();
+		var rtext = $("#reiviewText").val();
+		var productNo = $("#reviewProductNo").val();
+		
+		console.log("productNo:"+productNo);
+		console.log("rtext:"+rtext);
+		console.log("rstar:"+rstar);
+		
+		$.ajax({
+			url : "${pageContext.request.contextPath}/reviewstar.seller",
+			type: "get",
+			data : {rstar:rstar,rtext:rtext,productNo:productNo},
+			success : function (data) {
+				reviewStateUpdate();
+				
+			}
+		});
+	});
+	
   }
 		
+//구매평 후 상태변경	
+function reviewStateUpdate() {
+	var dealnum =$("#reviewdealnum").val();
 	
-	
+	$.ajax({
+		url : "${pageContext.request.contextPath}/reviewstate.seller",
+		type: "get",
+		data : {dealnum:dealnum},
+		success : function (data) {
+			selectListdealcomplete(1);
+		}
+	});
+}
  
 
 
@@ -221,7 +244,7 @@ function selectListAp(pg) {
 					apListHtml.push('	<td class="td1">' +data[i].productName+ '</td>');
 					apListHtml.push('	<td class="td1">' +data[i].dealListaddMsg1 + '</td>');
 					apListHtml.push('	<td>' +data[i].dealListaddMsg2 + '</td>');
-					apListHtml.push('	<td style="width: 10px"><button type="button" class="btn btn-secondary" id="cancelDelete">삭제</button></td>');
+					apListHtml.push('	<td style="width: 10px"><button type="button" class="btn btn-secondary cancelDelete">삭제</button></td>');
 					apListHtml.push('</tr>');
 					
 					
@@ -291,6 +314,7 @@ function selectListAp(pg) {
 					dcListHtml.push('<tr>');
 					dcListHtml.push('	<th scope="row">' + (i+1) + '</th>');
 					dcListHtml.push('	<td class="td1" style="display: none">' +data[i].dealNo + '</td>');
+					dcListHtml.push('	<td class="td1" style="display: none">' +data[i].productNo + '</td>');
 					dcListHtml.push('	<td class="td1">' +data[i].member_id + '</td>');
 					dcListHtml.push('	<td class="td1">' +data[i].productName+ '</td>');
 					dcListHtml.push('	<td class="td1">' +data[i].dealListaddMsg1 + '</td>');
@@ -298,9 +322,12 @@ function selectListAp(pg) {
 					if(data[i].dealListCategory==3){
 					dcListHtml.push('	<td style="width: 40px"><button type="button" class="btn btn-secondary dealcomlete">구매확정</button></td>');
 					dcListHtml.push('	<td style="width: 40px"><button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#reviewModal" style="display: none">구매평 작성</button></td>');
-					}else{
+					}else if(data[i].dealListCategory==4){
 					dcListHtml.push('	<td style="width: 40px"><button type="button" class="btn btn-secondary dealcomlete" disabled>구매확정</button></td>');
 					dcListHtml.push('	<td style="width: 40px"><button type="button" class="btn btn-secondary dealreview" data-toggle="modal" data-target="#reviewModal" >구매평 작성</button></td>');
+					}else{
+					dcListHtml.push('	<td style="width: 40px"><button type="button" class="btn btn-secondary dealcomlete" disabled>구매확정</button></td>');
+					dcListHtml.push('	<td style="width: 40px"><button type="button" class="btn btn-secondary dealreview" data-toggle="modal" data-target="#reviewModal" disabled>구매평 작성</button></td>');
 					}
 					dcListHtml.push('</tr>');
 					
@@ -453,6 +480,7 @@ function selectListAp(pg) {
 			    <tr>
 			     <th scope="col">No</th>
 			     <th scope="col" class="td1" style="display: none">거래번호</th>
+			     <th scope="col" class="td1" style="display: none">상품번호</th>
 			      <th scope="col" class="td1">판매자ID</th>
 			      <th scope="col" class="td1">구매 상품명</th>
 			      <th scope="col" class="td1">신청 내용</th>

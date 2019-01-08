@@ -85,7 +85,7 @@ form {
 						<div class="col-sm-10">
 							<input type="password" class="form-control" id="memberPwd"
 								name="memberPwd" maxlength="13" style="width: 550px"
-								placeholder="Password"> <font color="red">*7~15자 영문 대 소문자, 숫자를 사용하세요.</font>
+								placeholder="Password"> <font color="red">*6~15자 영문 대 소문자, 숫자를 사용하세요.</font>
 						</div>
 					</div>
 				</td>
@@ -215,7 +215,7 @@ form {
 			var memberId=$("#memberId").val();
 			var memberPwd=$("#memberPwd").val();
 			var memberPwd2=$("#memberPwd2").val();			
-			var memberPwdCheck = /[a-zA-Z0-9]{7,15}/g;
+			var memberPwdCheck = /[a-zA-Z0-9]{6,15}/g;
 			memberPwdResult = memberPwdCheck.test(memberPwd);
 			
 			if (($("#memberPwd").val() == "")) {

@@ -127,13 +127,13 @@
                                 </thead>
                                 <tbody>
                                 <% for(int i = 0; i < list.size() ; i++){ %>
-                                    <tr class="odd gradeX">
+                                    <tr class="odd gradeX" onclick = "location.href = '/dsm/selectBoard.bo?num=<%= list.get(i).getBoardNo() %>'" style="cursor:pointer">
                                         <td><%= list.get(i).getBoardNo() %></td>
                                         <td><%= list.get(i).getBoardTitle() %></td>
                                         <td><%= list.get(i).getMemberName() %></td>
                                         <td class="center"><%= list.get(i).getBoardDate() %></td>
                                         <% if(list.get(i).getBoardQnaAnswerYn() == 0){ %>
-                                        <td class="center"><button onclick = "location.href = 'views/qna/qnaPosts.jsp'">답변하기</button></td>
+                                        <td class="center"><button onclick = "location.href = '/dsm/selectBoard.bo?num=<%= list.get(i).getBoardNo() %>'">답변하기</button></td>
                                         <% }else{ %>
                                         <td class="center"><button>응답완료</button></td>
                                         <% } %>

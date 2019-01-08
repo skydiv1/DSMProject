@@ -45,6 +45,12 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+<style>
+/* 	tr.odd gradeX:hover{
+		background : black;
+	} */
+</style>
+
 </head>
 <body>
 
@@ -103,7 +109,7 @@
 		<div id="page-wrapper">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1 class="page-header">고객센터</h1>
+					<h1 class="page-header">FAQ</h1>
 				</div>
 				<!-- /.col-lg-12 -->
 			</div>
@@ -126,8 +132,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-									<% for(int i = 0; i < list.size() ; i++){ %>
-                                    <tr class="odd gradeX">
+									<% for(int i = 0; i < list.size() ; i++){ %> 
+                                    <tr class="odd gradeX" onclick = "location.href = '/dsm/selectBoard.bo?num=<%= list.get(i).getBoardNo() %>'" style="cursor:pointer">
                                         <td><%= list.get(i).getBoardNo() %></td>
                                         <td><%= list.get(i).getBoardTitle() %></td>
                                         <td><%= list.get(i).getMemberName() %></td>
@@ -153,7 +159,7 @@
 					</div>
 					<!-- /.panel -->
 					<div align = "right">
-                    <button style = "background : lightgray; color : black; width : 100px; height : 40px; margin-right : 20px;" onclick = "#">작성하기</button>
+                    <button style = "background : lightgray; color : black; width : 100px; height : 40px; margin-right : 20px;" onclick = "location.href = '/dsm/views/faq/faqWrite.jsp'">작성하기</button>
                     </div>
 				</div>
 				<!-- /.col-lg-12 -->
