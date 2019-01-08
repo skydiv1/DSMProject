@@ -267,6 +267,7 @@ public class MypageDao {
 				MyPage m = new MyPage();
 				
 				m.setDealNo(rset.getInt("DEAL_NO"));
+				m.setProductNo(rset.getInt("PRODUCT_NO"));
 				m.setMember_id(rset.getString("MEMBER_ID"));
 				m.setProductName(rset.getString("PRODUCT_NAME"));
 				m.setDealListaddMsg1(rset.getString("DEALLIST_ADDMESSAGE1"));
@@ -636,6 +637,58 @@ public class MypageDao {
 			close(rset);
 		}
 		return reviewlist;
+	}
+
+
+	//구매평 작성 데이터 삽입
+	public int ReviewUpdate(Connection con, int loginCode, int rstar, String rtext, int productNo) {
+		PreparedStatement pstmt = null;
+		int result =0;
+		
+		String query = prop.getProperty("ReviewUpdate");
+		
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, productNo);
+			pstmt.setInt(2, loginCode);
+			pstmt.setString(3, rtext);
+			pstmt.setInt(4, rstar);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+	
+		return result;
+	}
+
+	//구매평 상태 변경
+	public int reviewStateUpdate(Connection con, int dealnum) {
+		PreparedStatement pstmt = null;
+		int result =0;
+		
+		String query = prop.getProperty("reviewStateUpdate");
+		
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, dealnum);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+	
+		return result;
 	}
 
 

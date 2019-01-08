@@ -159,7 +159,7 @@
 					    <input type="radio" name="star-input" id="p9" value="9"><label for="p9">9</label>
 					    <input type="radio" name="star-input" id="p10" value="10"><label for="p10">10</label>
 					  </span>
-					  <output for="star-input" id="starPoint" style="display: none">0</output>
+					  <output for="star-input" id="starPoint" style="display:none"></output>
 					</span>
 					<br>
 				</div>
@@ -168,7 +168,7 @@
 				<h2 align="center">한줄 평을 남겨주세요</h2>
 				<br>
 				<div align="center">
-				<textarea rows="20%" cols="80%" name="review" style="resize: none;" >내용을 입력해주세요.</textarea>
+				<textarea rows="20%" cols="80%" name="review" style="resize: none;" id="reiviewText" placeholder="내용을 입력해주세요."></textarea>
 				</div>
 				<br>
 			
@@ -176,8 +176,10 @@
         </div>
         <div class="modal-footer">
         	<input type="text" style="display: none" id="reviewdealnum">
+        	<input type="text" style="display: none" id="reviewProductNo">
+        	
           <button type="button" class="btn btn-secondary" style="width:400px" data-dismiss="modal">취소</button>
-		  <button type="button" class="btn btn-warning" style="width: 400px">등록</button>
+		  <button type="button" class="btn btn-warning" style="width: 400px" data-dismiss="modal" id="reviewRegist">등록</button>
         </div>
       </div>
     </div>
@@ -189,7 +191,7 @@
 //star rating
 var starRating = function(){
   var $star = $(".star-input"),
-      $result = $star.find("output>b");
+      $result = $star.find("output");
   $(document)
     .on("focusin", ".star-input>.input", function(){
     $(this).addClass("focus");

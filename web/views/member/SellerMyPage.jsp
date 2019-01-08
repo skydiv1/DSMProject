@@ -84,6 +84,20 @@ function addBtnEvent() {
 		  var num = $(this).parent().parent().children().eq(1).text();//제품번호
 		  location.href="<%=request.getContextPath()%>/selectProduct.pr?num="+num;
 	});
+	  
+	  
+	  //취소 목록에서 삭제 버튼 눌렀을때
+		 $(".cancelDelete").click(function () {
+			 var dealnum = $(this).parent().parent().children().eq(1).text();
+				$.ajax({
+					url:"${pageContext.request.contextPath}/canceldelete.consumer",
+					type : "get",
+					data : {dealnum:dealnum},
+					success : function (data) {
+						selectListCencelseller();
+					}
+				});
+		}); 
 }
 
 

@@ -269,6 +269,41 @@ public class MypageService {
 		close(con);
 		return reviewlist;
 	}
+	
+	//리뷰 값 변경
+	public int ReviewUpdate(int loginCode, int rstar, String rtext, int productNo) {
+
+		Connection con = getConnection();
+		
+		int result = new MypageDao().ReviewUpdate(con,loginCode,rstar,rtext,productNo);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+	
+	//리뷰 상태 변경
+	public int reviewStateUpdate(int dealnum) {
+		
+		Connection con = getConnection();
+		
+		int result = new MypageDao().reviewStateUpdate(con,dealnum);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		return result;
+	}
 
 	
 	
