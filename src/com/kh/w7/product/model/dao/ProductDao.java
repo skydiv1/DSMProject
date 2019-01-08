@@ -688,7 +688,7 @@ public class ProductDao {
 	}
 
 	
-	/* 최근 본 상품 */
+	/* 최근 본 상품 
 	public ArrayList<HashMap<String, Object>> resentProductList(Connection con, ArrayList<String> pNoArr) {
 		PreparedStatement pstmt = null;
 		ArrayList<HashMap<String, Object>> list = null;
@@ -803,7 +803,7 @@ public class ProductDao {
 		}
 		System.out.println("이미지 리스트: "+list);
 		return list;
-	}
+	}*/
 
 	
 	/* plusProduct 테이블의 item을 저장하기 위해 조회가 필요 */
