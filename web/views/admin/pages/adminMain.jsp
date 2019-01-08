@@ -103,7 +103,7 @@
 			</div>
 			<!-- /.row -->
 			<div class="row">
-				<div class="col-lg-3 col-md-6">
+				<div class="col-lg-3 col-md-6" style = "width : 700px;">
 				
 					<div class="panel panel-primary"> <!-- 표 색깔 정하는 부분 -->
 						<div class="panel-heading">
@@ -130,7 +130,8 @@
 						</a>
 					</div>
 				</div>
-				<div class="col-lg-3 col-md-6" >
+			
+				<div class="col-lg-3 col-md-6" style = "width : 500px;">
 					<div class="panel panel-info" >
 						<div class="panel-heading" >
 							<div class="row" >
@@ -152,7 +153,7 @@
 						</a>
 					</div>
 				</div>
-				<div class="col-lg-3 col-md-6" >
+				<div class="col-lg-3 col-md-6" style = "width : 500px;">
 					<div class="panel panel-warning" >
 						<div class="panel-heading" >
 							<div class="row" >
@@ -174,7 +175,7 @@
 						</a>
 					</div>
 				</div>
-				<div class="col-lg-3 col-md-6">
+				<div class="col-lg-3 col-md-6" style = "width : 400px;">
 					<div class="panel panel-yellow">
 						<div class="panel-heading">
 							<div class="row">
@@ -196,7 +197,8 @@
 						</a>
 					</div>
 				</div>
-				<div class="col-lg-3 col-md-6">
+				
+				<div class="col-lg-3 col-md-6"  style = "width : 400px;">
 					<div class="panel panel-red">
 						<div class="panel-heading">
 							<div class="row">
@@ -218,7 +220,7 @@
 						</a>
 					</div>
 				</div>
-				<div class="col-lg-3 col-md-6">
+				<div class="col-lg-3 col-md-6"  style = "width : 400px;">
 					<div class="panel panel-green">
 						<div class="panel-heading">
 							<div class="row">
@@ -243,7 +245,7 @@
 				</div>
 				
 				<div class="row">
-				<div class="col-lg-8">
+				<!-- <div class="col-lg-8">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<i class="fa fa-bar-chart-o fa-fw"></i> Area Chart Example
@@ -264,17 +266,24 @@
 								</div>
 							</div>
 						</div>
-						<!-- /.panel-heading -->
+						/.panel-heading
 						<div class="panel-body">
 							<div id="morris-area-chart"></div>
 						</div>
-						<!-- /.panel-body -->
+						/.panel-body
 					</div>
-					<!-- /.panel -->
-				</div>
+					/.panel
+				</div> -->
 				
+				
+			</div>
+			<!-- /.row -->
+			
+		
+		<!-- /#page-wrapper -->
+
 				<!-- /.col-lg-8 -->
-				<div class="col-lg-4">
+				<div class="col-lg-4" >
 					<!-- /.panel -->
 					<div class="panel panel-default">
 						<div class="panel-heading">
@@ -290,12 +299,6 @@
 					<!-- /.panel .chat-panel -->
 				</div>
 				<!-- /.col-lg-4 -->
-			</div>
-			<!-- /.row -->
-		</div>
-		<!-- /#page-wrapper -->
-
-				
 				
 				
 
