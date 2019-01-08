@@ -29,19 +29,19 @@ public class LeaveMemberServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		System.out.println("서블릿");
+		System.out.println("서블릿&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&7");
 		int memberCode = Integer.parseInt(request.getParameter("memberCode"));
 		
 		//String memberCode = request.getParameter("memberCode");
 		System.out.println("memberCode: " + memberCode);
 		
 		int result = new MemberService().leaveMember(memberCode);
-
+		System.out.println("result : " + result);
 		if (result > 0) {
-			request.getSession().setAttribute("msg", "탈퇴에 성공하셨습니다.");
-
-			System.out.println("탈퇴ㅇㅇㅇ");
-			response.sendRedirect("index.jsp");
+			request.setAttribute("msg", "탈퇴에 성공하셨습니다.");
+				
+			
+			response.sendRedirect("/dsm/logout.me");
 		} else {// 다 했을때 팝업시도
 			request.setAttribute("msg", "정보수정 실패!");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

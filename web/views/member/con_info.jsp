@@ -98,7 +98,7 @@ form {
 							<% System.out.println("뷰"+memberCode); %>
 						</div>
 					</div>
-					</div></td>
+					</td>
 
 			</tr>
 			<tr>
@@ -129,7 +129,7 @@ form {
 				<td><div class="form-group">
 						<label for="inputName" class="col-sm-2 control-label">Name</label>
 						<div class="col-sm-10">
-							<input type="Name" class="form-control" id="memberName"
+							<input type="text" class="form-control" id="memberName"
 								name="memberName" style="width: 550px"
 								value="<%=memberName%>">
 						</div>
@@ -188,7 +188,7 @@ form {
 
 		</table>
 
-		</table>
+		
 
 		<div align="center">
 			<button class="btn btn-warning"
@@ -201,10 +201,10 @@ form {
 			</button>
 			<!-- </a> <a href="/web/index.jsp"> -->
 			<button type="button" class="btn btn-defualt"
-				style="width: 150px; height: 50px; font-size: 15px; border-radius: 6px;">
-				<div id="DeleteBtn" onclick="return leaveMember();">탈퇴하기
+				style="width: 150px; height: 50px; font-size: 15px; border-radius: 6px;" onclick="leaveMember();">
+				<div id="DeleteBtn" >탈퇴하기</div>
 			</button>
-			</a>
+			
 		</div>
 	</form>
 	<script>
@@ -238,13 +238,14 @@ form {
 				
 		}
 		function leaveMember() {
-			
-				alert("탈퇴처리가 완료되었습니다.")
-				var memberCode=$("input[name='memberCode']").val();
-				$("#updateForm").submit();
-				location.href = '<%=request.getContextPath()%>/leaveMember.me?memberCode='+memberCode;
-				location.href="<%=request.getContextPath()%>/logout.me";
-				return false;
+			var memberCode2=$("input[name='memberCode']").val();
+			location.href = '/dsm/leaveMember.me?memberCode='+memberCode2;
+			alert("탈퇴처리가 완료되었습니다.")
+				
+			//$("#updateForm").submit();
+				
+			<%-- location.href="<%=request.getContextPath()%>/logout.me"; --%>
+				
 			
 		}
 		function goMain() {

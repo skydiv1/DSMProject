@@ -285,7 +285,7 @@ public class ProductService {
 	}
 
 
-	/* 최근 본 상품 */
+	/* 최근 본 상품 
 	public ArrayList<HashMap<String, Object>> resentProductList(ArrayList<String> pNoArr) {
 		Connection con = getConnection();
 		
@@ -294,7 +294,7 @@ public class ProductService {
 		close(con);
 		
 		return list;
-	}
+	}*/
 
 
 

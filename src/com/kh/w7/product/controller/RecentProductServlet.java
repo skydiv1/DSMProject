@@ -61,8 +61,8 @@ public class RecentProductServlet extends HttpServlet {
 		}
 		System.out.println(pNoArr);
 
-		ArrayList<HashMap<String, Object>> list = new ProductService().resentProductList(pNoArr); 
-		
+		/*ArrayList<HashMap<String, Object>> list = new ProductService().resentProductList(pNoArr); 
+		*/
 		
 		
 		
