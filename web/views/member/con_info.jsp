@@ -13,6 +13,9 @@
 <%
 	String memberEmail = (String) request.getAttribute("memberEmail");
 %>
+<%
+	int memberCode = (int) request.getAttribute("memberCode");
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -91,6 +94,8 @@ form {
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="memberId"
 								name="memberId" style="width: 550px" value="<%=memberId%>" readonly>
+							<input type="hidden" id="memberCode" name="memberCode" value="<%=memberCode%>" >	
+							<% System.out.println("뷰"+memberCode); %>
 						</div>
 					</div>
 					</div></td>
@@ -103,7 +108,7 @@ form {
 						<div class="col-sm-10">
 							<input type="password" class="form-control" id="memberPwd"
 								name="memberPwd" style="width: 550px" placeholder="Password">
-								<font color="red">*7~15자 영문 대 소문자, 숫자를 사용하세요.</font>
+								<font color="red">*6~15자 영문 대 소문자, 숫자를 사용하세요.</font>
 						</div>
 					</div>
 				</td>
@@ -192,12 +197,12 @@ form {
 			<!-- </a> <a href="/web/index.jsp"> -->
 			<button type="button" class="btn btn-cancle"
 				style="width: 470px; height: 50px; font-size: 20px; border-radius: 6px;">
-				<div id="joinBtn" onclick="goMain();">취소하기</div>
+				<div id="joinBtn" onclick="return goMain();">취소하기</div>
 			</button>
 			<!-- </a> <a href="/web/index.jsp"> -->
 			<button type="button" class="btn btn-defualt"
 				style="width: 150px; height: 50px; font-size: 15px; border-radius: 6px;">
-				<div id="DeleteBtn" onclick="leaveMember();">탈퇴하기
+				<div id="DeleteBtn" onclick="return leaveMember();">탈퇴하기
 			</button>
 			</a>
 		</div>
@@ -208,7 +213,7 @@ form {
 			var memberPwd=$("#memberPwd").val();
 			var memberPwd2=$("#memberPwd2").val();
 						
-			var memberPwdCheck = /[a-zA-Z0-9]{7,15}/g;
+			var memberPwdCheck = /[a-zA-Z0-9]{6,15}/g;
 			memberPwdResult = memberPwdCheck.test(memberPwd);
 			
 			if (($("#memberPwd").val() == "")) {
@@ -233,14 +238,19 @@ form {
 				
 		}
 		function leaveMember() {
-			var memberCode=$("#memberCode").val();
-			if(){
+			
 				alert("탈퇴처리가 완료되었습니다.")
-				join.action = "<%=request.getContextPath()%>/leavemember.me";
-			}
+				var memberCode=$("input[name='memberCode']").val();
+				$("#updateForm").submit();
+				location.href = '<%=request.getContextPath()%>/leaveMember.me?memberCode='+memberCode;
+				
+				return false;
+			
 		}
 		function goMain() {
-			location.href="<%=request.getContextPath()%>/index.jsp";			
+			location.href="<%=request.getContextPath()%>/index.jsp";	
+			
+			return false;
 		}	
 		
 		

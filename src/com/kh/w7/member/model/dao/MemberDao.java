@@ -282,7 +282,6 @@ public class MemberDao {
 	    }
 
 	public int leaveMember(Connection con, int memberCode) {
-		Connection conn = null;
         PreparedStatement pstmt = null;
         
         int result =0;
@@ -290,13 +289,13 @@ public class MemberDao {
  
         try {
             
-            pstmt = conn.prepareStatement(query);
- 
+            pstmt = con.prepareStatement(query);
+            System.out.println(query);
             
             pstmt.setInt(1, memberCode);
 			
            result= pstmt.executeUpdate();
-            
+            System.out.println("dao resut: "+result);
                         
         } catch (Exception e) {
            e.printStackTrace();
