@@ -167,7 +167,11 @@
 				/* 세션 스토리지 */
 				sessionStorage.setItem(("pNo"+(sessionStorage.getItem("i"))), num);
 				sessionStorage.getItem(("pNo"+(sessionStorage.getItem("i"))));
-				sessionStorage.setItem("i", parseInt(sessionStorage.getItem("i"))+1);
+				if(parseInt(sessionStorage.getItem("i"))<6){
+					sessionStorage.setItem("i", parseInt(sessionStorage.getItem("i"))+1);
+				}else{
+					sessionStorage.setItem("i", 1);
+				}
 				
 				// num의 값이 num에 담겨 넘겨준다.
 				location.href = "<%=request.getContextPath()%>/selectOne.pr?num=" + num; 
