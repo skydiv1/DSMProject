@@ -688,6 +688,58 @@ public class ProductDao {
 	}
 
 	
+	/* 최근 본 상품 */
+	public ArrayList<HashMap<String, Object>> resentProductList(Connection con, ArrayList<String> pNoArr) {
+		/*PreparedStatement pstmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+
+		String query = prop.getProperty("selectResentProductList");
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				
+				hmap.put("imgNo", rset.getInt("IMG_NO"));
+				hmap.put("originName", rset.getString("ORIGINNAME"));
+				hmap.put("changeName", rset.getString("CHANGENAME"));
+				hmap.put("imgCategoy", rset.getInt("IMG_CATEGORY"));
+				//hmap.put("sellerCertName", rset.getString("SELLERCERT_NAME"));
+				hmap.put("memberCode", rset.getInt("MEMBER_CODE"));
+				//hmap.put("boardNo", rset.getInt("BOARD_NO"));
+				hmap.put("productNo", rset.getInt("PRODUCT_NO"));
+				hmap.put("imgFilePath", rset.getString("IMG_FILEPATH"));
+				hmap.put("imgDelete", rset.getInt("IMG_DELETE"));
+				hmap.put("imgLevel", rset.getInt("IMG_LEVEL"));
+				
+				hmap.put("productName", rset.getString("PRODUCT_NAME"));
+				hmap.put("productCategory", rset.getString("PRODUCT_CATEGORY"));
+				hmap.put("productItem", rset.getString("PRODUCT_ITEM"));
+				hmap.put("productItemPrice", rset.getInt("PRODUCT_ITEMPRICE"));
+				hmap.put("productContext", rset.getString("PRODUCT_CONTEXT"));
+				hmap.put("productRegisterDate", rset.getDate("PRODUCT_REGISTERDATE"));
+				hmap.put("productDeleteYN", rset.getInt("PRODUCT_DELETEYN"));				
+				
+				list.add(hmap);
+			}
+						
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally { // 자원반납
+			close(pstmt);
+			close(rset);
+		}
+		System.out.println("이미지 리스트: "+list);
+		return list;*/
+	}
+
+	
 	/* plusProduct 테이블의 item을 저장하기 위해 조회가 필요 */
 /*	public int selectPlusProduct(Connection con) {
 		Statement stmt = null;

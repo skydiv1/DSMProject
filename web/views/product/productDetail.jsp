@@ -457,16 +457,6 @@
 			});
 		});
 	</script>
-	
-	<!-- 세션 스토리지 -->
-	<script>
-		$(function () {
-				var pNo1 = sessionStorage.setItem("productNo1", <%=product.getProductNo()%>);
-				var pNo2 = sessionStorage.setItem("productNo2", <%=product.getProductNo()%>);
-			
-			
-		});
-	</script>
 
 	<!-- Footer ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 <%@ include file="/views/common/footer.jsp" %>
