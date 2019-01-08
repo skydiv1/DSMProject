@@ -1,13 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<% String memberId = (String)request.getAttribute("memberId"); %>
-<% String memberName = (String)request.getAttribute("memberName"); %>
-<% String memberPhone = (String)request.getAttribute("memberPhone"); %>
-<% String memberEmail = (String)request.getAttribute("memberEmail"); %>
-<% String sellerIntroduction = (String)request.getAttribute("sellerIntroduction"); %>
-<% String sellerCareer = (String)request.getAttribute("sellerCareer"); %>
+<%
+	String memberId = (String) request.getAttribute("memberId");
+%>
+<%
+	String memberName = (String) request.getAttribute("memberName");
+%>
+<%
+	String memberPhone = (String) request.getAttribute("memberPhone");
+%>
+<%
+	String memberEmail = (String) request.getAttribute("memberEmail");
+%>
+<%
+	String sellerIntroduction = (String) request.getAttribute("sellerIntroduction");
+%>
+<%
+	String sellerCareer = (String) request.getAttribute("sellerCareer");
+%>
 
-
+<%
+	int memberCode = (int) request.getAttribute("memberCode");
+%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -72,7 +86,8 @@ form {
 	<h3 align="center">판매자 정보수정</h3>
 	<br>
 	<hr>
-	<form action="<%=request.getContextPath()%>/updateInfo.me" method="post" id="updateForm">
+	<form action="<%=request.getContextPath()%>/updateInfo.me"
+		method="post" id="updateForm">
 
 
 		<table align="center">
@@ -82,10 +97,10 @@ form {
 
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="memberId"
-								name="membeId" style="width: 550px" placeholder="<%=memberId%>"
-								readonly>
+								name="memberId" style="width: 550px" value="<%=memberId%>" readonly>
+							<input type="hidden" id="memberCode" name="memberCode" value="<%=memberCode%>" >	
+							<% System.out.println("뷰"+memberCode); %>
 						</div>
-					</div>
 					</div></td>
 
 			</tr>
@@ -96,7 +111,7 @@ form {
 						<div class="col-sm-10">
 							<input type="password" class="form-control" id="memberPwd"
 								name="membePwd" style="width: 550px" placeholder="Password">
-								<font color="red">*6~15자 영문 대 소문자, 숫자를 사용하세요.</font>
+							<font color="red">*6~15자 영문 대 소문자, 숫자를 사용하세요.</font>
 						</div>
 					</div>
 				</td>
@@ -130,7 +145,9 @@ form {
 
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="memberPhone"
-								name="memberPhone" style="width: 550px; ime-mode:disabled;" placeholder="<%=memberPhone%>" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)'>
+								name="memberPhone" style="width: 550px; ime-mode: disabled;"
+								placeholder="<%=memberPhone%>"
+								onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)'>
 							<font color="red"> *숫자만 입력하세요.</font>
 						</div>
 					</div></td>
@@ -163,14 +180,15 @@ form {
 				<td><div class="form-group">
 						<label for="inputEConfirm" class="col-sm-2 control-label">인증번호</label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" id="code" style="width: 250px" placeholder="인증번호 입력">
-							
+							<input type="text" class="form-control" id="code"
+								style="width: 250px" placeholder="인증번호 입력">
+
 
 						</div>
 					</div></td>
-				<td style="padding-top: 14px;"><button class="btn btn-danger" onclick="return combtn();"
-						>인증번호 확인</button></td>
-						
+				<td style="padding-top: 14px;"><button class="btn btn-danger"
+						onclick="return combtn();">인증번호 확인</button></td>
+
 			</tr>
 
 			<tr>
@@ -185,8 +203,9 @@ form {
 			<tr>
 				<td><div class="form-group">
 						<label for="exampleInputTel">Intro</label>
-						<textarea class="form-control" rows="3" placeholder="<%=sellerIntroduction%>"
-							id="sellerIntroduction" name="sellerIntroduction"></textarea>
+						<textarea class="form-control" rows="3"
+							placeholder="<%=sellerIntroduction%>" id="sellerIntroduction"
+							name="sellerIntroduction"></textarea>
 
 					</div></td>
 			</tr>
@@ -212,30 +231,32 @@ form {
 			<tr>
 				<td><div class="form-group">
 						<label for="exampleInputcareea">Career</label>
-						<textarea class="form-control" rows="3" placeholder="<%=sellerCareer%>"
-							id="sellerCareer" name="sellerCareer"></textarea>
+						<textarea class="form-control" rows="3"
+							placeholder="<%=sellerCareer%>" id="sellerCareer"
+							name="sellerCareer"></textarea>
 					</div></td>
 			</tr>
 
 		</table>
 
-		</table>
+
 
 		<div align="center">
-			<button class="btn btn-warning" 
-					style="width: 470px; height: 50px; font-size: 20px; border-radius: 6px;"
-					onclick="updateSel();">정보수정</button>
+			<button class="btn btn-warning"
+				style="width: 470px; height: 50px; font-size: 20px; border-radius: 6px;"
+				onclick="updateSel();">정보수정</button>
 			<!-- </a> <a href="/web/index.jsp"> -->
-				<button type="button" class="btn btn-cancle"
-					style="width: 470px; height: 50px; font-size: 20px; border-radius: 6px;">
-					<div id="joinBtn" onclick="goMain();">취소하기</div>
-				</button>
+			<button type="button" class="btn btn-cancle"
+				style="width: 470px; height: 50px; font-size: 20px; border-radius: 6px;">
+				<div id="joinBtn" onclick="return goMain();">취소하기</div>
+			</button>
 			<!-- </a> <a href="/web/index.jsp"> -->
-				<button type="button" class="btn btn-defualt"
-					style="width: 150px; height: 50px; font-size: 15px; border-radius: 6px;">
-					<div id="DeleteBtn" onclick="leaveMember();">탈퇴하기
-				</button>
-			</a>
+			<button type="button" class="btn btn-defualt"
+				style="width: 150px; height: 50px; font-size: 15px; border-radius: 6px;"
+				onclick="leaveMember();">
+				<div id="DeleteBtn">탈퇴하기</div>
+			</button>
+
 		</div>
 	</form>
 	<script>
@@ -270,6 +291,9 @@ form {
 				
 		}
 		function leaveMember() {
+			var memberCode2=$("input[name='memberCode']").val();
+			location.href = '/dsm/leaveMember.me?memberCode='+memberCode2;
+			alert("탈퇴처리가 완료되었습니다.")
 
 		}
 		function goMain() {
@@ -342,7 +366,7 @@ form {
 		}
 		 
 	</script>
-		<br>
-		<%@ include file="/views/common/footer.jsp"%>
+	<br>
+	<%@ include file="/views/common/footer.jsp"%>
 </body>
 </html>

@@ -60,9 +60,7 @@ public class RecentProductServlet extends HttpServlet {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 	
-		new Gson().toJson(list	, response.getWriter());
-		
-		
+		new Gson().toJson(list	, response.getWriter());		
 	}
 
 	/**
