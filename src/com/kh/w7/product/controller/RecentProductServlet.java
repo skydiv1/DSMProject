@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.w7.product.model.service.ProductService;
 
 /**
@@ -38,13 +39,6 @@ public class RecentProductServlet extends HttpServlet {
 		String pNo5 = request.getParameter("pNo5");
 		String pNo6 = request.getParameter("pNo6");
 		
-		System.out.println("pNo1 : "+pNo1);
-		System.out.println("pNo2 : "+pNo2);
-		System.out.println("pNo3 : "+pNo3);
-		System.out.println("pNo4 : "+pNo4);
-		System.out.println("pNo5 : "+pNo5);
-		System.out.println("pNo6 : "+pNo6);
-		
 		ArrayList<String> tempArr = new ArrayList<String>(); // 임시로 담을 공간 (빈 값이 들어갈 수 있기 때문)
 		tempArr.add(pNo1);
 		tempArr.add(pNo2);
@@ -63,7 +57,10 @@ public class RecentProductServlet extends HttpServlet {
 
 		ArrayList<HashMap<String, Object>> list = new ProductService().resentProductList(pNoArr); 
 		
-		
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+	
+		new Gson().toJson(list	, response.getWriter());
 		
 		
 	}

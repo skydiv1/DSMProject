@@ -729,10 +729,14 @@ public class ProductDao {
 				a6 =Integer.parseInt(pNoArr.get(i));
 				count++;
 				break;
-			}
-			
+			}			
 		}
-		
+		System.out.println("a1 : "+a1);
+		System.out.println("a2 : "+a2);
+		System.out.println("a3 : "+a3);
+		System.out.println("a4 : "+a4);
+		System.out.println("a5 : "+a5);
+		System.out.println("a6 : "+a6);
 		String query = "";
 		try {
 			
@@ -740,20 +744,23 @@ public class ProductDao {
 				query = prop.getProperty("selectResentProductList1");
 				pstmt = con.prepareStatement(query);
 				pstmt.setInt(1, a1);
-				rset = pstmt.executeQuery();
+				System.out.println("여기에 들어오는지 : "+size);
+				//rset = pstmt.executeQuery();
 			}else if(size==2) {
 				query = prop.getProperty("selectResentProductList2");
 				pstmt = con.prepareStatement(query);
 				pstmt.setInt(1, a1);
 				pstmt.setInt(2, a2);
-				rset = pstmt.executeQuery();
+				System.out.println("여기에 들어오는지 : "+size);
+				//rset = pstmt.executeQuery();
 			}else if(size==3) {
 				query = prop.getProperty("selectResentProductList3");
 				pstmt = con.prepareStatement(query);
 				pstmt.setInt(1, a1);
 				pstmt.setInt(2, a2);
 				pstmt.setInt(3, a3);
-				rset = pstmt.executeQuery();
+				System.out.println("여기에 들어오는지 : "+size);
+				//rset = pstmt.executeQuery();
 			}else if(size==4) {
 				query = prop.getProperty("selectResentProductList4");
 				pstmt = con.prepareStatement(query);
@@ -761,7 +768,8 @@ public class ProductDao {
 				pstmt.setInt(2, a2);
 				pstmt.setInt(3, a3);
 				pstmt.setInt(4, a4);
-				rset = pstmt.executeQuery();
+				System.out.println("여기에 들어오는지 : "+size);
+				//rset = pstmt.executeQuery();
 			}else if(size==5) {
 				query = prop.getProperty("selectResentProductList5");
 				pstmt = con.prepareStatement(query);
@@ -770,9 +778,10 @@ public class ProductDao {
 				pstmt.setInt(3, a3);
 				pstmt.setInt(4, a4);
 				pstmt.setInt(5, a5);
-				rset = pstmt.executeQuery();
+				System.out.println("여기에 들어오는지 : "+size);
+				//rset = pstmt.executeQuery();
 			}else if(size==6) {
-				query = prop.getProperty("selectResentProductList5");
+				query = prop.getProperty("selectResentProductList6");
 				pstmt = con.prepareStatement(query);
 				pstmt.setInt(1, a1);
 				pstmt.setInt(2, a2);
@@ -780,59 +789,32 @@ public class ProductDao {
 				pstmt.setInt(4, a4);
 				pstmt.setInt(5, a5);
 				pstmt.setInt(6, a6);
-				rset = pstmt.executeQuery();
+				System.out.println("여기에 들어오는지 : "+size);
 			}
-			
+			rset = pstmt.executeQuery();
+
 			list = new ArrayList<HashMap<String, Object>>();
 			
 			while(rset.next()) {
 				hmap = new HashMap<String, Object>();
-				hmap.put("productNo", rset.getInt("PRODUCT_NO"));
-				hmap.put("changeName", rset.getString("CHANGENAME"));
+				hmap.put("productNo", rset.getString("PRODUCT_NO"));
+				hmap.put("memberId", rset.getString("MEMBER_ID"));
 				hmap.put("productName", rset.getString("PRODUCT_NAME"));
 				hmap.put("productItemPrice", rset.getInt("PRODUCT_ITEMPRICE"));
+				hmap.put("changeName", rset.getString("CHANGENAME"));
 				
 				list.add(hmap);
+				System.out.println("while문 몇 번 반복되는지");
 			}
 						
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally { // 자원반납
+		} finally { 
 			close(pstmt);
 			close(rset);
 		}
-		System.out.println("이미지 리스트: "+list);
+		System.out.println("최근 본 상품 리스트: "+list);
 		return list;
 	}
-
-	
-	/* plusProduct 테이블의 item을 저장하기 위해 조회가 필요 */
-/*	public int selectPlusProduct(Connection con) {
-		Statement stmt = null;
-		int result = 0;
-		ResultSet rset = null;
-		
-		String query = prop.getProperty("selectPlusProduct");
-		
-		try {
-			stmt = con.createStatement();			
-			rset = stmt.executeQuery(query);
-			
-			while(rset.next()) {
-				listCount = rset.getInt(1);				
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(stmt);
-			close(rset);
-		}
-		
-		System.out.println("listCount(게시물 총 개수) : "+listCount);
-		return result;
-	}*/
-
-	
 
 }
