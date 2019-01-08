@@ -348,6 +348,8 @@
 		
 		
 		
+		
+		
 		$(function(){
 			Morris.Donut({
 			    element: 'morris-donut-chart',
@@ -356,6 +358,29 @@
 		        parseTime:false
 		 	});
 
+			
+			
+			
+			/* 
+			var areaData = {};
+			areaData.push({
+				 	period: '2016 Q1',
+		            Member: 95,
+		            Product: 33,
+		            Deal: 55
+			});
+			
+			
+			Morris.Area({
+				element: 'morris-area-chart',
+				data : areaData,
+				xkey: 'period',
+		        ykeys: ['Member', 'Product', 'Deal'],
+		        labels: ['Member', 'Product', 'Deal'],
+		        pointSize: 2,
+		        hideHover: 'auto',
+		        resize: true
+			}); */
 			
 			
 		});

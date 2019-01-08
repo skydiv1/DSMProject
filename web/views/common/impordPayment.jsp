@@ -11,12 +11,7 @@
 <script>
    var chargeMoney = <%= request.getParameter("chargeMoney")%>;
    var memberCode = <%= request.getParameter("memberCode")%>;
-   <%-- var memberName = <%= request.getParameter("memberName")%>; --%>
-   <%-- var memberId = <%= request.getParameter("memberId")%>;
-   var memberEmail = <%= request.getParameter("memberEmail")%>;
-   var memberPhone = <%= request.getParameter("memberPhone")%>; --%>
-   
-   
+
    
    var IMP = window.IMP; 
    IMP.init('imp11530773');
@@ -27,26 +22,18 @@
 	    merchant_uid : 'merchant_' + new Date().getTime(),
 	    name : 'DSM_CashCharge',
 	    amount : chargeMoney,
-	    buyer_email : 'eksan@naver.com',
-	    buyer_code : memberCode,
-	    buyer_id : 'minkyu',
-	    buyer_name : 'hwangMinkyu',
-	    buyer_tel : '010-1234-5678',
-	    buyer_addr : 'seoul gangnam',
-	    buyer_postcode : '123-456'
+	    buyer_code : memberCode
 	}, function(rsp) {
 	    if ( rsp.success ) {
-	    	//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
+
 	    	jQuery.ajax({
-	    		url: "/dsm/saveCharge.pa", //cross-domain error가 발생하지 않도록 주의해주세요
+	    		url: "/dsm/saveCharge.pa",
 	    		type: 'POST',
 	    		dataType: 'json',
 	    		data: {
-	    			buyer_code : memberCode, //나중에 로그인 되면 결제하는 회원코드로 전환하기
-	    			buyer_name : 'HongGD',
+	    			buyer_code : memberCode, 
 	    			amount : chargeMoney,
 		    		imp_uid : rsp.imp_uid
-		    		//기타 필요한 데이터가 있으면 추가 전달
 	    		},
 	    		success : function(data){
 	    			if(data > 0) {
@@ -61,11 +48,10 @@
 					}else {
 						page = "/dsm/views/common/errorPage.jsp";
 						location.href = page;
-						//request.getRequestDispatcher(page).forward(request, response);
+
 					}
 	    		}
 	    	}).done(function(data) {
-	    		//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
 	    		if ( everythings_fine ) {
 	    			var msg = '결제가 완료되었습니다.';
 	    			msg += '\n고유ID : ' + rsp.imp_uid;
@@ -75,8 +61,7 @@
 	    			
 	    			alert(msg);
 	    		} else {
-	    			//[3] 아직 제대로 결제가 되지 않았습니다.
-	    			//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
+
 	    		}
 	    	});
 	    } else {

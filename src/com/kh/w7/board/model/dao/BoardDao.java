@@ -163,14 +163,14 @@ public class BoardDao {
         }
         return result;
     }
-    public Board selectOne(Connection con, String num) {
+    public Board selectOne(Connection con, int num) {
         PreparedStatement pstmt = null;
         ResultSet rset = null;
         Board b = null;
         String query = prop.getProperty("selectOne");
         try {
             pstmt = con.prepareStatement(query);
-            pstmt.setInt(1, Integer.parseInt(num));
+            pstmt.setInt(1, num);
             rset = pstmt.executeQuery();
             if (rset.next()) {
                 b = new Board();

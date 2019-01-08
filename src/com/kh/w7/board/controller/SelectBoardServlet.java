@@ -31,7 +31,7 @@ public class SelectBoardServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String num = request.getParameter("num");
+		int num = Integer.parseInt(request.getParameter("num"));
 		Board b = new BoardService().selectOne(num);
 		
 		String page="";
