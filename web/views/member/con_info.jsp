@@ -243,7 +243,7 @@ form {
 				var memberCode=$("input[name='memberCode']").val();
 				$("#updateForm").submit();
 				location.href = '<%=request.getContextPath()%>/leaveMember.me?memberCode='+memberCode;
-				
+				location.href="<%=request.getContextPath()%>/logout.me";
 				return false;
 			
 		}
