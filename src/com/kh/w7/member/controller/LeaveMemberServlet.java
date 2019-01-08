@@ -40,7 +40,7 @@ public class LeaveMemberServlet extends HttpServlet {
 		if (result > 0) {
 			request.getSession().setAttribute("msg", "탈퇴에 성공하셨습니다.");
 
-			
+			System.out.println("탈퇴ㅇㅇㅇ");
 			response.sendRedirect("index.jsp");
 		} else {// 다 했을때 팝업시도
 			request.setAttribute("msg", "정보수정 실패!");
