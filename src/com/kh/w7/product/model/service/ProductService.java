@@ -285,6 +285,18 @@ public class ProductService {
 	}
 
 
+	/* 최근 본 상품 */
+	public ArrayList<HashMap<String, Object>> resentProductList(ArrayList<String> pNoArr) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = new ProductDao().resentProductList(con,pNoArr);
+		
+		close(con);
+		
+		return list;
+	}
+
+
 
 
 

@@ -3,27 +3,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-	ArrayList<HashMap<String, Object>> sessionList = (ArrayList<HashMap<String, Object>>)session.getAttribute("sessionList");
-
 	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>)request.getAttribute("list");
 	
-	System.out.println("list(jsp) : "+list);
-	
-	/* Cookie ck = null;
-	for(int i=0; i<sessionList.size(); i++){ 
-		HashMap<String, Object> hmap = sessionList.get(i);
-		String pNo = (String) hmap.get("productNo");
-		String changeName = (String) hmap.get("changeName");
-		String productName = (String) hmap.get("productName");
-		String productItemPrice = (String) hmap.get("productItemPrice");		
-		ck = new Cookie("pNo", pNo); 
-		ck = new Cookie("changeName", changeName); 
-		ck = new Cookie("productName", productName); 
-		ck = new Cookie("productItemPrice", productItemPrice); 
-		response.addCookie(ck);
-	}
-	
-	Cookie[] cks = request.getCookies(); */
 %>
 
 <!DOCTYPE html>
@@ -31,6 +12,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 	<%@ include file="menubar.jsp"%>
@@ -161,10 +143,22 @@
 			</div>
 		</div>
 	</section>
+	
+	<form>
+		<input type="hidden" name="pNo1">
+		<input type="hidden" name="pNo2">
+		<input type="hidden" name="pNo3">
+		<input type="hidden" name="pNo4">
+		<input type="hidden" name="pNo5">
+		<input type="hidden" name="pNo6">
+	</form>
 	<!-- 최근 본 상품 끝 /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
 	<!-- 스크립트 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	<script>
+		/* 세션 스토리지 */
+		sessionStorage.setItem("i",1);
+
 		$(function () {
 			$("[name=imageList]").click(function () {
 				var memberCode = $(this).children().children().children().children().eq(0).val(); // eq(0).val(); //eq 0번째의 value값
@@ -172,12 +166,50 @@
 				location.href = "<%=request.getContextPath()%>/noticeResist.pr?memberCode=" + memberCode; 
 			});
 			
-			/* 세션 스토리지 */
-			var pNo1 = sessionStorage.getItem("productNo1");
-			//alert(pNo1);
-			var pNo2 = sessionStorage.getItem("productNo2");
-			//alert(pNo2);
-			
+			if(sessionStorage.getItem("pNo1") != null){
+				var pNo1 = sessionStorage.getItem("pNo1");
+				var pNoVal1 = $("input[name=pNo1]").val(pNo1);
+			}
+			if(sessionStorage.getItem("pNo2") != null){
+				var pNo2 = sessionStorage.getItem("pNo2");
+				var pNoVal2 = $("input[name=pNo2]").val(pNo2);
+			}
+			if(sessionStorage.getItem("pNo3") != null){
+				var pNo3 = sessionStorage.getItem("pNo3");
+				var pNoVal3 = $("input[name=pNo3]").val(pNo3);
+			}
+			if(sessionStorage.getItem("pNo4") != null){
+				var pNo4 = sessionStorage.getItem("pNo4");
+				var pNoVal4 = $("input[name=pNo4]").val(pNo4);
+			}
+			if(sessionStorage.getItem("pNo5") != null){
+				var pNo5 = sessionStorage.getItem("pNo5");
+				var pNoVal5 = $("input[name=pNo5]").val(pNo5);			
+			}
+			if(sessionStorage.getItem("pNo6") != null){
+				var pNo6 = sessionStorage.getItem("pNo6");
+				var pNoVal6 = $("input[name=pNo6]").val(pNo6);			
+			}
+		});
+	</script>
+	<script>
+		$(function () {
+			$.ajax({
+				url:"<%=request.getContextPath()%>/recentProduct.pr",
+				type:"get",
+				data:{pNo1:sessionStorage.getItem("pNo1")
+						,pNo2:sessionStorage.getItem("pNo2")
+						,pNo3:sessionStorage.getItem("pNo3")
+						,pNo4:sessionStorage.getItem("pNo4")
+						,pNo5:sessionStorage.getItem("pNo5")
+						,pNo6:sessionStorage.getItem("pNo6")},
+				success:function(data){
+					console.log("성공");
+				},
+				error:function(){
+					console.log("실패");
+				}
+			});
 		});
 	</script>
 	
