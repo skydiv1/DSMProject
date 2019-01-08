@@ -179,12 +179,32 @@
 		<tr>
 			<td align="left">
 				<div class="wrapper" style="font-size: 20px; margin-top: 2%;">
-					평점 : <span class="rating"> 
+					평점 : <span class="rating">
+						<%if(member.getSellerGrade()>=10){ %>
 							<input id="rating5" type="radio" name="rating" value="5" checked disabled><label for="rating5">5</label>
+						<%}else{ %>	
+							<input id="rating5" type="radio" name="rating" value="5" disabled><label for="rating5">5</label>
+						<%}
+							if(member.getSellerGrade()<10 && member.getSellerGrade()>=8){ %>
+							<input id="rating4" type="radio" name="rating" value="4" checked disabled><label for="rating4">4</label> 
+						<%}else{ %>	
 							<input id="rating4" type="radio" name="rating" value="4" disabled><label for="rating4">4</label> 
+						<%}
+							if(member.getSellerGrade()<8 && member.getSellerGrade()>=6){ %>	
+							<input id="rating3" type="radio" name="rating" value="3" checked disabled> <label for="rating3">3</label> 
+						<%}else{ %>
 							<input id="rating3" type="radio" name="rating" value="3" disabled> <label for="rating3">3</label> 
+						<%}
+							if(member.getSellerGrade()<6 && member.getSellerGrade()>=4){ %>								
+							<input id="rating2" type="radio" name="rating" value="2" checked disabled> <label for="rating2">2</label> 
+						<%}else{ %>
 							<input id="rating2" type="radio" name="rating" value="2" disabled> <label for="rating2">2</label> 
+						<%}
+							if(member.getSellerGrade()<4 && member.getSellerGrade()>=2){ %>		
+							<input id="rating1" type="radio" name="rating" value="1" checked disabled> <label for="rating1">1</label>
+						<%}else{ %>
 							<input id="rating1" type="radio" name="rating" value="1" disabled> <label for="rating1">1</label>
+						<%} %>
 					</span> (<span><span id="reviewCnt1" class="reviewCnt"></span>개의 평가</span>)
 				</div>
 			</td>
@@ -284,11 +304,31 @@
 				<div class="wrapper"
 					style="font-size: 20px; width: 600px; height: 110px; background-color: #EAEAEA; padding: 4% 7%;">
 					<span class="rating"> 
-						<input id="rating5_1" type="radio" name="rating1" value="5" checked disabled><label for="rating5_1">5</label>
-						<input id="rating4_1" type="radio" name="rating1" value="4" disabled><label for="rating4_1">4</label> 
-						<input id="rating3_1" type="radio" name="rating1" value="3" disabled><label for="rating3_1">3</label> 
-						<input id="rating2_1" type="radio" name="rating1" value="2" disabled><label for="rating2_1">2</label>
-						<input id="rating1_1" type="radio" name="rating1" value="1" disabled><label for="rating1_1">1</label>
+						<%if(member.getSellerGrade()>=10){ %>
+							<input id="rating5a" type="radio" name="ratingA" value="5" checked disabled><label for="rating5a">5</label>
+						<%}else{ %>	
+							<input id="rating5a" type="radio" name="ratingA" value="5" disabled><label for="rating5a">5</label>
+						<%}
+							if(member.getSellerGrade()<10 && member.getSellerGrade()>=8){ %>
+							<input id="rating4a" type="radio" name="ratingA" value="4" checked disabled><label for="rating4a">4</label> 
+						<%}else{ %>	
+							<input id="rating4a" type="radio" name="ratingA" value="4" disabled><label for="rating4a">4</label> 
+						<%}
+							if(member.getSellerGrade()<8 && member.getSellerGrade()>=6){ %>	
+							<input id="rating3a" type="radio" name="ratingA" value="3" checked disabled> <label for="rating3a">3</label> 
+						<%}else{ %>
+							<input id="rating3a" type="radio" name="ratingA" value="3" disabled> <label for="rating3a">3</label> 
+						<%}
+							if(member.getSellerGrade()<6 && member.getSellerGrade()>=4){ %>								
+							<input id="rating2a" type="radio" name="ratingA" value="2" checked disabled> <label for="rating2a">2</label> 
+						<%}else{ %>
+							<input id="rating2a" type="radio" name="ratingA" value="2" disabled> <label for="rating2a">2</label> 
+						<%}
+							if(member.getSellerGrade()<4 && member.getSellerGrade()>=2){ %>		
+							<input id="rating1a" type="radio" name="ratingA" value="1" checked disabled> <label for="rating1a">1</label>
+						<%}else{ %>
+							<input id="rating1a" type="radio" name="ratingA" value="1" disabled> <label for="rating1a">1</label>
+						<%} %>
 					</span><span id="reviewCnt2" class="reviewCnt" style="margin-left: 3%;"> </span>개의 평가
 				</div>
 				<br>
@@ -382,11 +422,11 @@
 									+'<td width="80%" style="border-bottom: 1px solid #EAEAEA;">'
 									+'<span style="margin-left: 20px;">'+reviewDate+'</span>'
 									+'<span class="rating" style="margin-left: 20px;">'
-									+'<input id="rating5_'+reviewCnt+'" type="radio" name="rating2" value="5" checked disabled><label for="rating5_'+reviewCnt+'">5</label>'
-									+'<input id="rating4_'+reviewCnt+'" type="radio" name="rating2" value="4" disabled><label for="rating4_'+reviewCnt+'">4</label>'
-									+'<input id="rating3_'+reviewCnt+'" type="radio" name="rating2" value="3" disabled><label for="rating3_'+reviewCnt+'">3</label>'
-									+'<input id="rating2_'+reviewCnt+'" type="radio" name="rating2" value="2" disabled><label for="rating2_'+reviewCnt+'">2</label>'
-									+'<input id="rating1_'+reviewCnt+'" type="radio" name="rating2" value="1" disabled><label for="rating1_'+reviewCnt+'">1</label>'
+									+'<input id="rating5_'+reviewCnt+'" type="radio" name="rating'+reviewCnt+'" value="5" checked disabled><label for="rating5_'+reviewCnt+'">5</label>'
+									+'<input id="rating4_'+reviewCnt+'" type="radio" name="rating'+reviewCnt+'" value="4" disabled><label for="rating4_'+reviewCnt+'">4</label>'
+									+'<input id="rating3_'+reviewCnt+'" type="radio" name="rating'+reviewCnt+'" value="3" disabled><label for="rating3_'+reviewCnt+'">3</label>'
+									+'<input id="rating2_'+reviewCnt+'" type="radio" name="rating'+reviewCnt+'" value="2" disabled><label for="rating2_'+reviewCnt+'">2</label>'
+									+'<input id="rating1_'+reviewCnt+'" type="radio" name="rating'+reviewCnt+'" value="1" disabled><label for="rating1_'+reviewCnt+'">1</label>'
 									+'</span>'
 									+'</td>'
 									+'</tr>'

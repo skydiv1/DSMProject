@@ -380,6 +380,7 @@ public class ProductDao {
 				
 				member = new Member();
 				member.setMemberId(rset.getString("MEMBER_ID"));
+				member.setSellerGrade(rset.getInt("SELLER_GRADE"));
 				
 				at = new Attachment();
 				at.setImgNo(rset.getInt("IMG_NO"));
@@ -688,7 +689,7 @@ public class ProductDao {
 	}
 
 	
-	/* 최근 본 상품 
+	/* 최근 본 상품 */
 	public ArrayList<HashMap<String, Object>> resentProductList(Connection con, ArrayList<String> pNoArr) {
 		PreparedStatement pstmt = null;
 		ArrayList<HashMap<String, Object>> list = null;
@@ -815,6 +816,6 @@ public class ProductDao {
 		}
 		System.out.println("최근 본 상품 리스트: "+list);
 		return list;
-	}*/
+	}
 
 }

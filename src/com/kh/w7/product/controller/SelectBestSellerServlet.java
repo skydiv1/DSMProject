@@ -4,20 +4,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.kh.w7.member.model.vo.Member;
-import com.kh.w7.product.model.service.ProductService;
-import com.kh.w7.product.model.service.ReviewService;
 import com.kh.w7.product.model.service.SellerProfileService;
-import com.kh.w7.product.model.vo.PlusProduct;
-import com.kh.w7.product.model.vo.Review;
 
 /**
  * Servlet implementation class SelectBestSellerServlet
