@@ -690,41 +690,107 @@ public class ProductDao {
 	
 	/* 최근 본 상품 */
 	public ArrayList<HashMap<String, Object>> resentProductList(Connection con, ArrayList<String> pNoArr) {
-		/*PreparedStatement pstmt = null;
+		PreparedStatement pstmt = null;
 		ArrayList<HashMap<String, Object>> list = null;
 		HashMap<String, Object> hmap = null;
 		ResultSet rset = null;
-
-		String query = prop.getProperty("selectResentProductList");
-		try {
-			pstmt = con.prepareStatement(query);
+		int a1=0;
+		int a2=0;
+		int a3=0;
+		int a4=0;
+		int a5=0;
+		int a6=0;
+		int size = pNoArr.size();
+		
+		int count = 0;
+		for(int i = 0; i < pNoArr.size(); i++) {
+			switch(count) {
+			case 0:
+				a1 =Integer.parseInt(pNoArr.get(i));
+				count++;
+				break;
+			case 1:
+				a2 =Integer.parseInt(pNoArr.get(i));
+				count++;
+				break;
+			case 2:
+				a3 =Integer.parseInt(pNoArr.get(i));
+				count++;
+				break;
+			case 3:
+				a4 =Integer.parseInt(pNoArr.get(i));
+				count++;
+				break;
+			case 4:
+				a5 =Integer.parseInt(pNoArr.get(i));
+				count++;
+				break;
+			case 5:
+				a6 =Integer.parseInt(pNoArr.get(i));
+				count++;
+				break;
+			}
 			
-			rset = pstmt.executeQuery();
+		}
+		
+		String query = "";
+		try {
+			
+			if(size==1) {
+				query = prop.getProperty("selectResentProductList1");
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, a1);
+				rset = pstmt.executeQuery();
+			}else if(size==2) {
+				query = prop.getProperty("selectResentProductList2");
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, a1);
+				pstmt.setInt(2, a2);
+				rset = pstmt.executeQuery();
+			}else if(size==3) {
+				query = prop.getProperty("selectResentProductList3");
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, a1);
+				pstmt.setInt(2, a2);
+				pstmt.setInt(3, a3);
+				rset = pstmt.executeQuery();
+			}else if(size==4) {
+				query = prop.getProperty("selectResentProductList4");
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, a1);
+				pstmt.setInt(2, a2);
+				pstmt.setInt(3, a3);
+				pstmt.setInt(4, a4);
+				rset = pstmt.executeQuery();
+			}else if(size==5) {
+				query = prop.getProperty("selectResentProductList5");
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, a1);
+				pstmt.setInt(2, a2);
+				pstmt.setInt(3, a3);
+				pstmt.setInt(4, a4);
+				pstmt.setInt(5, a5);
+				rset = pstmt.executeQuery();
+			}else if(size==6) {
+				query = prop.getProperty("selectResentProductList5");
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, a1);
+				pstmt.setInt(2, a2);
+				pstmt.setInt(3, a3);
+				pstmt.setInt(4, a4);
+				pstmt.setInt(5, a5);
+				pstmt.setInt(6, a6);
+				rset = pstmt.executeQuery();
+			}
 			
 			list = new ArrayList<HashMap<String, Object>>();
 			
 			while(rset.next()) {
 				hmap = new HashMap<String, Object>();
-				
-				hmap.put("imgNo", rset.getInt("IMG_NO"));
-				hmap.put("originName", rset.getString("ORIGINNAME"));
-				hmap.put("changeName", rset.getString("CHANGENAME"));
-				hmap.put("imgCategoy", rset.getInt("IMG_CATEGORY"));
-				//hmap.put("sellerCertName", rset.getString("SELLERCERT_NAME"));
-				hmap.put("memberCode", rset.getInt("MEMBER_CODE"));
-				//hmap.put("boardNo", rset.getInt("BOARD_NO"));
 				hmap.put("productNo", rset.getInt("PRODUCT_NO"));
-				hmap.put("imgFilePath", rset.getString("IMG_FILEPATH"));
-				hmap.put("imgDelete", rset.getInt("IMG_DELETE"));
-				hmap.put("imgLevel", rset.getInt("IMG_LEVEL"));
-				
+				hmap.put("changeName", rset.getString("CHANGENAME"));
 				hmap.put("productName", rset.getString("PRODUCT_NAME"));
-				hmap.put("productCategory", rset.getString("PRODUCT_CATEGORY"));
-				hmap.put("productItem", rset.getString("PRODUCT_ITEM"));
 				hmap.put("productItemPrice", rset.getInt("PRODUCT_ITEMPRICE"));
-				hmap.put("productContext", rset.getString("PRODUCT_CONTEXT"));
-				hmap.put("productRegisterDate", rset.getDate("PRODUCT_REGISTERDATE"));
-				hmap.put("productDeleteYN", rset.getInt("PRODUCT_DELETEYN"));				
 				
 				list.add(hmap);
 			}
@@ -736,7 +802,7 @@ public class ProductDao {
 			close(rset);
 		}
 		System.out.println("이미지 리스트: "+list);
-		return list;*/
+		return list;
 	}
 
 	
