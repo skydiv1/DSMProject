@@ -308,6 +308,7 @@ public class MemberDao {
       return result;
     }
 
+
    public String findid(Connection con, String memberName, String memberEmail) {
       PreparedStatement pstmt = null;
       ResultSet rset = null;
