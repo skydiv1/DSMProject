@@ -3,9 +3,12 @@ package com.kh.w7.member.model.service;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.kh.w7.common.Attachment;
 import com.kh.w7.member.model.dao.MemberDao;
-import com.kh.w7.member.model.vo.Img;
+
 import com.kh.w7.member.model.vo.Member;
+import com.kh.w7.product.model.dao.ProductDao;
+
 import static com.kh.w7.common.JDBCTemplate.*;
 
 public class MemberService {
@@ -28,12 +31,26 @@ public class MemberService {
 	 * 
 	 * return result; }
 	 */
-	public int insertSel(Member reqMember) {
+	
+	/* 회원가입()이미지 포힘 */
+	public int insertSel(Member reqMember, ArrayList<Attachment> fileList) {
 		Connection con = getConnection();
 
-		int result = new MemberDao().insertSel(con, reqMember);
-
-		if (result > 0) {
+		int result=0;
+		
+		int result1 = new MemberDao().insertSel(con, reqMember);
+		if(result1>0) {
+			int currNum = new MemberDao().selectCurrval(con);
+		
+			for(int i=0; i<fileList.size(); i++) { 
+				fileList.get(i).setMemberCode(currNum); 
+			}
+		}
+		
+		int result2 = new MemberDao().insertAttachment(con, fileList);
+		
+		if (result1 > 0 && result2 > 0) {
+			result=1;
 			commit(con);
 		} else {
 			rollback(con);
@@ -132,18 +149,18 @@ public class MemberService {
 	}
 
 	
-	public int findmemberCode(String memberId) {
+	public int findmemberCode(Member reqMember) {
 		Connection con = getConnection();
 		
-		int memberCode = new MemberDao().findmemberCode(con,memberId);
+		int result= new MemberDao().findmemberCode(con,reqMember);
 		
 		close(con);
 		
-		return memberCode;
+		return result;
 	}
 	
 
-	public int insertImg(ArrayList<Img> fileList) {
+	public int insertImg(ArrayList<Attachment> fileList) {
 		Connection con = getConnection();
 		
 		int result = new MemberDao().insertImg(con, fileList);
@@ -158,4 +175,5 @@ public class MemberService {
 		return result;
 	}
 
+	
 }
