@@ -31,7 +31,7 @@ public class InsertMemberServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 request.setCharacterEncoding("utf-8");
+		request.setCharacterEncoding("utf-8");
 		String memberId = request.getParameter("memberId");
 		String memberPwd = request.getParameter("memberPwd");
 		String memberName = request.getParameter("memberName");
@@ -39,7 +39,7 @@ public class InsertMemberServlet extends HttpServlet {
 		String memberEmail = request.getParameter("memberEmail");
 		String sellerIntroduction = request.getParameter("sellerIntroduction");
 		String sellerCareer = request.getParameter("sellerCareer");
-	
+		
 		System.out.println("memberId : " + memberId);
 		System.out.println("memberPwd: " + memberPwd);
 		System.out.println("memberName: " + memberName);
@@ -61,16 +61,16 @@ public class InsertMemberServlet extends HttpServlet {
 
 		
 		/*int result = new MemberService().insertMember(reqMember);*/
-		int result = new MemberService().insertSel(reqMember);
+//		int result = new MemberService().insertSel(reqMember);
 		
-		if(result>0) {
-			request.getSession().setAttribute("msg", "회원가입에 성공하셨습니다.");
-			
-			response.sendRedirect("index.jsp");
-		}else {//다 했을때 팝업시도
-			request.setAttribute("msg", "회원가입 실패!");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}
+//		if(result>0) {
+//			request.getSession().setAttribute("msg", "회원가입에 성공하셨습니다.");
+//			
+//			response.sendRedirect("index.jsp");
+//		}else {//다 했을때 팝업시도
+//			request.setAttribute("msg", "회원가입 실패!");
+//			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+//		}
 		
 	
 	}

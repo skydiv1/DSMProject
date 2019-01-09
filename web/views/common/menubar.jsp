@@ -213,7 +213,7 @@
 	</header>
 	 <script>
    $(function(){
-      
+      console.log("회원 코드 제대로 뽑아오나? "+<%= loginUser.getMemberCode()%>);
       $.ajax({
          url : "/dsm/selectNowCashRefund",
          data : {

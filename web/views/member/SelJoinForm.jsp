@@ -62,7 +62,7 @@ form {
 	<h3 align="center">판매자 가입 정보 입력</h3>
 	<br>
 	<hr>
-	<form method="post" name="join" id="join"><!-- onsubmit="return validate();" -->
+	<form method="post" name="join" id="join" enctype="multipart/form-data"><!-- onsubmit="return validate();" -->
 
 
 		<table align="center">
@@ -163,17 +163,27 @@ form {
 			</tr>
 
 			<tr>
+				<td>
+					<div class="form-group">
+						<label for="exampleInputFile">Profile photo</label> 
+						<input type="file" id="profileImg" name="profileImg" onchange="loadImg(this, 1)">
+
+					</div>
+				</td>
+			</tr>
+			<tr>
 				<td><div class="form-group">
 						<label for="exampleInputTel">Intro</label>
 						<textarea class="form-control" rows="3" placeholder="자기소개를 입력하세요" id="sellerIntroduction" name="sellerIntroduction"></textarea>
 
 					</div></td>
 			</tr>
+			
 			<tr>
 				<td>
 					<div class="form-group">
 						<label for="exampleInputLicence">Licence1</label> <input
-							type="file" id="exampleInputLicence">
+							type="file" id="exampleInputLicence" name="exampleInputLicence" onchange="loadImg(this, 2)">
 
 					</div>
 				</td>
@@ -182,7 +192,7 @@ form {
 				<td>
 					<div class="form-group">
 						<label for="exampleInputLicence2">Licence2</label> <input
-							type="file" id="exampleInputLicence2">
+							type="file" id="exampleInputLicence2" name="exampleInputLicence2" onchange="loadImg(this, 3)">
 
 					</div>
 				</td>
@@ -223,13 +233,14 @@ form {
 			}
 			console.log(memberId);
 			if(memberPwdResult){
-				//alert("정상");
+				/* alert("정상"); */
 			}
 			
 			if(memberPwd == memberPwd2){
-				//alert("일치");
+				alert("가입이 완료되었습니다.");
 				$("#join").submit();
-				join.action = "<%=request.getContextPath()%>/insertSel.me";
+<%-- 				join.action = "<%=request.getContextPath()%>/insertSel.me"; --%>
+				join.action = "<%=request.getContextPath()%>/insertImg.me";
 				<%-- location.href = "<%=request.getContextPath()%>/insertMember.me"; --%>
 				
 			}else{

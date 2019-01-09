@@ -9,12 +9,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
 import javax.activation.DataSource;
 
-import com.kh.w7.member.model.vo.Img;
+import com.kh.w7.common.Attachment;
 import com.kh.w7.member.model.vo.Member;
 import static com.kh.w7.common.JDBCTemplate.*;
 
@@ -369,7 +370,7 @@ public class MemberDao {
 	}
 
 
-	public int insertImg(Connection con, ArrayList<Img> fileList) {
+	public int insertImg(Connection con, ArrayList<Attachment> fileList) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
@@ -379,12 +380,12 @@ public class MemberDao {
 			for(int i = 0; i < fileList.size(); i++) {
 				pstmt = con.prepareStatement(query);
 				
-				pstmt.setString(2, "Y");
-				pstmt.setString(3, fileList.get(i).getOriginname());
-				pstmt.setString(4, fileList.get(i).getChangename());
-				pstmt.setString(1, fileList.get(i).getSellercert_name());
-				pstmt.setInt(6, fileList.get(i).getMember_code());
-				pstmt.setString(5, fileList.get(i).getImg_filepath());
+				
+				pstmt.setString(1, fileList.get(i).getOriginName());
+				pstmt.setString(2, fileList.get(i).getChangeName());
+				pstmt.setString(3, fileList.get(i).getSellerCertName());
+				pstmt.setInt(4, fileList.get(i).getMemberCode());
+				pstmt.setString(5, fileList.get(i).getChangeName());
 				
 				
 				result += pstmt.executeUpdate();
@@ -400,7 +401,7 @@ public class MemberDao {
 	}
 	
 
-	public int findmemberCode(Connection con, String memberId) {
+	public int findmemberCode(Connection con, Member reqMember) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int memberCode=0;
@@ -409,7 +410,7 @@ public class MemberDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, memberId);
+//			pstmt.setMember(1, reqMember);
 			
 			rset = pstmt.executeQuery();
 			
@@ -428,9 +429,94 @@ public class MemberDao {
 		return memberCode;
 	}
 
-	
-	
+
+	public int insertMemberCash(Connection con, Member reqMember) {
+		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertMemberCash");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+  
 }
+
+	/* 현재 시퀀스값 조회 */
+	public int selectCurrval(Connection con) {
+		Statement stmt = null;
+		ResultSet rset =null;
+		
+		int currNum=0;
+		
+		String query = prop.getProperty("selectCurrval"); // 현재 동작한 시퀀스 번호를 알 수 있다.
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				currNum = rset.getInt("CURRVAL");
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt); // Connection을 닫으면 안된다. service에서 트랜젝션 처리를 해 줄 수 없다
+		}
+		
+		return currNum;
+	}
+
+	
+	/* 이미지 추가(insert) */
+	public int insertAttachment(Connection con, ArrayList<Attachment> fileList) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("insertAttachment");
+		
+		
+		try {
+			for(int i=0; i<fileList.size(); i++) {
+				pstmt = con.prepareStatement(query);
+				//pstmt.setInt(1, fileList.get(i).getImgNo());
+				pstmt.setString(1, fileList.get(i).getOriginName());
+				pstmt.setString(2, fileList.get(i).getChangeName());
+//				pstmt.setInt(3, fileList.get(i).getMemberCode());
+				//pstmt.setInt(4, fileList.get(i).getProductNo()); // IMG_FK2
+
+				int level = 0;
+				if(i==0) level=0;
+				else level=1;
+				pstmt.setInt(3, level);
+				pstmt.setString(4, fileList.get(i).getImgFilePath());
+				
+				result += pstmt.executeUpdate(); // 누적 연산으로 합쳐준다
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println("insertAttachment(result값): "+result);
+		
+		return result;
+	}
+
+	
+	
 
 
 

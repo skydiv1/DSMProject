@@ -11,7 +11,5 @@
 	<%
 		request.getRequestDispatcher("/selectBestSeller.pr").forward(request, response);
 	%>
-	
-	
 </body>
 </html>

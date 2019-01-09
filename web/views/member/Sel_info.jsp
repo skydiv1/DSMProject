@@ -97,8 +97,9 @@ form {
 
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="memberId"
-								name="memberId" style="width: 550px" value="<%=memberId%>" readonly>
-							<input type="hidden" id="memberCode" name="memberCode" value="<%=memberCode%>" >	
+								name="memberId" style="width: 550px" value="<%=memberId%>"
+								readonly> <input type="hidden" id="memberCode"
+								name="memberCode" value="<%=memberCode%>">
 							<% System.out.println("뷰"+memberCode); %>
 						</div>
 					</div></td>
@@ -194,9 +195,9 @@ form {
 			<tr>
 				<td>
 					<div class="form-group">
-						<label for="exampleInputFile">Profile photo</label> <input
-							type="file" id="exampleInputFile">
-
+						<label for="exampleInputFile">Profile photo</label> 
+						<input type="file" id="profileImg" name="profileImg" onchange="loadImg(this, 1)">
+						<input id="memberId" name="memberId" type="text" hidden>
 					</div>
 				</td>
 			</tr>
@@ -212,8 +213,9 @@ form {
 			<tr>
 				<td>
 					<div class="form-group">
-						<label for="exampleInputLicence">Licence1</label> <input
-							type="file" id="exampleInputLicence" readonly="readonly">
+						<label for="exampleInputLicence">Licence1</label> 
+						<input type="file" id="licenceImg" name="licenceImg" onchange="loadImg(this, 2)">
+						
 
 					</div>
 				</td>
@@ -221,8 +223,8 @@ form {
 			<tr>
 				<td>
 					<div class="form-group">
-						<label for="exampleInputLicence2">Licence2</label> <input
-							type="file" id="exampleInputLicence2" readonly="readonly">
+						<label for="exampleInputLicence2">Licence2</label> 
+						<input type="file" id="licenceImg2" name="licenceImg2" onchange="loadImg(this, 3)">
 
 					</div>
 				</td>
@@ -365,6 +367,23 @@ form {
 			return false;
 		}
 		 
+		
+		$("#memberId").val(memberId);
+
+	
+	function loadImg(value, num){
+		if(value.files && value.files[0]){
+			var reader = new FileReader();
+			reader.onload = function(e){
+				switch(num){
+				case 1 : $("#profileImg").attr("src",e.target.result); break;
+				case 2 : $("#licenceImg").attr("src",e.target.result); break;
+				case 3 : $("#licenceImg2").attr("src",e.target.result); break;
+				}
+			}
+		reader.readAsDataURL(value.files[0]);
+		}
+	}
 	</script>
 	<br>
 	<%@ include file="/views/common/footer.jsp"%>
