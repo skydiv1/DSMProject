@@ -448,8 +448,8 @@ public class MemberDao {
 		}finally {
 			close(pstmt);
 		}
-  
-}
+		return result;
+	}
 
 	/* 현재 시퀀스값 조회 */
 	public int selectCurrval(Connection con) {
@@ -515,6 +515,7 @@ public class MemberDao {
 		return result;
 	}
 
+}
 	
 	
 
