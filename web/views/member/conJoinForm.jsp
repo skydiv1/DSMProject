@@ -248,7 +248,7 @@ form {
 					if(data == "success"){ // 서블릿에서 처리
 						alert("중복 된 아이디 입니다");
 					}else if(data == "fail"){
-						alert("사용이 가능한 아이디 입니다.");
+						alert("사용 가능한 아이디 입니다.");
 					}
 				},
 				error: function (data) {
@@ -256,7 +256,7 @@ form {
 				}					
 			});
 		}else{
-			alert("부적절한 아이디입니다. 영,숫자 혼합4~12글자 이내로 입력하십시오");
+			alert("부적절한 아이디입니다. 영,숫자 혼합4~12글자 이내로 입력하세요.");
 		}
 	}
 	function onlyNumber(event){
