@@ -845,7 +845,7 @@ public class MypageDao {
 		}
 		
 	//판매자 환급목록
-	public ArrayList<Refund> selectCashList(Connection con, int loginCode) {
+	public ArrayList<Refund> selectCashList(Connection con, int loginCode, int currentPage, int limit) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Refund> cashlist= null;
@@ -856,7 +856,12 @@ public class MypageDao {
 			pstmt=con.prepareStatement(query);
 			
 			
+			int startRow = (currentPage - 1) * limit + 1;
+			int endRow = startRow + limit - 1;
+			
 			pstmt.setInt(1, loginCode);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset= pstmt.executeQuery();
 			
@@ -883,6 +888,36 @@ public class MypageDao {
 		}
 		return cashlist;
 	}
+	
+	//판매자 환급목록 페이징
+		public int getcashListCount(Connection con, int loginCode) {
+			PreparedStatement pstmt= null;
+			int getcashListCount = 0;
+			ResultSet rset = null;
+			
+			String query = prop.getProperty("getcashListCount");
+			
+			try {
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, loginCode);
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					getcashListCount = rset.getInt(1);
+				}
+				
+			
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+				close(rset);
+			}
+			
+			
+			
+			return getcashListCount;
+		}
 
 	//리뷰 정보 불러오기
 	public ArrayList<HashMap<String, Object>> reviewSeller(Connection con, int dealnum) {
@@ -972,6 +1007,8 @@ public class MypageDao {
 	
 		return result;
 	}
+
+	
 
 	
 

@@ -305,11 +305,11 @@ public class MypageService {
 		
 		
 	//판매자 환급목록
-	public ArrayList<Refund> selectCashList(int loginCode) {
+	public ArrayList<Refund> selectCashList(int loginCode, int currentPage, int limit) {
 		
 		Connection con  = getConnection(); 
 		
-		ArrayList<Refund>cashlist = new MypageDao().selectCashList(con, loginCode);
+		ArrayList<Refund>cashlist = new MypageDao().selectCashList(con, loginCode,currentPage,limit);
 
 		if(cashlist != null) {
 			commit(con);
@@ -320,6 +320,16 @@ public class MypageService {
 		
 		return cashlist;
 	}
+	
+	//판매자 환급목록 페이징
+		public int getcashListCount(int loginCode) {
+			Connection con = getConnection();
+			int getcashListCount = new MypageDao().getcashListCount(con,loginCode);
+			close(con);
+			return getcashListCount;
+		}
+		
+		
 	//리뷰정보 불러오기
 	public ArrayList<HashMap<String, Object>> reviewSeller(int dealnum) {
 		Connection con  = getConnection(); 
