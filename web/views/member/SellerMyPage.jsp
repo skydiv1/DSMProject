@@ -360,7 +360,6 @@ function selectListEndseller(pg) {
 			
 			var endListHtml = [];
 			var no =0;
-			console.log(typeof(data[0].dealListCategory));
 			for(var i=0; i<data.endlist.length; i++){
 				endListHtml.push('<tr>');
 				endListHtml.push('	<th scope="row">' + (i+1) + '</th>');
@@ -426,15 +425,15 @@ function selectListCash(pg) {
 				
 				var cashListHtml = [];
 				var no =0;
-				for(var i=0; i<data.length; i++){
+				for(var i=0; i<data.cashlist.length; i++){
 					cashListHtml.push('<tr>');
 					cashListHtml.push('	<th scope="row">' + (i+1) + '</th>');
-					cashListHtml.push('	<td class="td1">' +data[i].refund_applyDate + '</td>');
-					cashListHtml.push('	<td class="td1">' +data[i].refund_bank+ '</td>');
-					cashListHtml.push('	<td class="td1">' +data[i].refund_account + '</td>');
-					cashListHtml.push('	<td class="td1">' +data[i].refund_money + '</td>');
+					cashListHtml.push('	<td class="td1">' +data.cashlist[i].refund_applyDate + '</td>');
+					cashListHtml.push('	<td class="td1">' +data.cashlist[i].refund_bank+ '</td>');
+					cashListHtml.push('	<td class="td1">' +data.cashlist[i].refund_account + '</td>');
+					cashListHtml.push('	<td class="td1">' +data.cashlist[i].refund_money + '</td>');
 					 
-					if(data[i].refund_StatusYN==0){
+					if(data.cashlist[i].refund_StatusYN==0){
 						cashListHtml.push('	<td>' + "환급 진행 중" +'</td>');
 					}else{
 						cashListHtml.push('	<td>' + "환급 완료 " +'</td>');	
@@ -447,7 +446,31 @@ function selectListCash(pg) {
 				$("#CashList").html("");//이전틀 지우고
 				$("#CashList").append(cashListHtml.join(""));//""를 기준으로 배열에 담긴 데이터 꺼내오기
 				
-				 
+				//페이징 처리
+			 	var cashPageHtml= [];
+			 		cashPageHtml.push('<button onclick="selectListCash(1)"><<</button>');
+				if(pg <=1){
+					cashPageHtml.push('<button disabled><</button>');
+				}else{
+					cashPageHtml.push('<button onclick="selectListCash(' + (pg-1) + ')"><</button>');
+				}
+				for(var p = data.startPage; p<= data.endPage; p++) {
+					if(p == pg){
+						cashPageHtml.push('<button disabled>'+p+'</button>');
+					}else{
+						cashPageHtml.push('<button onclick="selectListCash('+p+')">'+p+'</button>');
+						}
+					}
+				if(pg >= data.maxPage){ 
+					cashPageHtml.push('<button disabled>></button>');
+				}else{
+					cashPageHtml.push('<button onclick="selectListCash('+(pg+1)+')">></button>');
+				}
+				cashPageHtml.push('<button onclick="selectListCash('+data.maxPage +')">>></button>');
+				
+					$("#CashPagingArea").html("");
+					$("#CashPagingArea").append(cashPageHtml.join(""));
+					 
 				 
 			}
 		}); 
