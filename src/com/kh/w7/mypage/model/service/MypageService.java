@@ -129,7 +129,7 @@ public class MypageService {
 
 		return deallist;
 	}
-	//소비자 구매완료 목록 페이지
+	//소비자 구매완료 목록 페이징
 		public int getcomListCount(int loginCode) {
 			Connection con = getConnection();
 			int getcomListCount = new MypageDao().getcomListCount(con,loginCode);
@@ -138,11 +138,12 @@ public class MypageService {
 		}
 		
 	//판매자 대기자 목록 조회
-	public ArrayList<MyPage> selectWaitingList(int loginCode) {
+	public ArrayList<MyPage> selectWaitingList(int loginCode, int currentPage, int limit) {
 		Connection con  = getConnection(); 
 		
-		ArrayList<MyPage>waitlist = new MypageDao().selectWaitingList(con, loginCode);
-		System.out.println("대기자목록 list service:"+waitlist);
+		ArrayList<MyPage>waitlist = new MypageDao().selectWaitingList(con, loginCode,currentPage,limit);
+
+		
 		if(waitlist != null) {
 			commit(con);
 		}else {
@@ -152,6 +153,14 @@ public class MypageService {
 
 		return waitlist;
 	}
+	//판매자 대기목록 페이징
+		public int getwaitListCount(int loginCode) {
+			Connection con = getConnection();
+			int getwaitListCount = new MypageDao().getwaitListCount(con,loginCode);
+			close(con);
+			return getwaitListCount;
+		}
+		
 	//판매자 거절할때
 	public int cancelUpdateseller(int dealnum, String textContent) {
 		Connection con = getConnection();
@@ -169,12 +178,12 @@ public class MypageService {
 		return result;
 	}
 	//판매자 구매진행 목록
-	public ArrayList<MyPage> selectdealprogressList(int loginCode) {
+	public ArrayList<MyPage> selectdealprogressList(int loginCode, int currentPage, int limit) {
 		
 		Connection con  = getConnection(); 
 		
-		ArrayList<MyPage>progresslist = new MypageDao().selectdealprogressList(con, loginCode);
-		System.out.println("구매진행상황 list service:"+progresslist);
+		ArrayList<MyPage>progresslist = new MypageDao().selectdealprogressList(con, loginCode,currentPage,limit);
+
 		if(progresslist != null) {
 			commit(con);
 		}else {
@@ -185,6 +194,14 @@ public class MypageService {
 		return progresslist;
 	}
 	
+	//판매자 구매진행 목록 페이징
+		public int getprogressListCount(int loginCode) {
+			Connection con = getConnection();
+			int getprogressListCount = new MypageDao().getprogressListCount(con,loginCode);
+			close(con);
+			return getprogressListCount;
+		}
+		
 	//판매자 수락하기 버튼 누를때
 	public int AgreelUpdateseller(int dealnum, String textContent) {
 		Connection con = getConnection();
@@ -203,10 +220,10 @@ public class MypageService {
 
 	}
 	//판매자 취소목록 조회
-	public ArrayList<MyPage> selectSellerCancelList(int loginCode) {
+	public ArrayList<MyPage> selectSellerCancelList(int loginCode, int currentPage, int limit) {
 		Connection con  = getConnection(); 
 		
-		ArrayList<MyPage>sellerCancelList = new MypageDao().selectSellerCancelList(con, loginCode);
+		ArrayList<MyPage>sellerCancelList = new MypageDao().selectSellerCancelList(con, loginCode, currentPage, limit);
 		
 		if(sellerCancelList != null) {
 			commit(con);
@@ -217,11 +234,19 @@ public class MypageService {
 		return sellerCancelList;
 	}
 	
+	//판매자 취소목록 페이징
+		public int getccsListCount(int loginCode) {
+			Connection con = getConnection();
+			int getccsListCount = new MypageDao().getccsListCount(con,loginCode);
+			close(con);
+			return getccsListCount;
+		}
+		
 	//판매자 판매글 목록
-	public ArrayList<Product> selectProductList(int loginCode) {
+	public ArrayList<Product> selectProductList(int loginCode, int currentPage, int limit) {
 		Connection con  = getConnection(); 
 		
-		ArrayList<Product>productlist = new MypageDao().selectProductList(con, loginCode);
+		ArrayList<Product>productlist = new MypageDao().selectProductList(con, loginCode, currentPage, limit);
 		
 		if(productlist != null) {
 			commit(con);
@@ -231,6 +256,14 @@ public class MypageService {
 		close(con);
 		return productlist;
 	}
+	//판매자 판매글 목록 페이징
+		public int getproductListCount(int loginCode) {
+			Connection con = getConnection();
+			int getproductListCount = new MypageDao().getproductListCount(con,loginCode);
+			close(con);
+			return getproductListCount;
+		}
+		
 	//소비자 구매확정버튼
 	public int completeUpdate(int dealnum) {
 		Connection con = getConnection();
@@ -248,11 +281,11 @@ public class MypageService {
 		return result;
 	}
 	//판매자 판매완료 목록
-	public ArrayList<MyPage> selectendDealList(int loginCode) {
+	public ArrayList<MyPage> selectendDealList(int loginCode, int currentPage, int limit) {
 		Connection con  = getConnection(); 
 		
-		ArrayList<MyPage>endlist = new MypageDao().selectendDealList(con, loginCode);
-		System.out.println("판매완료값service:"+endlist);
+		ArrayList<MyPage>endlist = new MypageDao().selectendDealList(con, loginCode,currentPage,limit);
+
 		if(endlist != null) {
 			commit(con);
 		}else {
@@ -261,6 +294,16 @@ public class MypageService {
 		close(con);
 		return endlist;
 	}
+	
+	//판매자 판매완료목록 페이징
+		public int getendListCount(int loginCode) {
+			Connection con = getConnection();
+			int getendListCount = new MypageDao().getendListCount(con,loginCode);
+			close(con);
+			return getendListCount;
+		}
+		
+		
 	//판매자 환급목록
 	public ArrayList<Refund> selectCashList(int loginCode) {
 		
@@ -326,6 +369,10 @@ public class MypageService {
 		close(con);
 		return result;
 	}
+	
+	
+	
+	
 	
 	
 
