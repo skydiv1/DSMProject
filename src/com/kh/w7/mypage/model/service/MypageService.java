@@ -281,11 +281,11 @@ public class MypageService {
 		return result;
 	}
 	//판매자 판매완료 목록
-	public ArrayList<MyPage> selectendDealList(int loginCode) {
+	public ArrayList<MyPage> selectendDealList(int loginCode, int currentPage, int limit) {
 		Connection con  = getConnection(); 
 		
-		ArrayList<MyPage>endlist = new MypageDao().selectendDealList(con, loginCode);
-		System.out.println("판매완료값service:"+endlist);
+		ArrayList<MyPage>endlist = new MypageDao().selectendDealList(con, loginCode,currentPage,limit);
+
 		if(endlist != null) {
 			commit(con);
 		}else {
@@ -294,6 +294,16 @@ public class MypageService {
 		close(con);
 		return endlist;
 	}
+	
+	//판매자 판매완료목록 페이징
+		public int getendListCount(int loginCode) {
+			Connection con = getConnection();
+			int getendListCount = new MypageDao().getendListCount(con,loginCode);
+			close(con);
+			return getendListCount;
+		}
+		
+		
 	//판매자 환급목록
 	public ArrayList<Refund> selectCashList(int loginCode) {
 		

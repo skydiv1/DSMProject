@@ -753,7 +753,8 @@ public class MypageDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, dealnum);
+			
+			
 			
 			result = pstmt.executeUpdate();
 			
@@ -768,7 +769,7 @@ public class MypageDao {
 	}
 
 	//판매자 판매완료 목록
-	public ArrayList<MyPage> selectendDealList(Connection con, int loginCode) {
+	public ArrayList<MyPage> selectendDealList(Connection con, int loginCode, int currentPage, int limit) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<MyPage> endlist= null;
@@ -779,7 +780,13 @@ public class MypageDao {
 			pstmt=con.prepareStatement(query);
 			
 			
+			int startRow = (currentPage - 1) * limit + 1;
+			int endRow = startRow + limit - 1;
+			
 			pstmt.setInt(1, loginCode);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
 			
 			rset= pstmt.executeQuery();
 			
@@ -795,7 +802,6 @@ public class MypageDao {
 				m.setDealListCategory(rset.getInt("DEALLIST_CATEGORY"));
 				endlist.add(m);
 			}
-			System.out.println("판매완료값dao:"+endlist);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -807,6 +813,36 @@ public class MypageDao {
 		return endlist;
 	}
 
+	//판매자 판매완료목록 페이징
+		public int getendListCount(Connection con, int loginCode) {
+			PreparedStatement pstmt= null;
+			int getendListCount = 0;
+			ResultSet rset = null;
+			
+			String query = prop.getProperty("getendListCount");
+			
+			try {
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, loginCode);
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					getendListCount = rset.getInt(1);
+				}
+				
+			
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+				close(rset);
+			}
+			
+			
+			
+			return getendListCount;
+		}
+		
 	//판매자 환급목록
 	public ArrayList<Refund> selectCashList(Connection con, int loginCode) {
 		PreparedStatement pstmt = null;
@@ -935,6 +971,8 @@ public class MypageDao {
 	
 		return result;
 	}
+
+	
 
 	
 
