@@ -38,7 +38,9 @@ public class MemberService {
 
 		int result=0;
 		
-		int result1 = new MemberDao().insertSel(con, reqMember);
+		int result1 = new MemberDao().insertSel(con, reqMember);      
+		int resulta = new MemberDao().insertMemberCash(con, reqMember);
+      
 		if(result1>0) {
 			int currNum = new MemberDao().selectCurrval(con);
 		
@@ -51,6 +53,7 @@ public class MemberService {
 		
 		if (result1 > 0 && result2 > 0) {
 			result=1;
+      
 			commit(con);
 		} else {
 			rollback(con);
@@ -64,7 +67,9 @@ public class MemberService {
 		Connection con = getConnection();
 
 		int result = new MemberDao().insertCon(con, reqMember);
-
+		int resulta = new MemberDao().insertMemberCash(con, reqMember);
+		System.out.println("resultA !!!!! : "+ resulta);
+		
 		if (result > 0) {
 			commit(con);
 		} else {
