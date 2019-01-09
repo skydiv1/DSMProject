@@ -800,6 +800,7 @@ public class MypageDao {
 				m.setProductName(rset.getString("PRODUCT_NAME"));
 				m.setDealListaddMsg1(rset.getString("DEALLIST_ADDMESSAGE1"));
 				m.setDealListCategory(rset.getInt("DEALLIST_CATEGORY"));
+			
 				endlist.add(m);
 			}
 		} catch (SQLException e) {
