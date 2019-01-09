@@ -202,7 +202,7 @@
                   <% }else{ %>
 
                      <button class="btn btn-light" style="cursor: default;">
-                       		 신고횟수: <span>0</span>회
+                       		 신고횟수: <span><%= loginUser.getBlackCount() %></span>회
                      </button></td>
                   <% } %>
 
