@@ -43,9 +43,31 @@ public class SelectReviewListServlet extends HttpServlet {
 		
 		ArrayList<Review> reviewList = new ReviewService().selectReviewList(productNum);
 
+		ArrayList<Review> reviewList2 = new ArrayList<Review>();
+		
+		int count = 0;
+		for(int i=0; i<reviewList.size(); i++) {
+			for(int j = 0; j <reviewList2.size(); j++) {
+				if(reviewList.get(i).getMemberCode() == reviewList2.get(j).getMemberCode()) {
+					count++;
+				}
+			}
+			if(count == 0) {
+				reviewList2.add(reviewList.get(i));
+				
+			}
+			count = 0;
+			
+		}
+		System.out.println("reviewList : "+reviewList);
+		System.out.println("reviewList2 : "+reviewList2);
+		
+		
+		
+		
 		if(reviewList != null) {
-			request.setAttribute("reviewList", reviewList);
-			new Gson().toJson(reviewList, response.getWriter());		
+			request.setAttribute("reviewList", reviewList2);
+			new Gson().toJson(reviewList2, response.getWriter());		
 		}else {
 			request.setAttribute("msg", "리뷰 조회 실패!");			
 			String page="views/common/errorPage.jsp";			

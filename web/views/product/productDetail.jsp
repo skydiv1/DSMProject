@@ -167,6 +167,8 @@
 			<td align="center">
 				<%if(loginUser != null && loginUser.getMemberId().equals(member.getMemberId())){ %> <!-- 로그인유저 == 상품등록회원 -->
 					<button id="requestForm4" name="requestName" type="button" class="btn btn-warning" style="width: 90%; height: 50px;">신청하기</button>
+				<%} else if(loginUser != null  && loginUser.getSellerCertcheck()==0 && loginUser.getMemberCategory()==1){ %> <!-- 판매자로 가입 (판매자 승인 전) -->
+					<button id="requestForm5" name="requestName" type="button" class="btn btn-warning" style="width: 90%; height: 50px;">신청하기</button>
 				<%} else if(loginUser != null  && loginUser.getSellerCertcheck()==1){ %> <!-- 판매자일때 -->
 					<button id="requestForm1" name="requestName" type="button" class="btn btn-warning" style="width: 90%; height: 50px;">신청하기</button>
 				<%} else if(loginUser != null  && loginUser.getSellerCertcheck()==0){ %> <!-- 소비자일때 -->
@@ -205,7 +207,7 @@
 						<%}else{ %>
 							<input id="rating1" type="radio" name="rating" value="1" disabled> <label for="rating1">1</label>
 						<%} %>
-					</span> (<span><span id="reviewCnt1" class="reviewCnt"></span>개의 평가</span>)
+					</span> (<span><span id="reviewCnt1" class="reviewCnt">0</span>개의 평가</span>)
 				</div>
 			</td>
 			<td align="center">
@@ -329,7 +331,7 @@
 						<%}else{ %>
 							<input id="rating1a" type="radio" name="ratingA" value="1" disabled> <label for="rating1a">1</label>
 						<%} %>
-					</span><span id="reviewCnt2" class="reviewCnt" style="margin-left: 3%;"> </span>개의 평가
+					</span><span id="reviewCnt2" class="reviewCnt" style="margin-left: 3%;">0</span>개의 평가
 				</div>
 				<br>
 
@@ -488,7 +490,7 @@
 		});
 
 		// 상품에 대한 정보 폼태그로 넘겨주기
-		$("input[name=requestName]").click(function() {
+		$("#requestForm2").click(function() {
 			<%if(loginUser != null){%>
 			var productNo = $("#productNo").val("<%=product.getProductNo()%>");
 			var customerCode = $("#customerCode").val("<%=loginUser.getMemberCode()%>");
@@ -516,6 +518,9 @@
 			});
 			$("#requestForm4").click(function() {
 				alert("본인 상품은 이용하실 수 없습니다.");
+			});
+			$("#requestForm5").click(function() {
+				alert("판매자로 회원가입한 회원은 이용하실 수 없는 서비스 입니다.");
 			});
 		});
 	</script>
