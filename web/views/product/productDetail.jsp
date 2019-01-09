@@ -22,7 +22,7 @@
 	for(int i=0; i<pList.size(); i++){
 		ppList[i] = pList.get(i).getPlusProductPrice();
 	}
-	
+
 	ArrayList<Review> reviewList = (ArrayList<Review>)request.getAttribute("reviewList");
 	
 %>
@@ -166,13 +166,13 @@
 		<tr>
 			<td align="center">
 				<%if(loginUser != null && loginUser.getMemberId().equals(member.getMemberId())){ %> <!-- 로그인유저 == 상품등록회원 -->
-					<button id="requestForm4" type="button" class="btn btn-warning" style="width: 90%; height: 50px;">신청하기</button>
+					<button id="requestForm4" name="requestName" type="button" class="btn btn-warning" style="width: 90%; height: 50px;">신청하기</button>
 				<%} else if(loginUser != null  && loginUser.getSellerCertcheck()==1){ %> <!-- 판매자일때 -->
-					<button id="requestForm1" type="button" class="btn btn-warning" style="width: 90%; height: 50px;">신청하기</button>
+					<button id="requestForm1" name="requestName" type="button" class="btn btn-warning" style="width: 90%; height: 50px;">신청하기</button>
 				<%} else if(loginUser != null  && loginUser.getSellerCertcheck()==0){ %> <!-- 소비자일때 -->
-						<button id="requestForm2" type="submit" class="btn btn-warning" data-toggle="modal" data-target="#askModal" style="width: 90%; height: 50px;">신청하기</button>
+						<button id="requestForm2" name="requestName" type="submit" class="btn btn-warning" data-toggle="modal" data-target="#askModal" style="width: 90%; height: 50px;">신청하기</button>
 				<%} else if(loginUser == null){ %> <!-- 비회원일때 -->
-					<button id="requestForm3" type="button" class="btn btn-warning" style="width: 90%; height: 50px;">신청하기</button>
+					<button id="requestForm3" name="requestName" type="button" class="btn btn-warning" style="width: 90%; height: 50px;">신청하기</button>
 				<%} %>
 			</td>
 		</tr>
@@ -393,62 +393,81 @@
 		})
 	</script>
 	
-	<!-- Review Table Ajax 출력 -->
-	<script>
-		$(function () {
-			$("#c-tab").click(function () {
-				$.ajax({
-					url:"/dsm/reviewList.pr",
-					type:"get",
-					data:{productNum:$('#productNum').val()},
-					success: function (data) {
-						console.log(data);
+	<!-- Review Table Ajax 출력 -->	<script>
+	$(function () {
+		$("#c-tab").click(function () {
+			$.ajax({
+				url:"/dsm/reviewList.pr",
+				type:"get",
+				data:{productNum:$('#productNum').val()},
+				success: function (data) {
+					$select = $("#reviewResult");
+					$select.find("table").remove();
+					$("#reviewResult").empty(); // 안의 내용을 비워준다.
+					$select.append('<table id="reviewTable" style="width: 600px;">');
+					var reviewCnt=0; // 리뷰 개수를 담는 변수
+
+					for(var i in data){
+						var reviewDate = decodeURIComponent(data[i].reviewDate);
+						var reviewGrade = decodeURIComponent(data[i].reviewGrade);
+						var memberId = decodeURIComponent(data[i].memberId);
+						var reviewContext = (data[i].reviewContext);
 						
-						$select = $("#reviewResult");
-						$select.find("table").remove();
-						$("#reviewResult").empty(); // 안의 내용을 비워준다.
-						$select.append('<table id="reviewTable" style="width: 600px;">');
-						var reviewCnt=0; // 리뷰 개수를 담는 변수
+						var starTable="";
 						
-						for(var i in data){
-							var reviewDate = decodeURIComponent(data[i].reviewDate);
-							var reviewGrade = decodeURIComponent(data[i].reviewGrade);
-							var memberId = decodeURIComponent(data[i].memberId);
-							var reviewContext = decodeURIComponent(data[i].reviewContext);
-							
-							$select.append(
-									'<tr>'
-									+'<td rowspan="2"><img class="mx-auto rounded-circle" src="/dsm/img/team/3.jpg" alt="" style="width: 90px; height: 90px;"></td>'
-									+'<td width="80%" style="border-bottom: 1px solid #EAEAEA;">'
-									+'<span style="margin-left: 20px;">'+reviewDate+'</span>'
-									+'<span class="rating" style="margin-left: 20px;">'
-									+'<input id="rating5_'+reviewCnt+'" type="radio" name="rating'+reviewCnt+'" value="5" checked disabled><label for="rating5_'+reviewCnt+'">5</label>'
-									+'<input id="rating4_'+reviewCnt+'" type="radio" name="rating'+reviewCnt+'" value="4" disabled><label for="rating4_'+reviewCnt+'">4</label>'
-									+'<input id="rating3_'+reviewCnt+'" type="radio" name="rating'+reviewCnt+'" value="3" disabled><label for="rating3_'+reviewCnt+'">3</label>'
-									+'<input id="rating2_'+reviewCnt+'" type="radio" name="rating'+reviewCnt+'" value="2" disabled><label for="rating2_'+reviewCnt+'">2</label>'
-									+'<input id="rating1_'+reviewCnt+'" type="radio" name="rating'+reviewCnt+'" value="1" disabled><label for="rating1_'+reviewCnt+'">1</label>'
-									+'</span>'
-									+'</td>'
-									+'</tr>'
-									+'<tr>'
-									+'<td>'
-									+'<div>'
-									+'<b style="margin-left: 20px;">'+memberId+'</b>'
-									+'</div>'
-									+'<div style="margin-left: 20px; padding-bottom: 20px;">'+reviewContext+'</div>'
-									+'<hr></td>'
-									+'</tr>'				
-							);
-							reviewCnt++; // 리뷰의 개수를 세기 위한 변수
-							$(".reviewCnt").html(reviewCnt);
+						starTable+=('<tr>');
+						starTable+=('<td rowspan="2"><img class="mx-auto rounded-circle" src="/dsm/img/team/3.jpg" alt="" style="width: 90px; height: 90px;"></td>');
+						starTable+=('<td width="80%" style="border-bottom: 1px solid #EAEAEA;">');
+						starTable+=('<span style="margin-left: 20px;">'+reviewDate+'</span>');
+						starTable+=('<span class="rating" style="margin-left: 20px;">');		
+						if(reviewGrade>=10){
+							starTable+=('<input id="rating5_'+reviewCnt+'" type="radio" name="rating'+reviewCnt+'" value="5" checked disabled><label for="rating5_'+reviewCnt+'">5</label>');
+						}else{
+							starTable+=('<input id="rating5_'+reviewCnt+'" type="radio" name="rating'+reviewCnt+'" value="5" disabled><label for="rating5_'+reviewCnt+'">5</label>');
 						}
-						$select.append('</table>');
-					}					
-				});
+						if(reviewGrade>=8 && reviewGrade<10){
+							starTable+=('<input id="rating4_'+reviewCnt+'" type="radio" name="rating'+reviewCnt+'" value="4" checked disabled><label for="rating4_'+reviewCnt+'">4</label>'	);						
+						}else{
+							starTable+=('<input id="rating4_'+reviewCnt+'" type="radio" name="rating'+reviewCnt+'" value="4" disabled><label for="rating4_'+reviewCnt+'">4</label>'	);						
+						}
+						if(reviewGrade>=6 && reviewGrade<8){
+							starTable+=('<input id="rating3_'+reviewCnt+'" type="radio" name="rating'+reviewCnt+'" value="3" checked disabled><label for="rating3_'+reviewCnt+'">3</label>'	);							
+						}else{
+							starTable+=('<input id="rating3_'+reviewCnt+'" type="radio" name="rating'+reviewCnt+'" value="3" disabled><label for="rating3_'+reviewCnt+'">3</label>'	);							
+						}
+						if(reviewGrade>=4 && reviewGrade<6){
+							starTable+=('<input id="rating2_'+reviewCnt+'" type="radio" name="rating'+reviewCnt+'" value="2" checked disabled><label for="rating2_'+reviewCnt+'">2</label>');
+						}else{
+							starTable+=('<input id="rating2_'+reviewCnt+'" type="radio" name="rating'+reviewCnt+'" value="2" disabled><label for="rating2_'+reviewCnt+'">2</label>');
+						}
+						if(reviewGrade>=2 && reviewGrade<4){
+							starTable+=('<input id="rating1_'+reviewCnt+'" type="radio" name="rating'+reviewCnt+'" value="1" checked disabled><label for="rating1_'+reviewCnt+'">1</label>');
+						}else{
+							starTable+=('<input id="rating1_'+reviewCnt+'" type="radio" name="rating'+reviewCnt+'" value="1" disabled><label for="rating1_'+reviewCnt+'">1</label>');
+						}
+						starTable+=('</span>');
+						starTable+=('</td>');
+						starTable+=('</tr>');
+						starTable+=('<tr>');
+						starTable+=('<td>');
+						starTable+=('<div>');
+						starTable+=('<b style="margin-left: 20px;">'+memberId+'</b>');
+						starTable+=('</div>');
+						starTable+=('<div style="margin-left: 20px; padding-bottom: 20px;">'+reviewContext+'</div>');
+						starTable+=('<hr></td>');
+						starTable+=('</tr>');		
+
+						reviewCnt++; // 리뷰의 개수를 세기 위한 변수
+						$(".reviewCnt").html(reviewCnt);	
+						$select.append(starTable);					
+					}
+					$select.append('</table>');
+					//$select.append(starTable);
+				}					
 			});
 		});
-	</script>
-	
+	});
+</script> 
 	<!-- 서블릿->jsp->javaScript 에서 값을 사용하기 위해 -->
 	<% for(int i=0; i<pList.size(); i++){ %>
 		<input type="hidden" name="pListVal" value="<%= pList.get(i).getPlusProductPrice() %>">
@@ -465,16 +484,18 @@
 				addPrice = parseInt($("option:selected").val()); // String -> int
 				originPrice = parseInt($("#originPrice").val());
 				$("#totalPrice1").text((addPrice + originPrice));
-
-				// 상품에 대한 정보 폼태그로 넘겨주기
-				$("#requestForm2").click(function() {
-					var productNo = $("#productNo").val("<%=product.getProductNo()%>");
-					var customerCode = $("#customerCode").val("<%=loginUser.getMemberCode()%>");
-					var sellerCode = $("#sellerCode").val("<%=product.getMemberCode()%>");
-					var dealPrice = $("#dealPrice").val("<%=product.getProductItemPrice()%>");
-					var totalPrice = $("#totalPrice").val(addPrice+originPrice);
-				});
 			});
+		});
+
+		// 상품에 대한 정보 폼태그로 넘겨주기
+		$("input[name=requestName]").click(function() {
+			<%if(loginUser != null){%>
+			var productNo = $("#productNo").val("<%=product.getProductNo()%>");
+			var customerCode = $("#customerCode").val("<%=loginUser.getMemberCode()%>");
+			var sellerCode = $("#sellerCode").val("<%=product.getMemberCode()%>");
+			var dealPrice = $("#dealPrice").val("<%=product.getProductItemPrice()%>");
+			var totalPrice = $("#totalPrice").val(addPrice+originPrice);
+			<%}%>
 		});
 	</script>
 	
@@ -486,6 +507,7 @@
 
 		$(function() {
 			/* 신청하기 버튼 */
+			
 			$("#requestForm1").click(function() {
 				alert("판매자는 이용하실 수 없습니다.");
 			});
