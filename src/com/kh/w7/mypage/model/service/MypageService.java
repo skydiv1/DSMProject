@@ -45,7 +45,7 @@ public class MypageService {
 		
 		return result;
 	}
-	//페이징 처리
+	//신청 목록 페이징 처리
 	public int getListCount(int loginCode) {
 		Connection con = getConnection();
 		int listCount = new MypageDao().getListCount(con,loginCode);
@@ -54,10 +54,10 @@ public class MypageService {
 	}
 
 	//취소목록 조회
-	public ArrayList<MyPage> selectCancelList(int loginCode) {
+	public ArrayList<MyPage> selectCancelList(int loginCode, int currentPage, int limit) {
 		Connection con  = getConnection(); 
 		
-		ArrayList<MyPage>CancelList = new MypageDao().selectCancelList(con, loginCode);
+		ArrayList<MyPage>CancelList = new MypageDao().selectCancelList(con, loginCode,currentPage,limit);
 		
 		if(CancelList != null) {
 			commit(con);
@@ -66,6 +66,13 @@ public class MypageService {
 		}
 		close(con);
 		return CancelList;
+	}
+	//취소목록 페이징처리
+	public int getCancelListCount(int loginCode) {
+		Connection con = getConnection();
+		int getCancelListCount = new MypageDao().getCancelListCount(con,loginCode);
+		close(con);
+		return getCancelListCount;
 	}
 	//취소목록에서 삭제
 	public int cancelDelete(int dealnum) {
@@ -85,26 +92,33 @@ public class MypageService {
 		return result;
 	}
 	//수락목록 조회
-	public ArrayList<MyPage> selectAcceptList(int loginCode) {
+	public ArrayList<MyPage> selectAcceptList(int loginCode, int currentPage, int limit) {
 		Connection con  = getConnection(); 
 		
-		ArrayList<MyPage>appectlist =new MypageDao().selectAcceptList(con, loginCode);
+		ArrayList<MyPage>acceptlist =new MypageDao().selectAcceptList(con, loginCode, currentPage, limit);
 		
-		if(appectlist != null) {
+		if(acceptlist != null) {
 			commit(con);
 		}else {
 			rollback(con);
 		}
 		close(con);
 
-		return appectlist;
+		return acceptlist;
 	}
+	//수락목록 페이징 처리
+		public int getAccListCount(int loginCode) {
+			Connection con = getConnection();
+			int getAccListCount = new MypageDao().getAccListCount(con,loginCode);
+			close(con);
+			return getAccListCount;
+		}
 	
 	//소비자 구매완료 목록 조회
-	public ArrayList<MyPage> selectDealList(int loginCode) {
+	public ArrayList<MyPage> selectDealList(int loginCode, int currentPage, int limit) {
 		Connection con  = getConnection(); 
 		
-		ArrayList<MyPage>deallist =new MypageDao().selectDealList(con, loginCode);
+		ArrayList<MyPage>deallist =new MypageDao().selectDealList(con, loginCode, currentPage, limit);
 		
 		if(deallist != null) {
 			commit(con);
@@ -115,6 +129,14 @@ public class MypageService {
 
 		return deallist;
 	}
+	//소비자 구매완료 목록 페이지
+		public int getcomListCount(int loginCode) {
+			Connection con = getConnection();
+			int getcomListCount = new MypageDao().getcomListCount(con,loginCode);
+			close(con);
+			return getcomListCount;
+		}
+		
 	//판매자 대기자 목록 조회
 	public ArrayList<MyPage> selectWaitingList(int loginCode) {
 		Connection con  = getConnection(); 
@@ -304,6 +326,9 @@ public class MypageService {
 		close(con);
 		return result;
 	}
+	
+	
+
 
 	
 	

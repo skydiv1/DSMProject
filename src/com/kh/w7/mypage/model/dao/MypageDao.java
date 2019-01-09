@@ -133,7 +133,7 @@ public class MypageDao {
 	}
 
 	//취소 목록 조회
-	public ArrayList<MyPage> selectCancelList(Connection con, int loginCode) {
+	public ArrayList<MyPage> selectCancelList(Connection con, int loginCode, int currentPage, int limit) {
 
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -144,8 +144,12 @@ public class MypageDao {
 		try {
 			pstmt=con.prepareStatement(query);
 			
+			int startRow = (currentPage - 1) * limit + 1;
+			int endRow = startRow + limit - 1;
 			
 			pstmt.setInt(1, loginCode);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset= pstmt.executeQuery();
 			
@@ -174,6 +178,35 @@ public class MypageDao {
 		
 		return CancelList;
 	}
+	//취소목록 페이징
+		public int getCancelListCount(Connection con, int loginCode) {
+			PreparedStatement pstmt= null;
+			int getCancelListCount = 0;
+			ResultSet rset = null;
+			
+			String query = prop.getProperty("getCancelListCount");
+			
+			try {
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, loginCode);
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					getCancelListCount = rset.getInt(1);
+				}
+				
+			
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+				close(rset);
+			}
+			
+			
+			
+			return getCancelListCount;
+		}
 
 	//취소 목록에서 삭제버튼 눌렀을 때
 	public int cancelDelete(Connection con, int dealnum) {
@@ -200,24 +233,29 @@ public class MypageDao {
 	}
 
 	//수락목록 조회
-	public ArrayList<MyPage> selectAcceptList(Connection con, int loginCode) {
+	public ArrayList<MyPage> selectAcceptList(Connection con, int loginCode, int currentPage, int limit) {
 
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		ArrayList<MyPage> appectlist= null;
+		ArrayList<MyPage> acceptlist= null;
 		
 		String query = prop.getProperty("AcceptselectList");
 		
 		try {
 			pstmt=con.prepareStatement(query);
 			
+			int startRow = (currentPage - 1) * limit + 1;
+			int endRow = startRow + limit - 1;
 			
 			pstmt.setInt(1, loginCode);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
 			
 			rset= pstmt.executeQuery();
 			
 			
-			appectlist = new ArrayList<MyPage>();
+			acceptlist = new ArrayList<MyPage>();
 			
 			while(rset.next()) {
 				MyPage m = new MyPage();
@@ -229,9 +267,9 @@ public class MypageDao {
 				m.setDealListaddMsg1(rset.getString("DEALLIST_ADDMESSAGE1"));
 				m.setDealListaddMsg2(rset.getString("DEALLIST_ADDMESSAGE2"));
 				
-				appectlist.add(m);
+				acceptlist.add(m);
 			}
-			System.out.println("list값dao:"+appectlist);
+			System.out.println("list값dao:"+acceptlist);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -240,11 +278,43 @@ public class MypageDao {
 		}
 		
 		
-		return appectlist;
+		return acceptlist;
 	}
+	
+	//수락목록 페이징
+		public int getAccListCount(Connection con, int loginCode) {
+			
+			PreparedStatement pstmt= null;
+			int getAccListCount = 0;
+			ResultSet rset = null;
+			
+			String query = prop.getProperty("getAccListCount");
+			
+			try {
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, loginCode);
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					getAccListCount = rset.getInt(1);
+				}
+				
+			
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+				close(rset);
+			}
+			
+			
+			
+			return getAccListCount;
+
+		}
 
 	//소비자 구매완료 목록 조회
-	public ArrayList<MyPage> selectDealList(Connection con, int loginCode) {
+	public ArrayList<MyPage> selectDealList(Connection con, int loginCode, int currentPage, int limit) {
 
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -255,8 +325,13 @@ public class MypageDao {
 		try {
 			pstmt=con.prepareStatement(query);
 			
+			int startRow = (currentPage - 1) * limit + 1;
+			int endRow = startRow + limit - 1;
 			
 			pstmt.setInt(1, loginCode);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
 			
 			rset= pstmt.executeQuery();
 			
@@ -285,6 +360,38 @@ public class MypageDao {
 		}
 		return deallist;
 	}
+	
+	//소비자 구매완료 목록 페이징
+		public int getcomListCount(Connection con, int loginCode) {
+			PreparedStatement pstmt= null;
+			int getcomListCount = 0;
+			ResultSet rset = null;
+			
+			String query = prop.getProperty("getcomListCount");
+			
+			try {
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, loginCode);
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					getcomListCount = rset.getInt(1);
+				}
+				
+			
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+				close(rset);
+			}
+			
+			
+			
+			return getcomListCount;
+
+		}
+		
 
 
 	//판매자 대기자 목록
@@ -656,7 +763,6 @@ public class MypageDao {
 			pstmt.setInt(4, rstar);
 			
 			result = pstmt.executeUpdate();
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -690,6 +796,12 @@ public class MypageDao {
 	
 		return result;
 	}
+
+	
+
+	
+
+	
 
 
 	

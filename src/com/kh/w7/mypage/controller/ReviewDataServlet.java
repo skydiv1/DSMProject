@@ -32,13 +32,10 @@ public class ReviewDataServlet extends HttpServlet {
 		int productNo = Integer.parseInt(request.getParameter("productNo"));
 		String rtext = request.getParameter("rtext");
 		
-		System.out.println("loginCode 리뷰:"+loginCode);
 		
 		int result = new MypageService().ReviewUpdate(loginCode,rstar,rtext,productNo);
-		System.out.println("loginCode 리뷰:"+loginCode);
 		
-		System.out.println("result 리뷰:"+result);
-		
+		System.out.println("황민규뻐킹맨");
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		new Gson().toJson(result, response.getWriter());
