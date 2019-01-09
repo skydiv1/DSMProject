@@ -1,12 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<% String msg = (String)request.getAttribute("msg"); %>
-<!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <meta charset="UTF-8" />
+  <title>An Error Has Occured</title>
   <style>
   	@color-primary: #30A9DE;
 @color-secondary: #30A9DE;
@@ -130,21 +126,12 @@ html, body {
 }
   	
   </style>
-<%-- <script>
-		$(function(){
-			<% if(msg == "로그인 실패"){%>
-				console.log("페이지이동 성공");
-				location.href = "/dsm/views/member/reLogin.jsp";
-			<% }else{%>
-				
-			<% } %>
-		});
-</script> --%>
+  
 </head>
+
 <body>
-	
-	
-	<div class="Container">
+
+  <div class="Container">
     
     <div class="MainGraphic">
     <svg class="Hummingbird" viewBox="0 0 55 41" xmlns="http://www.w3.org/2000/svg"><path d="M35.5 5L54.7.6H32.3L35.5 5zM12.4 40.8l10.3-10.1-6.2-6.7-4.1 16.8zM33.8 5.3L30.5.8l-5.4 4 8.7.5zM20.8 4.6L8.8 0l1.9 4.1 10.1.5zM0 5l15.2 15.4 7.5-14.2L0 5zM34.2 6.8l-9.9-.5-8 15.2 7.4 8.1 8-7.9 2.5-14.9z"/></svg>
@@ -159,13 +146,12 @@ html, body {
         	에러가 발생했습니다!
       </h1>
    	 	<p class="Main Description">
-      	<%= msg %>
+      	현재 사이트에서 에러를 고치는 중 입니다, 조금만 기다려주세요!
     	</p>
     
     <button type="button" onclick = "location.href='/dsm/index.jsp'" style = "background : black; color : white; width : 100px; height : 50px; border-radius : 10px">돌아가기</button>
   </div>
-	
-
 
 </body>
+
 </html>

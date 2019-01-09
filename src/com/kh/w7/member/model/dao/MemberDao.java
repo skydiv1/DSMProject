@@ -54,39 +54,39 @@ public class MemberDao {
 
 				loginUser = new Member();
 
-				loginUser.setMemberCode(rset.getInt("MEMBER_CODE"));
+				loginUser.setMemberCode(rset.getInt(1));
 
-				loginUser.setMemberId(rset.getString("MEMBER_ID"));
+				loginUser.setMemberId(rset.getString(2));
 
-				loginUser.setMemberPwd(rset.getString("MEMBER_PWD"));
+				loginUser.setMemberPwd(rset.getString(3));
 
-				loginUser.setMemberName(rset.getString("MEMBER_NAME"));
+				loginUser.setMemberName(rset.getString(4));
 
-				loginUser.setMemberPhone(rset.getString("MEMBER_PHONE"));
+				loginUser.setMemberPhone(rset.getString(5));
 
-				loginUser.setMemberEmail(rset.getString("MEMBER_EMAIL"));
+				loginUser.setMemberEmail(rset.getString(6));
 
-				loginUser.setMemberCategory(rset.getInt("MEMBER_CATEGORY"));
+				loginUser.setMemberCategory(rset.getInt(7));
 
-				loginUser.setSellerIntroduction(rset.getString("SELLER_INTRODUCTION"));
+				loginUser.setSellerIntroduction(rset.getString(8));
 
-				loginUser.setSellerGrade(rset.getInt("SELLER_GRADE"));
+				loginUser.setSellerGrade(rset.getInt(9));
 
-				loginUser.setMemberAdmin(rset.getInt("MEMBER_ADMIN"));
+				loginUser.setMemberAdmin(rset.getInt(10));
 
-				loginUser.setMemberStatus(rset.getInt("MEMBER_STATUS"));
+				loginUser.setMemberStatus(rset.getInt(11));
 
-				loginUser.setSellerAccountName(rset.getString("SELLER_ACCOUNTNAME"));
+				loginUser.setSellerAccountName(rset.getString(12));
 
-				loginUser.setSellerBank(rset.getString("SELLER_BANK"));
+				loginUser.setSellerBank(rset.getString(13));
 
-				loginUser.setSellerAccount(rset.getString("SELLER_ACCOUNT"));
+				loginUser.setSellerAccount(rset.getString(14));
 
-				loginUser.setSellerCareer(rset.getString("SELLER_CAREER"));
+				loginUser.setSellerCareer(rset.getString(15));
 
-				loginUser.setSellerCertcheck(rset.getInt("SELLER_CERTCHECK"));
+				loginUser.setSellerCertcheck(rset.getInt(16));
 			
-
+				loginUser.setBlackCount(rset.getInt(17));
 			}
 			System.out.println("loginUser(확인): " + loginUser);
 		} catch (SQLException e) {
