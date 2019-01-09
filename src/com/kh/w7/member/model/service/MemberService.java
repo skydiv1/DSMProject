@@ -32,7 +32,10 @@ public class MemberService {
 		Connection con = getConnection();
 
 		int result = new MemberDao().insertSel(con, reqMember);
-
+		int resulta = new MemberDao().insertMemberCash(con, reqMember);
+		
+		System.out.println("resultA !!!!! : "+ resulta);
+		
 		if (result > 0) {
 			commit(con);
 		} else {
@@ -47,7 +50,9 @@ public class MemberService {
 		Connection con = getConnection();
 
 		int result = new MemberDao().insertCon(con, reqMember);
-
+		int resulta = new MemberDao().insertMemberCash(con, reqMember);
+		System.out.println("resultA !!!!! : "+ resulta);
+		
 		if (result > 0) {
 			commit(con);
 		} else {

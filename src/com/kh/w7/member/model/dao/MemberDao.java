@@ -428,6 +428,28 @@ public class MemberDao {
 		return memberCode;
 	}
 
+	public int insertMemberCash(Connection con, Member reqMember) {
+		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertMemberCash");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 	
 	
 }
