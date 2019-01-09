@@ -45,8 +45,8 @@ function addBtnEvent() {
 				type : "get",
 				data : {dealnum:dealnum, textContent:textContent},
 				success : function (data) {
-					selectListWaiting();
-					 selectListCencelseller();
+					selectListWaiting(1);
+					 selectListCencelseller(1);
 				}
 			});
 	  });
@@ -69,8 +69,8 @@ function addBtnEvent() {
 			type : "get",
 			data : {agreedealnum:agreedealnum, agreeMsg:agreeMsg},
 			success : function (data) {
-				selectListWaiting();
-				selectListDealprogress();
+				selectListWaiting(1);
+				selectListDealprogress(1);
 				
 			}
 		});
@@ -94,7 +94,7 @@ function addBtnEvent() {
 					type : "get",
 					data : {dealnum:dealnum},
 					success : function (data) {
-						selectListCencelseller();
+						selectListCencelseller(1);
 					}
 				});
 		}); 
@@ -109,16 +109,17 @@ function selectListProduct(pg) {
 		$.ajax({
 			url : "${pageContext.request.contextPath}/selectList.sellerProduct",
 			type :"get",
+			data : {currentPage : pg},
 			success : function (data) {
 				
 				var productListHtml = [];
 				var no =0;
-				for(var i=0; i<data.length; i++){
+				for(var i=0; i<data.prolist.length; i++){
 					productListHtml.push('<tr>');
 					productListHtml.push('	<th scope="row">' + (i+1) + '</th>');
-					productListHtml.push('	<td class="td1" style="display: none">' +data[i].productNo + '</td>');
-					productListHtml.push('	<td class="td1">' +data[i].productName + '</td>');
-					productListHtml.push('	<td>' +data[i].productContext+ '</td>');
+					productListHtml.push('	<td class="td1" style="display: none">' +data.prolist[i].productNo + '</td>');
+					productListHtml.push('	<td class="td1">' +data.prolist[i].productName + '</td>');
+					productListHtml.push('	<td>' +data.prolist[i].productContext+ '</td>');
 					productListHtml.push('	<td style="width: 20px"><button type="button" class="btn btn-secondary productModify">게시글 수정하기</button></td>');
 					productListHtml.push('</tr>');
 					
@@ -127,6 +128,30 @@ function selectListProduct(pg) {
 				$("#productboard").html("");//이전틀 지우고
 				$("#productboard").append(productListHtml.join(""));//""를 기준으로 배열에 담긴 데이터 꺼내오기
 				
+				//페이징 처리
+			 	var productPageHtml= [];
+			 	productPageHtml.push('<button onclick="selectListProduct(1)"><<</button>');
+				if(pg <=1){
+					productPageHtml.push('<button disabled><</button>');
+				}else{
+					productPageHtml.push('<button onclick="selectListProduct(' + (pg-1) + ')"><</button>');
+				}
+				for(var p = data.startPage; p<= data.endPage; p++) {
+					if(p == pg){
+						productPageHtml.push('<button disabled>'+p+'</button>');
+					}else{
+						productPageHtml.push('<button onclick="selectListProduct('+p+')">'+p+'</button>');
+						}
+					}
+				if(pg >= data.maxPage){ 
+					productPageHtml.push('<button disabled>></button>');
+				}else{
+					productPageHtml.push('<button onclick="selectListProduct('+(pg+1)+')">></button>');
+				}
+				productPageHtml.push('<button onclick="selectListProduct('+data.maxPage +')">>></button>');
+				
+					$("#ProductPagingArea").html("");
+					$("#ProductPagingArea").append(productPageHtml.join(""));
 				
 				 addBtnEvent();//버튼 함수 불러오기
 				 
@@ -142,17 +167,18 @@ function selectListWaiting(pg) {
 		$.ajax({
 			url : "${pageContext.request.contextPath}/selectList.wait",
 			type :"get",
+			data : {currentPage : pg},
 			success : function (data) {
 				
 				var waitListHtml = [];
 				
-				for(var i=0; i<data.length; i++){
+				for(var i=0; i<data.wlist.length; i++){
 					waitListHtml.push('<tr>');
 					waitListHtml.push('	<th scope="row">' + (i+1) + '</th>');
-					waitListHtml.push('	<td class="td1" style="display: none">' +data[i].dealNo + '</td>');
-					waitListHtml.push('	<td class="td1">' +data[i].member_id + '</td>');
-					waitListHtml.push('	<td class="td1">' +data[i].productName+ '</td>');
-					waitListHtml.push('	<td>' +data[i].dealListaddMsg1 + '</td>');
+					waitListHtml.push('	<td class="td1" style="display: none">' +data.wlist[i].dealNo + '</td>');
+					waitListHtml.push('	<td class="td1">' +data.wlist[i].member_id + '</td>');
+					waitListHtml.push('	<td class="td1">' +data.wlist[i].productName+ '</td>');
+					waitListHtml.push('	<td>' +data.wlist[i].dealListaddMsg1 + '</td>');
 					waitListHtml.push('	<td style="width: 10px; padding-right: 0px"><button type="button" class="btn btn-warning agBtn"data-toggle="modal" data-target="#agreeModal">수락하기</button></td>');
 					waitListHtml.push('	<td style="width: 5px"><button type="button" class="btn btn-secondary cBtn" data-toggle="modal" data-target="#cencelModal">거절</button></td>');
 					waitListHtml.push('</tr>');
@@ -161,6 +187,31 @@ function selectListWaiting(pg) {
 				$("#waitingList").html("");//이전틀 지우고
 				$("#waitingList").append(waitListHtml.join(""));//""를 기준으로 배열에 담긴 데이터 꺼내오기
 				
+				
+				//페이징 처리
+			 	var waitPageHtml= [];
+			 	waitPageHtml.push('<button onclick="selectListWaiting(1)"><<</button>');
+				if(pg <=1){
+					waitPageHtml.push('<button disabled><</button>');
+				}else{
+					waitPageHtml.push('<button onclick="selectListWaiting(' + (pg-1) + ')"><</button>');
+				}
+				for(var p = data.startPage; p<= data.endPage; p++) {
+					if(p == pg){
+						waitPageHtml.push('<button disabled>'+p+'</button>');
+					}else{
+						waitPageHtml.push('<button onclick="selectListWaiting('+p+')">'+p+'</button>');
+						}
+					}
+				if(pg >= data.maxPage){ 
+					waitPageHtml.push('<button disabled>></button>');
+				}else{
+					waitPageHtml.push('<button onclick="selectListWaiting('+(pg+1)+')">></button>');
+				}
+				waitPageHtml.push('<button onclick="selectListWaiting('+data.maxPage +')">>></button>');
+				
+					$("#WaitingPagingArea").html("");
+					$("#WaitingPagingArea").append(waitPageHtml.join(""));
 				
 				 addBtnEvent();//버튼 함수 불러오기
 				 
@@ -175,21 +226,21 @@ function selectListDealprogress(pg) {
 		$.ajax({
 			url : "${pageContext.request.contextPath}/selectList.progress",
 			type :"get",
+			data : {currentPage : pg},
 			success : function (data) {
 				
 				var progressListHtml = [];
 				var no =0;
-				console.log(typeof(data[0].dealListCategory));
-				for(var i=0; i<data.length; i++){
+				for(var i=0; i<data.progresslist.length; i++){
 					progressListHtml.push('<tr>');
 					progressListHtml.push('	<th scope="row">' + (i+1) + '</th>');
-					progressListHtml.push('	<td class="td1" style="display: none">' +data[i].dealNo + '</td>');
-					progressListHtml.push('	<td class="td1">' +data[i].member_id + '</td>');
-					progressListHtml.push('	<td class="td1">' +data[i].productName+ '</td>');
-					progressListHtml.push('	<td class="td1">' +data[i].dealListaddMsg1 + '</td>');
-					progressListHtml.push('	<td class="td1">' +data[i].dealListaddMsg2 + '</td>');
+					progressListHtml.push('	<td class="td1" style="display: none">' +data.progresslist[i].dealNo + '</td>');
+					progressListHtml.push('	<td class="td1">' +data.progresslist[i].member_id + '</td>');
+					progressListHtml.push('	<td class="td1">' +data.progresslist[i].productName+ '</td>');
+					progressListHtml.push('	<td class="td1">' +data.progresslist[i].dealListaddMsg1 + '</td>');
+					progressListHtml.push('	<td class="td1">' +data.progresslist[i].dealListaddMsg2 + '</td>');
 				
-					 if(data[i].dealListCategory==1){
+					 if(data.progresslist[i].dealListCategory==1){
 						progressListHtml.push('	<td>' + "구매 진행 중" +'</td>');
 					}else{
 						progressListHtml.push('	<td>' + "구매 완료 " +'</td>');	
@@ -200,6 +251,33 @@ function selectListDealprogress(pg) {
 				$("#dealprogressList").html("");//이전틀 지우고
 				$("#dealprogressList").append(progressListHtml.join(""));//""를 기준으로 배열에 담긴 데이터 꺼내오기
 				
+				
+				//페이징 처리
+			 	var progressPageHtml= [];
+			 		progressPageHtml.push('<button onclick="selectListDealprogress(1)"><<</button>');
+				if(pg <=1){
+					progressPageHtml.push('<button disabled><</button>');
+				}else{
+					progressPageHtml.push('<button onclick="selectListDealprogress(' + (pg-1) + ')"><</button>');
+				}
+				for(var p = data.startPage; p<= data.endPage; p++) {
+					if(p == pg){
+						progressPageHtml.push('<button disabled>'+p+'</button>');
+					}else{
+						progressPageHtml.push('<button onclick="selectListDealprogress('+p+')">'+p+'</button>');
+						}
+					}
+				if(pg >= data.maxPage){ 
+					progressPageHtml.push('<button disabled>></button>');
+				}else{
+					progressPageHtml.push('<button onclick="selectListDealprogress('+(pg+1)+')">></button>');
+				}
+					progressPageHtml.push('<button onclick="selectListDealprogress('+data.maxPage +')">>></button>');
+				
+					$("#ProgressPagingArea").html("");
+					$("#ProgressPagingArea").append(progressPageHtml.join(""));
+					 
+					 
 				
 				
 				 
@@ -215,19 +293,20 @@ function selectListCencelseller(pg) {
 		$.ajax({
 			url : "${pageContext.request.contextPath}/selectList.SellerCan",
 			type :"get",
+			data : {currentPage : pg},
 			success : function (data) {
 				console.log(data);
 				
 				var scListHtml = [];
 				var no =0;
-				for(var i=0; i<data.length; i++){
+				for(var i=0; i<data.scclist.length; i++){
 					scListHtml.push('<tr>');
 					scListHtml.push('	<th scope="row">' + (i+1) + '</th>');
-					scListHtml.push('	<td class="td1" style="display: none">' +data[i].dealNo + '</td>');
-					scListHtml.push('	<td class="td1">' +data[i].member_id + '</td>');
-					scListHtml.push('	<td class="td1">' +data[i].productName+ '</td>');
-					scListHtml.push('	<td class="td1">' +data[i].dealListaddMsg1 + '</td>');
-					scListHtml.push('	<td>' +data[i].dealListaddMsg2 + '</td>');
+					scListHtml.push('	<td class="td1" style="display: none">' +data.scclist[i].dealNo + '</td>');
+					scListHtml.push('	<td class="td1">' +data.scclist[i].member_id + '</td>');
+					scListHtml.push('	<td class="td1">' +data.scclist[i].productName+ '</td>');
+					scListHtml.push('	<td class="td1">' +data.scclist[i].dealListaddMsg1 + '</td>');
+					scListHtml.push('	<td>' +data.scclist[i].dealListaddMsg2 + '</td>');
 					scListHtml.push('	<td style="width: 10px"><button type="button" class="btn btn-secondary cancelDelete">삭제</button></td>');
 					scListHtml.push('</tr>');
 					
@@ -236,7 +315,30 @@ function selectListCencelseller(pg) {
 				$("#cancelSellerList").html("");//이전틀 지우고
 				$("#cancelSellerList").append(scListHtml.join(""));//""를 기준으로 배열에 담긴 데이터 꺼내오기
 				
+				//페이징 처리
+			 	var ccPageHtml= [];
+			 	ccPageHtml.push('<button onclick="selectListCencelseller(1)"><<</button>');
+				if(pg <=1){
+					ccPageHtml.push('<button disabled><</button>');
+				}else{
+					ccPageHtml.push('<button onclick="selectListCencelseller(' + (pg-1) + ')"><</button>');
+				}
+				for(var p = data.startPage; p<= data.endPage; p++) {
+					if(p == pg){
+						ccPageHtml.push('<button disabled>'+p+'</button>');
+					}else{
+						ccPageHtml.push('<button onclick="selectListCencelseller('+p+')">'+p+'</button>');
+						}
+					}
+				if(pg >= data.maxPage){ 
+					ccPageHtml.push('<button disabled>></button>');
+				}else{
+					ccPageHtml.push('<button onclick="selectListCencelseller('+(pg+1)+')">></button>');
+				}
+				ccPageHtml.push('<button onclick="selectListCencelseller('+data.maxPage +')">>></button>');
 				
+					$("#CancelSellerPagingArea").html("");
+					$("#CancelSellerPagingArea").append(ccPageHtml.join(""));
 					 
 				
 				 addBtnEvent();//버튼 함수 불러오기
@@ -253,19 +355,20 @@ function selectListEndseller(pg) {
 	$.ajax({
 		url : "${pageContext.request.contextPath}/selectList.endSeller",
 		type :"get",
+		data : {currentPage : pg},
 		success : function (data) {
 			
 			var endListHtml = [];
 			var no =0;
 			console.log(typeof(data[0].dealListCategory));
-			for(var i=0; i<data.length; i++){
+			for(var i=0; i<data.endlist.length; i++){
 				endListHtml.push('<tr>');
 				endListHtml.push('	<th scope="row">' + (i+1) + '</th>');
-				endListHtml.push('	<td class="td1">' +data[i].member_id + '</td>');
-				endListHtml.push('	<td class="td1">' +data[i].productName+ '</td>');
-				endListHtml.push('	<td class="td1">' +data[i].dealListaddMsg1 + '</td>');
+				endListHtml.push('	<td class="td1">' +data.endlist[i].member_id + '</td>');
+				endListHtml.push('	<td class="td1">' +data.endlist[i].productName+ '</td>');
+				endListHtml.push('	<td class="td1">' +data.endlist[i].dealListaddMsg1 + '</td>');
 			
-				 if(data[i].dealListCategory==3){
+				 if(data.endlist[i].dealListCategory==3){
 					 endListHtml.push('	<td>' + "구매확정 전" +'</td>');
 				}else{
 					endListHtml.push('	<td>' + "구매확정 완료 " +'</td>');	
@@ -277,7 +380,31 @@ function selectListEndseller(pg) {
 			$("#endDealList").html("");//이전틀 지우고
 			$("#endDealList").append(endListHtml.join(""));//""를 기준으로 배열에 담긴 데이터 꺼내오기
 			
+			//페이징 처리
+		 	var endPageHtml= [];
+		 		endPageHtml.push('<button onclick="selectListEndseller(1)"><<</button>');
+			if(pg <=1){
+				endPageHtml.push('<button disabled><</button>');
+			}else{
+				endPageHtml.push('<button onclick="selectListEndseller(' + (pg-1) + ')"><</button>');
+			}
+			for(var p = data.startPage; p<= data.endPage; p++) {
+				if(p == pg){
+					endPageHtml.push('<button disabled>'+p+'</button>');
+				}else{
+					endPageHtml.push('<button onclick="selectListEndseller('+p+')">'+p+'</button>');
+					}
+				}
+			if(pg >= data.maxPage){ 
+				endPageHtml.push('<button disabled>></button>');
+			}else{
+				endPageHtml.push('<button onclick="selectListEndseller('+(pg+1)+')">></button>');
+			}
+				endPageHtml.push('<button onclick="selectListEndseller('+data.maxPage +')">>></button>');
 			
+				$("#EnddealPagingArea").html("");
+				$("#EnddealPagingArea").append(endPageHtml.join(""));
+				 
 			
 				 
 				 
@@ -293,6 +420,7 @@ function selectListCash(pg) {
 		$.ajax({
 			url : "${pageContext.request.contextPath}/selectList.SellerCash",
 			type :"get",
+			data : {currentPage : pg},
 			success : function (data) {
 				console.log(data);
 				
@@ -372,7 +500,9 @@ function selectListCash(pg) {
 
          </div>
          
-   
+   			<div class="pagingArea" align="center" id="ProductPagingArea">
+				<!-- ajax에서 도는부분 -->
+			</div>
 	
 	
       </div>
@@ -406,7 +536,9 @@ function selectListCash(pg) {
 			  </tbody>
 			</table>
          </div>
-         	
+         	<div class="pagingArea" align="center" id="WaitingPagingArea">
+				<!-- ajax에서 도는부분 -->
+			</div>
       </div>
    </section>
     <!-- 구매진행 목록 -->
@@ -438,7 +570,9 @@ function selectListCash(pg) {
 				  </tbody>
 				</table>
          </div>
-         
+         <div class="pagingArea" align="center" id="ProgressPagingArea">
+				<!-- ajax에서 도는부분 -->
+				</div>
       </div>
    </section>
     <!-- 취소된 목록 -->
@@ -470,7 +604,9 @@ function selectListCash(pg) {
 			  </tbody>
 			</table>
          </div>
-         
+         <div class="pagingArea" align="center" id="CancelSellerPagingArea">
+				<!-- ajax에서 도는부분 -->
+				</div>
          	
 
       </div>
@@ -503,7 +639,9 @@ function selectListCash(pg) {
 			</table>
          </div>
          
-         	
+         	<div class="pagingArea" align="center" id="EnddealPagingArea">
+				<!-- ajax에서 도는부분 -->
+				</div>
 
 
       </div>
@@ -537,7 +675,9 @@ function selectListCash(pg) {
 			</table>
          </div>
          
-              
+             <div class="pagingArea" align="center" id="CashPagingArea">
+				<!-- ajax에서 도는부분 -->
+				</div> 
 
       </div>
 
