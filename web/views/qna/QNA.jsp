@@ -104,11 +104,10 @@
 			});
 			</script>
 		 	 	
-	   <div class="input-group-prepend" id="searchText" style="margin:0px 0px 0px 800px">
+	 <!--   <div class="input-group-prepend" id="searchText" style="margin:0px 0px 0px 800px">
     <input type ="text"  placeholder="검색어 입력">
     <button>검색</button>
-  </div>
-	  </ul>
+  </div> -->
    
 </nav>	 	
 		</div>

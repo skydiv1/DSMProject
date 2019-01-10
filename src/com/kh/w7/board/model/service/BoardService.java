@@ -53,7 +53,7 @@ public class BoardService {
 
 	
 
-	public Board selectOne(int boardNo) {
+	public Board selectOne(String boardNo) {
 		Connection con = getConnection();
 		
 		Board b = new BoardDao().selectOne(con, boardNo);
@@ -61,7 +61,7 @@ public class BoardService {
 		int result = 0;
 		
 		if(b != null ) {
-			result = new BoardDao().updateCount(con, boardNo);
+			result = new BoardDao().updateCount(con, b.getBoardNo());
 			if(result >0)commit(con);
 			else rollback(con);
 		}

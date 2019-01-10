@@ -41,8 +41,8 @@ public class SelectOneBoardServlet extends HttpServlet {
 		System.out.println(num);
 		
 		Board b = new BoardService().selectOne(num);
-		Member m = new MemberService().loginCheck(loginuser);
-		ArrayList<Reply> r = new ReplyService().selectReplyList();		
+		/*Member m = new MemberService().loginCheck(loginuser);
+		ArrayList<Reply> r = new ReplyService().selectReplyList();*/		
 		
 		String page = "";
 		

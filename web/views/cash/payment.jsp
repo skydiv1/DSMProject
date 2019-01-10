@@ -185,10 +185,15 @@ table {
 						type : "post",
 						success : function(data){
 							if(data > 0){
-								swal("결제가 성공했습니다!", "ok버튼 클릭시 메인페이지로 이동합니다", "success").then((value) =>{
+								swal("결제가 성공했습니다!", "ok버튼 클릭시 마이페이지로 이동합니다", "success").then((value) =>{
 									if(value = "ok"){
-										
-										location.href = "/dsm/index.jsp";
+										<%  if(loginUser!=null && loginUser.getMemberCategory() == 0){  %>	
+											location.href="/dsm/selectList.consumer"
+										<%}else if(loginUser!=null && loginUser.getMemberCategory() == 1){  %>	
+											location.href="/dsm/selectList.seller"
+										<%}else{ %>	
+											location.href="/dsm/views/member/login.jsp"
+										<%} %>		
 									}
 								});
 							}else{
