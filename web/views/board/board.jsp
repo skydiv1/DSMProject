@@ -117,7 +117,7 @@
 			});
 			</script>
 		
-	        	 <!-- 검색 드롭박스 부분 보류 -->
+<!-- 	        	 검색 드롭박스 부분 보류
  <div class="searchArea" id="searchText" style="margin:0px 0px 0px 240px">
     <button class="dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">제목</button>
     <input type ="text"  placeholder="검색어 입력">
@@ -127,7 +127,7 @@
       <a class="dropdown-item" href="#">작성자</a>
       <a class="dropdown-item" href="#">제목+내용</a>    
     </div>
-  </div>
+  </div> -->
   
 </div>
 	  </ul>

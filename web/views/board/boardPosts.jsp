@@ -46,16 +46,16 @@
      <hr>
      	<textarea class="form-control" readonly rows="10"  id="comment" ><%= b.getBoardContext() %></textarea>    	  
    	<hr>
-			<div style="margin:0px 0px 0px 800px; margin-right:10px; ">	
+			<div style="margin:0px 0px 0px 900px; margin-right:10px; ">	
 			   <%-- <% if(loginUser != null && loginUser.getMemberCode() == b.getMemberCode()){ %> --%>
-			  <a href="<%=request.getContextPath()%>/selectList.bo" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">목록으로</a>			  
 			   <% if(loginUser != null && loginUser.getMemberName().equals(b.getMemberName())){ %> 			  	  
 			  <a href="<%=request.getContextPath()%>/selectBoard.bo?num=<%=b.getBoardNo()%>"class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">수정</a>			  	
 			   <% } %>
+			  <a href="<%=request.getContextPath()%>/selectList.bo" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">목록으로</a>			  
 			 </div> 
 			 <hr>   	
 	</div>
-			<div class="replyArea">
+			<!-- <div class="replyArea">
 				<div class="replyWriterArea">
 				<table>
 					<tr>
@@ -67,8 +67,8 @@
 			<div id="replySelectArea">
 				<table id="replySelectTable" border="1" align="center"></table>
 			</div>
-		</div>
-	<script>
+		</div> -->
+	<%-- <script>
 		$(function(){
 			$("#addReply").click(function(){
 				var boardNo = <%= r.getBoardNo() %>;
@@ -111,7 +111,7 @@
 				}); 
 			});
 		});
-	</script>
+	</script> --%>
 	<br><br>
 	<br>
 	<br>
