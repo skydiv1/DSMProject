@@ -754,7 +754,7 @@ public class MypageDao {
 		try {
 			pstmt = con.prepareStatement(query);
 			
-			
+			pstmt.setInt(1, dealnum);
 			
 			result = pstmt.executeUpdate();
 			

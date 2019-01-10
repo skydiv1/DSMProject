@@ -184,7 +184,7 @@
                                         <% if(list.get(i).getMemberCategory() == 1){%>
 	                                        <% if(list.get(i).getSellerImgPath() != null) {%>
 	                                        	<td class="center">
-	                                        	<a href="<%= list.get(i).getSellerImgPath()%>" onclick="window.open(this.href, '판매자 자격증 이미지', 'width = 300, height = 300');return false;" target="_blank">
+	                                        	<a href="/dsm/img/droneCertification.jpg" onclick="window.open(this.href, '판매자 자격증 이미지', 'width = 300, height = 300');return false;" target="_blank">
 	                                        	<button>이미지 확인</button>
 	                                        	</a></td>    	
 	                                        <% }else{ %>
