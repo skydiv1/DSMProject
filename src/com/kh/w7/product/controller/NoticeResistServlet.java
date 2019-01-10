@@ -92,6 +92,7 @@ public class NoticeResistServlet extends HttpServlet {
 		
 		ArrayList<Product> pList = (ArrayList<Product>)hmap.get("product");
 		ArrayList<Attachment> imgList = (ArrayList<Attachment>)hmap.get("attachment");
+		ArrayList<Attachment> profileImgList = (ArrayList<Attachment>)hmap.get("attachmentProfile");
 
 		ArrayList<Review> reviewList = new ReviewService().selectAllReviewList(memberCode);
 		
@@ -102,6 +103,7 @@ public class NoticeResistServlet extends HttpServlet {
 		if(hmap != null) {
 			request.setAttribute("pList", pList);
 			request.setAttribute("imgList", imgList);	
+			request.setAttribute("profileImgList", profileImgList);	
 			request.setAttribute("member", member);	
 			request.setAttribute("pi", pi);		
 			request.setAttribute("memberCode", memberCode);		

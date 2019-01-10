@@ -418,7 +418,7 @@
 						var starTable="";
 						
 						starTable+=('<tr>');
-						starTable+=('<td rowspan="2"><img class="mx-auto rounded-circle" src="/dsm/img/team/3.jpg" alt="" style="width: 90px; height: 90px;"></td>');
+						starTable+=('<td rowspan="2"><img class="mx-auto rounded-circle" src="/dsm/img/profilePicture.jpg" alt="" style="width: 90px; height: 90px;"></td>');
 						starTable+=('<td width="80%" style="border-bottom: 1px solid #EAEAEA;">');
 						starTable+=('<span style="margin-left: 20px;">'+reviewDate+'</span>');
 						starTable+=('<span class="rating" style="margin-left: 20px;">');		

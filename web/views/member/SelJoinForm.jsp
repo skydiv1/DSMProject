@@ -200,7 +200,7 @@ form {
 
 			<tr>
 				<td><div class="form-group">
-						<label for="exampleInputcareea">Careea</label>
+						<label for="exampleInputcareea">Career</label>
 						<textarea class="form-control" rows="3" placeholder="경력사항을 입력하세요" id="sellerCareer" name="sellerCareer"></textarea>
 					</div></td>
 			</tr>
@@ -341,7 +341,7 @@ form {
 					if(data == "success"){ // 서블릿에서 처리
 						alert("중복 된 아이디 입니다");
 					}else if(data == "fail"){
-						alert("사용이 가능 한 아이디 입니다.");
+						alert("사용 가능한 아이디 입니다.");
 					}
 				},
 				error: function (data) {

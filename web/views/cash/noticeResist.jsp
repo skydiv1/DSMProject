@@ -10,6 +10,7 @@
 	Member member = (Member)request.getAttribute("member");
 	ArrayList<Product> pList = (ArrayList<Product>)request.getAttribute("pList");
 	ArrayList<Attachment> imgList = (ArrayList<Attachment>)request.getAttribute("imgList");
+	ArrayList<Attachment> profileImgList = (ArrayList<Attachment>)request.getAttribute("profileImgList");
 
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	// 미리 값을 꺼내서 저장해서 사용 (매번 꺼내서 사용하는 불편함을 줄이기 위함)
@@ -137,7 +138,7 @@ input::placeholder {
 			<table style="width: 600px;" align = "center">
                <tr>
                   <td rowspan="3"><img class="mx-auto rounded-circle"
-                     src="/dsm/img/profilePicture.jpg" alt=""
+                     src="/dsm/image_uploadFiles/<%=profileImgList.get(0).getChangeName()%>" alt=""
                      style="width: 150px; height: 150px;"></td>
                      
                   <td width="80%" style="border-bottom: 1px solid #EAEAEA;">
@@ -177,8 +178,8 @@ input::placeholder {
 				</tr>
 				<tr>
 					<th style = "vertical-align: middle;" class="tRow">자격증</th>
-					<td>초 경량 비행장치 조종사 자격증<br><br>
-					<img src = "/dsm/img/droneCertification.jpg" alt = "드론 자격증">
+					<td>
+						<img src = "/dsm/image_uploadFiles/<%=profileImgList.get(1).getChangeName()%>" alt = "드론 자격증" style="width:260px !important; height:170px !important;">
 					</td>
 
 				</tr>

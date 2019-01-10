@@ -37,13 +37,15 @@ public class SellerProfileDao {
 		HashMap<String, Object> hmap = null;
 		ArrayList<Product> pList = null;
 		ArrayList<Attachment> imgList = null;
+		ArrayList<Attachment> profileImgList = null;
 
 		Product product = null;
 		Member member = null;		
 		Attachment attachment = null;
 		
 		String query = prop.getProperty("selectList");
-		//System.out.println("query: "+query);
+		String query2 = prop.getProperty("selectProfileImg");
+
 		try {
 			pstmt = con.prepareStatement(query);
 			int startRow = (currentPage - 1) * limit + 1; // 조회할 때 시작할 행 번호
@@ -92,14 +94,35 @@ public class SellerProfileDao {
 
 				cnt++;
 			}
+			
+			
+			pstmt = con.prepareStatement(query2);
+			
+			pstmt.setInt(1, memberCode);
+
+			rset = pstmt.executeQuery();
+
+			profileImgList = new ArrayList<Attachment>();
+
+			while (rset.next()) {
+
+				/* img */ // I.IMG_NO, I.CHANGENAME, I.IMG_LEVEL
+				attachment = new Attachment();
+				attachment.setImgNo(rset.getInt("IMG_NO"));
+				attachment.setChangeName(rset.getString("CHANGENAME"));
+				attachment.setImgLevel(rset.getInt("IMG_LEVEL"));
+				
+				profileImgList.add(attachment);
+			}
+
 
 			hmap = new HashMap<String, Object>();
 			
 			hmap.put("product", pList);
 			hmap.put("attachment", imgList);
+			hmap.put("attachmentProfile", profileImgList);
 			hmap.put("member", member);
-			//System.out.println("selectSellerList(selectList) :  "+pList);
-			System.out.println("member(selectSellerList) DAO"+member);
+
 			System.out.println("selectSellerList 몇 번 도는지 확인 : "+cnt);
 			System.out.println();
 
